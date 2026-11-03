@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Runtime.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
@@ -374,39 +374,44 @@ namespace Gear.Framework.Runtime.Scene
             }
             finally
             {
+                bool sameGeneration = gen == clearGeneration;
+
                 // 队列释放：仅当自己仍是"在途加载"时才清空信号，避免误清新排队者的 TCS
                 if (ReferenceEquals(currentLoadTcs, myTcs)) currentLoadTcs = null;
 
-                // 注意顺序：所有共享状态必须在释放锁/唤醒排队者之前复位。
-                // myTcs.TrySetResult() 会同步（内联）恢复排队中的 LoadScene，对方拿到锁后
-                // 立刻写 targetSceneName/openLoad/LoadState；如果先唤醒再复位，
-                // 就会把排队者的目标场景清成 null，导致第二次加载以空场景名失败。
-                // 复位跨方法传参字段：加载完成后 openLoad 仅在本流程内有意义，
-                // 不复位会让外部在下次加载前读到上次的过期值
-                openLoad = false;
-
-                // 统一清理本次切换注册的"不隐藏窗口"集合：
-                // 成功路径已由 OnTargetSceneLoaded 之后清理，失败/超时/异常路径在此兜底，
-                // 避免集合残留到下次场景切换导致窗口误不隐藏
-                ClearExcludeSet();
-
-                // 加载未完成时修正状态（Clear() 可能已置空 LoadState，判空避免 NRE）
-                if (LoadState != null && LoadState.Value != SceneLoadState.Loaded)
+                // Clear() 之后：这一轮加载属于上一会话。它可能正卡在 await 上，恢复后绝不能再回写
+                // targetSceneName / openLoad / currentSceneName，也不能释放 isLoadingAtomic ——
+                // 那会把下一轮新加载的锁和状态一起清掉，导致两个场景加载并发、LoadSceneAsync(null)。
+                // 注意不能在这里 return（finally 中 return 会吞掉上面 catch 里重新抛出的取消异常）。
+                if (sameGeneration)
                 {
-                    targetSceneName = null;
-                    if (gen == clearGeneration)
+                    // 注意顺序：所有共享状态必须在释放锁/唤醒排队者之前复位。
+                    // myTcs.TrySetResult() 会同步（内联）恢复排队中的 LoadScene，对方拿到锁后
+                    // 立刻写 targetSceneName/openLoad/LoadState；如果先唤醒再复位，
+                    // 就会把排队者的目标场景清成 null，导致第二次加载以空场景名失败。
+                    // 复位跨方法传参字段：加载完成后 openLoad 仅在本流程内有意义，
+                    // 不复位会让外部在下次加载前读到上次的过期值
+                    openLoad = false;
+
+                    // 统一清理本次切换注册的"不隐藏窗口"集合：
+                    // 成功路径已由 OnTargetSceneLoaded 之后清理，失败/超时/异常路径在此兜底，
+                    // 避免集合残留到下次场景切换导致窗口误不隐藏
+                    ClearExcludeSet();
+
+                    // 加载未完成时修正状态（Clear() 可能已置空 LoadState，判空避免 NRE）
+                    if (LoadState != null && LoadState.Value != SceneLoadState.Loaded)
                     {
+                        targetSceneName = null;
                         // 以实际激活场景为准，避免 currentSceneName 与真实场景不一致：
                         // openLoad 模式下过渡场景已激活，不能回滚成 previousSceneName，
                         // 否则后续 LoadScene(旧场景名) 会误判"已加载"直接回调而不真正加载。
                         currentSceneName = SceneManager.GetActiveScene().name;
                     }
-                    // 否则 Clear() 已发生：不回写 currentSceneName，避免污染下一会话的场景名缓存
-                }
 
-                // 最后才释放加载锁并唤醒排队者：此时共享状态已全部复位
-                Interlocked.Exchange(ref isLoadingAtomic, 0);
-                myTcs.TrySetResult();
+                    // 最后才释放加载锁并唤醒排队者：此时共享状态已全部复位
+                    Interlocked.Exchange(ref isLoadingAtomic, 0);
+                    myTcs.TrySetResult();
+                }
             }
         }
 

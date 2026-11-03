@@ -43,7 +43,8 @@ namespace Gear.EditorTools.Package
             new Rule("UniTask", "com.cysharp.unitask", "Plugins/UniTask"),
             new Rule("R3", "com.cysharp.r3", "Plugins/R3"),
             new Rule("ZString", "com.cysharp.zstring", "Plugins/ZString"),
-            new Rule("Newtonsoft.Json", "com.unity.nuget.newtonsoft-json", "Plugins/Newtonsoft.Json.dll"),
+            // Newtonsoft.Json 不随框架 vendored（由 com.unity.nuget.newtonsoft-json 提供），
+            // 原先指向 Plugins/Newtonsoft.Json.dll 的规则永远不会命中，已删除。
             new Rule("DOTween", "com.demigiant.dotween", "Plugins/DOTween"),
         };
 

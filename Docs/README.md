@@ -53,6 +53,6 @@
 ## 约定
 
 - 新增文档请放进对应目录：上手序列留在根、工具与依赖放 `guides/`、方案与评估放 `design/`、专题按领域建子目录。
-- 文档里的相对链接一律用 Markdown 链接，改文件名时用 `git mv` 并同步链接（`Docs/` 内链接由 CI 不检查，靠自觉）。
+- 文档里的相对链接一律用 Markdown 链接，改文件名时用 `git mv` 并同步链接（本地链接由 CI 的 `Tools/DocsCheck` 检查，缺失会红）。
 - 工具箱的「文档」页读的就是本目录，`PreferredDocs` / `ReferenceDocs` 列表在
   `Editor/Toolbox/ToolboxTabDocs.cs`，加文档时记得同步。

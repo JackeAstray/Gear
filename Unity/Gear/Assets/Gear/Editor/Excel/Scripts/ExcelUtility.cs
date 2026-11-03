@@ -1,4 +1,4 @@
-﻿using ExcelDataReader;
+using ExcelDataReader;
 using Newtonsoft.Json;
 using Gear.Common;
 using Gear.Framework.Modules;
@@ -47,10 +47,12 @@ namespace Gear.EditorTools
                 return;
             }
 
-            //拷贝一份文件（File.Copy 需放入 try：Excel 占用文件时会抛异常，必须在 try 内捕获，
-            //否则菜单命令直接崩溃且临时文件残留）
-            int indexOfDot = path.LastIndexOf('.');
-            string tempExcel = string.Concat(path.Substring(0, indexOfDot), "_temp_", DateTime.Now.Ticks.ToString(), path.Substring(indexOfDot, path.Length - indexOfDot));
+            // 拷贝一份文件（File.Copy 需放入 try：Excel 占用文件时会抛异常，必须在 try 内捕获，
+            // 否则菜单命令直接崩溃且临时文件残留）。
+            // 临时文件必须放在系统临时目录：放在源文件旁边（Assets 下）会触发 Unity 导入，
+            // 删除后还会留下一个孤儿 .meta，造成无意义的资源变更。
+            string tempExcel = Path.Combine(Path.GetTempPath(),
+                $"gear_excel_{DateTime.Now.Ticks}_{Path.GetFileName(path)}");
             string extension = Path.GetExtension(path).ToLowerInvariant();
 
             //读取拷贝的文件（try-finally 确保临时文件一定被清理）
@@ -124,6 +126,12 @@ namespace Gear.EditorTools
 
             //默认读取第一个数据表
             DataTable mSheet = mResultSet.Tables[0];
+            if (mResultSet.Tables.Count > 1)
+            {
+                // 多工作表时只读第一张是既有约定，但不能静默：否则第二张表的数据/类型会凭空消失。
+                Log.Warning($"[Excel] 该工作簿含 {mResultSet.Tables.Count} 个工作表，当前导出只读取第一个" +
+                            $"（{mSheet.TableName}）。需要多表请拆成独立文件。");
+            }
 
             //判断数据表内是否存在数据
             if (mSheet.Rows.Count < 1)
@@ -381,6 +389,12 @@ namespace Gear.EditorTools
 
             //默认读取第一个数据表
             DataTable mSheet = mResultSet.Tables[0];
+            if (mResultSet.Tables.Count > 1)
+            {
+                // 多工作表时只读第一张是既有约定，但不能静默：否则第二张表的数据/类型会凭空消失。
+                Log.Warning($"[Excel] 该工作簿含 {mResultSet.Tables.Count} 个工作表，当前导出只读取第一个" +
+                            $"（{mSheet.TableName}）。需要多表请拆成独立文件。");
+            }
             //判断数据表内是否存在数据
             if (mSheet.Rows.Count <= index)
             {

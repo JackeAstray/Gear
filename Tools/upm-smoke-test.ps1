@@ -59,6 +59,13 @@ Write-Host "包目录 : $PackagePath"
 if ([string]::IsNullOrWhiteSpace($WorkDir)) {
     $WorkDir = Join-Path ([System.IO.Path]::GetTempPath()) ('gear-upm-smoke-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
 }
+# 下面会递归删除 WorkDir。默认值在临时目录里是安全的，但 -WorkDir 由调用方传入时
+# 一次拼写错误就会删掉任意目录，这里要求它必须位于系统临时目录下。
+$tempRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::GetTempPath())
+$workFull = [System.IO.Path]::GetFullPath($WorkDir)
+if (-not $workFull.StartsWith($tempRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "拒绝递归删除非临时目录的 -WorkDir：$workFull（请留空使用系统临时目录，或改到 Temp 下）"
+}
 if (Test-Path $WorkDir) { Remove-Item -LiteralPath $WorkDir -Recurse -Force }
 New-Item -ItemType Directory -Path $WorkDir | Out-Null
 

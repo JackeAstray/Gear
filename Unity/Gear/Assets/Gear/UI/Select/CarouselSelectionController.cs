@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Gear.Common;
 using Gear.Framework.Runtime.UI;
@@ -121,8 +121,14 @@ namespace Gear.UI.Select
         /// <summary>当前选中的索引（外部可读）</summary>
         public int CurrentIndex => currentIndex;
 
-        /// <summary>玩家槽位（可运行时修改）</summary>
-        public int PlayerSlot { get => playerSlot; set => playerSlot = value; }
+        /// <summary>
+        /// 玩家槽位（可运行时修改）。
+        /// <para>
+        /// 必须走 <see cref="SetPlayerSlot"/>：焦点域在注册时按当时的 PlayerSlot 分桶，
+        /// 直接写字段会让目标留在旧槽位、新槽位又找不到它，最后这个选择框收不到任何输入。
+        /// </para>
+        /// </summary>
+        public int PlayerSlot { get => playerSlot; set => SetPlayerSlot(value); }
 
         /// <summary>是否请求窗口焦点域自动进入 UI 控制模式（仅作创建焦点域时的提示）。</summary>
         public bool AutoEnableUIControl => autoEnableUIControl;

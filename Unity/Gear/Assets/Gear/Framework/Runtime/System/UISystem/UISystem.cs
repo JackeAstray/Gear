@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Runtime.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
@@ -34,6 +34,9 @@ namespace Gear.Framework.Runtime.UI
 
         /// <summary>初始化代次：Clear/重新 Init 会递增，用于让在途 Init 的跨帧续体失效</summary>
         private int initGeneration;
+
+        /// <summary>窗口打开序号（单调递增）：模态阻断只作用于比最上层模态更早打开的窗口</summary>
+        private int openSequence;
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }

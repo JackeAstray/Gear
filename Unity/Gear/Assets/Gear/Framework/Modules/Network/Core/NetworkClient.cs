@@ -54,6 +54,7 @@ namespace Gear.Framework.Modules
         float reconnectTimer;
         bool reconnectWaiting;
         float connectingTimer;
+        float handshakeTimer;
         float heartbeatSendTimer;
         float lastReceiveTime;
         int rpcCorrelation;
@@ -203,6 +204,9 @@ namespace Gear.Framework.Modules
             RegisterToNetworkMgr(channel);
 
             connectingTimer = 0f;
+            handshakeTimer = 0f;
+            // 新通道：上一条连接发出的 PING 的计时不再有效，否则首条 PONG 会算出跨会话 RTT
+            pingSentTime = -1f;
             SetState(ClientState.Connecting);
             try
             {
@@ -304,6 +308,21 @@ namespace Gear.Framework.Modules
                         heartbeatSendTimer = 0f;
                         SendHeartbeat();
                     }
+                }
+            }
+
+            // 3.5) 加密握手超时：传输层已 Connected，但 ServerHello 迟迟不到时，
+            // 客户端会停在"看起来已连接、所有业务发送却被拒绝"的状态（heartbeatTimeout 默认关闭）。
+            // 超过 handshakeTimeout 主动断开，交给自动重连；服务端侧也有对应的握手超时回收。
+            if (state == ClientState.Connected && handshakeEnabled && !sessionEstablished && config.handshakeTimeout > 0f)
+            {
+                handshakeTimer += deltaTime;
+                if (handshakeTimer >= config.handshakeTimeout)
+                {
+                    Log.Warning("[NetworkClient] 加密握手超时（{0}s 未完成），断开并重连", config.handshakeTimeout);
+                    OnError?.Invoke($"加密握手超时（{config.handshakeTimeout}s）");
+                    CloseChannel();
+                    HandleDisconnected();
                 }
             }
 
@@ -412,6 +431,11 @@ namespace Gear.Framework.Modules
             }
 
             int seq = Interlocked.Increment(ref reliableSeq);
+            // 回绕后跳过仍在等待 ACK 的序号，避免覆盖 pendingAcks 中的前一个 tcs
+            while (pendingAcks.ContainsKey(seq))
+            {
+                seq = Interlocked.Increment(ref reliableSeq);
+            }
             byte[] framePayload = BuildReliablePayload(seq, messageId, payload);
             var tcs = new UniTaskCompletionSource<bool>();
             pendingAcks[seq] = tcs;
@@ -552,6 +576,7 @@ namespace Gear.Framework.Modules
             reconnectWaiting = false;
             lastReceiveTime = Time.realtimeSinceStartup;
             heartbeatSendTimer = 0f;
+            handshakeTimer = 0f;
             SetState(ClientState.Connected);
             try { OnConnected?.Invoke(); } catch (Exception ex) { Log.Warning("[NetworkClient] OnConnected 回调异常: {0}", ex.Message); }
             // 重连成功：补发断线期间积压的可靠消息（persistOnDisconnect 队列）
@@ -767,6 +792,11 @@ namespace Gear.Framework.Modules
             sessionEstablished = true;
             try { OnSessionEstablished?.Invoke(); }
             catch (Exception ex) { Log.Warning("[NetworkClient] OnSessionEstablished 回调异常: {0}", ex.Message); }
+
+            // HandleConnected 里的补发发生在会话建立之前（SendDetailed 只放行 ClientHello/PING），
+            // 可靠队列会在那里 break 一次；真正可发业务帧的时机是这里。不补这一次，
+            // 开启 enableEncryptedHandshake + persistOnDisconnect 时断线积压的消息会永久留在队列里。
+            DrainReliableResendQueue().Forget();
         }
         #endregion
 

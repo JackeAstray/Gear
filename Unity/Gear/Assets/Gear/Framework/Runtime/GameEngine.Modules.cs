@@ -151,9 +151,19 @@ namespace Gear.Framework.Runtime
             }
 
             modules.Add(module);
-            if (module is ISystemUpdatable updatable) updatableModules.Add(updatable);
-            if (module is ISystemFixedUpdatable fixedUpdatable) fixedUpdateModules.Add(fixedUpdatable);
-            if (module is ISystemLateUpdatable lateUpdatable) lateUpdateModules.Add(lateUpdatable);
+
+            // BeforeInit / Initializing 期间 modules 正是 InitModulesAsync 遍历的列表：
+            // 它稍后会自己把该模块 Init 并登记进三个更新列表。这里再登记一次会让模块每帧被驱动两次。
+            bool registeringUpdateLists =
+                State == EngineState.Running || State == EngineState.Paused || State == EngineState.Starting;
+
+            if (registeringUpdateLists)
+            {
+                // Contains 兜底：同一次启动里重复 AddModuleAsync 同一实例时也不重复登记
+                if (module is ISystemUpdatable updatable && !updatableModules.Contains(updatable)) updatableModules.Add(updatable);
+                if (module is ISystemFixedUpdatable fixedUpdatable && !fixedUpdateModules.Contains(fixedUpdatable)) fixedUpdateModules.Add(fixedUpdatable);
+                if (module is ISystemLateUpdatable lateUpdatable && !lateUpdateModules.Contains(lateUpdatable)) lateUpdateModules.Add(lateUpdatable);
+            }
             // 让类型索引在下一次 Modules.Get 时重建（数量变化即失效）
             moduleIndex = null;
             moduleIndexCount = -1;

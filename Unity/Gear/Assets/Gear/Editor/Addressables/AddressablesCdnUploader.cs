@@ -57,6 +57,13 @@ namespace Gear.EditorTools.Addressables
             get => EditorPrefs.GetString(PrefSK, "");
             set => EditorPrefs.SetString(PrefSK, value);
         }
+
+        /// <summary>
+        /// 上传所需的 Bucket/AK/SK 是否齐全。流水线用它区分"未配置（跳过，不算失败）"
+        /// 与"配置了但上传失败（必须让构建/CI 失败）"。
+        /// </summary>
+        public static bool IsConfigured =>
+            !string.IsNullOrEmpty(Bucket) && !string.IsNullOrEmpty(AccessKey) && !string.IsNullOrEmpty(SecretKey);
         /// <summary>对象前缀，支持 {version} 占位，如 gear/{version}</summary>
         public static string Prefix
         {
@@ -169,12 +176,30 @@ namespace Gear.EditorTools.Addressables
             // 兼容：构建输出目录下若也存在远程 catalog 一并收集
             AddCatalogFiles(files, uploadFolder);
 
-            // 按目标 key（{prefix}/{platform}/{文件名}）去重，避免两目录 catalog 重名重复上传
-            var seenKeys = new HashSet<string>();
+            // 按目标 key（{prefix}/{platform}/{文件名}）去重：CDN 目录是扁平结构，
+            // 本地构建目录与 ServerData 里同名的 catalog/bundle 只应上传一份。
+            // 但"同名"不等于"同内容"——两个不同构建目录可能各有一份同名 catalog，
+            // 直接静默丢弃会让 catalog 指向一个内容不匹配的 bundle，这里比较 MD5 并显式告警。
+            var seenKeys = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             for (int i = files.Count - 1; i >= 0; i--)
             {
                 string key = $"{prefix}/{platform}/{Path.GetFileName(files[i])}";
-                if (!seenKeys.Add(key)) files.RemoveAt(i);
+                string md5 = Md5File(files[i]);
+                if (seenKeys.TryGetValue(key, out string previousMd5))
+                {
+                    if (!string.Equals(previousMd5, md5, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Log.Warning($"[OSSUpload] 同名文件内容不同，已保留其中一份：{key}\n" +
+                                    $"  保留: md5={previousMd5}\n  丢弃: {files[i]} (md5={md5})\n" +
+                                    "  请确认这是同一版本构建，否则先清理 ServerData/构建目录再重试。",
+                            channel: LogChannel.Resource);
+                    }
+                    files.RemoveAt(i);
+                }
+                else
+                {
+                    seenKeys[key] = md5;
+                }
             }
 
             if (files.Count == 0)
@@ -203,7 +228,9 @@ namespace Gear.EditorTools.Addressables
             if (toUpload.Count == 0)
             {
                 message = $"增量对比完成：全部 {files.Count} 个文件已是最新（跳过 {skipped} 个），无需上传。";
-                return false;
+                // 没有任何待上传内容是"成功"而不是失败：否则流水线/CI 会把一次完全正常的
+                // 幂等构建当成上传失败（菜单也会显示"未完成"）。
+                return true;
             }
 
             // 5. 确认（仅 GUI 交互；批处理 / 流水线自动执行）

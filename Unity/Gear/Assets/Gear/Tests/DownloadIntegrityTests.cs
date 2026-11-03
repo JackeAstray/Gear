@@ -93,5 +93,18 @@ namespace Gear.Tests
         {
             Assert.IsFalse(UWRExecutor.MarkCompleted(Path.Combine(tempDir, "nope.bin")));
         }
+
+        /// <summary>
+        /// 存在性检查必须与实际写入文件名用同一个规则：DownloadMgr.skipIfExists 曾用
+        /// Path.GetFileName（保留 ?query / %20），而写入侧用 GetFilenameFromUriNaively，
+        /// 带签名参数的 URL 每次启动都会被判为"不存在"并重复下载。
+        /// </summary>
+        [TestCase("https://cdn.example.com/a/model.bundle?v=2", "model.bundle")]
+        [TestCase("https://cdn.example.com/a/report%20final.png#frag", "report final.png")]
+        [TestCase("https://cdn.example.com/a/b.bin", "b.bin")]
+        public void NaiveFilename_Matches_What_Is_Written_To_Disk(string url, string expected)
+        {
+            Assert.AreEqual(expected, HTTPHelper.GetFilenameFromUriNaively(url));
+        }
     }
 }

@@ -120,6 +120,13 @@ namespace Gear.Framework.Runtime
                     return Current;
                 }
                 // 如果之前的引擎已销毁或失败，允许重新创建
+                if (state == EngineState.Failed)
+                {
+                    // Failed 引擎的静态 Subject 里可能仍挂着上一轮的订阅者；
+                    // 直接置 null 会让这些订阅泄漏到新引擎。先走 Dispose 完成 OnCompleted/Dispose。
+                    try { Current.Dispose(); }
+                    catch (Exception ex) { Log.Warning("[GameEngine] 清理失败引擎时异常（已隔离）: {0}", ex.Message); }
+                }
                 Current = null;
             }
 

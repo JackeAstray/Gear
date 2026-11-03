@@ -600,8 +600,23 @@ namespace Gear.Utilities
             }
         }
 
-        /// <summary>自动保存驱动（持久化 GameObject，主线程定时 Tick）</summary>
+        /// <summary>
+        /// 关闭 Domain Reload 时静态字段不会自动清空：上一会话注册的 provider 是闭包，
+        /// 可能捕获了已销毁的组件；不清掉会在新会话继续按旧 interval 写旧数据。
+        /// 同时清掉已销毁 driver 的引用，等真正 RegisterAutoSave 时再创建。
+        /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetAutoSaveStatics()
+        {
+            lock (saveLock)
+            {
+                autoSaveEntries.Clear();
+                autoSaveTickSnapshot.Clear();
+            }
+            driver = null;
+        }
+
+        /// <summary>自动保存驱动（持久化 GameObject，主线程定时 Tick）</summary>
         private static void EnsureAutoSaveDriver()
         {
             if (driver != null) return;

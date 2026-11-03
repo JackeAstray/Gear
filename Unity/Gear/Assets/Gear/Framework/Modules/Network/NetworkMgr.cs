@@ -283,6 +283,15 @@ namespace Gear.Framework.Modules
         }
 
         /// <summary>
+        /// 无引擎场景由 <c>UniversalNetworkBehaviour.Update</c> 每帧调用：
+        /// 仅当单例已创建时消费移除队列，避免为了 Tick 反而创建单例。
+        /// </summary>
+        public static void TickIfInitialized()
+        {
+            if (instance.IsValueCreated) instance.Value.Tick();
+        }
+
+        /// <summary>
         /// 手动消费移除队列（无引擎的工具/测试；正常游戏由 GameEngine 驱动）。
         /// 通道 Tick 由 UniversalNetworkBehaviour.Update 自行驱动，此处不重复。
         /// </summary>

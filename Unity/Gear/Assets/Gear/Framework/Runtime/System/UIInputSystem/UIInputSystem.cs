@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Runtime.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.UI;
@@ -424,24 +424,5 @@ namespace Gear.Framework.Runtime.UIInput
         }
         #endregion
 
-        #region 内部查询
-        /// <summary>
-        /// 是否存在已打开的 UI 窗口（用于区分 Esc 应优先取消窗口还是退出 UI 模式）。
-        /// 使用零分配的 HasAnyOpenWindow，避免每次按键分配 List。
-        /// </summary>
-        private bool HasOpenUI()
-        {
-            try
-            {
-                return Modules.TryGet(out UISystem uiSystem) && uiSystem.HasAnyOpenWindow();
-            }
-            catch (Exception ex)
-            {
-                // 记录异常而非静默吞掉：极端时序（引擎重建中）下可能抛错，至少留痕
-                Log.Warning("UIInputSystem.HasOpenUI 访问异常（按无窗口处理）: {0}", ex.Message);
-                return false;
-            }
-        }
-        #endregion
     }
 }

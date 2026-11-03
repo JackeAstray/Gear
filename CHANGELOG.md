@@ -1,5 +1,107 @@
 # Changelog
 
+## [未发布]
+
+### Fixed
+
+- **下载批次的取消/超时**：`FileDownloader` 的看门狗从"总墙钟"改为"连续无进度"（默认 30s），且在
+  `executors` + `executorsOld` 上取消时跳过已完成的执行器 —— 原实现会在超时或用户取消时把已经下好的
+  文件和 `.done` 标记一起删掉，形成"下到一半 → 清空 → 重下"。
+- **断点续传**：`.etag` sidecar 改为在发第一个分块前写入。原实现只在下载完成时写，中断后
+  `localEtag=null ≠ 远端 ETag` 会被判成"远端已替换"而删掉分块；标准 CDN 都带 ETag，续传实际不生效。
+- **整文件下载超时**：非分块 GET 不再沿用 6s 的分块超时，按"至少 256KB/s + 60s"估算。
+- **下载回调语义**：`Cancel(uri)` 不再在计数归零时触发 `OnDownloadsSuccess`；`DownloadMgr.DownloadFiles`
+  检查 `Download()` 返回值，超时/取消/失败会回调 `error`；`skipIfExists` 与写入侧共用
+  `HTTPHelper.GetFilenameFromUriNaively`，带 query 的 URL 不再重复下载。
+- **HttpMgr.Clear()**：先快照再 Abort。原实现在 `foreach` 中 `Abort` 会从字典移除自身，
+  下一次 `MoveNext` 抛 `InvalidOperationException`，其余在途请求既不 Abort 也不 Dispose。
+- **Addressables 发布流水线**：构建前显式切 `Publish` Profile（`EnsureSetup` 默认切回 DevLocal，
+  原实现会把 `http://localhost:8080` 烘进上传到 CDN 的 catalog）；上传失败时批处理退出码非 0；
+  "增量对比后无需上传"按成功处理，未配置 OSS 与上传失败区分开。
+- **UI 模态**：`UISystem.CloseWindow` 直接 `UIRouter.NotifyClosed`。原实现只靠 `UIRouter.PushAsync`
+  懒安装关闭订阅，直接用 `UISystem.OpenWindow` 打开的模态关闭后，下层的 `interactable=false` 永不还原。
+  `HideAllWindows` / `ShowAllWindows` 后也会重算阻断。
+- **Bootstrap 重入**：`StartAsync` 单飞，启动期间的重入等待同一次启动；原实现会把"正在初始化"
+  当失败并 `CleanupFailedStartup()`，销毁第一个合法启动的 Driver/引擎。
+- **SceneSystem.Clear()**：旧加载在 `finally` 里不再无条件释放 `isLoadingAtomic` / 回写
+  `targetSceneName`；增加 generation 守卫，避免 teardown 后与下一轮加载互相踩状态。
+- **网络**：`ServerConnection` / `RawTcpServerConnection` 初始化 `LastReceiveTime`
+  （开启 `idleTimeoutSeconds` 后新连接不再在下一帧被误踢）；`SwapToEncrypted` 后补发
+  `DrainReliableResendQueue`（加密握手 + `persistOnDisconnect` 时积压消息不再永久丢失）。
+- **对象池**：`GameObjectPoolRegistry.GetPool` 先创建 inactive GameObject、赋值 prewarm/maxSize
+  再激活，修复参数被 Awake 抢先建池忽略的问题；`prewarmCount` 现在会真正预热实例。
+- **启动期模块注册**：`AddModuleAsync` 在 `BeforeInit` / `Initializing` 期间不再重复登记更新列表
+  （`InitModulesAsync` 会统一登记），避免该模块每帧 `Update` 两次。
+- **PauseSystem**：恢复侧移出 `pauseAudioOnPause` 条件；暂停期间关闭该开关后恢复不再让
+  `AudioListener.pause` 永久停在 true。
+- **编辑器工具**：`CreateUIPlane` 的「第一步」先保存当前场景，覆盖场景/预制体前确认；
+  `SmallFunctions` 切场景前保存；示例场景生成器覆盖前确认。
+- **UI 模态层级**：阻断只作用于"比最上层模态更早打开"的窗口；打开在模态之上的提示/确认框不再被置灰。
+- **UI 返回结果**：`CloseWithResult` 优先关闭最上层模态，不再误关下层导航窗口。
+- **UI 玩家槽位**：`CarouselSelectionController.PlayerSlot` 改走 `SetPlayerSlot`，运行时改槽位会重新分桶，不再收不到输入。
+- **网络限流**：限流移到 `HandleFrame` 入口，PING/PONG/握手/畸形 ACK 不再绕过 `maxMessagesPerSecond`。
+- **RawTcp 反压**：接收队列超限不再丢中间字节，改为清空积压并断开连接（由重连恢复），避免长度前缀错位；
+  丢弃 Connected 事件时显式关闭被接受的 socket。
+- **加密握手超时**：客户端/服务端新增 `handshakeTimeout`（默认 10s），半握手连接不再永久占用连接槽。
+- **Addressables 上传去重**：同名文件比较 MD5，内容不同时显式告警而不是静默丢弃；
+  多个 catalog 时取最新写入的一份并告警，避免把旧 catalog 的 md5 烘进 `version.json`。
+- **Excel 导表**：多工作表时显式告警只导第一张；JSON 输出保留子目录相对路径，同名文件不再互相覆盖。
+- **UPM 导出**：交互式覆盖已有包目录前确认（批处理保持自动覆盖）。
+- **UI HUD 焦点域**：`requestUIControl=false` 的窗口首次创建 `UIFocusScope` 时不再瞬时进入/退出 UI 模式。
+- **UI 类型化 API**：`OpenWindow<T>` / `CloseWindow<T>` / `IsOpen<T>` 统一走 `[UIWindow]` 的 Id，
+  不再在"类名 ≠ Id"时开出两个窗口。
+- **UI 强类型参数**：派发前按当前窗口重新判断是否实现 `IWindowArgsReceiver<T>`，
+  修复缓存命中后对不支持的窗口 `Invoke` 抛 `TargetException`、每次打开刷 error。
+- **UI ESC 死局**：UI 模式下只有 `UIRouter.CanGoBack` 时才把 ESC 让给 UI，HUD/Static 窗口不再卡在 UI 模式。
+- **UIToolkit Clear 竞态**：新增面板生命周期代次；`Clear()` 期间恢复的 `OpenPanelAsync` 不再把资源写回已清空的缓存，
+  失败面板会走 `OnClose` 解除绑定。
+- **CameraToImageEx**：RT 尺寸重建后沿用首次绑定的 `previousTargetTexture`，不再把相机原有 RT 丢成 null。
+- **网络**：`Stop()` 主动断开时补发 `OnClientDisconnected`；单连接编码/发送异常不再中断广播或冒泡到 Tick；
+  监听器持续异常时 Accept 线程退避 50ms（不再忙等）；重连重置 `pingSentTime`；
+  RPC correlation / 可靠 seq 回绕时跳过仍占用中的 ID。
+- **编辑器**：`OpenPath` 不再把平台名格式化成 "0"；工具箱页脚乱码修正；
+  删除永远不可能命中的 Newtonsoft 冲突规则；Excel 临时副本改到系统临时目录（不再在 Assets 下留孤儿 `.meta`）。
+- **UIWindowCatalog**：不再在枚举前就置 `built=true`；程序集数量变化（包安装后晚加载的程序集）会触发重扫，
+  枚举失败也不会让窗口目录永久为空。
+- **LoopScrollRect 分页**：平滑滚动期间以 `pendingPage` 为基准累加，连续点"下一页/上一页"不再停在同页；
+  拖拽/新跳转会作废旧目标页。
+- **Addressables 配置**：`Remote.LoadPath` 真正变化时才置 `changed` 并 `SaveAssets`，
+  修改不会再只停留在内存里。
+- **SaveSystem**：`SubsystemRegistration` 时清空自动保存的静态注册与 driver 引用；
+  关闭 Domain Reload 后上一会话的 provider 不会再继续写旧数据；没有注册自动保存时也不再创建常驻 Driver。
+- **NetworkMgr**：`UniversalNetworkBehaviour.Update` 也会消费延迟移除队列，
+  只用 NetworkBehaviour、不启动 GameEngine 的工程不会让被移除通道滞留在列表里。
+- **引擎重启**：`LaunchAsync` 在 `Paused` 状态先 `ClearModuleData()` 再初始化，不再对存活模块二次 `Init`；
+  `GameEngine.Create` 丢弃 `Failed` 引擎前先 `Dispose`，避免旧静态 Subject 订阅泄漏到新引擎。
+- **UIToolkit**：`Clear()` 归还 `GLOBAL_THEME_PATH` 的 `ResourcesSystem` 引用，主题样式表不再每次重启多一份引用。
+- **UIInputSystem**：`RegisterUIEvents` 先释放上一轮订阅，重复 `Init` 不再重复回调 `OnUIOpened/OnUIClosed`。
+- **网络握手机制不一致**：服务端收到未握手业务帧时改为记录明确错误并断开，不再静默丢弃
+  （原先表现为"连接正常但消息全部消失"）。
+- **KCP**：服务端 `Disconnect` 先用 `GetClientEndPoint` 确认连接存在，未知 id 返回 false，不再恒真。
+
+### Changed
+
+- 自托管 workflow 的 `UNITY_EDITOR` 改为优先取仓库 Variable，未设置时回退默认路径。
+- `unity-verify.yml` 的 UPM 导出步骤改用 `Start-Process -Wait` 取真实退出码（原 `&` 对 GUI 子系统
+  不等待且 `$LASTEXITCODE` 为 `$null`，该步骤必失败）；`upm-publish.ps1 -Export` 同样处理。
+- `unity-ci.yml` 的 `.Instance` 计数段临时关闭 `pipefail`：计数归零时 `grep` 返回 1 会让
+  `set -euo pipefail` 在赋值处中止整个 step（棘轮打满反而红）。
+- `upm-smoke-test.ps1` 拒绝递归删除系统临时目录之外的 `-WorkDir`。
+- 自托管 PR workflow 增加作者身份门禁：只允许 `OWNER` / `MEMBER` / `COLLABORATOR`，
+  外部协作者与 Dependabot 默认不再落到自托管 runner（runner 隔离仍是主要防线）。
+
+### Added
+
+- `Tests/ObjectPoolPrewarmTests.cs`：共享池 prewarm/maxSize 回归。
+- `DownloadIntegrityTests.NaiveFilename_Matches_What_Is_Written_To_Disk`：下载文件名口径回归。
+
+### Docs
+
+- 修正 `S-验收清单` 的过度声明：去掉不存在的"覆盖率阈值 / 大文件门禁 / 守卫单一实现"，
+  体积数字改为 2026-11-03 实测。
+- `便捷性与可移植性评估` 的总表标注已落地项；`01-架构总览` 删除已不存在的 `ModuleRuntime`；
+  `Docs/README` 改为"本地链接由 CI 检查"；LFS 指南更新为"历史重写已执行 / 23 个 LFS 文件"。
+
 ## [1.3.0] - 2026-10-31
 
 这一版集中在"把静默错误变成可观测的失败"，以及修正发布身份。

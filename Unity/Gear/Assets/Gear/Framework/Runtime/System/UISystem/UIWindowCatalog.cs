@@ -73,6 +73,9 @@ namespace Gear.Framework.Runtime.UI
 
         private static bool built;
 
+        /// <summary>上次构建目录时的程序集数量：数量变化说明有新程序集加载，需要重扫。</summary>
+        private static int builtAssemblyCount = -1;
+
         /// <summary>目录里登记的窗口数量。</summary>
         public static int Count
         {
@@ -156,6 +159,7 @@ namespace Gear.Framework.Runtime.UI
             byId.Clear();
             byType.Clear();
             built = false;
+            builtAssemblyCount = -1;
         }
 
         /// <summary>
@@ -164,9 +168,6 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         private static void EnsureBuilt()
         {
-            if (built) return;
-            built = true;
-
             Assembly[] assemblies;
             try
             {
@@ -174,9 +175,18 @@ namespace Gear.Framework.Runtime.UI
             }
             catch (Exception ex)
             {
+                // 不置 built：本次失败不应让目录永久为空，下次调用重试
                 Log.Warning("[UIWindowCatalog] 枚举程序集失败: {0}", ex.Message);
                 return;
             }
+
+            // 已构建且程序集数量没变：直接复用。数量变化说明有新程序集加载
+            //（例如包安装后 UIController 所在程序集晚于首次查询加载），需要重扫。
+            if (built && assemblies.Length == builtAssemblyCount) return;
+
+            byId.Clear();
+            byType.Clear();
+            built = false;
 
             for (int i = 0; i < assemblies.Length; i++)
             {
@@ -185,9 +195,10 @@ namespace Gear.Framework.Runtime.UI
                 {
                     types = assemblies[i].GetTypes();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // 个别程序集（动态/反射生成）取类型会抛，跳过即可
+                    // 个别程序集（动态/反射生成）取类型会抛，跳过即可；下次程序集数量变化时会重试
+                    Log.Debug("[UIWindowCatalog] 跳过无法枚举类型的程序集 {0}: {1}", assemblies[i].GetName().Name, ex.Message);
                     continue;
                 }
 
@@ -196,6 +207,9 @@ namespace Gear.Framework.Runtime.UI
                     Register(types[t]);
                 }
             }
+
+            built = true;
+            builtAssemblyCount = assemblies.Length;
 
             Log.Debug("[UIWindowCatalog] 已登记 {0} 个窗口（其中 {1} 个显式声明）",
                 byId.Count, CountDeclared());

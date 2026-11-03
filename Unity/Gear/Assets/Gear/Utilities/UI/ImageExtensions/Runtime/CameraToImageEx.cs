@@ -298,9 +298,16 @@ namespace Gear.Utilities.UI.ImageExtensions
         {
             if (sourceCamera == null) return;
 
+            // 同一相机的重绑（RT 尺寸变化）必须沿用第一次绑定时记录的原 targetTexture。
+            // 旧实现先 UnbindCamera() 再读 targetTexture：此时 target 已被恢复成 previousTargetTexture，
+            // 而 previousTargetTexture 又被清空，第二次重绑会把"相机原来的 RT"永久丢成 null
+            //（其他系统的 RT 画面从此不再更新）。
+            bool rebindingSameCamera = boundCamera != null && boundCamera == sourceCamera;
+            RenderTexture preservedPrevious = rebindingSameCamera ? previousTargetTexture : null;
+
             UnbindCamera();
             boundCamera = sourceCamera;
-            previousTargetTexture = boundCamera.targetTexture;
+            previousTargetTexture = rebindingSameCamera ? preservedPrevious : boundCamera.targetTexture;
             boundCamera.targetTexture = ownedRT != null ? ownedRT : externalRenderTexture;
 
             if (forceOpaque)

@@ -117,8 +117,17 @@ namespace Gear.Framework.Runtime.UI
         }
 
         /// <summary>
+        /// 外部直接改变了窗口可见性（HideAllWindows / ShowAllWindows / 手动 SetActive）后重算阻断。
+        /// 否则隐藏模态后 blockedWindows 仍留着，重新显示时下层窗口依然 interactable=false。
+        /// </summary>
+        public static void RefreshModalState()
+        {
+            Recompute();
+        }
+
+        /// <summary>
         /// 重算阻断关系：
-        /// 有模态时，只有"最上层模态"可交互，其余全部阻断；
+        /// 有模态时，最上层模态及其之后打开的窗口可交互，其余全部阻断；
         /// 没有模态时，全部还原。
         /// </summary>
         private static void Recompute()
@@ -144,6 +153,20 @@ namespace Gear.Framework.Runtime.UI
             var open = new List<UIController>(8);
             ui.GetAllOpenWindows(open);
 
+            // 模态只阻断"比它更早打开"的窗口。打开顺序晚于模态的窗口（提示、二次确认、
+            // 覆盖在模态上的浮层）不应被一起置灰 —— 否则它们上面的按钮点不动。
+            int topSequence = -1;
+            for (int i = 0; i < open.Count; i++)
+            {
+                var w = open[i];
+                if (w == null) continue;
+                if (string.Equals(w.gameObject.name, topModal, System.StringComparison.Ordinal))
+                {
+                    topSequence = w.OpenSequence;
+                    break;
+                }
+            }
+
             for (int i = 0; i < open.Count; i++)
             {
                 var window = open[i];
@@ -151,7 +174,9 @@ namespace Gear.Framework.Runtime.UI
 
                 // 窗口名就是窗口 Id（SetupLoadedWindow 里已把 GameObject 名设为逻辑名）
                 string id = window.gameObject.name;
-                if (string.Equals(id, topModal, System.StringComparison.Ordinal))
+                bool atOrAboveModal = string.Equals(id, topModal, System.StringComparison.Ordinal)
+                                      || (topSequence >= 0 && window.OpenSequence > topSequence);
+                if (atOrAboveModal)
                 {
                     Unblock(id, window);
                 }

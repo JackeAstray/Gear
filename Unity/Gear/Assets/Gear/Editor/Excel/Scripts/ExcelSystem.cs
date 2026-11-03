@@ -684,9 +684,21 @@ namespace Gear
                 return;
             }
 
-            //获取Excel文件的绝对路径
-            string output = jsonOutPutPath + Path.GetFileName(path);
+            // 输出路径保留源表格在 toDirSO 下的相对目录：GetAllConfigFiles 递归枚举，
+            // 只取 Path.GetFileName 会让不同子目录里的同名 .xlsx 互相覆盖，后写的静默胜出。
+            string relative = Path.GetFileName(path);
+            if (!string.IsNullOrEmpty(toDirSO)
+                && path.StartsWith(toDirSO, StringComparison.OrdinalIgnoreCase))
+            {
+                relative = path.Substring(toDirSO.Length).TrimStart('/', '\\');
+            }
+            string output = jsonOutPutPath + relative.Replace('\\', '/');
             output = output.Replace(".xlsx", ".json");
+            string outputDir = Path.GetDirectoryName(output);
+            if (!string.IsNullOrEmpty(outputDir) && !Directory.Exists(outputDir))
+            {
+                Directory.CreateDirectory(outputDir);
+            }
 
             // 同步写盘：fire-and-forget 异步写盘与立即 Refresh() 存在竞态
             // （文件未落盘时 Refresh 会导致 JSON 资源未导入）

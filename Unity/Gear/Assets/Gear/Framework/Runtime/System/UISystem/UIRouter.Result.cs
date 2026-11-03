@@ -118,7 +118,15 @@ namespace Gear.Framework.Runtime.UI
         /// <returns>是否成功关闭了一个窗口</returns>
         public static bool CloseWithResult<TResult>(TResult result)
         {
-            string windowId = stack.Top;
+            // 模态窗口不一定进导航栈（UISystem.OpenWindow 直接打开的模态只登记在模态栈）。
+            // 有模态时"确定/取消"必须关最上层模态，否则会把下层窗口关掉、模态反而留在屏幕上。
+            string windowId = null;
+            if (Modules.TryGet(out UISystem ui) && ui != null && ui.isInited)
+            {
+                windowId = modalStack.TopOpen(ui.IsOpen);
+            }
+            if (string.IsNullOrEmpty(windowId)) windowId = stack.Top;
+
             if (string.IsNullOrEmpty(windowId))
             {
                 Log.Warning("[UIRouter] CloseWithResult：栈为空，没有可关闭的窗口");

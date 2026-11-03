@@ -1,4 +1,4 @@
-﻿using Gear.Utilities;
+using Gear.Utilities;
 using Gear.Common;
 using Gear.Framework.Runtime.UIInput;
 using Cysharp.Threading.Tasks;
@@ -17,6 +17,13 @@ namespace Gear.Framework.Runtime.UI
         public string uiName = "";
         // 界面优先级，数值越大优先级越高
         public int priority { get; set; } = 0;
+
+        /// <summary>
+        /// 本次打开的单调序号（由 UISystem 在 OnOpen 前赋值）。
+        /// 模态阻断只作用于"比最上层模态更早打开"的窗口，避免模态之后弹出的提示/确认框
+        /// 也被一起置为 interactable=false。
+        /// </summary>
+        public int OpenSequence { get; internal set; }
 
         [Tooltip("窗口打开时是否请求 UI 控制模式；HUD 等常驻界面可关闭")]
         [SerializeField] protected bool requestUIControl = true;
@@ -116,7 +123,22 @@ namespace Gear.Framework.Runtime.UI
                 focusScope = GetComponent<UIFocusScope>();
                 if (focusScope == null)
                 {
-                    focusScope = gameObject.AddComponent<UIFocusScope>();
+                    if (!requestUIControl)
+                    {
+                        // UIFocusScope.OnEnable 会立刻 Push 并按默认值请求 UI 控制模式。
+                        // 对 HUD/提示这类 requestUIControl=false 的窗口，直接 AddComponent 会先
+                        // 进入再退出 UI 模式（切换 action map、清焦点、发两次事件）。
+                        // 先临时禁用窗口再挂组件，把 OnEnable 推迟到参数写入之后（同帧恢复，不渲染）。
+                        bool wasActive = gameObject.activeSelf;
+                        if (wasActive) gameObject.SetActive(false);
+                        focusScope = gameObject.AddComponent<UIFocusScope>();
+                        focusScope.RequestUIControl = false;
+                        if (wasActive) gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        focusScope = gameObject.AddComponent<UIFocusScope>();
+                    }
                 }
             }
 

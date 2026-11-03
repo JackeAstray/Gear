@@ -49,6 +49,12 @@ namespace Gear.Framework.Runtime
         /// <summary>承载 GameEngineDriver 的持久化 GameObject（启动失败时必须销毁，避免残留多个 Driver）</summary>
         private static GameObject driverGo;
 
+        /// <summary>
+        /// 启动单飞信号：启动过程中（可能跨多个 await）的重入调用等待同一次启动，
+        /// 而不是再走一遍 LaunchAsync。见 <see cref="StartAsync"/> 的说明。
+        /// </summary>
+        private static UniTaskCompletionSource<InitResult> launchCompletion;
+
         /// <summary>关闭自动启动（等价于 <c>ForceDisable = true</c>），之后可自行调用 <see cref="StartAsync"/>。</summary>
         public static void Disable()
         {
@@ -82,6 +88,8 @@ namespace Gear.Framework.Runtime
             ForceDisable = false;
             IsTestScene = false;
             driverGo = null;
+            // 上一会话的启动等待者已随会话结束消失；这里只清引用，避免新会话被旧 TCS 卡住。
+            launchCompletion = null;
 
             // 入口解析结果与引擎静态状态都带会话语义，必须一起复位
             GameEntryResolver.Refresh();
@@ -162,6 +170,36 @@ namespace Gear.Framework.Runtime
                 return InitResult.Failure("GameEntry 不能为 null");
             }
 
+            // 单飞：启动会跨多个 await（资源/场景初始化），期间的重入调用（重试按钮、
+            // 加载场景脚本、测试）必须等待同一次启动。否则 LaunchAsync 会把"正在初始化"
+            // 报成 Failure，而旧实现会对任何 Failure 执行 CleanupFailedStartup()，
+            // 把第一个、合法的启动和它的 Driver/引擎一起销毁。
+            if (launchCompletion != null)
+            {
+                Log.Warning("[Bootstrap] 启动已在进行中，等待本次启动完成（不会重复初始化）");
+                return await launchCompletion.Task;
+            }
+
+            var completion = new UniTaskCompletionSource<InitResult>();
+            launchCompletion = completion;
+
+            // 默认值只在 StartCoreAsync 抛出未预期异常时被观察到
+            InitResult result = InitResult.Failure("启动未完成");
+            try
+            {
+                result = await StartCoreAsync(entry, modules);
+                return result;
+            }
+            finally
+            {
+                if (ReferenceEquals(launchCompletion, completion)) launchCompletion = null;
+                completion.TrySetResult(result);
+            }
+        }
+
+        /// <summary>真正的启动流程；由 <see cref="StartAsync"/> 保证单飞后调用。</summary>
+        private static async UniTask<InitResult> StartCoreAsync(IGameEntry entry, IList<ICustomSystem> modules)
+        {
             if (modules == null && entry is GameEntry gameEntry)
             {
                 modules = gameEntry.CreateModules();

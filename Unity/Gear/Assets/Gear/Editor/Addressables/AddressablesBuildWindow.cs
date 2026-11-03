@@ -327,11 +327,27 @@ namespace Gear.EditorTools.Addressables
             if (string.IsNullOrEmpty(outputPath) || !Directory.Exists(outputPath)) return null;
             // Addressables 2.9.x 默认生成二进制 catalog（catalog_*.bin + .hash）；
             // 兼容旧版 JSON catalog（catalog_*.json，需 m_EnableJsonCatalog=true）。
-            foreach (var f in Directory.GetFiles(outputPath, "catalog_*.bin", SearchOption.AllDirectories))
-                return f;
-            foreach (var f in Directory.GetFiles(outputPath, "catalog_*.json", SearchOption.AllDirectories))
-                return f;
+            string[] bins = Directory.GetFiles(outputPath, "catalog_*.bin", SearchOption.AllDirectories);
+            if (bins.Length > 0) return PickNewestCatalog(bins, outputPath);
+
+            string[] jsons = Directory.GetFiles(outputPath, "catalog_*.json", SearchOption.AllDirectories);
+            if (jsons.Length > 0) return PickNewestCatalog(jsons, outputPath);
             return null;
+        }
+
+        /// <summary>
+        /// 同一输出目录里可能有多个历史构建留下的 catalog（增量构建不保证清理）。
+        /// Directory.GetFiles 的顺序未定义，取"第一个"会把旧 catalog 的 md5 烘进 version.json，
+        /// 客户端校验锚点后反而拒绝所有远程更新。这里明确取最后写入的一份并告警。
+        /// </summary>
+        private static string PickNewestCatalog(string[] catalogs, string outputPath)
+        {
+            if (catalogs.Length == 1) return catalogs[0];
+
+            Array.Sort(catalogs, (a, b) => File.GetLastWriteTimeUtc(b).CompareTo(File.GetLastWriteTimeUtc(a)));
+            Log.Warning($"[AddressablesBuild] {outputPath} 下有 {catalogs.Length} 个 catalog，已取最新的 {Path.GetFileName(catalogs[0])}；" +
+                        "建议构建前清理 ServerData/输出目录，避免锚点指向旧 catalog。", channel: LogChannel.Resource);
+            return catalogs[0];
         }
 
         /// <summary>

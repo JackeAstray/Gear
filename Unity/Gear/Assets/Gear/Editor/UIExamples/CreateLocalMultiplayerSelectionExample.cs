@@ -49,6 +49,14 @@ namespace Gear.EditorTools
         {
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
+            // SaveScene 会直接覆盖已提交的示例场景；目标已存在时先确认，避免误点菜单丢掉手改内容。
+            if (System.IO.File.Exists(ScenePath) &&
+                !EditorUtility.DisplayDialog("覆盖示例场景",
+                    $"示例场景已存在，是否覆盖？\n{ScenePath}", "覆盖", "取消"))
+            {
+                return;
+            }
+
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             CreateEventSystem();

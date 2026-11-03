@@ -31,6 +31,9 @@ namespace Gear.Framework.Modules
         [Tooltip("空闲超时（秒，0=禁用）：超过时长未收到任何数据的连接被断开（需客户端启用心跳配合）")]
         public float idleTimeoutSeconds = 0f;
 
+        [Tooltip("握手超时（秒，0=禁用）：连接建立后迟迟不完成 ClientHello 的连接会被回收，避免半握手连接长期占用")]
+        public float handshakeTimeoutSeconds = 10f;
+
         [Tooltip("单连接消息速率上限（条/秒，0=不限）：超限消息被丢弃（防刷消息 DoS）。默认 200 覆盖绝大多数游戏流量，高频率业务请调大")]
         public int maxMessagesPerSecond = 200;
 

@@ -491,14 +491,25 @@ namespace Gear.Framework.Modules.Http
         {
             if (httpRequests != null)
             {
-                foreach (var pair in httpRequests)
+                // 先快照再处理：Pair.Key.Abort() 会回调 HttpMgr.Abort(this)，其中 httpRequests.Remove(request)
+                // 会改动字典版本号；直接 foreach 会在下一次 MoveNext 抛 InvalidOperationException，
+                // 导致后面的请求既没 Abort 也没 Dispose（引擎重启后仍回调已销毁对象）。
+                foreach (var pair in httpRequests.ToArray())
                 {
                     try { pair.Key.Abort(); }
                     catch (Exception ex) { Log.Warning("[HttpMgr] Clear 中止请求失败: {0}", ex.Message); }
-                    try { pair.Value.Cancel(); }
-                    catch (Exception ex) { Log.Warning("[HttpMgr] Clear 取消请求失败: {0}", ex.Message); }
-                    try { pair.Value.Dispose(); }
-                    catch (Exception ex) { Log.Warning("[HttpMgr] Clear 释放 CTS 失败: {0}", ex.Message); }
+
+                    // UnityHttpRequest.Abort() 会走 HttpMgr.Abort，后者已经 Cancel+Dispose CTS 并移除条目。
+                    // 只有 Abort 后条目仍在（自定义 IHttpRequest 未回调本类 / Abort 提前抛异常）时才需要兜底，
+                    // 否则会对已 Dispose 的 CTS 再 Cancel，刷一条 ObjectDisposedException 告警。
+                    if (httpRequests.ContainsKey(pair.Key))
+                    {
+                        try { pair.Value.Cancel(); }
+                        catch (Exception ex) { Log.Warning("[HttpMgr] Clear 取消请求失败: {0}", ex.Message); }
+                        try { pair.Value.Dispose(); }
+                        catch (Exception ex) { Log.Warning("[HttpMgr] Clear 释放 CTS 失败: {0}", ex.Message); }
+                        httpRequests.Remove(pair.Key);
+                    }
                 }
                 httpRequests.Clear();
             }

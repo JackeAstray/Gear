@@ -66,6 +66,14 @@ namespace Gear.Framework.Runtime
             {
                 return InitResult.Failure("引擎正在初始化中，请勿重复调用 LaunchAsync");
             }
+            if (State == EngineState.Paused)
+            {
+                // 暂停中的模块仍然存活（UIRoot、音频缓存等），直接再跑一遍 Init 会
+                // 让旧 UIRoot 成为孤儿、旧音频缓存丢失引用。把它当成一次干净重启：
+                // 先按正常关闭路径清理模块，再走下面的完整初始化。
+                Log.Warning("[GameEngine] 引擎处于暂停状态，重新启动前先清理模块数据");
+                ClearModuleData();
+            }
 
             GameEntry = entry;
 

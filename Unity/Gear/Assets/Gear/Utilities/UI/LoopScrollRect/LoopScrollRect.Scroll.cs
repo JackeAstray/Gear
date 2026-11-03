@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -93,6 +93,7 @@ namespace Gear.Utilities
                         currentPage = page;
                         onPageChanged?.Invoke(currentPage);
                     }
+                    pendingPage = -1;
                 }
             }
             else
@@ -120,9 +121,14 @@ namespace Gear.Utilities
                 return;
             }
             int maxPageIndex = Mathf.Max(0, Mathf.CeilToInt((float)totalCount / safeItemsPerPage) - 1);
-            int nextPage = Mathf.Clamp(currentPage + 1, 0, maxPageIndex);
+            // 平滑滚动尚未结束时，currentPage 还是旧页：以 pendingPage 为基准累加，
+            // 保证连续点击"下一页"能连续前进（例如 0 → 1 → 2，而不是两次都停在 1）。
+            int basePage = pendingPage >= 0 ? pendingPage : currentPage;
+            int nextPage = Mathf.Clamp(basePage + 1, 0, maxPageIndex);
             int targetFirst = nextPage * safeItemsPerPage;
             JumpToIndex(targetFirst, animated, pageSnapDuration);
+            // 非动画跳转在 JumpToIndex 内已经更新了 currentPage，不需要 pending
+            pendingPage = animated ? nextPage : -1;
         }
 
         /// <summary>
@@ -140,9 +146,11 @@ namespace Gear.Utilities
                 JumpToIndex(targetDataIndex, animated, pageSnapDuration);
                 return;
             }
-            int prevPage = Mathf.Clamp(currentPage - 1, 0, Mathf.Max(0, Mathf.CeilToInt((float)totalCount / safeItemsPerPage) - 1));
+            int prevPage = Mathf.Clamp((pendingPage >= 0 ? pendingPage : currentPage) - 1, 0,
+                Mathf.Max(0, Mathf.CeilToInt((float)totalCount / safeItemsPerPage) - 1));
             int targetFirst = prevPage * safeItemsPerPage;
             JumpToIndex(targetFirst, animated, pageSnapDuration);
+            pendingPage = animated ? prevPage : -1;
         }
 
         /// <summary>
@@ -153,6 +161,8 @@ namespace Gear.Utilities
             scrollCts?.Cancel();
             scrollCts?.Dispose();
             scrollCts = null;
+            // 任何新的跳转/拖拽都会先停掉当前动画：之前的目标页已作废
+            pendingPage = -1;
         }
 
         /// <summary>
@@ -212,6 +222,7 @@ namespace Gear.Utilities
                         currentPage = page;
                         onPageChanged?.Invoke(currentPage);
                     }
+                    pendingPage = -1;
                 }
             }
             finally

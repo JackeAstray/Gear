@@ -118,9 +118,16 @@ namespace Gear.Framework.Runtime.UI
         /// 这样直接调用 <c>OpenWindow(Async)</c>（不经过 UIRouter）的 Modal 窗口也能正确阻断下层。
         /// 路由层自身的 NotifyPushed 重复调用是幂等的（同一 Id Remove 再 Add）。
         /// </summary>
-        private static void NotifyOpened(string uiName)
+        private void NotifyOpened(string uiName)
         {
             if (string.IsNullOrEmpty(uiName)) return;
+
+            // 记录打开顺序：模态阻断需要区分"模态之前/之后"打开的窗口。
+            if (uiStateCache.TryGetValue(uiName, out var state) && state.uiWindow != null)
+            {
+                state.uiWindow.OpenSequence = ++openSequence;
+            }
+
             var descriptor = UIWindowCatalog.Get(uiName);
             UIRouter.NotifyPushed(uiName, descriptor.Modal);
         }
@@ -135,16 +142,17 @@ namespace Gear.Framework.Runtime.UI
         }
 
         /// <summary>
-        /// [推荐] 类型安全的打开窗口重载 —— 通过 UIController 类型名自动推断 UI 名称。
+        /// [推荐] 类型安全的打开窗口重载 —— 通过 <c>[UIWindow]</c> 的 Id（未标注时回退类名）推断 UI 名称。
         /// 使用方式：Modules.Get&lt;UISystem&gt;().OpenWindow&lt;PopupUIPlane&gt;(args);
         /// 优点：编译时检查、重构安全、无字符串拼写错误。
         /// </summary>
-        /// <typeparam name="T">UI 控制器类型（类名需与 prefab 名一致）</typeparam>
+        /// <typeparam name="T">UI 控制器类型</typeparam>
         /// <param name="args">打开参数</param>
         public UILoadState OpenWindow<T>(params object[] args) where T : UIController
         {
-            // 约定：类型名 = prefab 名（如 PopupUIPlane 对应 PopupUIPlane.prefab）
-            string uiName = typeof(T).Name;
+            // 必须走 catalog Id：窗口可能用 [UIWindow("SomeId")] 声明了与类名不同的 Id，
+            // 直接用 typeof(T).Name 会把它当成另一个窗口（开两份、IsOpen 永远 false）。
+            string uiName = UIWindowCatalog.GetId(typeof(T));
             return OpenWindow(uiName, args);
         }
 
@@ -154,7 +162,7 @@ namespace Gear.Framework.Runtime.UI
         /// <param name="t"></param>
         public void CloseWindow(Type t)
         {
-            CloseWindow(t.Name);
+            CloseWindow(UIWindowCatalog.GetId(t));
         }
 
         /// <summary>
@@ -196,6 +204,8 @@ namespace Gear.Framework.Runtime.UI
             {
                 Log.Warning("[CloseWindow] uiWindow 已不存在，移除残留缓存项: {0}", name);
                 uiStateCache.Remove(name);
+                // 窗口实例没了也要解除它可能留下的模态阻断，否则下层 UI 永久不可交互。
+                UIRouter.NotifyClosed(name);
                 return;
             }
             uiState.uiWindow.gameObject.SetActive(false);
@@ -211,6 +221,12 @@ namespace Gear.Framework.Runtime.UI
             {
                 Log.Error("OnCloseSubject 订阅者异常（已隔离）: {0}", ex.Message);
             }
+
+            // 直接调用 UISystem.CloseWindow 时 UIRouter 的关闭订阅可能从未安装
+            // （EnsureHooked 原本只在 PushAsync 里调用）。不在这里补一次，模态窗口关闭后
+            // 它给下层加的 CanvasGroup.interactable=false 永远不会还原。NotifyClosed 幂等，
+            // 已安装订阅时重复调用只多一次 Recompute。
+            UIRouter.NotifyClosed(name);
 
             if (!uiState.isStaticUI)
             {

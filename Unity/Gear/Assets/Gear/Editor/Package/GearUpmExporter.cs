@@ -118,6 +118,14 @@ namespace Gear.EditorTools.Package
             // 1. 清理旧包（只清理我们自己创建的包目录）
             if (Directory.Exists(packageDir))
             {
+                // 输出根由调用方选择，可能是某个本地 git clone / file: 安装源；
+                // 批处理（CI）照旧直接覆盖，交互式导出先确认，避免误删别人的包目录。
+                if (!Application.isBatchMode &&
+                    !EditorUtility.DisplayDialog("覆盖导出目录",
+                        $"目标包目录已存在，是否删除并重新导出？\n{packageDir}", "覆盖", "取消"))
+                {
+                    return false;
+                }
                 MakeWritable(packageDir);
                 Directory.Delete(packageDir, true);
             }

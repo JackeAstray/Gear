@@ -358,7 +358,14 @@ namespace Gear.EditorTools.Addressables
                 }
                 if (!string.IsNullOrEmpty(profileId) && !string.IsNullOrEmpty(remoteLoadPath))
                 {
-                    profileSettings.SetValue(profileId, AddressableAssetSettings.kRemoteLoadPath, remoteLoadPath);
+                    // 只在值真的变化时置 changed：否则改了 Remote.LoadPath 但其他配置都已存在时，
+                    // 末尾的 SaveAssets 不会执行，改动只停留在内存里（重启 Unity 后丢失）。
+                    string current = profileSettings.GetValueById(profileId, AddressableAssetSettings.kRemoteLoadPath);
+                    if (!string.Equals(current, remoteLoadPath, StringComparison.Ordinal))
+                    {
+                        profileSettings.SetValue(profileId, AddressableAssetSettings.kRemoteLoadPath, remoteLoadPath);
+                        changed = true;
+                    }
                 }
             }
 
@@ -379,9 +386,40 @@ namespace Gear.EditorTools.Addressables
         }
 
         /// <summary>
-        /// 启用远程 Catalog。
-        /// 默认保持关闭（m_BuildRemoteCatalog = false），避免无 CDN 环境下生成无用远程 catalog。
+        /// 切换活动 Profile（发布 / CI 用）。找不到时返回 false 并给出原因。
+        /// <para>
+        /// <see cref="EnsureSetup"/> 默认激活 DevLocal（本地模拟）。构建发布产物前必须显式切到 Publish，
+        /// 否则 catalog 里烘的是 <c>http://localhost:8080</c>；运行时又只重写 https 地址，
+        /// 上传到 CDN 后所有客户端都会去连自己的本机。
+        /// </para>
         /// </summary>
+        public static bool TrySetActiveProfile(string profileName, out string error)
+        {
+            error = null;
+            var settings = AddressableAssetSettingsDefaultObject.GetSettings(false);
+            if (settings == null)
+            {
+                error = "Addressables 未初始化（没有 AddressableAssetSettings）";
+                return false;
+            }
+
+            string profileId = settings.profileSettings.GetProfileId(profileName);
+            if (string.IsNullOrEmpty(profileId))
+            {
+                error = $"找不到 Profile: {profileName}";
+                return false;
+            }
+
+            if (settings.activeProfileId != profileId)
+            {
+                settings.activeProfileId = profileId;
+                EditorUtility.SetDirty(settings);
+                AssetDatabase.SaveAssets();
+                Log.Debug($"[AddressablesSetup] 活动 Profile 已切换为 {profileName}", channel: LogChannel.Resource);
+            }
+            return true;
+        }
+
         /// <summary>
         /// 校验远程分组的路径变量：BuildPath / LoadPath 必须指向 Remote 变量，否则强制修正。
         /// 用于修复历史/手动创建分组遗留下的 Local 路径错误（远程热更的前提）。返回是否有改动。

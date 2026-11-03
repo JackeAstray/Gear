@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Runtime.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
@@ -73,6 +73,12 @@ namespace Gear.Framework.Runtime.UIToolkit
 
         /// <summary>在途异步打开信号（SingleFlightLoader 并发去重：同名面板等待同一结果，避免双方各自实例化产生孤儿面板）</summary>
         private readonly SingleFlightLoader<UIToolkitPanel> panelLoadGate = new SingleFlightLoader<UIToolkitPanel>();
+
+        /// <summary>
+        /// 面板生命周期代次：Clear() 递增。OpenPanelAsync 在每个 await 之后复查它，
+        /// 避免"Clear 已经清空缓存/销毁 UIDocument 之后，旧续体又把资源写回缓存、把面板挂到已销毁的根上"。
+        /// </summary>
+        private int panelLifecycleGeneration;
 
         /// <summary>面板 UXML 资源缓存（面板名 → VisualTreeAsset）</summary>
         private readonly Dictionary<string, VisualTreeAsset> panelAssetCache
@@ -152,6 +158,8 @@ namespace Gear.Framework.Runtime.UIToolkit
             Log.Debug("[UIToolkitSystem] 清除数据");
             // 使在途 Init 的续体失效
             initGeneration++;
+            // 使在途 OpenPanelAsync 的续体失效（见 panelLifecycleGeneration 注释）
+            panelLifecycleGeneration++;
 
             // 关闭所有面板。快照遍历：OnClose 是用户代码，若面板在 OnClose 中调用 ClosePanel
             // 修改 panelInstances，foreach 会抛 InvalidOperationException。
@@ -183,6 +191,9 @@ namespace Gear.Framework.Runtime.UIToolkit
                 Modules.Get<ResourcesSystem>().DeleteAssetCache(GLOBAL_STYLE_PATH);
                 globalStyleSheet = null;
             }
+            // 主题样式表同样是 isCache:true 加载的；不归还的话每次 Clear/Init 都会多一份引用。
+            // 未通过本系统加载时该 key 未登记，DeleteAssetCache 是安全空操作。
+            Modules.Get<ResourcesSystem>().DeleteAssetCache(GLOBAL_THEME_PATH);
             // panelSettings 可能为 null/已销毁；DeleteAssetCache 对未登记 key 为安全空操作
             if (panelSettings != null)
             {
@@ -390,6 +401,7 @@ namespace Gear.Framework.Runtime.UIToolkit
 
             // 并发去重：同名面板正在加载中时等待同一结果（SingleFlightLoader 统一管理
             // 单飞/取消/摘除；Clear() 会 CancelAll，等待方拿到 null 走下方 Root 校验返回）
+            int gen = panelLifecycleGeneration;
             var panel = await panelLoadGate.RunAsync(panelName, async () =>
             {
                 // 异步加载 UXML（缓存优先）
@@ -397,6 +409,19 @@ namespace Gear.Framework.Runtime.UIToolkit
                 {
                     asset = await Modules.Get<ResourcesSystem>()
                         .LoadAsync<VisualTreeAsset>($"{UXML_PATH_PREFIX}{panelName}", isCache: true);
+
+                    // await 期间 Clear() 已经清空缓存并归还过其中的引用：
+                    // 本次新加载的引用不能再写回缓存（否则永远不会被归还），在这里直接归还。
+                    if (gen != panelLifecycleGeneration)
+                    {
+                        if (asset != null)
+                        {
+                            Modules.Get<ResourcesSystem>().DeleteAssetCache(UXML_PATH_PREFIX + panelName);
+                        }
+                        Log.Error("[UIToolkitSystem] OpenPanelAsync 失败：等待资源加载期间系统已清理");
+                        return null;
+                    }
+
                     if (asset != null)
                     {
                         panelAssetCache[panelName] = asset;
@@ -410,7 +435,7 @@ namespace Gear.Framework.Runtime.UIToolkit
                 }
 
                 // await 期间系统可能被 Clear() 清理，恢复后需重新校验
-                if (RootVisualElement == null)
+                if (gen != panelLifecycleGeneration || RootVisualElement == null)
                 {
                     Log.Error("[UIToolkitSystem] OpenPanelAsync 失败：等待资源加载期间系统已清理");
                     return null;
@@ -432,8 +457,13 @@ namespace Gear.Framework.Runtime.UIToolkit
                 await LoadPanelStyleAsync(panelName, newPanel.Root);
 
                 // 样式加载期间再次校验（Clear 或重复打开）
-                if (RootVisualElement == null || newPanel.Root == null)
+                if (gen != panelLifecycleGeneration || RootVisualElement == null || newPanel.Root == null)
                 {
+                    // Initialize() 已经执行过 OnBind：必须走一次 OnClose 解除订阅。
+                    // 原实现直接 return null，面板对象被遗弃在已销毁的 UIDocument 下，
+                    // 绑定的事件/ROS 永远悬空，且外部拿不到实例、无法再关。
+                    try { newPanel.OnClose(); }
+                    catch (Exception ex) { Log.Warning("[UIToolkitSystem] 清理失败面板时 OnClose 异常: {0}", ex.Message); }
                     Log.Error("[UIToolkitSystem] OpenPanelAsync 失败：样式加载期间系统已清理");
                     return null;
                 }

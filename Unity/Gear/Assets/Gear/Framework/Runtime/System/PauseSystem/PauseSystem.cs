@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using R3;
 using Gear.Common;
 using Gear.Framework.Runtime.Base;
@@ -162,19 +162,22 @@ namespace Gear.Framework.Runtime.Pause
                 Time.timeScale = timeScaleBeforePause > 0f ? timeScaleBeforePause : 1f;
             }
 
-            if (pauseAudioOnPause)
+            // 恢复侧不能放在 `if (pauseAudioOnPause)` 里：
+            // 如果暂停期间有人把 pauseAudioOnPause 改成 false，恢复时会跳过这里，
+            // AudioListener.pause 就永远停在 true（整局静音）。
+            if (paused)
             {
-                if (paused && !AudioListener.pause)
+                if (pauseAudioOnPause && !AudioListener.pause)
                 {
                     audioPausedByUs = true;
                     AudioListener.pause = true;
                 }
-                else if (!paused && audioPausedByUs)
-                {
-                    audioPausedByUs = false;
-                    // 还原为应用级暂停状态（autoPause 开启且 App 在后台时仍应静音）
-                    AudioListener.pause = GameEngine.IsApplicationPaused && GameOption.CurrentOption.autoPause;
-                }
+            }
+            else if (audioPausedByUs)
+            {
+                audioPausedByUs = false;
+                // 还原为应用级暂停状态（autoPause 开启且 App 在后台时仍应静音）
+                AudioListener.pause = GameEngine.IsApplicationPaused && GameOption.CurrentOption.autoPause;
             }
 
             Log.Debug("[PauseSystem] 游戏{0}", paused ? "已暂停" : "已恢复");

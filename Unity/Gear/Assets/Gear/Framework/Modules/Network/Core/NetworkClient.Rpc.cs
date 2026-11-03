@@ -20,6 +20,12 @@ namespace Gear.Framework.Modules
                 return UniTask.FromException<byte[]>(new InvalidOperationException("未连接，无法发起请求"));
             }
             int correlationId = Interlocked.Increment(ref rpcCorrelation);
+            // int 回绕（约 21 亿次调用）后可能与仍在途的关联 ID 重合：
+            // 字典索引器会静默覆盖，前一个调用者只能等到超时。跳过占用中的 ID。
+            while (pendingRequests.ContainsKey(correlationId))
+            {
+                correlationId = Interlocked.Increment(ref rpcCorrelation);
+            }
             var requestFrame = NetworkRpcFrames.EncodeRequest(correlationId, messageId, payload);
             var tcs = new UniTaskCompletionSource<byte[]>();
             // 必须先注册再做 Send：Send 在同步派发的传输层上可能立刻触发响应处理，

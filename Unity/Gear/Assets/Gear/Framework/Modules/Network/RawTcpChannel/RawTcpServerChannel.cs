@@ -39,12 +39,23 @@ namespace Gear.Framework.Modules
         /// <summary>丢弃告警节流时间戳（多线程竞争仅影响日志频率，可忽略）</summary>
         int lastDropWarnTick;
 
-        /// <summary>有界入队：超限时丢弃最旧事件（并发下的近似判断即可），并低频告警暴露主线程停摆问题</summary>
+        /// <summary>
+        /// 有界入队：超限时丢弃最旧事件并低频告警。
+        /// 若丢掉的恰好是 Connected 事件，它携带的 socket 永远不会进入 connections、
+        /// 也不会有人调用 Close —— 必须在这里显式关闭，否则每丢一次泄漏一个已接受的连接。
+        /// </summary>
         private void EnqueueEvent((EventType type, int connectionId, object connection, string message) ev)
         {
             if (events.Count >= MaxPendingEvents)
             {
-                events.TryDequeue(out _);
+                if (events.TryDequeue(out var dropped)
+                    && dropped.type == EventType.Connected
+                    && dropped.connection is RawTcpServerConnection droppedConn)
+                {
+                    try { droppedConn.Close(); }
+                    catch (Exception ex) { Log.Warning("[RawTcpServerChannel] 关闭被丢弃的连接失败: {0}", ex.Message); }
+                }
+
                 int now = Environment.TickCount;
                 if (unchecked(now - lastDropWarnTick) > 1000)
                 {
@@ -130,6 +141,9 @@ namespace Gear.Framework.Modules
                     if (!running) return;
                     if (ex is SocketException || ex is ObjectDisposedException)
                     {
+                        // 监听器被停止/替换时 Accept 会持续抛 SocketException；直接 continue 会变成
+                        // 满 CPU 的忙等（还在刷 Error 事件）。稍等后重试，让运行中的监听有机会恢复。
+                        Thread.Sleep(50);
                         if (!running) return;
                     }
                     EnqueueEvent((EventType.Error, -1, null, "Accept 异常: " + ex.Message));
@@ -333,6 +347,8 @@ namespace Gear.Framework.Modules
             Id = id;
             this.socket = socket;
             this.chunkSize = chunkSize;
+            // 与 NetworkServer.ServerConnection 同理：默认 0 会让空闲超时把新连接当成"已空闲整个进程时长"。
+            LastReceiveTime = Time.realtimeSinceStartup;
             try { Address = socket.Client.RemoteEndPoint?.ToString() ?? string.Empty; } catch { Address = string.Empty; }
         }
 
@@ -379,14 +395,21 @@ namespace Gear.Framework.Modules
             }
         }
 
-        /// <summary>有界入队（条数 + 字节双预算），超限丢最旧，防主线程停摆时内存无界增长</summary>
+        /// <summary>
+        /// 有界入队（条数 + 字节双预算）。超限时不能丢中间块：RawTcp 是字节流，
+        /// 丢一块会让后续长度前缀错位。这里关闭该连接并把 Disconnected 事件留给 TickRefresh 派发。
+        /// </summary>
         private void Enqueue(RecvEvent ev)
         {
             long after = Interlocked.Add(ref pendingBytes, ev.Data?.Length ?? 0);
-            while ((events.Count >= MaxPendingEvents || after > MaxPendingBytes)
-                   && events.TryDequeue(out var dropped))
+            if (events.Count >= MaxPendingEvents || after > MaxPendingBytes)
             {
-                after = Interlocked.Add(ref pendingBytes, -(dropped.Data?.Length ?? 0));
+                Log.Warning("[RawTcpServerChannel] 连接 {0} 接收积压超限（条数/字节），关闭连接以避免错帧", Id);
+                while (events.TryDequeue(out _)) { }
+                Interlocked.Exchange(ref pendingBytes, 0);
+                Close();
+                events.Enqueue(new RecvEvent { Type = RecvEventType.Disconnected });
+                return;
             }
             events.Enqueue(ev);
         }

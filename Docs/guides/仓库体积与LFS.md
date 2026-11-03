@@ -1,22 +1,23 @@
 # 仓库体积与 LFS
 
-> 现状快照：2026-10-31（**已完成历史重写 + LFS 迁移**）。结论先说：Git 对象从 695 MB
-> 降到约 109 MB；但 LFS 里仍有约 642 MB 的 GIF/字体，所以 **checkout 总量仍约 751 MB**。
-> 要进一步缩小 clone，需要把 `Images/` 与字体外置，或从历史剔除。
+> 现状快照：2026-11-03（**已完成历史重写 + LFS 迁移**）。`.git/objects` 约 143 MB，
+> `.git/lfs` 约 642 MB（23 个对象），`.git` 合计约 786 MB；clone 仍要拉这 642 MB。
+> 要进一步缩小 clone，需要把 `Images/`（工作区 83 MB，GIF 多为 LFS 指针）与字体外置，或从历史剔除。
 
 ## 1. 体积构成（实测）
 
 | 位置 | 体积 | 说明 |
 |---|---|---|
-| `.git/objects` | 109 MB | 重写后的 Git 历史（大文件已变 LFS 指针） |
+| `.git/objects` | ≈143 MB | 重写后的 Git 历史（GIF/unitypackage 已变 LFS 指针） |
 | `.git/lfs` | 642 MB | 23 个 LFS 对象（GIF / unitypackage 等） |
-| `Images/` | 445 MB | 文档用示例 GIF/PNG |
+| `Images/` | 83 MB | 当前工作区；GIF 是 LFS 指针，smudge 后约 445 MB |
 | `Unity/Gear/Assets/Gear/Fonts/` | 130 MB | 思源 / HarmonyOS Sans / 第三方中文字体 |
-| 工作区 `Assets/` | 198 MB | 含上述字体 |
+| 工作区 `Assets/Gear/` | 194 MB | 含上述字体 |
+| 本地 `Unity/Gear/`（含 Library/Build） | 15 GB | 已被 `.gitignore` 忽略，可随时删除重建 |
 
 `.gitattributes` 已为 `*.gif` / `*.otf` / `*.ttf` / `*.psd` / `*.fbx` / `*.mp4` / `*.unitypackage`
-配置 LFS，但 `git lfs ls-files` 只有 1 个文件——说明**大部分大文件是在配置 LFS 之前提交的**，
-它们仍在普通 object 里（配置只影响之后新提交的文件）。
+配置 LFS。2026-10-31 的历史重写（`git lfs migrate import`）之后，`git lfs ls-files` 列出 23 个文件；
+**协作者必须重新 clone**，旧的本地仓库不会有这些 LFS 指针。
 
 ## 2. 非破坏性止损（已默认采用）
 
@@ -27,10 +28,10 @@
 2. **运行时包默认排除字体与示例**：UPM 的 Runtime profile 已排除 `Fonts/`、`Scenes/`、
    `3rd/Joystick Pack` 等，接入方不需要拉 130 MB 字体。
 3. **文档图外置（可选）**：把 `Images/` 迁到 GitHub Release 附件/图床，README 用外链；
-   工作区会立刻少 445 MB，但历史仍不变。
+   能少拉约 445 MB 的 GIF，但历史仍不变。
 4. **定期检查**：`git lfs migrate info --everything` 只读，能列出各扩展名占用，不改仓库。
 
-## 3. 历史重写（需要全员协调，默认不执行）
+## 3. 历史重写（已于 2026-10-31 执行；协作者必须重新 clone）
 
 目标：把历史里的大文件迁进 LFS，或从历史中剔除。两种方案：
 

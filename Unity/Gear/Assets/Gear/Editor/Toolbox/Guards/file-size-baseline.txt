@@ -26,19 +26,30 @@
 #   AddressableSystem 808 → 777、SceneSystem 743 → 687：已按职责拆出 partial 文件，行数只降不升。
 #   EventMessageSystem 713 → 568：泛型零装箱通道拆到 EventMessageSystem.Typed.cs（182 行），删除豁免。
 #   UIInputSystem.Navigation 902 → 429 + UIInputSystem.Navigation.Dispatch.cs（498 行），删除豁免。
-628 Assets/Gear/Editor/Addressables/AddressablesCdnUploader.cs
-930 Assets/Gear/Editor/Excel/Scripts/ExcelSystem.cs
-929 Assets/Gear/Editor/UIExamples/CreateLocalMultiplayerSelectionExample.cs
+# 2026-11-03 审查修复一次性对齐（新增的是必要的防御分支与说明，不是职责增长）：
+#   第一轮：AddressablesCdnUploader 628 → 637、CreateLocalMultiplayerSelectionExample 929 → 937、
+#           FileDownloader 797 → 815、NetworkClient 880 → 885、NetworkServer 725 → 728、SceneSystem 687 → 692。
+#   第二轮：AddressablesCdnUploader 637 → 655（同名文件 MD5 去重）、ExcelSystem 930 → 942（递归输出目录）、
+#           NetworkClient 885 → 903（握手超时）、NetworkServer 728 → 752（限流入口/握手超时）。
+#   第三轮：NetworkClient 903 → 910（RTT/序号回绕）、NetworkServer 752 → 781（广播隔离/Stop 事件）、
+#           UIToolkitSystem 582 → 609（新增面板生命周期代次；待把 OpenPanelAsync 拆到 partial 后删除本条）。
+#   第四轮：SaveSystem 675 → 690（自动保存静态注册跨会话复位）。
+#   第五轮：NetworkServer 781 → 786（未握手业务帧断开）、UIToolkitSystem 609 → 612（主题样式表引用归还）。
+#   后续仍只能降；这几个文件继续拆分时请把条目删掉。
+655 Assets/Gear/Editor/Addressables/AddressablesCdnUploader.cs
+942 Assets/Gear/Editor/Excel/Scripts/ExcelSystem.cs
+937 Assets/Gear/Editor/UIExamples/CreateLocalMultiplayerSelectionExample.cs
 668 Assets/Gear/Framework/Modules/ColliderUtil/ColliderUtil.cs
-797 Assets/Gear/Framework/Modules/Download/FileDownloader.cs
-880 Assets/Gear/Framework/Modules/Network/Core/NetworkClient.cs
-725 Assets/Gear/Framework/Modules/Network/Core/NetworkServer.cs
+815 Assets/Gear/Framework/Modules/Download/FileDownloader.cs
+910 Assets/Gear/Framework/Modules/Network/Core/NetworkClient.cs
+786 Assets/Gear/Framework/Modules/Network/Core/NetworkServer.cs
 808 Assets/Gear/Framework/Runtime/System/AddressableSystem/AddressableSystem.cs
-687 Assets/Gear/Framework/Runtime/System/SceneSystem/SceneSystem.cs
+612 Assets/Gear/Framework/Runtime/System/UIToolkitSystem/UIToolkitSystem.cs
+692 Assets/Gear/Framework/Runtime/System/SceneSystem/SceneSystem.cs
 998 Assets/Gear/Framework/Runtime/System/UIInputSystem/UIInputDeviceProfile.cs
 760 Assets/Gear/Framework/Runtime/System/UIInputSystem/UIInputSystem.Targets.cs
 615 Assets/Gear/UI/Select/LocalMultiplayerPlayerCard.cs
 611 Assets/Gear/Utilities/Util/AlgorithmUtil.Components.cs
 943 Assets/Gear/Utilities/Util/AlgorithmUtil.GameObjects.cs
 779 Assets/Gear/Utilities/Util/AlgorithmUtil.Transforms.cs
-675 Assets/Gear/Utilities/Util/SaveSystem.cs
+690 Assets/Gear/Utilities/Util/SaveSystem.cs

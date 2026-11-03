@@ -200,6 +200,12 @@ namespace Gear.Framework.Modules.Download
         public override bool Cancel()
         {
             if (cancelCalled) return false;
+
+            // 已完成的执行器：取消只应影响调度，绝不能删已交付的文件与 .done 标记。
+            // FileDownloader.Cancel() 会遍历 executors + executorsOld（后者含已完成的执行器），
+            // 批次超时/用户取消时原实现会把前面已经下好的文件一起删掉，下一轮只能全部重下。
+            if (CompletedMultipartDownload || completed || Completed) return false;
+
             cancelCalled = true;
 
             // 中止在途的 UWR，避免取消后网络 IO 继续运行、文件被重新写回
@@ -334,7 +340,15 @@ namespace Gear.Framework.Modules.Download
 
             if (!MultipartDownload)
             {
-                resp = HTTPHelper.Download(ref uwr, Uri, DownloadPath, isMd5Name, DownloadToRoot, AbandonOnFailure, false, RequestHeaders, Timeout);
+                // 整文件 GET 的 timeout 是"整个请求"预算：Timeout 默认 6 秒是给 200KB 分块的，
+                // 直接拿来卡整文件会让任何大文件必然超时。这里按"至少 256KB/s + 60s 握手/抖动"估算；
+                // 真正卡死（有连接无进度）由 FileDownloader 的"无进度"看门狗取消。
+                int wholeFileTimeout = Math.Max(Timeout, 60);
+                if (expectedSize > 0)
+                {
+                    wholeFileTimeout = Math.Max(wholeFileTimeout, (int)(expectedSize / (256 * 1024f)) + 60);
+                }
+                resp = HTTPHelper.Download(ref uwr, Uri, DownloadPath, isMd5Name, DownloadToRoot, AbandonOnFailure, false, RequestHeaders, wholeFileTimeout);
                 currentRequest = uwr;
                 resp.completed += (obj) =>
                 {
@@ -438,6 +452,12 @@ namespace Gear.Framework.Modules.Download
                     }
 
                     int reqChunkSize = (int)Math.Min((long)chunkSize, remaining);
+
+                    // 在发第一个分块之前就落盘续传身份。
+                    // 原实现只在"下载完成"时写 sidecar（:434/:545），于是一次中断之后本地没有 .etag，
+                    // 下次 resume 的校验会得到 localEtag=null ≠ 远端 ETag，从而 DeletePartialFile 从头再来——
+                    // 标准 CDN 都带 ETag，断点续传在真实环境里等于失效。
+                    WriteLocalEtag();
 
                     if (RequestHeaders == null)
                     {

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Gear.Common;
@@ -53,11 +53,17 @@ namespace Gear.Framework.Modules.Pool
             EnsureRoot();
             var go = new GameObject($"[SharedPool]{prefab.name}");
             go.transform.SetParent(root, false);
+            // 关键：先让 GameObject 保持 inactive 再 AddComponent，Awake 会推迟到 SetActive(true)，
+            // 这样 prefab / prewarmCount / maxSize 在 Awake 里已经是调用方传入的值。
+            // 原实现 AddComponent 立即触发 Awake，池按默认值（maxSize=100、prefab=null）建好，
+            // 之后再赋参数已经来不及 —— EnsureInitialized 直接 return，prewarm/maxSize 全部被忽略。
+            go.SetActive(false);
             var pool = go.AddComponent<GameObjectPool>();
             pool.prefab = prefab;
             pool.prewarmCount = prewarm;
             pool.maxSize = maxSize;
-            pool.EnsureInitialized(); // AddComponent 已触发 Awake，此处幂等；确保参数在预热前生效
+            go.SetActive(true);        // 触发 Awake：此时参数就位，池按调用方要求初始化（含预热）
+            pool.EnsureInitialized();  // 幂等兜底
             pools[key] = pool;
             return pool;
         }

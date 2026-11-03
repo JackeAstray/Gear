@@ -176,7 +176,7 @@ namespace Gear.Framework.Modules.Download
         internal int n = 0;
 
         /// <summary>
-        /// 下载所有 URI 并等待完成，超过最大等待时间（默认 = Timeout × 文件数量，最低 30 秒）则强制取消。
+        /// 下载所有 URI 并等待完成，连续无进度超过阈值（默认 = Timeout × 2，最低 30 秒）则强制取消。
         /// </summary>
         /// <returns></returns>
         public override async UniTask<bool> Download()
@@ -227,11 +227,15 @@ namespace Gear.Framework.Modules.Download
 
             await UniTask.WhenAll(tasks);
 
-            // 超时等待循环：最多等待 (Timeout * 文件数 * 2) 秒，最低 30 秒
-            int maxWaitSeconds = Math.Max(30, Timeout * Uris.Length * 2);
+            // 卡死判定：只统计"连续无进度"的时长。原实现按 (Timeout × 文件数 × 2) 算总墙钟，
+            // 单文件最低 30 秒，与文件大小/带宽无关 —— 大文件或慢网必然在 30 秒被强杀，
+            // 而旧 Cancel() 又会把已完成分块一起删掉，形成"下到一半 → 清空 → 重下"的循环。
+            int stallTimeoutSeconds = Math.Max(30, Timeout * 2);
             float waited = 0f;
             const float pollInterval = 0.1f;
             bool timedOut = false;
+            float lastProgress = -1f;
+            int lastRemaining = int.MaxValue;
 
             while (Downloading && !(DidError && !ContinueAfterFailure))
             {
@@ -241,9 +245,20 @@ namespace Gear.Framework.Modules.Download
                     await UniTask.Delay((int)(pollInterval * 1000));
                     continue;
                 }
-                if (waited >= maxWaitSeconds)
+
+                // 有进度（总进度前进或又完成一个文件）就重置计时；阈值代表"连续 N 秒毫无进展"
+                float currentProgress = Progress;
+                int currentRemaining = NumFilesRemaining;
+                if (currentProgress > lastProgress + 0.0001f || currentRemaining < lastRemaining)
                 {
-                    Log.Error("下载超时：已等待 {0} 秒，仍有 {1} 个文件未完成，强制取消下载", maxWaitSeconds, NumFilesRemaining);
+                    lastProgress = currentProgress;
+                    lastRemaining = currentRemaining;
+                    waited = 0f;
+                }
+
+                if (waited >= stallTimeoutSeconds)
+                {
+                    Log.Error("下载卡死：连续 {0} 秒无进度，仍有 {1} 个文件未完成，强制取消下载", stallTimeoutSeconds, NumFilesRemaining);
                     timedOut = true;
                     await Cancel();
                     break;
@@ -661,6 +676,9 @@ namespace Gear.Framework.Modules.Download
             try { OnCancelIndividual?.Invoke(uri); }
             catch (Exception ex) { Log.Warning("OnCancelIndividual 订阅者异常: {0}", ex.Message); }
 
+            // 取消不是成功：标记后 Download() 会返回 false，且下面不再广播 OnDownloadsSuccess
+            didCancel = true;
+
             int idx = FindExecutorIndex(executors, uri);
             if (idx >= 0)
             {
@@ -719,13 +737,13 @@ namespace Gear.Framework.Modules.Download
                 }
             }
 
-            // 逐个取消后计数可能归零且无在途请求：必须补完成判定，
-            // 否则 Download() 等待循环（Downloading 仍 true）会一直挂到超时强杀
+            // 逐个取消后计数可能归零且无在途请求：必须结束等待循环，否则 Download() 会一直挂到看门狗。
+            // 注意这里不触发 OnDownloadsSuccess —— DownloadMgr 把它映射为"全部下载成功"的 action，
+            // 取消最后一个文件时会让调用方误以为下载完成；取消由 OnCancel/OnCancelIndividual 通知。
             if (numFilesRemaining <= 0 && NumThreads == 0 && Downloading)
             {
                 downloading = false;
                 endTime = Environment.TickCount;
-                OnDownloadsSuccess?.Invoke();
             }
             return UniTask.FromResult(true);
         }

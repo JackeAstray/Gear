@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Runtime.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
@@ -130,6 +130,9 @@ namespace Gear.Framework.Runtime.UI
                     kv.Value.uiWindow.IsVisiable = false;
                 }
             }
+
+            // 隐藏后模态可能已不可见：重算一次，避免 blockedWindows 残留到重新显示时。
+            UIRouter.RefreshModalState();
         }
 
         /// <summary>
@@ -145,6 +148,8 @@ namespace Gear.Framework.Runtime.UI
                     kv.Value.uiWindow.IsVisiable = true;
                 }
             }
+
+            UIRouter.RefreshModalState();
         }
 
         /// <summary>

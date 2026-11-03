@@ -25,14 +25,21 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  UNITY_EDITOR: E:\UnityEditor\6000.3.10f1\Editor\Unity.exe
+  # 换机器时优先用仓库 Variable（Settings → Variables）UNITY_EDITOR；未设置时回退到默认路径。
+  UNITY_EDITOR: ${{ vars.UNITY_EDITOR || 'E:\UnityEditor\6000.3.10f1\Editor\Unity.exe' }}
   UNITY_PROJECT_PATH: Unity/Gear
 
 jobs:
   verify-pr:
     name: PR 编译 + EditMode + 守卫
-    # 只接受同仓库分支；fork PR 不落到自托管机器
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # 只接受同仓库分支，且作者必须是 OWNER/MEMBER/COLLABORATOR；
+    # fork PR 与外部协作者（CONTRIBUTOR/NONE，含 Dependabot）都不落到自托管机器。
+    # 注意：这不能替代 runner 隔离，只是把"未经审计的第三方代码"挡在默认路径外。
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository
+      && (github.event.pull_request.author_association == 'OWNER'
+          || github.event.pull_request.author_association == 'MEMBER'
+          || github.event.pull_request.author_association == 'COLLABORATOR')
     runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 90
     steps:

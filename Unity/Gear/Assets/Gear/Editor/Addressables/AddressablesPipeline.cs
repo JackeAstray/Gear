@@ -46,14 +46,25 @@ namespace Gear.EditorTools.Addressables
         private static void RunPipeline(BuildTarget target)
         {
             var sb = new StringBuilder();
+            bool ok = false;
             sb.AppendLine("===== Addressables 一键流水线开始 =====");
             sb.AppendLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] 目标平台: {target}");
 
             try
             {
                 // 0. 确保配置（分组 / Label / Profile / 激活 DevLocal）
-                AddressablesSetup.EnsureSetup();
-                sb.AppendLine("[1/4] 配置就绪（分组 / Label / Profile）");
+                if (!AddressablesSetup.EnsureSetup())
+                {
+                    throw new Exception("Addressables 配置初始化失败");
+                }
+
+                // 发布流水线必须显式切到 Publish：EnsureSetup 会把活动 Profile 固定回 DevLocal，
+                // 不切就会把 http://localhost:8080 烘进 catalog，上传后所有客户端都指向本机。
+                if (!AddressablesSetup.TrySetActiveProfile("Publish", out string profileError))
+                {
+                    throw new Exception("切换发布 Profile 失败: " + profileError);
+                }
+                sb.AppendLine("[1/4] 配置就绪（分组 / Label / Profile=Publish）");
 
                 // 1. 资源迁移（统一入口，幂等：目标已存在则跳过复制，只补齐标记）
                 AddressablesMigrator.MigrateAll();
@@ -66,16 +77,24 @@ namespace Gear.EditorTools.Addressables
                 }
                 sb.AppendLine($"[3/4] 构建完成（{target}），version.json 已更新");
 
-                // 3. 上传 OSS（增量；含 catalog_*.bin/.hash；未配置凭据时跳过、不阻断）
-                if (AddressablesCdnUploader.UploadToOSSBatch(out string uploadMessage))
+                // 3. 上传 OSS（增量；含 catalog_*.bin/.hash）
+                bool uploaded = AddressablesCdnUploader.UploadToOSSBatch(out string uploadMessage);
+                if (uploaded)
                 {
                     sb.AppendLine("[4/4] OSS 上传成功：" + uploadMessage);
                 }
+                else if (!AddressablesCdnUploader.IsConfigured)
+                {
+                    // 未配置凭据是"跳过"，不是失败：CI 在没配 OSS 时仍应能只做构建。
+                    sb.AppendLine("[4/4] OSS 未配置，跳过上传（构建产物已生成）：" + uploadMessage);
+                }
                 else
                 {
-                    sb.AppendLine("[4/4] OSS 上传未执行/失败：" + uploadMessage);
+                    // 配了凭据但上传失败：必须让批处理退出码非 0，否则 CI 绿而 CDN 没更新。
+                    throw new Exception("OSS 上传失败: " + uploadMessage);
                 }
 
+                ok = true;
                 sb.AppendLine("===== 流水线结束（成功） =====");
                 Log.Debug(sb.ToString(), channel: LogChannel.Resource);
             }
@@ -96,6 +115,12 @@ namespace Gear.EditorTools.Addressables
             catch (Exception ex)
             {
                 Log.Warning("[AddressablesPipeline] 写入结果文件失败: " + ex.Message, channel: LogChannel.Resource);
+            }
+
+            // 批处理没有"人工看日志"的机会：退出码是 CI 唯一能看到的信号。
+            if (Application.isBatchMode)
+            {
+                EditorApplication.Exit(ok ? 0 : 1);
             }
         }
     }

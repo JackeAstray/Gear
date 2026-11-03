@@ -25,6 +25,10 @@ namespace Gear.Framework.Runtime.UIInput
 
         private void RegisterUIEvents()
         {
+            // 重复 Init（引擎重启/模块重初始化）时先释放上一轮订阅，
+            // 否则 OnUIOpened/OnUIClosed 会被调用两次，且旧订阅永久挂在旧 Subject 上。
+            UnregisterUIEvents();
+
             // 初始化期间 UISystem 可能已被 Clear（Subject 置 null）：直接订阅会 NRE 并让整个 Init 失败
             if (!Modules.TryGet(out UISystem ui) || ui.OnOpenSubject == null || ui.OnCloseSubject == null)
             {

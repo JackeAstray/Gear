@@ -10,10 +10,10 @@
 | 架构 | 单一访问路径；无 >1000 行文件；Editor 代码全部 asmdef 化 | **达成** | Editor 已完成（33 asmdef）；`.Instance` **22 处**（仅注册点 + Modules 独立使用）；最大文件 998 行，无 >1000 | — |
 | 核心可靠性 | RPC 协议可协商；下载有完整性/迁移策略；网络有 loopback 回归 | **达成（除压力/混沌）** | 错误帧开关 + 保留 ID 测试；`.done` + 迁移开关；TCP 回环 RPC 成功/错误/自动重连 3 条 PlayMode | 压力/混沌测试未做 |
 | UI 行为 | 状态机/ESC/返回栈/Static 有 PlayMode 回归 | **达成** | 210 EditMode；PlayMode 9/9；Back 模态、Static 重开、Open 重复、ESC 文本聚焦均已覆盖 | — |
-| 测试与门禁 | PR 上编译 + 类型检查 + 覆盖率阈值；守卫单一实现 | **达成（同仓 PR）/ 部分（fork）** | 210 EditMode + 9 PlayMode 全绿；6 条守卫；语法/文档链接门禁；同仓 PR 走自托管 `unity-verify-pr.yml` | fork PR 仍需 `UNITY_LICENSE` 才能跑 Unity |
+| 测试与门禁 | PR 上编译 + 类型检查；6 条守卫 | **达成（同仓 PR）/ 部分（fork）** | 210 EditMode + 9 PlayMode 全绿；6 条守卫（Unity C# 与 CI shell 两份实现，改规则需同步）；语法/文档链接门禁；同仓 PR 走自托管 `unity-verify-pr.yml`；**没有覆盖率阈值**（未接 code coverage） | fork PR 仍需 `UNITY_LICENSE` 才能跑 Unity |
 | 文档 | 计数/链接自动校验；历史文档有快照标识；中英对齐 | **接近** | 本地链接已由 `Tools/DocsCheck` 自动检查（103 个链接 0 缺失）；计数仍人工维护 | 计数自动校验 / 英文对齐未做 |
 | 发布 | 远端 `upm` 与源码一致；空工程安装烟测进 CI | **达成** | 远端 `upm` 已为 `com.jackeastray.gear@1.3.0`；`upm-smoke-test.ps1` 通过；自托管 main 已接入 | — |
-| 仓库卫生 | `.git` 可接受；LFS 历史迁移；大文件门禁 | **部分** | Git objects 109 MB；LFS 642 MB / 23 文件；clone 总量仍约 751 MB | 需外置 `Images/` 或字体才能继续降 |
+| 仓库卫生 | `.git` 可接受；LFS 历史迁移；大文件门禁 | **部分** | 实测 2026-11-03：`.git/objects` ≈143 MB；LFS 642 MB / 23 文件；`.git` 合计 ≈786 MB。**没有按字节的大文件门禁**，只有 600 行/文件的行数门禁 | 需外置 `Images/` 或字体才能继续降 |
 | 平台 | WebGL 浏览器 / Android / iOS / mac / Linux 真实验证 | **部分** | WebGL 本机构建通过（44.3 MB / 0 错误）；Android 构建通过；浏览器/真机/macOS 未验证 | 需设备与 macOS |
 
 ## 2. 已通过的验收命令

@@ -225,7 +225,10 @@ namespace Gear.Framework.Runtime.UIInput
                 if (exitKey != Key.None && Keyboard.current[exitKey].wasPressedThisFrame)
                 {
                     var cancelKey = GetKeyFromName(CurrentBinding.cancel);
-                    if (exitKey == cancelKey && (HasOpenUI() || HasActiveNavigationTarget(KeyboardMousePlayerIndex)))
+                    // 只有"按取消键真的能关掉/返回"时才把它让给 UI；否则（HUD/Static 窗口
+                    // 不在路由栈、也没有可弹出的模态）会永远停在 UI 模式里出不去。
+                    // 需要 ESC 语义的自定义窗口请走 UIRouter.Push 或订阅 CancelEventSubject。
+                    if (exitKey == cancelKey && UIRouter.CanGoBack)
                     {
                         return;
                     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -106,6 +106,10 @@ namespace Gear.Framework.Modules
 
         void Update()
         {
+            // NetworkMgr 的延迟移除队列也必须在主线程消费：只靠 GameEngine.Update 时，
+            // 只用 UniversalNetworkBehaviour、没启动引擎的工程会让被移除的通道一直留在列表里。
+            NetworkMgr.TickIfInitialized();
+
             // 网络 Tick 始终在主线程驱动（底层通道非线程安全），
             // 事件（连接/断开/数据）在本帧内派发
             if (networkClient != null) networkClient.Tick();

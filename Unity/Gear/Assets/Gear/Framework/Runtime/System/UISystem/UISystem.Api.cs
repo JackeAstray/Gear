@@ -46,7 +46,9 @@ namespace Gear.Framework.Runtime.UI
             foreach (var kv in uiStateCache)
             {
                 var uiBase = kv.Value?.uiWindow;
-                if (uiBase != null && uiBase.gameObject.activeSelf)
+                // activeInHierarchy：UIRoot 被整体隐藏/禁用时，窗口自身 activeSelf 仍是 true，
+                // 用它判断"有没有打开的 UI"会得到假阳性（HUD 隐藏后 ESC 仍被 UI 吃掉）。
+                if (uiBase != null && uiBase.gameObject.activeInHierarchy)
                 {
                     return true;
                 }
@@ -59,7 +61,8 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         public bool IsOpen<T>() where T : UIController
         {
-            string uiName = typeof(T).Name;
+            // 与 OpenWindow<T> 保持同一套 Id 解析（[UIWindow] Id 优先，类名兜底）
+            string uiName = UIWindowCatalog.GetId(typeof(T));
             return IsOpen(uiName);
         }
 

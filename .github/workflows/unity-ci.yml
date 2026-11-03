@@ -352,6 +352,9 @@ jobs:
           fail=0
           # 口径与 ArchitectureGuard.InstanceCheckExcludedSegments 一致：Tests / Example 不参与。
           # 测试不启动引擎、示例代码本身就是演示，两者继续用 Instance 是刻意保留的（见基线文件注释）。
+          # .Instance 计数归零时 grep 返回 1；在 set -euo pipefail 下，`actual=$(grep|wc)` 会让
+          # 整个 step 在赋值处静默中止（棘轮打满 = CI 红）。本段临时关闭 pipefail，计数仍由 fail 汇总。
+          set +o pipefail
           while read -r name limit; do
             case "$name" in ''|\#*) continue ;; esac
             actual=$(grep -rho --include='*.cs' --exclude-dir=Plugins --exclude-dir=3rd \

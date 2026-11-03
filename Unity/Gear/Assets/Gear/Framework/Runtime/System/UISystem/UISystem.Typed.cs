@@ -78,16 +78,21 @@ namespace Gear.Framework.Runtime.UI
             if (window == null || args == null) return;
 
             Type argsType = args.GetType();
+            Type receiverType = typeof(IWindowArgsReceiver<>).MakeGenericType(argsType);
+
+            // 必须先按"当前窗口"判断是否实现接收接口，再走方法缓存。
+            // 缓存只按 argsType 键控：若先缓存了 A 窗口的方法，B 窗口（同参数类型但没实现接口）
+            // 命中缓存后 method.Invoke 会抛 TargetException，每次打开刷一条错误日志。
+            if (!receiverType.IsInstanceOfType(window))
+            {
+                // 窗口没实现该参数类型的接收接口：记一次调试日志即可（不算错误，老窗口就该走 OnOpen）
+                Log.Debug("[UISystem] {0} 未实现 IWindowArgsReceiver<{1}>，参数将被忽略",
+                    window.GetType().Name, argsType.Name);
+                return;
+            }
+
             if (!argsReceiverMethodCache.TryGetValue(argsType, out MethodInfo method))
             {
-                Type receiverType = typeof(IWindowArgsReceiver<>).MakeGenericType(argsType);
-                if (!receiverType.IsInstanceOfType(window))
-                {
-                    // 窗口没实现该参数类型的接收接口：记一次调试日志即可（不算错误，老窗口就该走 OnOpen）
-                    Log.Debug("[UISystem] {0} 未实现 IWindowArgsReceiver<{1}>，参数将被忽略",
-                        window.GetType().Name, argsType.Name);
-                    return;
-                }
                 // 显式接口实现的方法不是 public，必须带上 NonPublic 才能取到
                 method = receiverType.GetMethod("OnWindowArgs", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                 argsReceiverMethodCache[argsType] = method;

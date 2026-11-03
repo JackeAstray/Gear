@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -107,6 +107,9 @@ namespace Gear.Utilities
 
         // Paging 状态
         int currentPage = -1;
+        // 正在动画到目标页：平滑滚动期间 currentPage 尚未更新，连续点"下一页"必须基于它累加，
+        // 否则两次点击都从旧值计算，只会停在同一页。
+        int pendingPage = -1;
 
         // 选中项（以数据索引为准，-1 表示无选中）
         int selectedDataIndex = -1;

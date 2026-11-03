@@ -52,7 +52,9 @@ concurrency:
 
 env:
   # 换机器 / 换 Unity 版本时只改这一行：Tools/unity-verify.ps1 会读这个环境变量
-  UNITY_EDITOR: E:\UnityEditor\6000.3.10f1\Editor\Unity.exe
+  # 换机器时优先用仓库 Variable（Settings → Variables）UNITY_EDITOR；
+  # 未设置时回退到本机默认安装路径，避免把机器路径焊死在共享工作流里。
+  UNITY_EDITOR: ${{ vars.UNITY_EDITOR || 'E:\UnityEditor\6000.3.10f1\Editor\Unity.exe' }}
   UNITY_PROJECT_PATH: Unity/Gear
 
 jobs:
@@ -100,9 +102,13 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          & $env:UNITY_EDITOR -batchmode -quit -nographics -projectPath $env:UNITY_PROJECT_PATH `
-            -executeMethod Gear.EditorTools.Package.GearUpmExporter.ExportRuntimeBatch `
-            -logFile -
+          $exportArgs = @('-batchmode', '-quit', '-nographics', '-projectPath', $env:UNITY_PROJECT_PATH, `
+            '-executeMethod', 'Gear.EditorTools.Package.GearUpmExporter.ExportRuntimeBatch', '-logFile', '-')
+          # Unity.exe 是 GUI 子系统程序：PowerShell 的 & 不等待、也不设置 $LASTEXITCODE（保持 $null），
+          # 而 `$null -ne 0` 恒真 → 这一步原本必定抛错，后面的烟测永远不执行。
+          # 用 Start-Process -Wait 取真实退出码，再写回 $LASTEXITCODE 供下一行沿用。
+          $export = Start-Process -FilePath $env:UNITY_EDITOR -ArgumentList $exportArgs -NoNewWindow -Wait -PassThru
+          $LASTEXITCODE = $export.ExitCode
           if ($LASTEXITCODE -ne 0) { throw "UPM 导出失败（退出码 $LASTEXITCODE）" }
 
           & '.\Tools\upm-smoke-test.ps1' -UnityPath $env:UNITY_EDITOR

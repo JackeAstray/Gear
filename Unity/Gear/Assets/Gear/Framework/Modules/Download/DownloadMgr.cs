@@ -233,7 +233,7 @@ namespace Gear.Framework.Modules.Download
                 // 用 URL 最后一段文件名检查会永远识别不到已下载文件，导致重复下载。
                 string fileName = useMd5Name
                     ? PathUtil.GetFileNameByUrl(fileUrl)
-                    : FileOperationUtil.GetFileName(fileUrl);
+                    : HTTPHelper.GetFilenameFromUriNaively(fileUrl);
                 string localFilePath = Path.Combine(savePath, fileName);
 
                 if (File.Exists(localFilePath))
@@ -309,20 +309,29 @@ namespace Gear.Framework.Modules.Download
                 action?.Invoke();
             };
 
+            bool errorReported = false;
+
             ufd.OnDownloadError += (string uri, int errorCode, string errorMsg) =>
             {
                 Log.Error("错误代码={0}, EM={1}, URU={2}", errorCode, errorMsg, uri);
+                errorReported = true;
                 error?.Invoke(errorMsg);
             };
 
             try
             {
-                await ufd.Download();
+                bool completed = await ufd.Download();
+                // Download() 返回 false 覆盖超时/取消/失败；OnDownloadError 只会在单文件错误时触发，
+                // 原实现丢弃返回值，导致看门狗超时/取消时调用方既收不到 action 也收不到 error，永远悬空。
+                if (!completed && !errorReported)
+                {
+                    error?.Invoke("下载未完成（超时/取消/失败）");
+                }
             }
             catch (Exception ex)
             {
                 Log.Error("下载过程中发生异常: {0}", ex.Message);
-                error?.Invoke(ex.Message);
+                if (!errorReported) error?.Invoke(ex.Message);
             }
         }
 

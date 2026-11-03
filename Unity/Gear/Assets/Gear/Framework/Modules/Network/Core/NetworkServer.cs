@@ -134,6 +134,10 @@ namespace Gear.Framework.Modules
             foreach (var kv in connections)
             {
                 kv.Value.Dispatcher.ClearHandlers();
+                // 主动 Stop 也要通知业务层清理每连接状态；否则订阅者的 clientIds/玩家对象
+                // 会保留一批永远不会再断开的 id（后续重连复用 id 时状态错乱）。
+                try { OnClientDisconnected?.Invoke(kv.Key); }
+                catch (Exception ex) { Log.Warning("[NetworkServer] OnClientDisconnected 回调异常: {0}", ex.Message); }
             }
             connections.Clear();
             authenticatedConnections.Clear();
@@ -149,23 +153,34 @@ namespace Gear.Framework.Modules
             TickIdleTimeout();
         }
 
-        /// <summary>空闲超时回收：超过 idleTimeoutSeconds 未收到任何数据的连接被断开
-        /// （客户端启用心跳后定期发 PING，活跃连接不会误伤；半开/静默连接被清理）</summary>
+        /// <summary>
+        /// 连接回收：空闲超时（idleTimeoutSeconds）与加密握手超时（handshakeTimeoutSeconds）。
+        /// 客户端启用心跳后定期发 PING，活跃连接不会误伤；半开/静默/半握手连接被清理。
+        /// </summary>
         void TickIdleTimeout()
         {
-            if (config.idleTimeoutSeconds <= 0f || connections.Count == 0) return;
+            if ((config.idleTimeoutSeconds <= 0f && config.handshakeTimeoutSeconds <= 0f) || connections.Count == 0) return;
             float now = Time.realtimeSinceStartup;
             idleExpiredBuffer.Clear();
             foreach (var kv in connections)
             {
-                if (now - kv.Value.Info.LastReceiveTime > config.idleTimeoutSeconds)
+                bool idleExpired = config.idleTimeoutSeconds > 0f
+                                   && now - kv.Value.Info.LastReceiveTime > config.idleTimeoutSeconds;
+                // 半握手连接：服务端已发 ServerHello，但客户端一直不发 ClientHello。
+                // 若只依赖 idleTimeout（默认 0），这类连接会永久占用连接槽与 1MB 组装缓冲。
+                bool handshakeExpired = handshakeEnabled
+                                        && config.handshakeTimeoutSeconds > 0f
+                                        && !kv.Value.Secured
+                                        && (DateTime.UtcNow - kv.Value.Info.ConnectedAt).TotalSeconds > config.handshakeTimeoutSeconds;
+                if (idleExpired || handshakeExpired)
                 {
                     idleExpiredBuffer.Add(kv.Key);
                 }
             }
             foreach (var id in idleExpiredBuffer)
             {
-                Log.Warning("[NetworkServer] 连接 {0} 空闲超时（{1}s 未收到数据），已断开", id, config.idleTimeoutSeconds);
+                Log.Warning("[NetworkServer] 连接 {0} 超时（空闲 {1}s / 握手 {2}s），已断开",
+                    id, config.idleTimeoutSeconds, config.handshakeTimeoutSeconds);
                 DisconnectClient(id);
             }
         }
@@ -185,13 +200,22 @@ namespace Gear.Framework.Modules
             {
                 return false;
             }
-            var frame = conn.Codec.Encode(messageId, payload);
-            var ok = channel.SendMessage(connectionId, frame);
-            if (ok)
+            // 单连接编码/发送失败不应把异常抛给调用方（Tick/业务循环）：记录并按失败处理。
+            try
             {
-                conn.Info.BytesSent += frame.Length;
+                var frame = conn.Codec.Encode(messageId, payload);
+                var ok = channel.SendMessage(connectionId, frame);
+                if (ok)
+                {
+                    conn.Info.BytesSent += frame.Length;
+                }
+                return ok;
             }
-            return ok;
+            catch (Exception ex)
+            {
+                Log.Warning("[NetworkServer] 发送到连接 {0} 失败（已隔离）: {1}", connectionId, ex.Message);
+                return false;
+            }
         }
 
         /// <summary>广播负载到全部客户端（消息 ID = 0）</summary>
@@ -210,10 +234,18 @@ namespace Gear.Framework.Modules
                 if (conn == null) continue;
                 // 与 Send 保持一致的握手门禁：未完成握手的连接不接收业务帧
                 if (handshakeEnabled && !conn.Secured && !NetworkConstants.IsReservedMessageId(messageId)) continue;
-                var frame = conn.Codec.Encode(messageId, payload);
-                if (channel.SendMessage(kv.Key, frame))
+                try
                 {
-                    conn.Info.BytesSent += frame.Length;
+                    var frame = conn.Codec.Encode(messageId, payload);
+                    if (channel.SendMessage(kv.Key, frame))
+                    {
+                        conn.Info.BytesSent += frame.Length;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 单个连接编码/发送失败不能中止整个广播（更不能冒泡到 Tick）
+                    Log.Warning("[NetworkServer] 广播到连接 {0} 失败（已隔离）: {1}", kv.Key, ex.Message);
                 }
             }
         }
@@ -233,10 +265,18 @@ namespace Gear.Framework.Modules
                 var conn = kv.Value;
                 if (conn == null) continue;
                 if (handshakeEnabled && !conn.Secured && !NetworkConstants.IsReservedMessageId(messageId)) continue;
-                var frame = conn.Codec.Encode(messageId, payload);
-                if (channel.SendMessage(kv.Key, frame))
+                try
                 {
-                    conn.Info.BytesSent += frame.Length;
+                    var frame = conn.Codec.Encode(messageId, payload);
+                    if (channel.SendMessage(kv.Key, frame))
+                    {
+                        conn.Info.BytesSent += frame.Length;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 单个连接编码/发送失败不能中止整个广播（更不能冒泡到 Tick）
+                    Log.Warning("[NetworkServer] 广播到连接 {0} 失败（已隔离）: {1}", kv.Key, ex.Message);
                 }
             }
         }
@@ -447,9 +487,14 @@ namespace Gear.Framework.Modules
         /// <summary>ACK 回包 [4B seq] 复用缓冲（Send→codec.Encode 同步拷贝，主线程无重入风险，零分配）</summary>
         static readonly byte[] ackSeqBuffer = new byte[4];
 
-        void HandleFrame(int connectionId, ServerConnection conn, ushort messageId, ArraySegment<byte> frame, ArraySegment<byte> payload)
+        void HandleFrame(int connectionId, ServerConnection conn, ushort messageId, ArraySegment<byte> frame, ArraySegment<byte> payload, bool countRateLimit = true)
         {
-            // 系统帧：心跳 PING（客户端→服务端）—— 自动回 PONG 应答，不计入速率限制
+            // 限流必须放在所有分支之前：PING / PONG / 握手 / 格式错误的 ACK 帧原本都在
+            // 限流块（旧位置在可靠帧之后）之前 return，等于完全绕过 maxMessagesPerSecond。
+            // 可靠帧的外层 ACK 计一次，递归派发内层消息时传 countRateLimit=false，避免重复计数。
+            if (countRateLimit && !TryConsumeMessageBudget(conn, connectionId)) return;
+
+            // 系统帧：心跳 PING（客户端→服务端）—— 自动回 PONG 应答
             if (messageId == NetworkConstants.ReservedPingMessageId)
             {
                 Send(connectionId, NetworkConstants.ReservedPongMessageId, Array.Empty<byte>());
@@ -512,6 +557,11 @@ namespace Gear.Framework.Modules
                     && messageId != NetworkConstants.ReservedPongMessageId
                     && messageId != NetworkConstants.ReservedAckMessageId)
                 {
+                    // 未握手就发业务帧：静默丢弃会让"两端握手开关不一致"表现为
+                    // "连接正常但消息全部消失"，排查成本很高。按协议违规断开并留下明确原因。
+                    Log.Error("[NetworkServer] 连接 {0} 在加密握手完成前发送业务帧 {1}，按协议违规断开" +
+                              "（请检查两端 enableEncryptedHandshake 是否一致）", connectionId, messageId);
+                    DisconnectClient(connectionId);
                     return;
                 }
             }
@@ -547,35 +597,15 @@ namespace Gear.Framework.Modules
                     // 且 OnRawFrame 订阅者拿不到可靠帧原文
                     HandleFrame(connectionId, conn, innerId,
                         new ArraySegment<byte>(arr, off, 6 + payload.Count - 6),
-                        new ArraySegment<byte>(arr, off + 6, payload.Count - 6));
+                        new ArraySegment<byte>(arr, off + 6, payload.Count - 6),
+                        countRateLimit: false);
                     return;
                 }
                 Log.Warning("[NetworkServer] 连接 {0} 可靠帧格式错误，已忽略", connectionId);
                 return;
             }
 
-            // 消息速率限制：单连接超限丢弃本帧（防刷消息 DoS）。
-            // 置于 RPC 分支之前：RPC 洪水同样受限；可靠帧在解包递归后按内层消息计一次（不重复计外层 ACK 帧）
-            if (config.maxMessagesPerSecond > 0)
-            {
-                float now = Time.realtimeSinceStartup;
-                if (now - conn.MessageWindowStart >= 1f)
-                {
-                    conn.MessageWindowStart = now;
-                    conn.MessageCountInWindow = 0;
-                }
-                if (++conn.MessageCountInWindow > config.maxMessagesPerSecond)
-                {
-                    conn.DroppedMessages++;
-                    // 低频告警：每丢弃 100 条记一次，避免刷屏
-                    if (conn.DroppedMessages % 100 == 1)
-                    {
-                        Log.Warning("[NetworkServer] 连接 {0} 消息速率超限（>{1}/s），丢弃本帧（累计丢弃 {2}）",
-                            connectionId, config.maxMessagesPerSecond, conn.DroppedMessages);
-                    }
-                    return;
-                }
-            }
+            // 消息速率限制已在 HandleFrame 入口统一执行（含 PING/PONG/握手/ACK）
 
             // 系统帧：RPC 请求
             if (messageId == NetworkConstants.ReservedRequestMessageId)
@@ -623,6 +653,34 @@ namespace Gear.Framework.Modules
                     Log.Warning("[NetworkServer] 对象处理器异常（{0}）: {1}", type.Name, ex.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// 单连接消息速率预算：超过 <see cref="NetworkServerConfig.maxMessagesPerSecond"/> 返回 false，
+        /// 调用方丢弃本帧。所有帧类型（含 PING / PONG / 握手 / 格式错误的 ACK）都从这里扣预算。
+        /// </summary>
+        bool TryConsumeMessageBudget(ServerConnection conn, int connectionId)
+        {
+            if (config.maxMessagesPerSecond <= 0) return true;
+
+            float now = Time.realtimeSinceStartup;
+            if (now - conn.MessageWindowStart >= 1f)
+            {
+                conn.MessageWindowStart = now;
+                conn.MessageCountInWindow = 0;
+            }
+            if (++conn.MessageCountInWindow > config.maxMessagesPerSecond)
+            {
+                conn.DroppedMessages++;
+                // 低频告警：每丢弃 100 条记一次，避免刷屏
+                if (conn.DroppedMessages % 100 == 1)
+                {
+                    Log.Warning("[NetworkServer] 连接 {0} 消息速率超限（>{1}/s），丢弃本帧（累计丢弃 {2}）",
+                        connectionId, config.maxMessagesPerSecond, conn.DroppedMessages);
+                }
+                return false;
+            }
+            return true;
         }
 
         void CloseChannel()
@@ -708,6 +766,9 @@ namespace Gear.Framework.Modules
             public ServerConnection(int connectionId, string address, INetworkMessageCodec codec, int maxFrameSize)
             {
                 Info = new NetworkConnectionInfo(connectionId, address);
+                // 必须初始化：默认 0 会被 TickIdleTimeout 当成"从游戏启动起就没收到过数据"，
+                // 开启 idleTimeoutSeconds 后每个新连接都会在下一帧被踢掉（加密握手也来不及完成）。
+                Info.LastReceiveTime = Time.realtimeSinceStartup;
                 Codec = codec;
                 Assembler = new NetworkStreamAssembler(codec, maxFrameSize);
                 MessageWindowStart = Time.realtimeSinceStartup;

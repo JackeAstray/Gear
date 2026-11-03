@@ -73,6 +73,9 @@ namespace Gear.Framework.Modules
         [Tooltip("握手主密钥（32 字节）。生产环境建议运行时用 SetHandshakeMasterKey 从 HTTPS 登录接口下发，勿硬编码")]
         public byte[] handshakeMasterKey = null;
 
+        [Tooltip("握手超时（秒）：传输层已连接但加密会话未建立的等待上限，超时断开并重连；0 = 不启用")]
+        public float handshakeTimeout = 10f;
+
         public NetworkClientConfig Clone()
         {
             return (NetworkClientConfig)MemberwiseClone();

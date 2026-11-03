@@ -33,9 +33,8 @@ namespace Gear.Framework.Modules
         /// <summary>发送队列字节上限：对端不读时不能让待发数据无限堆积（主线程只入队，实际写在线程池）</summary>
         private const long MaxQueuedSendBytes = 4L * 1024 * 1024;
 
-        // 溢出丢弃计数（节流告警：主线程长时间停摆时避免每事件刷日志）
+        // 溢出丢弃计数（节流日志用）
         int droppedEventCount;
-        int lastDropWarnTick;
 
         /// <summary>已入队但尚未派发的接收字节数（近似值，用于字节预算）</summary>
         long pendingBytes;
@@ -58,20 +57,26 @@ namespace Gear.Framework.Modules
         readonly ConcurrentQueue<(EventType type, byte[] data, string message)> events = new ConcurrentQueue<(EventType type, byte[] data, string message)>();
         readonly int receiveChunkSize;
 
-        /// <summary>有界入队：条数与字节双预算，超限时丢弃最旧事件（并发下的近似判断即可）</summary>
+        /// <summary>
+        /// 有界入队：条数与字节双预算。超限时不能"丢最旧事件"——RawTcp 是字节流，
+        /// 丢掉中间一块会让后续长度前缀错位，甚至把垃圾字节当成合法消息派发。
+        /// 这里清空积压并关闭 socket，由 ReceiveLoop 抛错后走 Disconnected → NetworkClient 重连，
+        /// 用一条干净连接恢复（重连时 NetworkStreamAssembler 会重置）。
+        /// </summary>
         private void EnqueueEvent((EventType type, byte[] data, string message) ev)
         {
             long after = Interlocked.Add(ref pendingBytes, ev.data?.Length ?? 0);
-            while ((events.Count >= MaxPendingEvents || after > MaxPendingBytes)
-                   && events.TryDequeue(out var dropped))
+            if (events.Count >= MaxPendingEvents || after > MaxPendingBytes)
             {
-                after = Interlocked.Add(ref pendingBytes, -(dropped.data?.Length ?? 0));
-                if (Interlocked.Increment(ref droppedEventCount) == 1
-                    || Environment.TickCount - lastDropWarnTick > 1000)
+                int dropped = Interlocked.Increment(ref droppedEventCount);
+                Log.Error("[RawTcpClientChannel] 接收积压超限（条数/字节），丢弃积压并断开连接以重建干净字节流。累计丢弃事件 {0}", dropped);
+                while (events.TryDequeue(out var dropped))
                 {
-                    lastDropWarnTick = Environment.TickCount;
-                    Log.Warning("[RawTcpClientChannel] 事件队列超限（条数/字节），丢弃最旧事件。主线程可能长时间停摆，累计丢弃 {0}", Volatile.Read(ref droppedEventCount));
+                    Interlocked.Add(ref pendingBytes, -(dropped.data?.Length ?? 0));
                 }
+                Interlocked.Exchange(ref pendingBytes, 0);
+                try { socket?.Close(); } catch { /* 已关闭/已释放 */ }
+                return;
             }
             events.Enqueue(ev);
         }

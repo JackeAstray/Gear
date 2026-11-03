@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -135,6 +135,7 @@ namespace Gear.Utilities
                         currentPage = page;
                         onPageChanged?.Invoke(currentPage);
                     }
+                    pendingPage = -1;
                 }
             }
 

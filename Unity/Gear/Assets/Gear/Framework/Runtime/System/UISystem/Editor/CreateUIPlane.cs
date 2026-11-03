@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Modules;
 using Gear.Utilities;
 using Gear.Framework.Runtime;
@@ -88,6 +88,10 @@ namespace Gear.EditorTools
         /// </summary>
         public void CreateUI()
         {
+            // NewScene 会替换当前打开的场景：先给未保存的修改一次保存机会，
+            // 否则点一下「第一步」就把用户正在编辑的场景丢掉了。
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+
             var currentScene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
             sceneName = className + "UIPlaneScene";
             currentScene.name = sceneName;
@@ -115,7 +119,14 @@ namespace Gear.EditorTools
             }
 
             //保存场景
-            SaveScene(currentScene, Path.Combine(sceneOutPutPath, sceneName + ".unity"));
+            string scenePath = Path.Combine(sceneOutPutPath, sceneName + ".unity");
+            if (File.Exists(scenePath) &&
+                !EditorUtility.DisplayDialog("覆盖场景",
+                    $"场景已存在，是否覆盖？\n{scenePath}", "覆盖", "取消"))
+            {
+                return;
+            }
+            SaveScene(currentScene, scenePath);
 
             Selection.activeGameObject = uiObj;
             AssetDatabase.Refresh();
@@ -347,6 +358,13 @@ namespace Gear.EditorTools
         private void ExportPrefab(UIWindowAsset windowAsset, string dir)
         {
             var uiPrefabPath = Path.Combine(dir, windowAsset.name + ".prefab");
+            // SaveAsPrefabAsset 会直接覆盖已提交的预制体（含手改过的绑定），覆盖前必须确认。
+            if (File.Exists(uiPrefabPath) &&
+                !EditorUtility.DisplayDialog("覆盖预制体",
+                    $"预制体已存在，是否覆盖？\n{uiPrefabPath}", "覆盖", "取消"))
+            {
+                return;
+            }
             var prefab = PrefabUtility.SaveAsPrefabAsset(windowAsset.gameObject, uiPrefabPath);
             EditorUtility.SetDirty(prefab);
 

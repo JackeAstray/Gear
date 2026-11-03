@@ -67,6 +67,14 @@ namespace Gear.Framework.Modules.Pool
                 collectionCheck,
                 prewarmCount,
                 capacity);
+
+            // UnityEngine.Pool.ObjectPool 的第 6 个参数只是 Stack 的初始容量（defaultCapacity），
+            // 不会真的创建实例。inspector / 注册表里的 prewarmCount 要真正生效必须显式 Get→Release。
+            // prefab 为空时跳过，避免 Awake 早于注册表赋值时刷 10 条 "prefab 未赋值" 错误。
+            if (prefab != null && prewarmCount > 0)
+            {
+                Prewarm(prewarmCount);
+            }
         }
 
         /// <summary>从池中取出对象（池空时自动创建）</summary>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Gear.Kcp2k;
 using Gear.Common;
 
@@ -116,6 +116,9 @@ namespace Gear.Framework.Modules
 
         public bool Disconnect(int connectionId)
         {
+            // kcp2k 的 Disconnect 没有返回值（内部 TryGetValue 失败时静默什么都不做）。
+            // 直接 return true 会让上层把"未知连接"当成断开成功；这里先用公开查询确认连接存在。
+            if (server.GetClientEndPoint(connectionId) == null) return false;
             server.Disconnect(connectionId);
             return true;
         }

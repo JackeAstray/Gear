@@ -148,7 +148,7 @@ namespace Gear.EditorTools.Toolbox
                 string refreshed = lastRefreshAt == default ? "尚未检查" : "最近检查 " + lastRefreshAt.ToString("HH:mm:ss");
                 EditorGUILayout.LabelField(refreshed, EditorStyles.centeredGreyMiniLabel, GUILayout.Width(160f));
                 GUILayout.FlexibleSpace();
-                EditorGUILayout.LabelField("文档 Docs/ · 守卫 Gear/开发/守卫 · 案案 Docs/重构案案.md",
+                EditorGUILayout.LabelField("文档 Docs/ · 守卫 Gear/开发/守卫 · 重构方案 Docs/design/重构方案.md",
                     EditorStyles.centeredGreyMiniLabel);
             }
         }

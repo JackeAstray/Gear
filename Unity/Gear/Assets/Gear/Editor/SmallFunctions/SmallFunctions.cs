@@ -63,6 +63,8 @@ namespace Gear.EditorTools
         /// <param name="scenePaths"></param>
         public void LoadScene(string scenePaths)
         {
+            // OpenScene(Single) 会替换当前场景：先给未保存的修改一次保存机会。
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
             EditorSceneManager.OpenScene(scenePaths, OpenSceneMode.Single);
         }
 
