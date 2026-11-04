@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Gear.Framework.Modules;
+using Gear.Framework.Modules.Pool;
 using UnityEngine;
 
 namespace Gear.Tests

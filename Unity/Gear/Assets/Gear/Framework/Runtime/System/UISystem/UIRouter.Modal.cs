@@ -36,6 +36,15 @@ namespace Gear.Framework.Runtime.UI
         private static readonly Dictionary<string, (bool interactable, float alpha, CanvasGroup group)> blockedWindows =
             new Dictionary<string, (bool, float, CanvasGroup)>();
 
+        /// <summary>
+        /// Recompute 复用的打开窗口快照：开关窗口都会调用 Recompute，原先每次 new List 会产生
+        /// 稳定 GC。由 <c>Recompute</c> 的重入守卫保证同一时刻只有一层在遍历，用完即清空。
+        /// </summary>
+        private static readonly List<UIController> openWindowBuffer = new List<UIController>(8);
+
+        /// <summary>Recompute 是否正在执行（防用户回调里重入，见 Recompute 注释）。</summary>
+        private static bool recomputing;
+
         /// <summary>当前是否有模态窗口。</summary>
         public static bool HasModal => !modalStack.IsEmpty;
 
@@ -132,6 +141,25 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         private static void Recompute()
         {
+            // 重入守卫：Recompute 遍历的是复用的 openWindowBuffer。RefreshModalState 是 public，
+            // 若在 OnClose/OnOpen 等用户回调里被再次调用，内层 GetAllOpenWindows 的 Clear()
+            // 会把外层正在遍历的列表清空 —— 表现为该阻断的窗口漏阻断、或索引越界。
+            if (recomputing) return;
+            recomputing = true;
+            try
+            {
+                RecomputeCore();
+            }
+            finally
+            {
+                // 不长期持有已关闭窗口的托管引用（静态列表会跨会话存活到下一次 Recompute）
+                openWindowBuffer.Clear();
+                recomputing = false;
+            }
+        }
+
+        private static void RecomputeCore()
+        {
             if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited)
             {
                 RestoreAll();
@@ -150,7 +178,7 @@ namespace Gear.Framework.Runtime.UI
                 return;
             }
 
-            var open = new List<UIController>(8);
+            var open = openWindowBuffer;
             ui.GetAllOpenWindows(open);
 
             // 模态只阻断"比它更早打开"的窗口。打开顺序晚于模态的窗口（提示、二次确认、

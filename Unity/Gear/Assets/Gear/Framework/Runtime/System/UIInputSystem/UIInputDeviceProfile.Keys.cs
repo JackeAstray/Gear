@@ -65,15 +65,8 @@ namespace Gear.Framework.Runtime.UIInput
         {
             if (device == null) return "keyboard_mouse";
 
-            var description = device.description;
-            string serial = description.serial;
-            if (!string.IsNullOrEmpty(serial))
-            {
-                string manufacturer = description.manufacturer ?? string.Empty;
-                return manufacturer + "#" + serial;
-            }
-
-            return GetDeviceKey(device);
+            // 复用设备缓存（与 GetDeviceKey/GetProfile 同一份），不再每次拼字符串。
+            return GetCache(device).PlayerGroupKey;
         }
 
         private static string ComputeDeviceKey(InputDevice device)

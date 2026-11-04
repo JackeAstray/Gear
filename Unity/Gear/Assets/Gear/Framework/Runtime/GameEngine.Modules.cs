@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using UnityEngine;
 
@@ -12,9 +13,21 @@ namespace Gear.Framework.Runtime
     public sealed partial class GameEngine
     {
         #region 模块
-        /// <summary>已注册的游戏模块（只读）</summary>
-        public IList<ICustomSystem> Modules => modules;
+        /// <summary>
+        /// 已注册的游戏模块（只读视图）。
+        /// <para>
+        /// 返回 <see cref="IReadOnlyList{T}"/> 而不是 <see cref="IList{T}"/>：调用方无法再绕过
+        /// <see cref="AddModuleAsync"/> / <see cref="RemoveModule"/> 直接增删列表 —— 直接 Add 的模块
+        /// 既不 Init 也不登记更新列表，只会得到"注册了但从不驱动"的僵尸模块。
+        /// 视图对象只创建一次，每次访问不分配。
+        /// </para>
+        /// </summary>
+        public IReadOnlyList<ICustomSystem> Modules =>
+            modulesView ?? (modulesView = new ReadOnlyCollection<ICustomSystem>(modules));
+
+        /// <summary>模块列表本体（可写）；<see cref="Modules"/> 的只读视图缓存在下。</summary>
         private IList<ICustomSystem> modules;
+        private IReadOnlyList<ICustomSystem> modulesView;
 
         /// <summary>
         /// 在已注册模块中查找第一个 <typeparamref name="T"/> 的实现（类型或接口），不存在时返回 null。

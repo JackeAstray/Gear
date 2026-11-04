@@ -417,7 +417,7 @@ namespace Gear.Utilities
 
                 // Encrypt-then-MAC：对 [IV+密文] 追加 HMAC-SHA256，任何篡改在解密前被拒绝
                 // （纯 CBC 无 MAC 时密文可被翻转，篡改后可能仍解析出合法 JSON）
-                using (var hmac = new HMACSHA256(DeriveMacKey(key)))
+                using (var hmac = new HMACSHA256(DeriveMacKey()))
                 {
                     var mac = hmac.ComputeHash(payload, 0, EncryptionIvLength + cipher.Length);
                     Buffer.BlockCopy(mac, 0, payload, EncryptionIvLength + cipher.Length, EncryptionMacLength);
@@ -463,7 +463,7 @@ namespace Gear.Utilities
                 var key = DeriveKey();
 
                 // 先校验 HMAC（常量时间比较），篡改在解密前即被拒绝
-                using (var hmac = new HMACSHA256(DeriveMacKey(key)))
+                using (var hmac = new HMACSHA256(DeriveMacKey()))
                 {
                     var expected = hmac.ComputeHash(payload, 0, EncryptionIvLength + cipherLen);
                     if (!FixedTimeEquals(expected, payload, EncryptionIvLength + cipherLen, EncryptionMacLength))
@@ -512,16 +512,35 @@ namespace Gear.Utilities
             }
         }
 
-        /// <summary>派生固定密钥（PBKDF2，确定性）。注：客户端存档加密仅防随手篡改，非安全边界。</summary>
-        private static byte[] DeriveKey()
+        /// <summary>
+        /// 派生固定密钥（PBKDF2，确定性）。
+        /// <para>
+        /// 缓存：派生输入全是编译期常量，结果永远不会变，而每次存档/读档都会走到这里
+        /// （1000 轮 PBKDF2 在移动端是毫秒级开销）。只算一次，之后直接复用同一数组。
+        /// 调用方只读使用（<c>aes.Key</c> / <c>HMACSHA256</c> 都会内部拷贝），不要原地修改返回值。
+        /// </para>
+        /// 注：客户端存档加密仅防随手篡改，非安全边界。
+        /// </summary>
+        private static byte[] DeriveKey() => cachedMasterKey.Value;
+
+        private static readonly Lazy<byte[]> cachedMasterKey = new Lazy<byte[]>(DeriveKeyCore);
+
+        private static byte[] DeriveKeyCore()
         {
             using var pdb = new Rfc2898DeriveBytes(EncryptionPassphrase, EncryptionSalt, 1000);
             return pdb.GetBytes(EncryptionKeyLength);
         }
 
-        /// <summary>由主密钥派生 MAC 密钥（标签分离，避免加密/完整性同密钥复用）</summary>
-        private static byte[] DeriveMacKey(byte[] masterKey)
+        /// <summary>
+        /// 由主密钥派生 MAC 密钥（标签分离，避免加密/完整性同密钥复用）。同样缓存。
+        /// </summary>
+        private static byte[] DeriveMacKey() => cachedMacKey.Value;
+
+        private static readonly Lazy<byte[]> cachedMacKey = new Lazy<byte[]>(DeriveMacKeyCore);
+
+        private static byte[] DeriveMacKeyCore()
         {
+            byte[] masterKey = cachedMasterKey.Value;
             using var sha = SHA256.Create();
             var input = new byte[masterKey.Length + 1];
             Buffer.BlockCopy(masterKey, 0, input, 0, masterKey.Length);

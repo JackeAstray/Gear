@@ -95,14 +95,20 @@ namespace Gear.Framework.Modules.Pool
         /// <summary>清除所有共享池（销毁池根与全部池内对象；场景切换/测试清理用）</summary>
         public static void ClearAll()
         {
+            // 编辑器（EditMode 测试 / 工具窗口）没有帧循环：Object.Destroy 要到下一帧才真正释放，
+            // 于是"清完还能查到旧对象"的断言会飘。非播放模式改用 DestroyImmediate。
+            bool playing = Application.isPlaying;
             foreach (var pool in pools.Values)
             {
-                if (pool != null) Object.Destroy(pool.gameObject);
+                if (pool == null) continue;
+                if (playing) Object.Destroy(pool.gameObject);
+                else Object.DestroyImmediate(pool.gameObject);
             }
             pools.Clear();
             if (root != null)
             {
-                Object.Destroy(root.gameObject);
+                if (playing) Object.Destroy(root.gameObject);
+                else Object.DestroyImmediate(root.gameObject);
                 root = null;
             }
         }
@@ -111,7 +117,13 @@ namespace Gear.Framework.Modules.Pool
         {
             if (root != null && root.gameObject != null) return;
             var go = new GameObject("[SharedObjectPoolRoot]");
-            Object.DontDestroyOnLoad(go);
+            // DontDestroyOnLoad 只能在播放模式调用：在编辑器（EditMode 测试 / 工具窗口）里调用会抛
+            // InvalidOperationException"can only be used in play mode"。这里只在播放模式挂常驻，
+            // 编辑器下保持普通对象，由调用方/测试自行清理。
+            if (Application.isPlaying)
+            {
+                Object.DontDestroyOnLoad(go);
+            }
             root = go.transform;
         }
 

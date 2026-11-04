@@ -200,6 +200,13 @@ namespace Gear.Framework.Runtime.UIInput
             public UIInputDeviceKind Kind;
             public UIInputDeviceProfile Profile;
             public string DeviceKey;
+
+            /// <summary>
+            /// 玩家分组键（同物理设备的多个 HID 子设备共用）。随设备缓存一起算一次：
+            /// 旧实现每次调用都重新拼 "manufacturer#serial"，而它在"枚举设备找同组"的
+            /// 循环里被逐个调用，属于每帧路径上的稳定字符串分配。
+            /// </summary>
+            public string PlayerGroupKey;
             public Vector2Control Hat;
             public StickControl Stick;
             public AxisControl Steering;
@@ -703,6 +710,14 @@ namespace Gear.Framework.Runtime.UIInput
             bool isWheelLike = !ContainsAny(searchKey, FlightKeywords) && ContainsAny(searchKey, WheelKeywords);
             EnsureOverridesLoaded();
             string deviceKey = ComputeDeviceKey(device);
+
+            // 分组键与设备键同源计算（有 serial 时按物理设备分组，否则退回设备键），
+            // 结果随 DeviceCache 缓存，避免每次查询重拼字符串。
+            var description = device.description;
+            string playerGroupKey = string.IsNullOrEmpty(description.serial)
+                ? deviceKey
+                : (description.manufacturer ?? string.Empty) + "#" + description.serial;
+
             var entry = s_overrides.items.Find(e => e.deviceKey == deviceKey);
 
             var baseProfile = kind switch
@@ -775,6 +790,7 @@ namespace Gear.Framework.Runtime.UIInput
                 Kind = kind,
                 Profile = profile,
                 DeviceKey = deviceKey,
+                PlayerGroupKey = playerGroupKey,
                 Hat = hat,
                 Stick = primaryStick,
                 Steering = steering,

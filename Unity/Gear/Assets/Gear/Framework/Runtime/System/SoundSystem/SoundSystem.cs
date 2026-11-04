@@ -1,4 +1,4 @@
-﻿using Gear.Common;
+using Gear.Common;
 using Gear.Framework.Runtime.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.Scene;
@@ -104,11 +104,17 @@ namespace Gear.Framework.Runtime.Sound
         private float fadeTargetVolume;
         private UniTaskCompletionSource<bool> fadeTcs;
 
-        // 可复用列表（避免 SetSfxProperties / RecycleAll 等方法每次分配 List）
-        private List<GameObject> reusableSpawnedList;
+        // 可复用列表（避免 SetSfxProperties / RecycleAll 等方法每次分配 List）。
+        // 双缓冲：收集 → 遍历的过程中会 Recycle / Stop，触发用户回调；回调里再走一次同样的
+        // "收集 → 遍历"时，共用一只列表会让内层的 Clear 清空外层正在遍历的内容（漏回收/参数错乱）。
+        private readonly List<GameObject>[] reusableSpawnedLists = new List<GameObject>[2];
+        private int spawnedListIndex;
+
         private List<GameObject> GetSpawnedList()
         {
-            return reusableSpawnedList ?? (reusableSpawnedList = new List<GameObject>());
+            int index = spawnedListIndex;
+            spawnedListIndex = 1 - index;
+            return reusableSpawnedLists[index] ?? (reusableSpawnedLists[index] = new List<GameObject>());
         }
         #endregion
 

@@ -648,16 +648,24 @@ namespace Gear.Framework.Modules
                         Disconnect();
                         return;
                     }
-                    if (!NetworkHandshake.TryParseHello(payload, out var serverNonce, out var serverProof))
+                    if (!NetworkHandshake.TryParseHello(payload, out var serverVersion, out var serverNonce, out var serverProof))
                     {
-                        Log.Error("[NetworkClient] ServerHello 负载非法（期望 {0} 字节：[随机数][持有证明]），已断开",
+                        Log.Error("[NetworkClient] ServerHello 负载非法（期望 {0} 字节：[版本][随机数][持有证明]），已断开",
                             NetworkHandshake.HelloPayloadLength);
+                        Disconnect();
+                        return;
+                    }
+                    // 版本协商必须在证明校验之前完成：协议不兼容时说明原因即可，
+                    // 不要用"持有证明校验失败"误导成密钥问题。
+                    if (!NetworkProtocol.IsSupported(serverVersion))
+                    {
+                        Log.Error("[NetworkClient] {0}", NetworkProtocol.DescribeMismatch(serverVersion));
                         Disconnect();
                         return;
                     }
                     // 校验应答方持有主密钥：否则任何能注入一个 ServerHello 的人都能让本端
                     // 派生出一个对端并不知晓的会话密钥（连接静默失联），也谈不上"已建立加密会话"
-                    var expectedServerProof = NetworkHandshake.ComputeServerProof(handshakeMasterKey, serverNonce);
+                    var expectedServerProof = NetworkHandshake.ComputeServerProof(handshakeMasterKey, serverVersion, serverNonce);
                     if (!NetworkHandshake.ProofEquals(expectedServerProof, serverProof))
                     {
                         Log.Error("[NetworkClient] ServerHello 持有证明校验失败（对端不持有主密钥），已断开");
@@ -666,9 +674,10 @@ namespace Gear.Framework.Modules
                     }
                     byte[] clientNonce = NetworkHandshake.GenerateNonce();
                     byte[] sessionKey = NetworkHandshake.DeriveSessionKey(handshakeMasterKey, serverNonce, clientNonce);
-                    var clientProof = NetworkHandshake.ComputeClientProof(handshakeMasterKey, serverNonce, clientNonce);
+                    var clientProof = NetworkHandshake.ComputeClientProof(handshakeMasterKey, serverVersion, serverNonce, clientNonce);
                     // 先以明文发送 [ClientHello][持有证明]（服务端据此校验并完成握手），再切换本端为加密
-                    if (!Send(NetworkConstants.ReservedHandshakeClientHello, NetworkHandshake.BuildHello(clientNonce, clientProof)))
+                    if (!Send(NetworkConstants.ReservedHandshakeClientHello,
+                              NetworkHandshake.BuildHello(serverVersion, clientNonce, clientProof)))
                     {
                         Log.Error("[NetworkClient] ClientHello 发送失败，已断开");
                         Disconnect();

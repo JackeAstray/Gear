@@ -35,21 +35,24 @@
 #           UIToolkitSystem 582 → 609（新增面板生命周期代次；待把 OpenPanelAsync 拆到 partial 后删除本条）。
 #   第四轮：SaveSystem 675 → 690（自动保存静态注册跨会话复位）。
 #   第五轮：NetworkServer 781 → 786（未握手业务帧断开）、UIToolkitSystem 609 → 612（主题样式表引用归还）。
+#   第六轮（1.3.1 防重放协议）：NetworkClient 910 → 919（握手带上版本协商与拒绝日志）、
+#       NetworkServer 786 → 795（同上，服务端侧）、UIInputDeviceProfile 998 → 1014（分组键进设备缓存）、
+#       SaveSystem 690 → 709（PBKDF2 主密钥/MAC 密钥 Lazy 缓存）。
 #   后续仍只能降；这几个文件继续拆分时请把条目删掉。
 655 Assets/Gear/Editor/Addressables/AddressablesCdnUploader.cs
 942 Assets/Gear/Editor/Excel/Scripts/ExcelSystem.cs
 937 Assets/Gear/Editor/UIExamples/CreateLocalMultiplayerSelectionExample.cs
 668 Assets/Gear/Framework/Modules/ColliderUtil/ColliderUtil.cs
 815 Assets/Gear/Framework/Modules/Download/FileDownloader.cs
-910 Assets/Gear/Framework/Modules/Network/Core/NetworkClient.cs
-786 Assets/Gear/Framework/Modules/Network/Core/NetworkServer.cs
+919 Assets/Gear/Framework/Modules/Network/Core/NetworkClient.cs
+795 Assets/Gear/Framework/Modules/Network/Core/NetworkServer.cs
 808 Assets/Gear/Framework/Runtime/System/AddressableSystem/AddressableSystem.cs
 612 Assets/Gear/Framework/Runtime/System/UIToolkitSystem/UIToolkitSystem.cs
 692 Assets/Gear/Framework/Runtime/System/SceneSystem/SceneSystem.cs
-998 Assets/Gear/Framework/Runtime/System/UIInputSystem/UIInputDeviceProfile.cs
+1014 Assets/Gear/Framework/Runtime/System/UIInputSystem/UIInputDeviceProfile.cs
 760 Assets/Gear/Framework/Runtime/System/UIInputSystem/UIInputSystem.Targets.cs
 615 Assets/Gear/UI/Select/LocalMultiplayerPlayerCard.cs
 611 Assets/Gear/Utilities/Util/AlgorithmUtil.Components.cs
 943 Assets/Gear/Utilities/Util/AlgorithmUtil.GameObjects.cs
 779 Assets/Gear/Utilities/Util/AlgorithmUtil.Transforms.cs
-690 Assets/Gear/Utilities/Util/SaveSystem.cs
+709 Assets/Gear/Utilities/Util/SaveSystem.cs

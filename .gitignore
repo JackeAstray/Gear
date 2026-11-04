@@ -6,3 +6,14 @@ Tools/SyntaxCheck/bin/
 Tools/SyntaxCheck/obj/
 Tools/DocsCheck/bin/
 Tools/DocsCheck/obj/
+Tools/HeadlessCheck/bin/
+Tools/HeadlessCheck/obj/
+Tools/CoverageGate/bin/
+Tools/CoverageGate/obj/
+
+# 本地日志与 IDE 目录（Unity 工程内部的 Library/Temp/Logs 由 Unity/Gear/.gitignore 覆盖）
+*.log
+.idea/
+
+# 临时审查 / 草稿脚本
+.audit_tmp/

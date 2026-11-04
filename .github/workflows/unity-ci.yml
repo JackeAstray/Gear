@@ -69,6 +69,30 @@ jobs:
           restore-keys: |
             Library-${{ runner.os }}-
 
+      - name: 安装 .NET SDK（覆盖率门槛工具用）
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # 覆盖率包不常驻 manifest：本机离线打开工程时，manifest 里多一个未缓存包会让
+      # Unity 卡在导入/解析。改为仅在 CI 工作区临时注入（CI 有网络），不污染仓库。
+      # 启用方式：仓库变量 GEAR_ENABLE_COVERAGE=true。
+      - name: 注入覆盖率包（仅 CI 工作区）
+        if: ${{ vars.GEAR_ENABLE_COVERAGE == 'true' }}
+        run: |
+          set -euo pipefail
+          python3 - "${{ env.UNITY_PROJECT_PATH }}/Packages/manifest.json" <<'PY'
+          import json, sys
+          path = sys.argv[1]
+          with open(path, encoding='utf-8') as f:
+              manifest = json.load(f)
+          manifest.setdefault('dependencies', {})['com.unity.testtools.codecoverage'] = '1.2.6'
+          with open(path, 'w', encoding='utf-8') as f:
+              json.dump(manifest, f, indent=2, ensure_ascii=False)
+              f.write('\n')
+          print('已注入 com.unity.testtools.codecoverage（仅本次 CI 工作区）')
+          PY
+
       - name: 运行 EditMode 测试
         uses: game-ci/unity-test-runner@v4
         env:
@@ -79,7 +103,22 @@ jobs:
           artifactsPath: editmode-results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: EditMode 测试
-          customParameters: -nographics
+          customParameters: >-
+            -nographics
+            ${{ vars.GEAR_ENABLE_COVERAGE == 'true' && '-enableCodeCoverage -coverageOptions generateAdditionalMetrics;assemblyFilters:+Gear.*' || '' }}
+
+      - name: 用例数与覆盖率门槛
+        if: ${{ !cancelled() }}
+        run: |
+          set -euo pipefail
+          extra=""
+          if [ "${{ vars.GEAR_ENABLE_COVERAGE }}" = "true" ]; then
+            extra="--require-coverage"
+          fi
+          dotnet run --project Tools/CoverageGate -- \
+            --results editmode-results \
+            --baseline Tools/CoverageGate/baseline.json \
+            $extra
 
       - name: 上传测试结果
         uses: actions/upload-artifact@v4
@@ -397,11 +436,14 @@ jobs:
         run: |
           set -euo pipefail
           pattern='\bGear\.(Core|Utils)\b|\bCore/(StartGame|System|Base)\b|\bUtils/(Timer|Http|Network|Util|UI)\b'
+          # archive/ 是明确"不再维护"的历史记录；design/ 只在下面两份带历史章节的文档里放行，
+          # 其余 design 文档照样检查 —— 早先整目录 exclude 会把新写的过时路径一起藏起来。
           hits=$(grep -rnE "$pattern" \
             --include='*.cs' --include='*.md' --include='*.txt' --include='*.asmdef' --include='*.ps1' \
             --exclude='ArchitectureGuard.cs' \
+            --exclude='重构方案.md' --exclude='便捷性与可移植性评估.md' \
             --exclude-dir=.git --exclude-dir=Library --exclude-dir=Plugins --exclude-dir=3rd \
-            --exclude-dir=GenerateScript --exclude-dir=Examples --exclude-dir=archive --exclude-dir=design \
+            --exclude-dir=GenerateScript --exclude-dir=Examples --exclude-dir=archive --exclude-dir=Build \
             . 2>/dev/null || true)
           if [ -n "$hits" ]; then
             echo "$hits"

@@ -132,21 +132,24 @@ namespace Gear.Tests
             var serverNonce = NetworkHandshake.GenerateNonce();
             var clientNonce = NetworkHandshake.GenerateNonce();
 
-            var proof = NetworkHandshake.ComputeClientProof(master, serverNonce, clientNonce);
+            var proof = NetworkHandshake.ComputeClientProof(master, NetworkProtocol.Version, serverNonce, clientNonce);
             Assert.AreEqual(NetworkHandshake.ProofLength, proof.Length);
 
             Assert.IsTrue(NetworkHandshake.ProofEquals(
-                NetworkHandshake.ComputeClientProof(master, serverNonce, clientNonce), proof));
+                NetworkHandshake.ComputeClientProof(master, NetworkProtocol.Version, serverNonce, clientNonce), proof));
 
             Assert.IsFalse(NetworkHandshake.ProofEquals(
-                NetworkHandshake.ComputeClientProof(master, serverNonce, NetworkHandshake.GenerateNonce()), proof),
+                NetworkHandshake.ComputeClientProof(master, NetworkProtocol.Version, serverNonce, NetworkHandshake.GenerateNonce()), proof),
                 "换客户端随机数后证明必须不同（防重放）");
             Assert.IsFalse(NetworkHandshake.ProofEquals(
-                NetworkHandshake.ComputeClientProof(new byte[32], serverNonce, clientNonce), proof),
+                NetworkHandshake.ComputeClientProof(new byte[32], NetworkProtocol.Version, serverNonce, clientNonce), proof),
                 "换主密钥后证明必须不同");
             Assert.IsFalse(NetworkHandshake.ProofEquals(
-                NetworkHandshake.ComputeServerProof(master, serverNonce), proof),
+                NetworkHandshake.ComputeServerProof(master, NetworkProtocol.Version, serverNonce), proof),
                 "客户端/服务端证明必须域隔离，不可互相替换");
+            Assert.IsFalse(NetworkHandshake.ProofEquals(
+                NetworkHandshake.ComputeClientProof(master, (byte)(NetworkProtocol.Version - 1), serverNonce, clientNonce), proof),
+                "协议版本参与证明：版本被人为改动后证明必须不同（防降级）");
         }
 
         [Test]
@@ -154,19 +157,109 @@ namespace Gear.Tests
         {
             var master = Key32();
             var nonce = NetworkHandshake.GenerateNonce();
-            var proof = NetworkHandshake.ComputeServerProof(master, nonce);
-            var payload = NetworkHandshake.BuildHello(nonce, proof);
+            var proof = NetworkHandshake.ComputeServerProof(master, NetworkProtocol.Version, nonce);
+            var payload = NetworkHandshake.BuildHello(NetworkProtocol.Version, nonce, proof);
 
             Assert.AreEqual(NetworkHandshake.HelloPayloadLength, payload.Length);
+            Assert.AreEqual(1 + NetworkHandshake.NonceLength + NetworkHandshake.ProofLength, payload.Length,
+                "v3 负载 = [版本 1B][随机数 16B][证明 32B]");
 
-            Assert.IsTrue(NetworkHandshake.TryParseHello(new ArraySegment<byte>(payload), out var parsedNonce, out var parsedProof));
+            Assert.IsTrue(NetworkHandshake.TryParseHello(
+                new ArraySegment<byte>(payload), out var parsedVersion, out var parsedNonce, out var parsedProof));
+            Assert.AreEqual(NetworkProtocol.Version, parsedVersion);
             CollectionAssert.AreEqual(nonce, parsedNonce);
             CollectionAssert.AreEqual(proof, parsedProof);
 
             // 旧版"只有 16 字节随机数"的 ClientHello/ServerHello 必须被拒绝：
             // 那种格式没有持有证明，等于任何 16 字节都能触发握手完成
             Assert.IsFalse(NetworkHandshake.TryParseHello(
-                new ArraySegment<byte>(new byte[NetworkHandshake.NonceLength]), out _, out _));
+                new ArraySegment<byte>(new byte[NetworkHandshake.NonceLength]), out _, out _, out _));
+
+            // v2 的 48 字节负载（无版本字段）必须整体拒绝，不能被"猜"成 v3：
+            // 否则对端版本未知，加密帧序号状态无法对齐
+            Assert.IsFalse(NetworkHandshake.TryParseHello(
+                new ArraySegment<byte>(new byte[NetworkHandshake.NonceLength + NetworkHandshake.ProofLength]),
+                out _, out _, out _));
+        }
+
+        [Test]
+        public void ProtocolVersion_RejectsUnsupportedPeers()
+        {
+            Assert.IsTrue(NetworkProtocol.IsSupported(NetworkProtocol.Version));
+            Assert.IsTrue(NetworkProtocol.IsSupported(NetworkProtocol.MinSupportedVersion));
+            Assert.IsFalse(NetworkProtocol.IsSupported((byte)(NetworkProtocol.Version + 1)),
+                "未来版本不在本端支持范围，必须拒绝而不是按当前格式解析");
+            Assert.IsFalse(NetworkProtocol.IsSupported((byte)(NetworkProtocol.MinSupportedVersion - 1)),
+                "修复重放缺陷前的旧版本必须拒绝（旧帧没有序号）");
+            Assert.IsNotEmpty(NetworkProtocol.DescribeMismatch(2));
+        }
+
+        // ===== 加密帧重放保护（v3 序号）=====
+
+        [Test]
+        public void EncryptedCodec_ReplayedFrame_IsRejected()
+        {
+            var key = Key32();
+            var client = EncryptedCodec.WrapClient(MessageIdCodec.Instance, key);
+            var server = EncryptedCodec.WrapServer(MessageIdCodec.Instance, key);
+
+            var frame = client.Encode(31, new byte[] { 9, 9, 9 });
+
+            Assert.IsTrue(server.TryDecode(frame, 0, frame.Length, out var id, out _), "首次接收应成功");
+            Assert.AreEqual(31, id);
+
+            // 抓包重发：MAC 仍然有效（帧本身没被改动），只能靠序号拦截。
+            // 修复前这里会返回 true —— 同一笔"购买/扣费"消息可被无限重放。
+            Assert.IsFalse(server.TryDecode(frame, 0, frame.Length, out _, out _),
+                "同一个加密帧不得被接受第二次（防重放）");
+        }
+
+        [Test]
+        public void EncryptedCodec_OutOfOrderFrame_IsRejected()
+        {
+            var key = Key32();
+            var client = EncryptedCodec.WrapClient(MessageIdCodec.Instance, key);
+            var server = EncryptedCodec.WrapServer(MessageIdCodec.Instance, key);
+
+            var first = client.Encode(1, new byte[] { 1 });
+            var second = client.Encode(2, new byte[] { 2 });
+
+            Assert.IsTrue(server.TryDecode(second, 0, second.Length, out _, out _), "较新序号应被接受");
+            Assert.IsFalse(server.TryDecode(first, 0, first.Length, out _, out _),
+                "序号更小的帧必须被拒绝（严格单调，防乱序重放）");
+        }
+
+        [Test]
+        public void EncryptedCodec_TamperedSequence_FailsMac()
+        {
+            var key = Key32();
+            var client = EncryptedCodec.WrapClient(MessageIdCodec.Instance, key);
+            var server = EncryptedCodec.WrapServer(MessageIdCodec.Instance, key);
+
+            var frame = client.Encode(5, new byte[] { 7, 7 });
+            frame[1] ^= 0x01; // 翻转序号最低位（帧头第 2 字节）
+
+            Assert.IsFalse(server.TryDecode(frame, 0, frame.Length, out _, out _),
+                "序号在 MAC 覆盖范围内，篡改必须导致 MAC 校验失败");
+        }
+
+        [Test]
+        public void EncryptedCodec_NewSession_StartsFreshSequence()
+        {
+            // 序号是"每连接"状态：每连接都会新建 EncryptedCodec 实例（握手完成时 SwapToEncrypted）。
+            // 新会话若因为"上一会话已用过序号 1"而拒绝首帧，表现就是重连后永远发不出消息。
+            var key = Key32();
+
+            var clientA = EncryptedCodec.WrapClient(MessageIdCodec.Instance, key);
+            var serverA = EncryptedCodec.WrapServer(MessageIdCodec.Instance, key);
+            var a = clientA.Encode(1, new byte[] { 1 });
+            Assert.IsTrue(serverA.TryDecode(a, 0, a.Length, out _, out _));
+
+            var clientB = EncryptedCodec.WrapClient(MessageIdCodec.Instance, key);
+            var serverB = EncryptedCodec.WrapServer(MessageIdCodec.Instance, key);
+            var b = clientB.Encode(1, new byte[] { 1 });
+            Assert.IsTrue(serverB.TryDecode(b, 0, b.Length, out _, out _),
+                "新连接（新 codec 实例）应从序号 1 重新开始");
         }
     }
 }

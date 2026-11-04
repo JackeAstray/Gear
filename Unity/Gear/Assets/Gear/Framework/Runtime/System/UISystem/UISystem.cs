@@ -56,6 +56,10 @@ namespace Gear.Framework.Runtime.UI
         // CloseAllWindows 批量关闭的复用缓冲（避免每次批量操作 new List 分配）
         private readonly List<string> closeBuffer = new List<string>();
 
+        // CloseAllWindows 重入标记：CloseWindow 会触发用户 OnClose 回调，回调里再调 CloseAllWindows
+        // 会 Clear 掉外层正在按索引遍历的 closeBuffer（越界/漏关），内层必须直接忽略。
+        private bool closingAllWindows;
+
         // SetWindowPriority 排序复用缓冲（按需扩容，避免每次调用 new 数组）
         private UIController[] prioritySortBuffer;
 

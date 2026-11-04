@@ -64,6 +64,7 @@ namespace Gear.Framework.Runtime
             fixedUpdateModules.Clear();
             lateUpdateModules.Clear();
             modules = null;
+            modulesView = null;
             GameEntry = null;
             Current = null;
 

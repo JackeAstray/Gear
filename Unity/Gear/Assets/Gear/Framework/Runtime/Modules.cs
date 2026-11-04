@@ -22,8 +22,11 @@ namespace Gear.Framework.Runtime
     /// </summary>
     public static class Modules
     {
-        /// <summary>当前引擎持有的模块列表（引擎未启动时为空集合，不返回 null）。</summary>
-        public static IList<ICustomSystem> All
+        /// <summary>
+        /// 当前引擎持有的模块列表（引擎未启动时为空集合，不返回 null）。
+        /// 只读：增删模块请走 <see cref="GameEngine.AddModuleAsync"/> / <see cref="GameEngine.RemoveModule"/>。
+        /// </summary>
+        public static IReadOnlyList<ICustomSystem> All
         {
             get
             {

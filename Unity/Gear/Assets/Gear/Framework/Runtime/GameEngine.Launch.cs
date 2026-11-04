@@ -100,12 +100,14 @@ namespace Gear.Framework.Runtime
             if (ModuleCatalog.TryBuild(declaredModules, out var orderedModules, out var catalogErrors))
             {
                 modules = orderedModules;
+                modulesView = null; // 列表被替换：旧的只读视图必须失效，否则 Modules 仍指向上一轮列表
                 Log.Debug("[GameEngine] 模块顺序: {0}", ModuleCatalog.Describe(modules));
             }
             else
             {
                 Log.Warning("[GameEngine] 模块顺序校验未通过，沿用注册顺序: {0}", catalogErrors);
                 modules = declaredModules;
+                modulesView = null;
             }
 
             // 失败重试时清空上次已注册的更新模块，避免重复添加导致模块每帧被 Update/LateUpdate 多次

@@ -2,13 +2,19 @@ using System;
 using System.Security.Cryptography;
 
 using Gear.Common;
-using Gear.Utilities;
+
 namespace Gear.Framework.Modules
 {
     /// <summary>
-    /// 加密握手（Encrypted Handshake）工具 —— 客户端/服务端在明文阶段交换随机数
+    /// 加密握手（Encrypted Handshake）工具 —— 客户端/服务端在明文阶段交换协议版本、随机数
     /// 与"持有主密钥"证明，以"主密钥 + 双随机数"派生出每连接唯一的会话密钥，
     /// 随后切换为 AES-256-CBC+HMAC 加密。
+    ///
+    /// <para>
+    /// 负载格式（v3）：<c>[1B 协议版本][16B 随机数][32B 持有证明]</c>，共 49 字节。
+    /// 版本字节参与持有证明的 HMAC 输入，因此降级/版本混淆会直接导致证明校验失败，
+    /// 不会被当成"旧版本对端"静默接受。
+    /// </para>
     ///
     /// 安全说明：若主密钥仅硬编码在客户端二进制（可被反编译提取），本机制提供的是
     /// 每连接唯一密钥 + 防重放/防离线分析加固（明文抓包无法还原会话内容）。
@@ -22,6 +28,9 @@ namespace Gear.Framework.Modules
 
         /// <summary>会话密钥长度（字节）：AES-256 主密钥派生输入</summary>
         public const int SessionKeyLength = 32;
+
+        /// <summary>协议版本字段长度（字节）</summary>
+        public const int VersionLength = 1;
 
         /// <summary>生成加密安全的随机数（RandomNumberGenerator，不可预测）。</summary>
         public static byte[] GenerateNonce()
@@ -76,8 +85,8 @@ namespace Gear.Framework.Modules
         /// <summary>持有证明长度（HMAC-SHA256 输出）</summary>
         public const int ProofLength = 32;
 
-        /// <summary>握手负载长度：[随机数 16B][持有证明 32B]</summary>
-        public const int HelloPayloadLength = NonceLength + ProofLength;
+        /// <summary>握手负载长度：[版本 1B][随机数 16B][持有证明 32B]</summary>
+        public const int HelloPayloadLength = VersionLength + NonceLength + ProofLength;
 
         // 证明域标签：与会话密钥派生的 0x53 明确区分，且客户端/服务端各用一个标签，
         // 保证两种证明互不可替换（也保证证明值不会等于会话密钥本身）
@@ -85,30 +94,31 @@ namespace Gear.Framework.Modules
         const byte ServerProofLabel = 0x81;
 
         /// <summary>
-        /// 客户端持有证明：HMAC-SHA256(masterKey, [0x82][serverNonce][clientNonce])。
-        /// 绑定服务端随机数，使抓取到的 ClientHello 无法重放到新会话。
+        /// 客户端持有证明：HMAC-SHA256(masterKey, [0x82][版本][serverNonce][clientNonce])。
+        /// 绑定服务端随机数，使抓取到的 ClientHello 无法重放到新会话；绑定协议版本，
+        /// 使版本降级会直接导致证明校验失败。
         /// </summary>
-        public static byte[] ComputeClientProof(byte[] masterKey, byte[] serverNonce, byte[] clientNonce)
+        public static byte[] ComputeClientProof(byte[] masterKey, byte version, byte[] serverNonce, byte[] clientNonce)
         {
-            return ComputeProof(masterKey, ClientProofLabel, serverNonce, clientNonce);
+            return ComputeProof(masterKey, ClientProofLabel, version, serverNonce, clientNonce);
         }
 
         /// <summary>
-        /// 服务端持有证明：HMAC-SHA256(masterKey, [0x81][serverNonce])。
+        /// 服务端持有证明：HMAC-SHA256(masterKey, [0x81][版本][serverNonce])。
         /// 服务端下发 ServerHello 时客户端随机数尚不存在，故只绑定服务端随机数。
         /// </summary>
-        public static byte[] ComputeServerProof(byte[] masterKey, byte[] serverNonce)
+        public static byte[] ComputeServerProof(byte[] masterKey, byte version, byte[] serverNonce)
         {
-            return ComputeProof(masterKey, ServerProofLabel, serverNonce);
+            return ComputeProof(masterKey, ServerProofLabel, version, serverNonce);
         }
 
-        static byte[] ComputeProof(byte[] masterKey, byte label, params byte[][] nonces)
+        static byte[] ComputeProof(byte[] masterKey, byte label, byte version, params byte[][] nonces)
         {
             if (masterKey == null || masterKey.Length == 0)
             {
                 throw new ArgumentException("主密钥不能为空", nameof(masterKey));
             }
-            int total = 1;
+            int total = 2; // label + version
             if (nonces != null)
             {
                 foreach (var n in nonces)
@@ -123,7 +133,8 @@ namespace Gear.Framework.Modules
 
             var input = new byte[total];
             input[0] = label;
-            int offset = 1;
+            input[1] = version;
+            int offset = 2;
             if (nonces != null)
             {
                 foreach (var n in nonces)
@@ -138,8 +149,8 @@ namespace Gear.Framework.Modules
             }
         }
 
-        /// <summary>构造握手负载：[随机数][持有证明]</summary>
-        public static byte[] BuildHello(byte[] nonce, byte[] proof)
+        /// <summary>构造握手负载：[版本][随机数][持有证明]</summary>
+        public static byte[] BuildHello(byte version, byte[] nonce, byte[] proof)
         {
             if (nonce == null || nonce.Length != NonceLength)
             {
@@ -150,27 +161,30 @@ namespace Gear.Framework.Modules
                 throw new ArgumentException($"持有证明必须为 {ProofLength} 字节", nameof(proof));
             }
             var payload = new byte[HelloPayloadLength];
-            Buffer.BlockCopy(nonce, 0, payload, 0, NonceLength);
-            Buffer.BlockCopy(proof, 0, payload, NonceLength, ProofLength);
+            payload[0] = version;
+            Buffer.BlockCopy(nonce, 0, payload, VersionLength, NonceLength);
+            Buffer.BlockCopy(proof, 0, payload, VersionLength + NonceLength, ProofLength);
             return payload;
         }
 
         /// <summary>
-        /// 解析握手负载。长度不符（例如旧版仅 16 字节随机数的 ClientHello/ServerHello）返回 false，
-        /// 调用方应断开连接 —— 旧格式没有持有证明，等同于任何人都能触发握手完成。
+        /// 解析握手负载并返回对端版本。长度不符（例如 v2 的 48 字节负载、或更旧的仅随机数负载）
+        /// 返回 false —— 调用方应断开，而不是猜测版本继续。
         /// </summary>
-        public static bool TryParseHello(ArraySegment<byte> payload, out byte[] nonce, out byte[] proof)
+        public static bool TryParseHello(ArraySegment<byte> payload, out byte version, out byte[] nonce, out byte[] proof)
         {
+            version = 0;
             nonce = null;
             proof = null;
             if (payload.Array == null || payload.Count != HelloPayloadLength)
             {
                 return false;
             }
+            version = payload.Array[payload.Offset];
             nonce = new byte[NonceLength];
             proof = new byte[ProofLength];
-            Buffer.BlockCopy(payload.Array, payload.Offset, nonce, 0, NonceLength);
-            Buffer.BlockCopy(payload.Array, payload.Offset + NonceLength, proof, 0, ProofLength);
+            Buffer.BlockCopy(payload.Array, payload.Offset + VersionLength, nonce, 0, NonceLength);
+            Buffer.BlockCopy(payload.Array, payload.Offset + VersionLength + NonceLength, proof, 0, ProofLength);
             return true;
         }
 

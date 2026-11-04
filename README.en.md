@@ -39,7 +39,17 @@ of taking over the host project.
 
 ## Install as a UPM package
 
-Export a package from the editor menu:
+Package id is fixed to **`com.jackeastray.gear`** (currently `1.3.1`) and can be installed straight from git:
+
+```json
+"com.jackeastray.gear": "https://github.com/JackeAstray/Gear.git#upm"
+```
+
+The `upm` branch is a **release artifact** rebuilt on every publish. If you end up with
+`com.reunion.movement`, that branch still holds a pre-refactor package — ask the maintainer to
+republish following [Docs/Packaging/UPM打包指南.md](Docs/Packaging/UPM打包指南.md).
+
+Alternatively export a package from the editor menu:
 
 ```
 Gear → 打包 → 导出 UPM 包（运行时 / 完整 / OpenUPM 依赖）
@@ -79,9 +89,14 @@ Unity/Gear/Assets/Gear/
 ├── 3rd/         Joystick Pack, WebGLSupport, Animated Loading Icons
 ├── Scenes/      Boot / loading / demo scenes
 ├── Resources/   Runtime assets
+├── Documentation/  Usage guide shipped inside the UPM package
+├── Samples~/    Sample content shipped inside the UPM package (not compiled)
+├── Tests/       EditMode / PlayMode tests (Gear.Tests, not shipped)
 ├── Game/        Example entry declaration (not shipped in packages)
 └── GenerateScript/  Generated UI / config code
 ```
+
+Every code directory above ships a `README.md` describing what belongs there (and what does not).
 
 ## Documentation
 
@@ -96,6 +111,8 @@ Documentation is currently Chinese-first:
 - [Docs/Packaging/UPM打包指南.md](Docs/Packaging/UPM打包指南.md) — UPM packaging
 - [Docs/guides/跨平台构建指南.md](Docs/guides/跨平台构建指南.md) — multi-platform builds and `link.xml`
 - [Docs/guides/第三方依赖.md](Docs/guides/第三方依赖.md) — third-party dependencies and conflicts
+- [Docs/guides/测试与覆盖率.md](Docs/guides/测试与覆盖率.md) — how tests run and what CI gates
+- [Docs/guides/2.0-破坏性变更清单.md](Docs/guides/2.0-破坏性变更清单.md) — breaking changes scheduled for 2.0
 
 ## Dependencies
 

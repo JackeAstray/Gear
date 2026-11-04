@@ -27,7 +27,7 @@ Unity 游戏框架 —— 纯 C# 生命周期、模块化系统、四传输网�
 "com.jackeastray.gear": "https://github.com/JackeAstray/Gear.git#upm"
 ```
 
-包标识固定为 **`com.jackeastray.gear`**（当前 `1.3.0`）。`upm` 分支是**发布产物**，每次发布重建为单个提交；
+包标识固定为 **`com.jackeastray.gear`**（当前 `1.3.1`）。`upm` 分支是**发布产物**，每次发布重建为单个提交；
 如果你安装到的包名是 `com.reunion.movement`，说明该分支还是重构前的旧包，请让维护者按
 [UPM 打包指南](Docs/Packaging/UPM打包指南.md) 重新发布。
 
@@ -64,6 +64,9 @@ Assets/Gear/
 ├── 3rd/         外部素材与插件：Joystick Pack、WebGLSupport、Animated Loading Icons
 ├── Scenes/      启动 / 加载 / 业务场景 + Example 示例场景
 ├── Resources/   运行时资源（材质、预制体、音频、着色器、UI）
+├── Documentation/  随包分发的使用指南（进 UPM 包）
+├── Samples~/    随包分发的示例（Unity 包管理器可见，不参与编译）
+├── Tests/       EditMode / PlayMode 用例（Gear.Tests，不进 UPM 包）
 ├── Game/        示例入口声明（Assembly-CSharp，不进 UPM / .unitypackage）
 └── GenerateScript/  代码生成产物（UI 面板、配置数据）
 ```
@@ -84,6 +87,7 @@ Assets/Gear/
 | [Docs/Packaging/UPM打包指南.md](Docs/Packaging/UPM打包指南.md) | 导出 / 安装 UPM 包（运行时 / 完整） |
 | [Docs/guides/跨平台构建指南.md](Docs/guides/跨平台构建指南.md) | 多平台构建、link.xml 与平台备注 |
 | [Docs/guides/第三方依赖.md](Docs/guides/第三方依赖.md) | 第三方版本、冲突检测与二选一 |
+| [Docs/guides/测试与覆盖率.md](Docs/guides/测试与覆盖率.md) | 测试怎么跑、CI 的用例数/覆盖率门槛、回归测试放哪 |
 | [Docs/features.md](Docs/features.md) | 完整特性清单与示例 GIF |
 
 历史阶段记录（已完成，不再维护）在 [Docs/archive/](Docs/archive/)。

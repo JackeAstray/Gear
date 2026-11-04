@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using Gear.Common;
 
 namespace Gear.Framework.Runtime.UI
@@ -72,9 +73,26 @@ namespace Gear.Framework.Runtime.UI
             new Dictionary<Type, UIWindowDescriptor>();
 
         private static bool built;
+        private static int catalogVersion;
 
-        /// <summary>上次构建目录时的程序集数量：数量变化说明有新程序集加载，需要重扫。</summary>
-        private static int builtAssemblyCount = -1;
+        /// <summary>扫描互斥：并发的 EnsureBuilt（主线程 + AssemblyLoad 触发）不重复清表。</summary>
+        private static readonly object buildLock = new object();
+
+        static UIWindowCatalog()
+        {
+            // 程序集晚加载（UPM 包 / 反射 / 插件）时让目录缓存失效。
+            // 相比每次 GetId 都调用 AppDomain.GetAssemblies()，这里只在真正加载新程序集时重扫一次。
+            AppDomain.CurrentDomain.AssemblyLoad += OnAssemblyLoad;
+        }
+
+        private static void OnAssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            // AssemblyLoad 可能在非主线程触发，写 built 必须用 volatile 语义。
+            // 同时自增版本号：扫描期间加载的程序集靠"版本号前后比对"识别，避免被扫描末尾的
+            // built = true 覆盖掉这次失效通知（旧实现只看 built，会永久丢失该程序集的类型）。
+            Volatile.Write(ref built, false);
+            Interlocked.Increment(ref catalogVersion);
+        }
 
         /// <summary>目录里登记的窗口数量。</summary>
         public static int Count
@@ -156,10 +174,13 @@ namespace Gear.Framework.Runtime.UI
         /// <summary>清空缓存（域重载 / 测试用）。</summary>
         public static void Reset()
         {
-            byId.Clear();
-            byType.Clear();
-            built = false;
-            builtAssemblyCount = -1;
+            lock (buildLock)
+            {
+                byId.Clear();
+                byType.Clear();
+                Volatile.Write(ref built, false);
+            }
+            Interlocked.Increment(ref catalogVersion);
         }
 
         /// <summary>
@@ -168,51 +189,61 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         private static void EnsureBuilt()
         {
-            Assembly[] assemblies;
-            try
-            {
-                assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            }
-            catch (Exception ex)
-            {
-                // 不置 built：本次失败不应让目录永久为空，下次调用重试
-                Log.Warning("[UIWindowCatalog] 枚举程序集失败: {0}", ex.Message);
-                return;
-            }
+            if (Volatile.Read(ref built)) return;
 
-            // 已构建且程序集数量没变：直接复用。数量变化说明有新程序集加载
-            //（例如包安装后 UIController 所在程序集晚于首次查询加载），需要重扫。
-            if (built && assemblies.Length == builtAssemblyCount) return;
-
-            byId.Clear();
-            byType.Clear();
-            built = false;
-
-            for (int i = 0; i < assemblies.Length; i++)
+            lock (buildLock)
             {
-                Type[] types;
+                // 双检：等锁期间可能已有别的线程扫完
+                if (Volatile.Read(ref built)) return;
+
+                int version = Volatile.Read(ref catalogVersion);
+
+                Assembly[] assemblies;
                 try
                 {
-                    types = assemblies[i].GetTypes();
+                    assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 }
                 catch (Exception ex)
                 {
-                    // 个别程序集（动态/反射生成）取类型会抛，跳过即可；下次程序集数量变化时会重试
-                    Log.Debug("[UIWindowCatalog] 跳过无法枚举类型的程序集 {0}: {1}", assemblies[i].GetName().Name, ex.Message);
-                    continue;
+                    // 不置 built：本次失败不应让目录永久为空，下次调用重试
+                    Log.Warning("[UIWindowCatalog] 枚举程序集失败: {0}", ex.Message);
+                    return;
                 }
 
-                for (int t = 0; t < types.Length; t++)
+                byId.Clear();
+                byType.Clear();
+
+                for (int i = 0; i < assemblies.Length; i++)
                 {
-                    Register(types[t]);
+                    Type[] types;
+                    try
+                    {
+                        types = assemblies[i].GetTypes();
+                    }
+                    catch (Exception ex)
+                    {
+                        // 个别程序集（动态/反射生成）取类型会抛，跳过即可；
+                        // 之后若有新程序集加载，AssemblyLoad 会让缓存失效并重扫。
+                        Log.Debug("[UIWindowCatalog] 跳过无法枚举类型的程序集 {0}: {1}", assemblies[i].GetName().Name, ex.Message);
+                        continue;
+                    }
+
+                    for (int t = 0; t < types.Length; t++)
+                    {
+                        Register(types[t]);
+                    }
                 }
+
+                // 扫描期间又有程序集加载（版本号变了）：本次结果不完整，不能置 built ——
+                // 否则那条失效通知被吞掉，新程序集里的窗口永远登记不上。
+                if (Volatile.Read(ref catalogVersion) == version)
+                {
+                    Volatile.Write(ref built, true);
+                }
+
+                Log.Debug("[UIWindowCatalog] 已登记 {0} 个窗口（其中 {1} 个显式声明）",
+                    byId.Count, CountDeclared());
             }
-
-            built = true;
-            builtAssemblyCount = assemblies.Length;
-
-            Log.Debug("[UIWindowCatalog] 已登记 {0} 个窗口（其中 {1} 个显式声明）",
-                byId.Count, CountDeclared());
         }
 
         private static int CountDeclared()

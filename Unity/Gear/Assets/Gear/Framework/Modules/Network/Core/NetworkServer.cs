@@ -450,9 +450,10 @@ namespace Gear.Framework.Modules
                 else
                 {
                     handshakeConn.ServerNonce = NetworkHandshake.GenerateNonce();
-                    var serverProof = NetworkHandshake.ComputeServerProof(handshakeMasterKey, handshakeConn.ServerNonce);
+                    var serverProof = NetworkHandshake.ComputeServerProof(
+                        handshakeMasterKey, NetworkProtocol.Version, handshakeConn.ServerNonce);
                     Send(connectionId, NetworkConstants.ReservedHandshakeServerHello,
-                         NetworkHandshake.BuildHello(handshakeConn.ServerNonce, serverProof));
+                         NetworkHandshake.BuildHello(NetworkProtocol.Version, handshakeConn.ServerNonce, serverProof));
                 }
             }
             try { OnClientConnected?.Invoke(connectionId, address); }
@@ -525,14 +526,22 @@ namespace Gear.Framework.Modules
                     // 关键：必须校验客户端"持有主密钥"的证明。原实现只检查负载长度为 16，
                     // 任意 16 个随机字节都能让本连接进入 Secured 并触发 OnClientSecured
                     //（业务层把该事件当作"已认证"信号），同时也让未持有密钥者可无成本占用连接。
-                    if (!NetworkHandshake.TryParseHello(payload, out var clientNonce, out var clientProof))
+                    if (!NetworkHandshake.TryParseHello(payload, out var clientVersion, out var clientNonce, out var clientProof))
                     {
-                        Log.Error("[NetworkServer] 连接 {0} ClientHello 负载非法（期望 {1} 字节：[随机数][持有证明]），已断开",
+                        Log.Error("[NetworkServer] 连接 {0} ClientHello 负载非法（期望 {1} 字节：[版本][随机数][持有证明]），已断开",
                             connectionId, NetworkHandshake.HelloPayloadLength);
                         DisconnectClient(connectionId);
                         return;
                     }
-                    var expectedClientProof = NetworkHandshake.ComputeClientProof(handshakeMasterKey, conn.ServerNonce, clientNonce);
+                    // 版本不兼容时明确断开并说明原因（而不是让客户端连上后业务帧全部静默丢弃）
+                    if (!NetworkProtocol.IsSupported(clientVersion))
+                    {
+                        Log.Error("[NetworkServer] 连接 {0} {1}", connectionId, NetworkProtocol.DescribeMismatch(clientVersion));
+                        DisconnectClient(connectionId);
+                        return;
+                    }
+                    var expectedClientProof = NetworkHandshake.ComputeClientProof(
+                        handshakeMasterKey, clientVersion, conn.ServerNonce, clientNonce);
                     if (!NetworkHandshake.ProofEquals(expectedClientProof, clientProof))
                     {
                         Log.Error("[NetworkServer] 连接 {0} ClientHello 持有证明校验失败（对端不持有主密钥），已断开", connectionId);

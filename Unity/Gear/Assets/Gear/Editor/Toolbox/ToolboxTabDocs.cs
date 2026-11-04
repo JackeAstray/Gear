@@ -23,6 +23,7 @@ namespace Gear.EditorTools.Toolbox
         {
             "design/重构方案.md",
             "archive/阶段3-执行清单.md",
+            "archive/阶段3-执行清单-实测版.md",
             "archive/阶段3-第一步-程序集拆分-验证报告.md",
             "archive/阶段2-遗留-MonoBehaviour模块改造方案.md",
             "archive/UI系统-现状评估与演进方案.md",
@@ -30,6 +31,7 @@ namespace Gear.EditorTools.Toolbox
             "guides/工具箱.md",
             "guides/第三方依赖.md",
             "guides/跨平台构建指南.md",
+            "guides/测试与覆盖率.md",
             "design/便捷性与可移植性评估.md",
         };
 
@@ -113,12 +115,14 @@ namespace Gear.EditorTools.Toolbox
                 case "05-常见陷阱.md": return "双驱动 / 暂停 / Addressables / WebGL";
                 case "design/重构方案.md": return "痛点、分阶段方案、验收指标与待验证清单";
                 case "archive/阶段3-执行清单.md": return "分层归位的可勾选步骤";
+                case "archive/阶段3-执行清单-实测版.md": return "阶段 3 执行期间的实测可执行版（已完成）";
                 case "archive/阶段3-第一步-程序集拆分-验证报告.md": return "拆分可行性的实测证据";
                 case "archive/阶段2-遗留-MonoBehaviour模块改造方案.md": return "三个 MonoBehaviour 模块的去留";
                 case "archive/UI系统-现状评估与演进方案.md": return "两套 UI 栈的现状、对比与演进路线";
                 case "features.md": return "框架能力清单";
                 case "guides/第三方依赖.md": return "第三方版本、重名冲突与二选一";
                 case "guides/跨平台构建指南.md": return "多平台构建、link.xml 与平台备注";
+                case "guides/测试与覆盖率.md": return "测试怎么跑、CI 门槛、回归测试放哪";
                 case "design/便捷性与可移植性评估.md": return "调用 / 跨平台 / 插件便携性的现状与路线";
                 case "guides/工具箱.md": return "本窗口的说明";
                 default: return string.Empty;

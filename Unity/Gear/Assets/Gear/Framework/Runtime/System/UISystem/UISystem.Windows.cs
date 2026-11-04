@@ -253,21 +253,33 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         public void CloseAllWindows()
         {
-            // 复用成员缓冲（避免每次批量关闭 new List 分配）
-            closeBuffer.Clear();
-            foreach (KeyValuePair<string, UILoadState> uiWindow in uiStateCache)
+            // 重入守卫：CloseWindow 会触发用户 OnClose 回调。回调里再调一次 CloseAllWindows 时，
+            // 内层 closeBuffer.Clear() 会把外层正在按索引倒序遍历的列表清空（越界或漏关窗口）。
+            // 内层直接返回即可 —— 外层本来就在关闭全部窗口。
+            if (closingAllWindows) return;
+            closingAllWindows = true;
+            try
             {
-                if (IsOpen(uiWindow.Key))
+                // 复用成员缓冲（避免每次批量关闭 new List 分配）
+                closeBuffer.Clear();
+                foreach (KeyValuePair<string, UILoadState> uiWindow in uiStateCache)
                 {
-                    closeBuffer.Add(uiWindow.Key);
+                    if (IsOpen(uiWindow.Key))
+                    {
+                        closeBuffer.Add(uiWindow.Key);
+                    }
+                }
+
+                for (int i = closeBuffer.Count - 1; i >= 0; i--)
+                {
+                    CloseWindow(closeBuffer[i]);
                 }
             }
-
-            for (int i = closeBuffer.Count - 1; i >= 0; i--)
+            finally
             {
-                CloseWindow(closeBuffer[i]);
+                closeBuffer.Clear();
+                closingAllWindows = false;
             }
-            closeBuffer.Clear();
         }
 
         /// <summary>

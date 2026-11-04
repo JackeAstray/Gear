@@ -70,9 +70,9 @@ namespace Gear.Framework.Modules
             {
                 int dropped = Interlocked.Increment(ref droppedEventCount);
                 Log.Error("[RawTcpClientChannel] 接收积压超限（条数/字节），丢弃积压并断开连接以重建干净字节流。累计丢弃事件 {0}", dropped);
-                while (events.TryDequeue(out var dropped))
+                while (events.TryDequeue(out var evicted))
                 {
-                    Interlocked.Add(ref pendingBytes, -(dropped.data?.Length ?? 0));
+                    Interlocked.Add(ref pendingBytes, -(evicted.data?.Length ?? 0));
                 }
                 Interlocked.Exchange(ref pendingBytes, 0);
                 try { socket?.Close(); } catch { /* 已关闭/已释放 */ }

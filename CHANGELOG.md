@@ -1,8 +1,58 @@
 # Changelog
 
-## [未发布]
+## [1.3.1] - 2026-11-04
+
+这一版把加密链路从"能加密"推到"能抵抗重放"，并给质量门槛补上用例数与覆盖率棘轮。
+
+### Changed（破坏性：线格式变更）
+
+- **加密帧 v3（防重放）**：`EncryptedCodec` 帧头新增 `[LE32 序号]` 并纳入 HMAC 覆盖范围，
+  接收端只接受严格大于已见最大序号的帧（CAS 更新，并发解码也不会双收）。
+  修复前帧内没有序号，抓包得到的合法加密帧可以在同一会话里原样重发 —— 重复触发一次
+  "购买 / 扣费 / 提交"是完全可行的。序号是每连接状态：握手完成时新建 codec，新会话从 1 重新开始。
+  **与 1.3.0 及更早不互通**（旧帧没有序号，无法区分"重放的旧帧"与"新帧"）。
+- **握手 v3（协议版本化）**：`NetworkHandshake` 负载改为 `[1B 协议版本][16B 随机数][32B 持有证明]`，
+  版本字节参与持有证明的 HMAC；新增 `NetworkProtocol`（`Version` / `MinSupportedVersion` / `IsSupported`）
+  作为版本单一事实源。不兼容时在**握手阶段**断开并输出明确原因，而不是"看起来连上了、业务帧全部静默失败"。
+  旧的 48 字节（无版本）负载整体拒绝，不做猜测式兼容。
+- **`Modules.All` 只读**：`Modules.All` 与 `GameEngine.Modules` 由 `IList<ICustomSystem>` 改为
+  `IReadOnlyList<ICustomSystem>`（`GameEngine` 侧返回 `ReadOnlyCollection` 视图）。此前外部拿到列表后
+  直接 `Add/Remove` 能绕过 `AddModuleAsync` / `RemoveModule`，导致初始化顺序与事件不触发。
+
+### Added
+
+- **CI 用例数与覆盖率门槛**：新增 `Tools/CoverageGate`（零 NuGet 依赖）。始终执行"用例数不低于
+  `Tools/CoverageGate/baseline.json`、失败数为 0"的棘轮；存在覆盖率数据时再卡行覆盖率。
+  覆盖率包不进 manifest（离线打开工程会卡在包解析），改由 CI 在仓库变量 `GEAR_ENABLE_COVERAGE=true`
+  时临时注入。用法见 [Docs/guides/测试与覆盖率.md](Docs/guides/测试与覆盖率.md)。
+- **回归测试 9 条**：加密帧重放 / 乱序 / 序号篡改 / 新会话序号复位 / 旧握手负载拒绝 / 版本范围，
+  以及窗口目录的 `Reset` 重扫、程序集晚加载失效、并发预热（`Tests/NetworkHandshakeTests.cs`、
+  `Tests/UIWindowCatalogTests.cs`）。
 
 ### Fixed
+
+- **`UIWindowCatalog` 失效竞态**：`AssemblyLoad` 触发的失效可能发生在 `EnsureBuilt` 扫描途中，
+  扫描末尾的 `built = true` 会把它吞掉 —— 该程序集里的窗口永久登记不上。改为版本号 CAS：
+  扫描开始记下版本，结束时版本变了就不置 `built`；扫描加锁，并发预热不再重复清表。
+- **`UIRouter.Recompute` 重入**：`openWindowBuffer` 是复用列表，`RefreshModalState` 是 public，
+  在 `OnClose`/`OnOpen` 回调里再调一次会让内层 `Clear()` 清空外层正在遍历的列表（漏阻断/越界）。
+  加重入守卫，并在 `finally` 里清空，避免静态列表长期持有已关闭窗口。
+- **`UISystem.CloseAllWindows` 重入**：同样的问题换了个位置 —— `CloseWindow` 触发用户 `OnClose`
+  回调，回调里再调 `CloseAllWindows` 会清空外层正在倒序遍历的 `closeBuffer`（越界/漏关）。加重入守卫。
+- **`SoundSystem` 快照列表**：`GetSpawnedList` 原先全局共用一只列表，`RecycleAll`/`StopAll` 在遍历中
+  触发回调再入时，内层 `Clear()` 会把外层正在遍历的内容清空。改为双缓冲轮换取用。
+- **`EncryptedCodec` 日志节流**：坏帧（重放/探测）可以持续发送，逐帧 `Log.Warning` 会刷屏并掩盖真正的故障；
+  前 5 次全量记录，之后每 100 次一条。
+- **`SaveSystem` 密钥派生**：`DeriveKey` 每次存档/读档都跑一遍 1000 轮 PBKDF2，而输入全是编译期常量。
+  改为 `Lazy` 缓存主密钥与 MAC 密钥（移动端每次存读少几毫秒）。
+- **`GetPlayerGroupKey` 每帧分配**：原先每次调用都重拼 `manufacturer#serial`，而它会在"枚举设备找同组"
+  的循环里被逐个调用。结果并入 `DeviceCache`，随设备缓存算一次。
+- **`GameObjectPoolRegistry` 在编辑器下抛异常**：`DontDestroyOnLoad` 只能在播放模式调用，
+  EditMode 测试走到 `EnsureRoot` 直接抛 `InvalidOperationException`；改为仅在播放模式挂常驻，
+  `ClearAll` 在非播放模式用 `DestroyImmediate`（编辑器没有帧循环，`Destroy` 延迟到下一帧会让断言飘）。
+- **编译错误（HEAD 上就红）**：`RawTcpClientChannel.EnqueueEvent` 里 `dropped` 与 `out var dropped`
+  同名（CS0136）；`ObjectPoolPrewarmTests` 缺 `using Gear.Framework.Modules.Pool`（CS0103）。两个都让
+  整个工程编译不过 —— 也就是说这两处之前任何一次"测试通过"都不成立。
 
 - **下载批次的取消/超时**：`FileDownloader` 的看门狗从"总墙钟"改为"连续无进度"（默认 30s），且在
   `executors` + `executorsOld` 上取消时跳过已完成的执行器 —— 原实现会在超时或用户取消时把已经下好的
