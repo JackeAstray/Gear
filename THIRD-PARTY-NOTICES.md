@@ -28,7 +28,7 @@ Gear 本体以 **Apache-2.0** 授权（见 `LICENSE`）。仓库内随附的第�
 | UIEffect（mob-sakai） | `Utilities/UI/...`（按上游改写） | MIT |
 | Joystick Pack | `3rd/Joystick Pack` | Unity Asset Store EULA（**不可单独再分发**） |
 | Animated Loading Icons | `3rd/Animated Loading Icons` | Unity Asset Store EULA（**不可单独再分发**） |
-| 示例图片 / GIF | `Images/` | 仅用于文档演示；第三方素材保留原权利 |
+| 示例图片 / GIF | 原先的 `Images/` | 已于 2026-11 移除（文档示例 GIF 不再维护）；历史提交里仍存在 |
 
 ## 3. 字体
 

@@ -10,7 +10,7 @@
 |---|---|---|
 | `.git/objects` | ≈143 MB | 重写后的 Git 历史（GIF/unitypackage 已变 LFS 指针） |
 | `.git/lfs` | 642 MB | 23 个 LFS 对象（GIF / unitypackage 等） |
-| `Images/` | 83 MB | 当前工作区；GIF 是 LFS 指针，smudge 后约 445 MB |
+| `Images/` | **已移除** | 2026-11 删除：文档示例 GIF 已不再维护，工作区少 445 MB。历史提交里仍留有对象数据 |
 | `Unity/Gear/Assets/Gear/Fonts/` | 130 MB | 思源 / HarmonyOS Sans / 第三方中文字体 |
 | 工作区 `Assets/Gear/` | 194 MB | 含上述字体 |
 | 本地 `Unity/Gear/`（含 Library/Build） | 15 GB | 已被 `.gitignore` 忽略，可随时删除重建 |

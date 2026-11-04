@@ -81,54 +81,35 @@
 
 示例场景位于 `Assets → Gear → Scenes → Example`。
 
-<img src="../Images/示例路径.png" alt="示例" width="280"/>
-
 **Arrow Example** —— 展示箭头
-<img src="../Images/arrow-example-loop-min.gif" alt="arrow-example-min" width="520"/>
 
 **Button Example** —— 展示 Button
-<img src="../Images/button-example-loop-min.gif" alt="button-example-min" width="520"/>
 
 **Camera Billboard Example** —— 展示摄像机（Billboard 跟随 + Camera Feed 相机画面）
-<img src="../Images/camera-example-loop-min.gif" alt="camera-example-min" width="520"/>
 
 **ColliderGizmo Example** —— 展示编辑模式显示碰撞器工具
-<img src="../Images/colliderGizmo-example-loop-min.gif" alt="colliderGizmo-example-min" width="520"/>
 
 **Command Example** —— 展示 Command 工具，该场景演示了如何实现 Undo / Redo
-<img src="../Images/command-example-loop-min.gif" alt="command-example-min" width="520"/>
 
 **Deadline Example** —— 展示 Deadline 工具，该工具用于截止日期检测
-<img src="../Images/deadline-example-loop-min.gif" alt="deadline-example-min" width="520"/>
-<img src="../Images/deadline-example2-loop-min.gif" alt="deadline-example2-min" width="520"/>
 
 **Download Example** —— 展示下载
-<img src="../Images/download-example-loop-min.gif" alt="download-example-min" width="520"/>
 
 **ImageEx Example** —— SDF 形状 UI：12 种形状 + 渐变 / 模糊 / 描边 / 过渡（着色器 `Gear/UI/ImageEx`）
-<img src="../Images/imageEx-example-loop-min.gif" alt="imageEx-example-min" width="520"/>
 
 **LoopScrollRect Example** —— 展示循环列表
-<img src="../Images/循环列表.png" alt="循环列表" width="520"/>
 
 **Music Example** —— 展示音乐播放
-<img src="../Images/音乐示例.png" alt="音乐示例" width="520"/>
 
 **Raycast Example** —— 展示射线例子
-<img src="../Images/raycast-example-loop-min.gif" alt="raycast-example-min" width="520"/>
 
 **ScreenResolution Example** —— 展示屏幕分辨率工具
-<img src="../Images/screenResolution-example-loop-min.gif" alt="screenResolution-example-min" width="520"/>
 
 **StateMachine Example** —— 展示状态机的使用
-<img src="../Images/状态机1.png" alt="状态机1" width="520"/>
-<img src="../Images/状态机2.png" alt="状态机2" width="520"/>
 
 **Timer Example** —— 展示计时和倒计时的使用
-<img src="../Images/timer-example-loop-min.gif" alt="timer-example-min" width="520"/>
 
 **TreeView Example** —— 展示树状图
-<img src="../Images/treeView-example-loop-min.gif" alt="treeView-example-min" width="520"/>
 
 **Network Example** —— 展示网络连接与数据传输（TCP / KCP / WebSocket / RawTcp）
 
