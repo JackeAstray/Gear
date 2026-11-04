@@ -27,7 +27,7 @@ Unity 游戏框架 —— 纯 C# 生命周期、模块化系统、四传输网�
 "com.jackeastray.gear": "https://github.com/JackeAstray/Gear.git#upm"
 ```
 
-包标识固定为 **`com.jackeastray.gear`**（当前 `1.3.1`）。`upm` 分支是**发布产物**，每次发布重建为单个提交；
+包标识固定为 **`com.jackeastray.gear`**（当前 `2.0.0`）。`upm` 分支是**发布产物**，每次发布重建为单个提交；
 如果你安装到的包名是 `com.reunion.movement`，说明该分支还是重构前的旧包，请让维护者按
 [UPM 打包指南](Docs/Packaging/UPM打包指南.md) 重新发布。
 

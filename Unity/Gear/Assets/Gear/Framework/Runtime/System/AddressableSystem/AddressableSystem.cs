@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace Gear.Framework.Runtime.Resources
         private static readonly Lazy<AddressableSystem> instance = new(() => new AddressableSystem());
         public static AddressableSystem Instance => instance.Value;
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -91,7 +91,7 @@ namespace Gear.Framework.Runtime.Resources
         private async UniTask InitCore(CancellationToken ct)
         {
             initProgress = 0;
-            isInited = false;
+            IsInited = false;
             int myGeneration = ++initGeneration;
 
             // 失败冷却：Init 失败后，每个 Load/Instantiate 入口都会再次触发 Init，
@@ -108,9 +108,9 @@ namespace Gear.Framework.Runtime.Resources
             if (Mode == AddressablesMode.Off)
             {
                 initProgress = 100;
-                // Off 模式即"已就绪"（跳过 Addressables）：置 isInited=true 保持"Init 成功即就绪"约定，
-                // 否则后续按 isInited 判断可用性的调用方会误判为未初始化而触发重复 Init 或错误降级
-                isInited = true;
+                // Off 模式即"已就绪"（跳过 Addressables）：置 IsInited=true 保持"Init 成功即就绪"约定，
+                // 否则后续按 IsInited 判断可用性的调用方会误判为未初始化而触发重复 Init 或错误降级
+                IsInited = true;
                 Log.Debug("AddressableSystem 已关闭（AddressablesMode.Off），跳过初始化");
                 return;
             }
@@ -158,21 +158,21 @@ namespace Gear.Framework.Runtime.Resources
 
                 if (myGeneration != initGeneration) return; // 远程检查期间已被 Clear/重启
                 initProgress = 100;
-                isInited = true;
+                IsInited = true;
                 lastInitFailureTime = -1f;
                 Log.Debug("AddressableSystem 初始化完成 (Mode={0})", Mode);
             }
             catch (OperationCanceledException) when (ct.IsCancellationRequested)
             {
-                // 引擎取消/超时：交给 LaunchAsync 统一处理，不写失败冷却/不置 isInited
+                // 引擎取消/超时：交给 LaunchAsync 统一处理，不写失败冷却/不置 IsInited
                 throw;
             }
             catch (Exception ex)
             {
                 Log.Error("AddressableSystem 初始化失败（业务层将降级 Resources）: {0}", ex.Message);
-                // 已被 Clear/重启的过期初始化不再回写 isInited/冷却时间
+                // 已被 Clear/重启的过期初始化不再回写 IsInited/冷却时间
                 if (myGeneration != initGeneration) return;
-                isInited = false;
+                IsInited = false;
                 lastInitFailureTime = Time.realtimeSinceStartup;
             }
         }
@@ -306,7 +306,7 @@ namespace Gear.Framework.Runtime.Resources
             // 锚点失败标记同理，否则重启后永久拒绝远程更新。
             lastInitFailureTime = -1f;
             catalogAnchorFailed = false;
-            isInited = false;
+            IsInited = false;
         }
 
         #region 加载
@@ -325,11 +325,11 @@ namespace Gear.Framework.Runtime.Resources
                 Log.Warning("AddressableSystem 处于 Off 模式，无法加载: {0}", key);
                 return null;
             }
-            if (!isInited)
+            if (!IsInited)
             {
                 Log.Warning("AddressableSystem 未初始化，自动执行 Init()");
                 await Init();
-                if (!isInited) return null;
+                if (!IsInited) return null;
             }
 
             AsyncOperationHandle<T> handle = default;
@@ -376,11 +376,11 @@ namespace Gear.Framework.Runtime.Resources
                 Log.Warning("AddressableSystem 处于 Off 模式，无法实例化: {0}", key);
                 return null;
             }
-            if (!isInited)
+            if (!IsInited)
             {
                 Log.Warning("AddressableSystem 未初始化，自动执行 Init()");
                 await Init();
-                if (!isInited) return null;
+                if (!IsInited) return null;
             }
 
             AsyncOperationHandle<GameObject> handle = default;

@@ -77,6 +77,11 @@ namespace Gear.Editor.Guards
             @"\bGear\.Utils\b",
             @"\bCore/(StartGame|System|Base)\b",
             @"\bUtils/(Timer|Http|Network|Util|UI)\b",
+            // 2.0 起的命名空间归位：旧名一旦回流，说明有人照抄了旧代码/旧文档
+            @"\bGear\.Framework\.Runtime\.Base\b",
+            @"\bGear\.Utilities\.UI\.ButtonClick\b",
+            @"\bGear\.Utilities\.UI\.ButtonAnimated\b",
+            @"\bUIImgComponent\b",
         };
 
         /// <summary>每层允许引用的下层白名单（未列出的层不做方向检查）。</summary>

@@ -8,7 +8,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 圆形
     /// </summary>
     [Serializable]
-    public class CircleImg : UIImgComponent
+    public class CircleImg : IUIImageComponent
     {
         [SerializeField] private float radius;
         [SerializeField] private bool fitRadius;

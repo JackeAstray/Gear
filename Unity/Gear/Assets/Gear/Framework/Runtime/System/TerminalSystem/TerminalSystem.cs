@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.UI;
 using Cysharp.Threading.Tasks;
 using System;
@@ -24,7 +24,7 @@ namespace Gear.Framework.Runtime.Terminal
             return Gear.Framework.Runtime.Modules.TryGet(out TerminalSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -61,7 +61,7 @@ namespace Gear.Framework.Runtime.Terminal
 #endif
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             Log.Debug("TerminalSystem 初始化完成");
 
             return UniTask.CompletedTask;
@@ -82,7 +82,7 @@ namespace Gear.Framework.Runtime.Terminal
             if (keyboard.backquoteKey.wasPressedThisFrame)
             {
                 // UI 系统未初始化时不执行切换（TerminalSystem 依赖 UISystem，见类上的 [ModuleOrder]）
-                if (Modules.TryGet<UISystem>(out var ui) && ui.isInited)
+                if (Modules.TryGet<UISystem>(out var ui) && ui.IsInited)
                 {
                     ui.ToggleWindow("TerminalUIPlane");
                 }
@@ -93,7 +93,7 @@ namespace Gear.Framework.Runtime.Terminal
         public void Clear()
         {
             Log.Debug("TerminalSystem 清除数据");
-            isInited = false;
+            IsInited = false;
             // 仅销毁自建对象：场景作者手动放置的 TerminalRequest 归场景所有，销毁会致重进场景时 Missing
             if (terminalRequest != null && ownTerminalRequest)
             {

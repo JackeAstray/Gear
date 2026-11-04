@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Gear.Framework.Runtime;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.UI;
 using Gear.Framework.Runtime.UIInput;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Gear.Framework.Modules.Http;
 using Gear.Framework.Modules.Timer;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using UnityEngine;
 
 namespace Gear.Framework.Modules

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Gear.Framework.Runtime;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using UnityEngine;
 using UnityEngine.UI;
 

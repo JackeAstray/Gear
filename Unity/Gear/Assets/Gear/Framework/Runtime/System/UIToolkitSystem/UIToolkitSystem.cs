@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -32,7 +32,7 @@ namespace Gear.Framework.Runtime.UIToolkit
             return Gear.Framework.Runtime.Modules.TryGet(out UIToolkitSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         /// <summary>初始化代次：Clear/重新 Init 会递增，用于让在途 Init 的 await 续体失效</summary>
         private int initGeneration;
@@ -125,8 +125,8 @@ namespace Gear.Framework.Runtime.UIToolkit
         private async UniTask InitCore(CancellationToken ct)
         {
             initProgress = 0;
-            isInited = false;
-            // 初始化代次：LoadPanelSettingsAsync 含 await，期间 Clear/重启后不能继续写入 isInited
+            IsInited = false;
+            // 初始化代次：LoadPanelSettingsAsync 含 await，期间 Clear/重启后不能继续写入 IsInited
             int myGeneration = ++initGeneration;
 
             // 重建 R3 Subject（Clear() 已 Dispose，重初始化时必须重建，
@@ -149,7 +149,7 @@ namespace Gear.Framework.Runtime.UIToolkit
             initProgress = 80;
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             Log.Debug("[UIToolkitSystem] 初始化完成");
         }
 
@@ -223,7 +223,7 @@ namespace Gear.Framework.Runtime.UIToolkit
             }
             panelSettingsCreatedFallback = false;
 
-            isInited = false;
+            IsInited = false;
         }
         #endregion
 

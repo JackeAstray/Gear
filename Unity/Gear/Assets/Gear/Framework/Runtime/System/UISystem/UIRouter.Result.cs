@@ -121,7 +121,7 @@ namespace Gear.Framework.Runtime.UI
             // 模态窗口不一定进导航栈（UISystem.OpenWindow 直接打开的模态只登记在模态栈）。
             // 有模态时"确定/取消"必须关最上层模态，否则会把下层窗口关掉、模态反而留在屏幕上。
             string windowId = null;
-            if (Modules.TryGet(out UISystem ui) && ui != null && ui.isInited)
+            if (Modules.TryGet(out UISystem ui) && ui != null && ui.IsInited)
             {
                 windowId = modalStack.TopOpen(ui.IsOpen);
             }
@@ -154,7 +154,7 @@ namespace Gear.Framework.Runtime.UI
             // 先回传再关闭：关闭会触发 OnCloseSubject，若不先置结果会被当成"取消"
             CompletePendingResult(windowId, result);
 
-            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited) return false;
+            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited) return false;
 
             bool wasOpen = ui.IsOpen(windowId);
             stack.Remove(windowId);

@@ -1,6 +1,6 @@
 {
     "name": "Gear.Base",
-    "rootNamespace": "Gear.Framework.Runtime.Base",
+    "rootNamespace": "Gear.Base",
     "references": [
         "UniTask"
     ],

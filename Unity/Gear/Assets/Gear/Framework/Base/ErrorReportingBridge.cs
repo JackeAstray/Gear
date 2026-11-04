@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 全局错误捕获的运行时桥。Modules 的 ErrorReporter 在进入 Play 时注册初始化方法，

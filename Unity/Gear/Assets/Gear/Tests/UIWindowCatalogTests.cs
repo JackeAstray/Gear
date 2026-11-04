@@ -2,6 +2,7 @@ using NUnit.Framework;
 using Gear.Framework.Runtime;
 using Gear.Framework.Runtime.Scene;
 using Gear.Framework.Runtime.UI;
+using Gear.Common;
 
 namespace Gear.Tests
 {

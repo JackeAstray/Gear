@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.Scene;
 using Cysharp.Threading.Tasks;
@@ -45,7 +45,7 @@ namespace Gear.Framework.Runtime.Sound
                     AudioClip clip = await GetAudioClipAsync(soundConfig.Path, soundConfig.Name);
                     // await 恢复后复查：Clear() 可能已销毁 sfxRoot（代次校验已让 clip 为 null，
                     // 但 cachedSfxPrefab/sfxRoot 仍需检查，否则 Spawn 访问 sfxRoot.transform 抛 NRE）
-                    if (clip != null && cachedSfxPrefab != null && sfxRoot != null && isInited)
+                    if (clip != null && cachedSfxPrefab != null && sfxRoot != null && IsInited)
                     {
                         GameObject go = Spawn(cachedSfxPrefab);
                         if (go != null)

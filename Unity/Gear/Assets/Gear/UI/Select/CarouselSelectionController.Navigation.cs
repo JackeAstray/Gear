@@ -214,7 +214,7 @@ namespace Gear.UI.Select
 
             playerSlot = slot;
 
-            if (reRegister && isActiveAndEnabled && UIInputSystem.GetOrInstance().isInited)
+            if (reRegister && isActiveAndEnabled && UIInputSystem.GetOrInstance().IsInited)
             {
                 UIInputSystem.GetOrInstance().RegisterNavigationTarget(this, autoEnableUIControl);
                 registered = true;
@@ -239,7 +239,7 @@ namespace Gear.UI.Select
             }
 
             ownerGroup = null;
-            if (isActiveAndEnabled && UIInputSystem.GetOrInstance().isInited && !registered)
+            if (isActiveAndEnabled && UIInputSystem.GetOrInstance().IsInited && !registered)
             {
                 UIInputSystem.GetOrInstance().RegisterNavigationTarget(this, autoEnableUIControl);
                 registered = true;

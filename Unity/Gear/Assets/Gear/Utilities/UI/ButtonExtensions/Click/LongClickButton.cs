@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Gear.Utilities.UI.ButtonClick
+namespace Gear.Utilities.UI
 {
     /// <summary>
     /// 长按按钮

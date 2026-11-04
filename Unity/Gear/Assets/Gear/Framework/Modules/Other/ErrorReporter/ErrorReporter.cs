@@ -8,6 +8,7 @@ using UnityEngine;
 
 using Gear.Common;
 using Gear.Utilities;
+using Gear.Base;
 namespace Gear.Framework.Modules
 {
     /// <summary>
@@ -130,13 +131,13 @@ namespace Gear.Framework.Modules
 
         /// <summary>
         /// 进入 Play 时把初始化方法交给 Base 的桥；Bootstrap 在启动早期调用
-        /// <see cref="Gear.Framework.Runtime.Base.ErrorReportingBridge.TryInitialize"/>（Runtime 不引用 Modules）。
+        /// <see cref="Gear.Base.ErrorReportingBridge.TryInitialize"/>（Runtime 不引用 Modules）。
         /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void RegisterOnPlay()
         {
-            Gear.Framework.Runtime.Base.ErrorReportingBridge.Initialize = Initialize;
-            Gear.Framework.Runtime.Base.ErrorReportingBridge.UploadLog = UploadErrorLog;
+            Gear.Base.ErrorReportingBridge.Initialize = Initialize;
+            Gear.Base.ErrorReportingBridge.UploadLog = UploadErrorLog;
         }
 
         /// <summary>初始化（幂等）：订阅全局日志回调并准备日志目录</summary>

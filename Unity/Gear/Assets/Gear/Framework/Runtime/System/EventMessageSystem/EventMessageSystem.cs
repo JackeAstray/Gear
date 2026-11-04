@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -66,7 +66,7 @@ namespace Gear.Framework.Runtime.EventMessage
             return Gear.Framework.Runtime.Modules.TryGet(out EventMessageSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -184,7 +184,7 @@ namespace Gear.Framework.Runtime.EventMessage
         public UniTask Init()
         {
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             mainThreadId = Thread.CurrentThread.ManagedThreadId;
             Log.Debug("EventMessageSystem 初始化完成 (R3 + 主线程投递队列)");
             return UniTask.CompletedTask;
@@ -267,7 +267,7 @@ namespace Gear.Framework.Runtime.EventMessage
                 while (pendingTypedEvents.TryDequeue(out _)) { }
             }
 
-            isInited = false;
+            IsInited = false;
         }
 
         /// <summary>

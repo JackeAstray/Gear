@@ -132,7 +132,7 @@ namespace Gear.Tests
 
             Assert.IsNull(Pause.IsPaused, "Clear 应释放并置空 IsPaused，避免订阅者泄漏");
             Assert.AreEqual(1f, Time.timeScale, 1e-6f, "Clear 必须还原 timeScale，否则引擎重建后整局卡死");
-            Assert.IsFalse(Pause.isInited);
+            Assert.IsFalse(Pause.IsInited);
         }
     }
 }

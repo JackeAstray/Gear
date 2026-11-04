@@ -42,10 +42,12 @@ namespace Gear.EditorTools.Package
         // 包身份是发布契约：package.json 的 name/version 必须与 README、UPM 指南、
         // upm 分支上的实际包一致。改这里时同步改 Docs/Packaging/UPM打包指南.md 与 Tools/upm-publish.ps1。
         // 1.3.0：修正 upm 分支曾以 com.reunion.movement@1.3.0 发布导致的身份错位。
+        // 2.0.0：公开成员改 PascalCase、接口改名、命名空间与程序集对齐（见 Docs/guides/2.0-迁移指南.md）。
+        //        编译期破坏：接入方需要按迁移指南改 using 与成员名。
         // 1.3.1：加密帧增加 LE32 序号（防重放）+ 握手负载带协议版本 —— 属线格式变更，
         //        1.3.0 及更早的客户端/服务端与 1.3.1 不互通（握手阶段即拒绝，见 NetworkProtocol）。
         private const string PackageName = "com.jackeastray.gear";
-        private const string PackageVersion = "1.3.1";
+        private const string PackageVersion = "2.0.0";
         private const string DefaultOutputRelative = "Build/Packages";
 
         /// <summary>默认输出根（<c>&lt;project&gt;/Build/Packages</c>）。</summary>

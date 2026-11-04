@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -30,7 +30,7 @@ namespace Gear.Framework.Runtime.UI
             return Gear.Framework.Runtime.Modules.TryGet(out UISystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         /// <summary>初始化代次：Clear/重新 Init 会递增，用于让在途 Init 的跨帧续体失效</summary>
         private int initGeneration;
@@ -101,9 +101,9 @@ namespace Gear.Framework.Runtime.UI
         private async UniTask InitCore(CancellationToken ct)
         {
             initProgress = 0;
-            isInited = false;
+            IsInited = false;
             // 初始化代次：CreateRoot 含两次跨帧 await，期间引擎可能超时/Dispose 并调用 Clear()。
-            // 续体必须据此放弃，否则会在 Clear 之后重新创建 UIRoot/EventSystem 并置 isInited=true。
+            // 续体必须据此放弃，否则会在 Clear 之后重新创建 UIRoot/EventSystem 并置 IsInited=true。
             int myGeneration = ++initGeneration;
 
             // 重建可能已被 Clear() 释放的 R3 Subject（支持模块重初始化）
@@ -120,14 +120,14 @@ namespace Gear.Framework.Runtime.UI
             UIWindowCatalog.Warmup();
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             Log.Debug("UISystem 初始化完成");
         }
 
         public void Clear()
         {
             Log.Debug("UISystem 清除数据");
-            isInited = false;
+            IsInited = false;
             // 使在途 Init 的续体失效
             initGeneration++;
             uiStateCache.Clear();
@@ -183,7 +183,7 @@ namespace Gear.Framework.Runtime.UI
         /// <summary>
         /// 创建根节点
         /// </summary>
-        /// <returns>false 表示初始化期间系统已被 Clear/重启，调用方不应再置 isInited</returns>
+        /// <returns>false 表示初始化期间系统已被 Clear/重启，调用方不应再置 IsInited</returns>
         private async UniTask<bool> CreateRoot(int generation, CancellationToken ct)
         {
             uiRoot = new GameObject("UIRoot");

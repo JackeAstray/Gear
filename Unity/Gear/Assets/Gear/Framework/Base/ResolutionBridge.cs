@@ -1,4 +1,4 @@
-﻿namespace Gear.Framework.Runtime.Base
+﻿namespace Gear.Base
 {
     /// <summary>
     /// 分辨率应用能力 —— 由 <c>Framework/Modules</c> 的 ResolutionMgr 实现，

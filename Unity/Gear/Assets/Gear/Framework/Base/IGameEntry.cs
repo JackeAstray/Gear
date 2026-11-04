@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 游戏入口接口

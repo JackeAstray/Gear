@@ -45,13 +45,13 @@ namespace Gear.Tests
             mgr.Tick(0.2f);
 
             Assert.AreEqual(1, completed, "计时器应已到点完成");
-            Assert.AreEqual(Timer.TimerState.Idle, first.state, "回收时应复位为 Idle，供下一次租用");
+            Assert.AreEqual(Timer.TimerState.Idle, first.State, "回收时应复位为 Idle，供下一次租用");
 
             int ticksBefore = ticks;
 
             var second = mgr.CreateTimer(1f);
             Assert.AreSame(first, second, "池化开启时应复用已结束的实例");
-            Assert.AreEqual(0, second.loopCount, "复用的实例必须从干净状态开始");
+            Assert.AreEqual(0, second.LoopCount, "复用的实例必须从干净状态开始");
 
             second.Start();
             mgr.Tick(0.1f);

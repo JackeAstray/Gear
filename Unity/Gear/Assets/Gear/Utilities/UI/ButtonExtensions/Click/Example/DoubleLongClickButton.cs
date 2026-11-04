@@ -1,23 +1,26 @@
-﻿using Gear.Common;
-using Gear.Utilities.UI.ButtonClick;
+using Gear.Common;
+using Gear.Utilities.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleLongClickButton : MonoBehaviour
+namespace Gear.Utilities.UI
 {
-    public DoubleClickButton DoubleClickButton = null;
-    public LongClickButton LongClickButton = null;
-
-    public void Start()
+    public class DoubleLongClickButton : MonoBehaviour
     {
-        DoubleClickButton.onDoubleClick.AddListener(() =>
+        public DoubleClickButton DoubleClickButton = null;
+        public LongClickButton LongClickButton = null;
+
+        public void Start()
         {
-            Log.Debug("双击按钮");
-        });
-        LongClickButton.onLongClick.AddListener(() =>
-        {
-            Log.Debug("长按按钮");
-        });
+            DoubleClickButton.onDoubleClick.AddListener(() =>
+            {
+                Log.Debug("双击按钮");
+            });
+            LongClickButton.onLongClick.AddListener(() =>
+            {
+                Log.Debug("长按按钮");
+            });
+        }
     }
 }

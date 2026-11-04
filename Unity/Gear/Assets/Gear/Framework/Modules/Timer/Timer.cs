@@ -17,26 +17,26 @@ namespace Gear.Framework.Modules.Timer
         public enum TimerState { Idle, Running, Paused, Finished, Cancelled }
 
         // 总时长（秒）
-        public float duration { get; private set; }
+        public float Duration { get; private set; }
         // 已经过的时间（秒）
-        public float elapsed { get; private set; }
+        public float Elapsed { get; private set; }
         // 是否为倒计时
-        public bool isCountingDown { get; private set; }
+        public bool IsCountingDown { get; private set; }
         // 时间缩放（钳制负值：负值会使计时倒退永不完成）
         private float _timeScale = 1f;
-        public float timeScale
+        public float TimeScale
         {
             get => _timeScale;
             set => _timeScale = value < 0f ? 0f : value;
         }
         // 是否循环
-        public bool isLoop { get; private set; }
+        public bool IsLoop { get; private set; }
         // 已循环次数
-        public int loopCount { get; private set; } = 0;
+        public int LoopCount { get; private set; } = 0;
         // 0为无限循环
-        public int maxLoop { get; private set; } = 0;
+        public int MaxLoop { get; private set; } = 0;
         // 当前状态
-        public TimerState state { get; private set; } = TimerState.Idle;
+        public TimerState State { get; private set; } = TimerState.Idle;
 
         // 完成事件，当计时器到达结束时触发
         public event Action OnCompleted;
@@ -57,29 +57,29 @@ namespace Gear.Framework.Modules.Timer
         /// <param name="isCountingDown"></param>
         public Timer(float duration, bool isCountingDown = true, bool isLoop = false, int maxLoop = 0)
         {
-            this.duration = Math.Max(0, duration);
-            this.isCountingDown = isCountingDown;
-            this.isLoop = isLoop;
-            this.maxLoop = maxLoop;
-            elapsed = 0f;
+            this.Duration = Math.Max(0, duration);
+            this.IsCountingDown = isCountingDown;
+            this.IsLoop = isLoop;
+            this.MaxLoop = maxLoop;
+            Elapsed = 0f;
         }
 
         /// <summary>
         /// 开始计时器。如果当前为 Idle 状态则从 0 开始计时；
-        /// 如果当前为 Paused 状态则从暂停处继续（保留 elapsed）。
+        /// 如果当前为 Paused 状态则从暂停处继续（保留 Elapsed）。
         /// 如果已在 Running 状态则忽略。
         /// </summary>
         public void Start()
         {
-            if (state == TimerState.Running) return;
+            if (State == TimerState.Running) return;
 
             // 仅当从 Idle/Finished/Cancelled 启动时才清零
-            if (state != TimerState.Paused)
+            if (State != TimerState.Paused)
             {
-                elapsed = 0f;
-                loopCount = 0;
+                Elapsed = 0f;
+                LoopCount = 0;
             }
-            state = TimerState.Running;
+            State = TimerState.Running;
         }
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace Gear.Framework.Modules.Timer
         /// </summary>
         public void Pause()
         {
-            if (state != TimerState.Running) return;
-            state = TimerState.Paused;
+            if (State != TimerState.Running) return;
+            State = TimerState.Paused;
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace Gear.Framework.Modules.Timer
         /// </summary>
         public void Resume()
         {
-            if (state != TimerState.Paused) return;
-            state = TimerState.Running;
+            if (State != TimerState.Paused) return;
+            State = TimerState.Running;
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Gear.Framework.Modules.Timer
         /// </summary>
         public void Cancel()
         {
-            if (state == TimerState.Finished || state == TimerState.Cancelled) return;
-            state = TimerState.Cancelled;
+            if (State == TimerState.Finished || State == TimerState.Cancelled) return;
+            State = TimerState.Cancelled;
             OnCancelled?.Invoke();
         }
 
@@ -115,9 +115,9 @@ namespace Gear.Framework.Modules.Timer
         /// </summary>
         public void Reset()
         {
-            elapsed = 0f;
-            state = TimerState.Idle;
-            loopCount = 0;
+            Elapsed = 0f;
+            State = TimerState.Idle;
+            LoopCount = 0;
         }
 
         /// <summary>
@@ -144,45 +144,45 @@ namespace Gear.Framework.Modules.Timer
                 return;
             }
 
-            if (state != TimerState.Running)
+            if (State != TimerState.Running)
             {
                 return;
             }
 
-            elapsed += deltaTime * timeScale;
+            Elapsed += deltaTime * TimeScale;
 
-            float time = isCountingDown ? duration - elapsed : elapsed;
+            float time = IsCountingDown ? Duration - Elapsed : Elapsed;
 
             // 长帧超调时倒计时可能为负：对外钳制到 0，避免 UI 显示 "-0.0s"
             OnTick?.Invoke(Mathf.Max(0f, time));
 
             // OnTick 回调内可能调用 Cancel()：状态已变为 Cancelled 时不得继续触发完成分支
-            if (state != TimerState.Running) return;
+            if (State != TimerState.Running) return;
 
-            if ((isCountingDown && time <= 0f) || (!isCountingDown && elapsed >= duration))
+            if ((IsCountingDown && time <= 0f) || (!IsCountingDown && Elapsed >= Duration))
             {
-                loopCount++;
-                if (isLoop && (maxLoop == 0 || loopCount < maxLoop))
+                LoopCount++;
+                if (IsLoop && (MaxLoop == 0 || LoopCount < MaxLoop))
                 {
-                    // 长帧多循环补发：一次 deltaTime 可能跨多个周期（如 3.2×duration）。
-                    // 必须在 Repeat 之前用原始 elapsed 计算跨周期数——Repeat 后 elapsed 恒 < duration，
-                    // FloorToInt(elapsed/duration)-1 恒为 -1，补发循环永远不执行（死代码）。
+                    // 长帧多循环补发：一次 deltaTime 可能跨多个周期（如 3.2×Duration）。
+                    // 必须在 Repeat 之前用原始 Elapsed 计算跨周期数——Repeat 后 Elapsed 恒 < Duration，
+                    // FloorToInt(Elapsed/Duration)-1 恒为 -1，补发循环永远不执行（死代码）。
                     // Mathf.Repeat 只保留一次余数，跨过的周期必须逐次补发 OnLoopCompleted，
                     // 否则依赖循环计数的逻辑（如计时奖励）在低帧率下会丢失周期。
-                    int overflowLoops = duration > 0f ? Mathf.FloorToInt(elapsed / duration) - 1 : 0;
-                    // 保留溢出量避免长帧累积漂移（原实现归零会丢弃 elapsed-duration）
-                    elapsed = duration > 0f ? Mathf.Repeat(elapsed, duration) : 0f;
-                    OnLoopCompleted?.Invoke(loopCount);
+                    int overflowLoops = Duration > 0f ? Mathf.FloorToInt(Elapsed / Duration) - 1 : 0;
+                    // 保留溢出量避免长帧累积漂移（原实现归零会丢弃 Elapsed-Duration）
+                    Elapsed = Duration > 0f ? Mathf.Repeat(Elapsed, Duration) : 0f;
+                    OnLoopCompleted?.Invoke(LoopCount);
 
                     for (int i = 0; i < overflowLoops; i++)
                     {
-                        loopCount++;
-                        OnLoopCompleted?.Invoke(loopCount);
+                        LoopCount++;
+                        OnLoopCompleted?.Invoke(LoopCount);
                         // 回调内可能 Cancel/Reset（状态脱离 Running）：中止补发
-                        if (state != TimerState.Running) return;
-                        if (maxLoop > 0 && loopCount >= maxLoop)
+                        if (State != TimerState.Running) return;
+                        if (MaxLoop > 0 && LoopCount >= MaxLoop)
                         {
-                            state = TimerState.Finished;
+                            State = TimerState.Finished;
                             OnCompleted?.Invoke();
                             return;
                         }
@@ -190,13 +190,13 @@ namespace Gear.Framework.Modules.Timer
                 }
                 else
                 {
-                    // 与溢出补发路径保持一致：到达 maxLoop 的那次循环同样广播 OnLoopCompleted，
+                    // 与溢出补发路径保持一致：到达 MaxLoop 的那次循环同样广播 OnLoopCompleted，
                     // 否则同一事件在普通路径（无广播）与长帧路径（有广播）行为不一致
-                    if (isLoop)
+                    if (IsLoop)
                     {
-                        OnLoopCompleted?.Invoke(loopCount);
+                        OnLoopCompleted?.Invoke(LoopCount);
                     }
-                    state = TimerState.Finished;
+                    State = TimerState.Finished;
                     OnCompleted?.Invoke();
                 }
             }
@@ -216,14 +216,14 @@ namespace Gear.Framework.Modules.Timer
         internal void ResetForPool(float newDuration, bool countingDown, bool loop, int maxLoopCount)
         {
             Lease++;
-            duration = Math.Max(0, newDuration);
-            isCountingDown = countingDown;
-            isLoop = loop;
-            maxLoop = maxLoopCount;
-            elapsed = 0f;
-            loopCount = 0;
+            Duration = Math.Max(0, newDuration);
+            IsCountingDown = countingDown;
+            IsLoop = loop;
+            MaxLoop = maxLoopCount;
+            Elapsed = 0f;
+            LoopCount = 0;
             _timeScale = 1f;
-            state = TimerState.Idle;
+            State = TimerState.Idle;
             attachedTarget = null;
             // 必须清空：否则下一次租用会触发上一个使用者的回调
             OnCompleted = null;
@@ -233,7 +233,7 @@ namespace Gear.Framework.Modules.Timer
         }
 
         /// <summary>是否已结束、可以安全回收进对象池。</summary>
-        internal bool CanRecycle => state == TimerState.Finished || state == TimerState.Cancelled;
+        internal bool CanRecycle => State == TimerState.Finished || State == TimerState.Cancelled;
 
         /// <summary>
         /// 获取当前进度（0-1），0表示开始，1表示结束
@@ -241,10 +241,10 @@ namespace Gear.Framework.Modules.Timer
         /// <returns></returns>
         public float GetProgress()
         {
-            // duration 可能为 0（构造时 Math.Max(0, duration)），直接除零得到 NaN。
+            // Duration 可能为 0（构造时 Math.Max(0, Duration)），直接除零得到 NaN。
             // 0 时长的计时器在首次 Update 即完成，视为进度 1。
-            if (duration <= 0f) return 1f;
-            return Math.Clamp(elapsed / duration, 0f, 1f);
+            if (Duration <= 0f) return 1f;
+            return Math.Clamp(Elapsed / Duration, 0f, 1f);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Gear.Framework.Modules.Timer
         /// </summary>
         public float GetRemainingTime()
         {
-            return Mathf.Max(0f, duration - elapsed);
+            return Mathf.Max(0f, Duration - Elapsed);
         }
     }
 }

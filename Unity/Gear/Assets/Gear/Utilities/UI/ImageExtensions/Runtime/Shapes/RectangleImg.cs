@@ -10,7 +10,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 矩形
     /// </summary>
     [Serializable]
-    public class RectangleImg : UIImgComponent
+    public class RectangleImg : IUIImageComponent
     {
         [SerializeField] private Vector4 cornerRadius;
 #if UNITY_EDITOR

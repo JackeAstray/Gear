@@ -12,7 +12,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 心形
     /// </summary>
     [Serializable]
-    public class HeartImg : UIImgComponent
+    public class HeartImg : IUIImageComponent
     {
         public Material sharedMat { get; set; }
         public bool shouldModifySharedMat { get; set; }

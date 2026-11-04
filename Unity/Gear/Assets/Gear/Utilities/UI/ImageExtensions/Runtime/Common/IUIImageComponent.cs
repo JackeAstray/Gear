@@ -4,7 +4,7 @@ using UnityEngine;
 using Gear.Common;
 namespace Gear.Utilities.UI.ImageExtensions
 {
-    public interface UIImgComponent
+    public interface IUIImageComponent
     {
         //共享材质
         Material sharedMat { get; set; }

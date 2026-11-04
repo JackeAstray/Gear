@@ -160,7 +160,7 @@ namespace Gear.Framework.Modules.Download
                 .OnDownloadProgress(onProgress)
                 .OnSuccess(response =>
                 {
-                    if (response.texture != null)
+                    if (response.Texture != null)
                     {
                         // 竞态：下载期间另一请求已缓存同 URL，丢弃本响应纹理并复用缓存
                         Texture2D cachedHit = null;
@@ -168,7 +168,7 @@ namespace Gear.Framework.Modules.Download
                         {
                             if (imageCache.TryGetValue(url, out Texture2D oldTex) && oldTex != null)
                             {
-                                UnityEngine.Object.Destroy(response.texture);
+                                UnityEngine.Object.Destroy(response.Texture);
                                 cachedHit = oldTex;
                             }
                         }
@@ -178,11 +178,11 @@ namespace Gear.Framework.Modules.Download
                             onComplete?.Invoke(cachedHit);
                             return;
                         }
-                        AddToImageCache(url, response.texture);
+                        AddToImageCache(url, response.Texture);
 
                         // 保存到本地（确保目录存在于SaveToLocal中）
-                        SaveToLocal(response.texture, localPath);
-                        onComplete?.Invoke(response.texture);
+                        SaveToLocal(response.Texture, localPath);
+                        onComplete?.Invoke(response.Texture);
                     }
                     else
                     {
@@ -200,7 +200,7 @@ namespace Gear.Framework.Modules.Download
                 .OnNetworkError(response =>
                 {
                     // 断网时 onNetworkError 是唯一回调，必须兜底完成，否则调用方永久挂起
-                    Log.Error("下载图片网络错误: {0}", response?.error ?? "未知网络错误");
+                    Log.Error("下载图片网络错误: {0}", response?.Error ?? "未知网络错误");
                     onComplete?.Invoke(null);
                 })
                 .Send();

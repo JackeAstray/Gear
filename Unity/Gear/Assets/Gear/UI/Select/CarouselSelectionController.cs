@@ -175,7 +175,7 @@ namespace Gear.UI.Select
         private void OnEnable()
         {
             // UIInputSystem 可能在启动早期尚未初始化，等它就绪后再注册
-            if (!UIInputSystem.GetOrInstance().isInited)
+            if (!UIInputSystem.GetOrInstance().IsInited)
             {
                 bindRequested = true;
                 return;
@@ -196,7 +196,7 @@ namespace Gear.UI.Select
         private void Update()
         {
             var inputSystem = UIInputSystem.GetOrInstance();
-            if (!inputSystem.isInited) return;
+            if (!inputSystem.IsInited) return;
 
             // UIInputSystem 初始化前激活，或引擎 Clear/Init 循环后，重新注册到当前焦点域
             int version = inputSystem.InitVersion;
@@ -213,7 +213,7 @@ namespace Gear.UI.Select
             // 总是先清理上一次的指针/注册状态，组内模式也不会重复添加 onClick
             Unbind();
 
-            if (!UIInputSystem.GetOrInstance().isInited)
+            if (!UIInputSystem.GetOrInstance().IsInited)
             {
                 bindRequested = true;
                 return;

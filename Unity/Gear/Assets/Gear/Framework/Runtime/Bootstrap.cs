@@ -1,6 +1,6 @@
 using Gear.Common;
 using Gear.Utilities;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;

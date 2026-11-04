@@ -136,27 +136,27 @@ namespace Gear.Framework.Modules.Http
 
                     var response = new HttpResponse
                     {
-                        url = unityWebRequest.url,
-                        bytes = unityWebRequest.downloadHandler?.data,
-                        text = unityWebRequest.downloadHandler?.text,
-                        isSuccessful = unityWebRequest.result == UnityWebRequest.Result.Success,
-                        isHttpError = unityWebRequest.result == UnityWebRequest.Result.ProtocolError,
-                        isNetworkError = unityWebRequest.result == UnityWebRequest.Result.ConnectionError,
-                        error = unityWebRequest.error,
-                        statusCode = unityWebRequest.responseCode,
-                        responseHeaders = unityWebRequest.GetResponseHeaders(),
-                        texture = (unityWebRequest.downloadHandler as DownloadHandlerTexture)?.texture
+                        Url = unityWebRequest.url,
+                        Bytes = unityWebRequest.downloadHandler?.data,
+                        Text = unityWebRequest.downloadHandler?.text,
+                        IsSuccessful = unityWebRequest.result == UnityWebRequest.Result.Success,
+                        IsHttpError = unityWebRequest.result == UnityWebRequest.Result.ProtocolError,
+                        IsNetworkError = unityWebRequest.result == UnityWebRequest.Result.ConnectionError,
+                        Error = unityWebRequest.error,
+                        StatusCode = unityWebRequest.responseCode,
+                        ResponseHeaders = unityWebRequest.GetResponseHeaders(),
+                        Texture = (unityWebRequest.downloadHandler as DownloadHandlerTexture)?.texture
                     };
 
-                    if (response.isNetworkError) // 使用修正后的条件
+                    if (response.IsNetworkError) // 使用修正后的条件
                     {
                         onNetworkError?.Invoke(response);
                     }
-                    else if (response.isHttpError) // 使用修正后的条件
+                    else if (response.IsHttpError) // 使用修正后的条件
                     {
                         onError?.Invoke(response);
                     }
-                    else if (response.isSuccessful) // 检查请求是否成功
+                    else if (response.IsSuccessful) // 检查请求是否成功
                     {
                         onSuccess?.Invoke(response);
                     }

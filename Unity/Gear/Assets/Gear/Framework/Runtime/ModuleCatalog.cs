@@ -1,4 +1,4 @@
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

@@ -440,16 +440,16 @@ namespace Gear.HeadlessCheck
         private static FakeModuleFactory BuildFactory(Assembly core)
         {
             return new FakeModuleFactory(
-                GetType(core, "Gear.Framework.Runtime.Base.ICustomSystem"),
-                GetType(core, "Gear.Framework.Runtime.Base.ISystemInitializable"),
+                GetType(core, "Gear.Base.ICustomSystem"),
+                GetType(core, "Gear.Base.ISystemInitializable"),
                 GetType(core, "Cysharp.Threading.Tasks.UniTask"),
-                GetType(core, "Gear.Framework.Runtime.Base.ModuleOrderAttribute"));
+                GetType(core, "Gear.Base.ModuleOrderAttribute"));
         }
 
         /// <summary>把假模块装进 List&lt;ICustomSystem&gt; 再交给 TryBuild。</summary>
         private static (bool ok, IList ordered, string errors) TryBuild(Assembly core, params object[] modules)
         {
-            Type systemInterface = GetType(core, "Gear.Framework.Runtime.Base.ICustomSystem");
+            Type systemInterface = GetType(core, "Gear.Base.ICustomSystem");
             Type listType = typeof(List<>).MakeGenericType(systemInterface);
             var list = (IList)Activator.CreateInstance(listType);
             foreach (object module in modules) list.Add(module);
@@ -464,7 +464,7 @@ namespace Gear.HeadlessCheck
         /// <summary>调用 ModuleCatalog.ExpandDependencies，返回补全后的列表与两类说明。</summary>
         private static (IList modules, string[] added, string[] unresolved) Expand(Assembly core, params object[] modules)
         {
-            Type systemInterface = GetType(core, "Gear.Framework.Runtime.Base.ICustomSystem");
+            Type systemInterface = GetType(core, "Gear.Base.ICustomSystem");
             Type listType = typeof(List<>).MakeGenericType(systemInterface);
             var list = (IList)Activator.CreateInstance(listType);
             foreach (object module in modules) list.Add(module);
@@ -487,7 +487,7 @@ namespace Gear.HeadlessCheck
         /// <summary>把排好序的模块按 [ModuleOrder] 的序号拼成 "10,20,30" 便于断言。</summary>
         private static string Orders(IList ordered)
         {
-            Type attributeType = GetType(Assembly.GetExecutingAssembly(), "Gear.Framework.Runtime.Base.ModuleOrderAttribute");
+            Type attributeType = GetType(Assembly.GetExecutingAssembly(), "Gear.Base.ModuleOrderAttribute");
             var parts = new List<string>();
             foreach (object module in ordered)
             {

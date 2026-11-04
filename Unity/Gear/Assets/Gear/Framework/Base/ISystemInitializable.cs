@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 可初始化系统 —— 仅需 Init 的轻量接口。

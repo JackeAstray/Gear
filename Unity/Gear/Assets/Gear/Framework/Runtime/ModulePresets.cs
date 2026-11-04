@@ -1,6 +1,6 @@
 using Gear.Common;
 using Gear.Utilities;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.EventMessage;
 using Gear.Framework.Runtime.Languages;
 using Gear.Framework.Runtime.Pause;

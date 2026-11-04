@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +33,7 @@ namespace Gear.Framework.Runtime.Pause
             return Gear.Framework.Runtime.Modules.TryGet(out PauseSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress => initProgress;
@@ -74,7 +74,7 @@ namespace Gear.Framework.Runtime.Pause
             IsPaused ??= new ReactiveProperty<bool>(false);
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             Log.Debug("PauseSystem 初始化完成");
             return UniTask.CompletedTask;
         }
@@ -101,7 +101,7 @@ namespace Gear.Framework.Runtime.Pause
         /// </summary>
         public void ClearAllPauses()
         {
-            if (!isInited) return;
+            if (!IsInited) return;
             pauseReasons.Clear();
             ApplyPausedState(false);
         }
@@ -113,7 +113,7 @@ namespace Gear.Framework.Runtime.Pause
         /// <param name="reason">原因标识对象（如请求暂停的系统实例；null 使用全局键）</param>
         public void RequestPause(object reason)
         {
-            if (!isInited)
+            if (!IsInited)
             {
                 Log.Warning("[PauseSystem] 系统未初始化，RequestPause 被忽略");
                 return;
@@ -217,7 +217,7 @@ namespace Gear.Framework.Runtime.Pause
             IsPaused?.Dispose();
             IsPaused = null;
 
-            isInited = false;
+            IsInited = false;
             initProgress = 0;
         }
     }

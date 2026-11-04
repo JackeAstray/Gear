@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using Gear.Utilities.UI.ButtonClick;
 
 using Gear.Common;
+using Gear.Utilities.UI;
 namespace Gear.EditorTools
 {
     [CustomEditor(typeof(LongClickButton))]

@@ -10,7 +10,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 六边形
     /// </summary>
     [Serializable]
-    public class HexagonImg : UIImgComponent
+    public class HexagonImg : IUIImageComponent
     {
         [SerializeField] private Vector4 cornerRadius;
         [SerializeField] private bool uniformCornerRadius;

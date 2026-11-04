@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine.Events;
 
 using Gear.Common;
-namespace Gear.Utilities.UI.ButtonClick
+namespace Gear.Utilities.UI
 {
     public class ButtonClickEvent : UnityEvent
     {

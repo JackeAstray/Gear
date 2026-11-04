@@ -1,6 +1,6 @@
 using System;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 声明本程序集使用的游戏入口（<see cref="Gear.Framework.Runtime.GameEntry"/> 子类）。

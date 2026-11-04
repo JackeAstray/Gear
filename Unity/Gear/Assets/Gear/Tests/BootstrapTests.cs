@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Gear.Framework.Runtime;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using System;
 using System.Linq;
 

@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.Scene;
 using Cysharp.Threading.Tasks;
@@ -31,7 +31,7 @@ namespace Gear.Framework.Runtime.Sound
             return Gear.Framework.Runtime.Modules.TryGet(out SoundSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -191,7 +191,7 @@ namespace Gear.Framework.Runtime.Sound
             _ = WarmupAudioClipsAsync(warmupCts.Token);
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             // 启动早期 GameOption.ApplyLightOptions 可能因 SoundSystem 未初始化而跳过音频设置，
             // 此处补齐音量/淡入淡出，避免用户已保存的选项在初始化后不生效
             try
@@ -262,7 +262,7 @@ namespace Gear.Framework.Runtime.Sound
         public void Clear()
         {
             Log.Debug("SoundSystem 清除数据");
-            isInited = false;
+            IsInited = false;
             // 代次自增：使所有在途加载任务写缓存前校验失败（见 LoadAudioClipAndCacheAsync）
             cacheGeneration++;
             // 取消正在进行的预热任务

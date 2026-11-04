@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using Gear.Utilities.UI.ButtonAnimated;
 
 using Gear.Common;
+using Gear.Utilities.UI;
 namespace Gear.EditorTools
 {
     [CustomEditor(typeof(ButtonAni))]

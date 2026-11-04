@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 using Gear.Common;
-namespace Gear
+namespace Gear.Utilities.UI.TreeView
 {
     /// <summary>
     /// 树形视图

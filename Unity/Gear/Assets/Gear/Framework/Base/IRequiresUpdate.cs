@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// [已废弃] 标记接口：请改用 ISystemUpdatable。

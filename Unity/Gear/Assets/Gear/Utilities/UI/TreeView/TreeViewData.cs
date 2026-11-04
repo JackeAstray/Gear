@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Gear.Common;
-namespace Gear
+namespace Gear.Utilities.UI.TreeView
 {
     /// <summary>
     /// 树节点数据类，用于构建和管理树形结构数据。

@@ -8,7 +8,7 @@ using Gear.Common;
 namespace Gear.Utilities.UI.ImageExtensions
 {
     [Serializable]
-    public class SquircleImg : UIImgComponent
+    public class SquircleImg : IUIImageComponent
     {
         [SerializeField] private float squircleTime;
 

@@ -60,7 +60,7 @@ namespace Gear.UI.Select
         {
             LoadSettings();
             RefreshHighlight();
-            if (!UIInputSystem.GetOrInstance().isInited)
+            if (!UIInputSystem.GetOrInstance().IsInited)
             {
                 bindRequested = true;
                 return;
@@ -86,7 +86,7 @@ namespace Gear.UI.Select
         private void Update()
         {
             var inputSystem = UIInputSystem.GetOrInstance();
-            if (!inputSystem.isInited) return;
+            if (!inputSystem.IsInited) return;
 
             int version = inputSystem.InitVersion;
             if (bindRequested || lastInitVersion != version)
@@ -99,7 +99,7 @@ namespace Gear.UI.Select
         private void Bind()
         {
             Unbind();
-            if (!UIInputSystem.GetOrInstance().isInited)
+            if (!UIInputSystem.GetOrInstance().IsInited)
             {
                 bindRequested = true;
                 return;

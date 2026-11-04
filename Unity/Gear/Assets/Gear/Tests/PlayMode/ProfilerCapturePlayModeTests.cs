@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Cysharp.Threading.Tasks;
 using Gear.Framework.Runtime;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using NUnit.Framework;
 using Unity.Profiling;
 using UnityEngine;

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 using Gear.Common;
-namespace Gear
+namespace Gear.Utilities.UI.TreeView
 {
     /// <summary>
     /// 树形视图节点组件，挂载在每个树节点 GameObject 上。

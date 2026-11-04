@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Gear.Framework.Runtime
+namespace Gear.Common
 {
     /// <summary>
     /// 游戏加载模式

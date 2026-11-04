@@ -103,7 +103,7 @@ namespace Gear.UI.Select
 
         private void Update()
         {
-            if (UIInputSystem.GetOrInstance().isInited)
+            if (UIInputSystem.GetOrInstance().IsInited)
             {
                 deviceRefreshTimer -= Time.unscaledDeltaTime;
                 if (deviceRefreshTimer <= 0f)
@@ -200,7 +200,7 @@ namespace Gear.UI.Select
                 return;
             }
 
-            if (!UIInputSystem.GetOrInstance().isInited)
+            if (!UIInputSystem.GetOrInstance().IsInited)
             {
                 playersScanned = false;
                 return;

@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Utilities;
 using Gear.Framework.Runtime.Languages;
 using System;
@@ -231,7 +231,7 @@ namespace Gear.Framework.Runtime
                 // 应用音乐和音效设置到 SoundSystem（已初始化后才触碰：
                 // 未初始化时访问 Lazy 单例 + EnsureAudioSource 会提前创建音频根节点，破坏初始化顺序）
                 var ss = SoundSystem.GetOrInstance();
-                if (ss != null && ss.isInited)
+                if (ss != null && ss.IsInited)
                 {
                     // 将淡入淡出时间同步
                     try { ss.fadeDuration = currentOption.musicFadeTime; }

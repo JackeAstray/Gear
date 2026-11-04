@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
 using R3;

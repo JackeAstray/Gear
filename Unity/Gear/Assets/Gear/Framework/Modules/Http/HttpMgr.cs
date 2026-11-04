@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -322,10 +322,10 @@ namespace Gear.Framework.Modules.Http
                     try { request.Abort(); } catch (Exception ex) { Log.Warning("HttpMgr 拒绝请求时释放失败: {0}", ex.Message); }
                     onError?.Invoke(new HttpResponse
                     {
-                        isSuccessful = false,
-                        isHttpError = true,
-                        statusCode = 429,
-                        error = "请求等待队列已满"
+                        IsSuccessful = false,
+                        IsHttpError = true,
+                        StatusCode = 429,
+                        Error = "请求等待队列已满"
                     });
                     return;
                 }
@@ -406,9 +406,9 @@ namespace Gear.Framework.Modules.Http
                         Log.Warning("HttpMgr.SendWithRetry 请求被外部 Abort，停止重试");
                         onError?.Invoke(new HttpResponse
                         {
-                            isSuccessful = false,
-                            isHttpError = true,
-                            error = "请求已被取消"
+                            IsSuccessful = false,
+                            IsHttpError = true,
+                            Error = "请求已被取消"
                         });
                         return;
                     }
@@ -418,7 +418,7 @@ namespace Gear.Framework.Modules.Http
                     {
                         // 最终结果：按类别转发回调
                         if (networkFailed) onNetworkError?.Invoke(resp);
-                        else if (resp.isSuccessful) onSuccess?.Invoke(resp);
+                        else if (resp.IsSuccessful) onSuccess?.Invoke(resp);
                         else onError?.Invoke(resp);
                         return;
                     }

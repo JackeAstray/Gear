@@ -18,7 +18,7 @@
 
   <assembly fullname="Gear.Base">
     <!-- 入口声明特性：类型在 Gear.Base 程序集，由 GameEntryResolver 反射读取 -->
-    <type fullname="Gear.Framework.Runtime.Base.GearGameEntryAttribute" preserve="all" />
+    <type fullname="Gear.Base.GearGameEntryAttribute" preserve="all" />
   </assembly>
 
   <assembly fullname="Gear.Framework.Modules">

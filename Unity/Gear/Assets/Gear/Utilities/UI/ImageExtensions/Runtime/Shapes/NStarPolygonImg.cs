@@ -10,7 +10,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// N角星形
     /// </summary>
     [Serializable]
-    public class NStarPolygonImg : UIImgComponent
+    public class NStarPolygonImg : IUIImageComponent
     {
         [SerializeField] private float sideCount;
         [SerializeField] private float inset;

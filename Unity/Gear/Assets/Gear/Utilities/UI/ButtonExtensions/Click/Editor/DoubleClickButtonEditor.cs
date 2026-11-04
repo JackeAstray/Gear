@@ -1,5 +1,4 @@
-﻿using Gear.Utilities.UI.ButtonClick;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +7,7 @@ using UnityEditor;
 using UnityEngine.UIElements;
 
 using Gear.Common;
+using Gear.Utilities.UI;
 namespace Gear.EditorTools
 {
     [CustomEditor(typeof(DoubleClickButton))]

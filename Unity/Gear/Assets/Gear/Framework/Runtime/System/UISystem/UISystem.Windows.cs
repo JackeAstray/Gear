@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -20,7 +20,7 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         internal UILoadState OpenWindow(string uiName, params object[] args)
         {
-            if (!isInited)
+            if (!IsInited)
             {
                 Log.Warning("[UISystem] OpenWindow({0}) 在未初始化/已清理时被调用，已忽略", uiName);
                 return null;
@@ -70,7 +70,7 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         internal async UniTask<UILoadState> OpenWindowAsync(string uiName, params object[] args)
         {
-            if (!isInited)
+            if (!IsInited)
             {
                 Log.Warning("[UISystem] OpenWindowAsync({0}) 在未初始化/已清理时被调用，已忽略", uiName);
                 return null;

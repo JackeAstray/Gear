@@ -10,7 +10,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 渐变效果
     /// </summary>
     [Serializable]
-    public struct GradientEffect : UIImgComponent
+    public struct GradientEffect : IUIImageComponent
     {
         [SerializeField] private bool enabled;
         [SerializeField] private GradientType gradientType;

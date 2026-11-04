@@ -4,6 +4,7 @@ using R3;
 using Gear.Common;
 using Gear.Utilities;
 using Gear.Framework.Runtime.Resources;
+using Gear.Base;
 
 namespace Gear.Framework.Runtime.Terminal
 {
@@ -49,7 +50,7 @@ namespace Gear.Framework.Runtime.Terminal
         [RegisterCommand(Help = "PerfStat（打印当前 FPS/历史最低 FPS/托管内存）")]
         internal static void PerfStat(CommandArg[] args)
         {
-            var monitor = Gear.Framework.Runtime.Base.PerformanceStatsBridge.GetOrCreate();
+            var monitor = Gear.Base.PerformanceStatsBridge.GetOrCreate();
             if (monitor == null)
             {
                 Log.Warning("[Cmd] PerfStat: PerformanceMonitor 未初始化（Modules 未加载或尚未创建实例）");
@@ -65,7 +66,7 @@ namespace Gear.Framework.Runtime.Terminal
         internal static void ReportErrors(CommandArg[] args)
         {
             Log.Debug("[Cmd] ReportErrors 开始上传错误日志...");
-            bool started = Gear.Framework.Runtime.Base.ErrorReportingBridge.TryUploadLog(
+            bool started = Gear.Base.ErrorReportingBridge.TryUploadLog(
                 ok => Log.Debug("[Cmd] ReportErrors 上传结果: {0}", ok));
             if (!started)
             {

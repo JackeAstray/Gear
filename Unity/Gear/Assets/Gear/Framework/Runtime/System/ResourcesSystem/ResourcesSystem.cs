@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Gear.Framework.Runtime.Resources
             return Gear.Framework.Runtime.Modules.TryGet(out ResourcesSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -43,7 +43,7 @@ namespace Gear.Framework.Runtime.Resources
         public UniTask Init()
         {
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             Log.Debug("ResourcesSystem 初始化完成");
             return UniTask.CompletedTask;
         }
@@ -54,7 +54,7 @@ namespace Gear.Framework.Runtime.Resources
             // 委托 ClearAssetsCache 真正卸载已缓存资源，避免资源驻留到场景卸载
             ClearAssetsCache();
             atlasCache.Clear();
-            isInited = false;
+            IsInited = false;
         }
 
         #region 加载

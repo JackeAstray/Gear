@@ -60,7 +60,7 @@ namespace Gear.Framework.Runtime.UI
             get
             {
                 if (modalStack.IsEmpty) return false;
-                if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited)
+                if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited)
                 {
                     return true;
                 }
@@ -76,7 +76,7 @@ namespace Gear.Framework.Runtime.UI
         {
             windowId = null;
             if (modalStack.IsEmpty) return false;
-            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited) return false;
+            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited) return false;
             return modalStack.TryPopTop(ui.IsOpen, out windowId);
         }
 
@@ -160,7 +160,7 @@ namespace Gear.Framework.Runtime.UI
 
         private static void RecomputeCore()
         {
-            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited)
+            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited)
             {
                 RestoreAll();
                 return;

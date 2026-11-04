@@ -1,6 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 
 namespace Gear.Framework.Runtime.Custom
 {

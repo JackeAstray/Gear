@@ -148,8 +148,10 @@ if ($Export) {
         '-executeMethod', 'Gear.EditorTools.Package.GearUpmExporter.ExportRuntimeBatch', '-logFile', '-')
     # Unity.exe 是 GUI 子系统程序：`&` 不会等它结束，也不会更新 $LASTEXITCODE（这里残留的是上一条 git 的 0）。
     # 那会让下面的 robocopy / commit / force-push 在"包还没导出完"的状态下继续跑，把半成品推到 upm。
-    $export = Start-Process -FilePath $unity -ArgumentList $unityArgs -NoNewWindow -Wait -PassThru
-    if ($export.ExitCode -ne 0) { throw "Unity 导出失败（退出码 $($export.ExitCode)）。" }
+    # 注意变量名：PowerShell 变量不区分大小写，叫 $export 会直接覆盖上面的 [switch]$Export 参数，
+    # 把 Process 对象塞进 SwitchParameter 会抛 ArgumentTransformationMetadataException。
+    $exportProcess = Start-Process -FilePath $unity -ArgumentList $unityArgs -NoNewWindow -Wait -PassThru
+    if ($exportProcess.ExitCode -ne 0) { throw "Unity 导出失败（退出码 $($exportProcess.ExitCode)）。" }
 }
 
 # ------------------------------------------------------------------ 过期检查

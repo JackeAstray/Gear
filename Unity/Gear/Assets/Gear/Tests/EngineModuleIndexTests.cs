@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Gear.Framework.Runtime;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using NUnit.Framework;
 
 namespace Gear.Tests

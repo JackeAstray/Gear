@@ -1,4 +1,4 @@
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 游戏级暂停的执行者。

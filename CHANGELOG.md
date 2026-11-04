@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.0.0] - 2026-11-05
+
+这一版只做**一致性**：公开成员命名、接口命名、命名空间归属、文件名与类型名对齐。
+没有语义变化，但**编译期不兼容** —— 接入方需要按 [迁移指南](Docs/guides/2.0-迁移指南.md) 改 `using` 与成员名。
+1.3.1 引入的加密帧线格式变更（`NetworkProtocol.Version = 3`）仍适用于 2.0.0。
+
+### Changed（破坏性）
+
+- **公开成员 PascalCase**：`isInited` → `IsInited`（14 个系统）；`HttpResponse` 的
+  `url/isSuccessful/isHttpError/isNetworkError/statusCode/bytes/text/error/texture/responseHeaders`
+  → `Url/IsSuccessful/IsHttpError/IsNetworkError/StatusCode/Bytes/Text/Error/Texture/ResponseHeaders`；
+  `Timer` 的 `duration/elapsed/isCountingDown/isLoop/loopCount/maxLoop/state/timeScale`
+  → `Duration/Elapsed/IsCountingDown/IsLoop/LoopCount/MaxLoop/State/TimeScale`。
+  这些都是普通属性而非 Unity 序列化字段，继续沿用 camelCase 会误导调用方。
+- **接口改名**：`UIImgComponent` → `IUIImageComponent`（文件同步改名）。
+  接口内部成员仍是 camelCase：它们是 Inspector 既有字段名，改名会连带改序列化键、让已有预制体失联。
+- **命名空间对齐**：
+  - `Gear.Framework.Runtime.Base` → `Gear.Base`（程序集名与命名空间终于一致，`Gear.Base.asmdef`
+    的 `rootNamespace` 同步修正）；
+  - `CoreEnum`（`LoaderMode`/`PanelType`/`PanelSize`）`Gear.Framework.Runtime` → `Gear.Common`，
+    与其所在的 `Common/` 程序集一致；
+  - `Utilities/UI/TreeView`：`Gear` → `Gear.Utilities.UI.TreeView`；
+  - `Utilities/UI/ButtonExtensions/{Click,Animated}`：`Gear.Utilities.UI.ButtonClick` /
+    `…ButtonAnimated` → `Gear.Utilities.UI`（与同目录其余按钮扩展统一）。
+- **`Config.Enable_LOG` → `Config.EnableLog`**。
+- **文件名与类型名对齐**：`KCPClientChannel.cs`→`KcpClientChannel.cs`、`KCPServerChannel.cs`→
+  `KcpServerChannel.cs`、`VertexStream.cs`→`VertexDataStream.cs`、`UIWindowResult.cs`→`WindowResult.cs`、
+  `CommonExtensions.cs`→`Extensions.cs`、`Type.cs`→`ImageExEnums.cs`（类型名不变，仅文件）。
+
+### Fixed
+
+- 删除 10 处跨层死 `using Gear.Framework.Runtime;`（`Gear.Utilities` 并不引用该程序集，
+  此前只是因为 `Gear.Framework.Runtime.Base` 的隐式命名空间链才“恰好”编译通过）。
+
 ## [1.3.1] - 2026-11-04
 
 这一版把加密链路从"能加密"推到"能抵抗重放"，并给质量门槛补上用例数与覆盖率棘轮。

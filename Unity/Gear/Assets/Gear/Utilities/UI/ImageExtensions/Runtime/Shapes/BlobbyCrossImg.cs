@@ -7,7 +7,7 @@ using Gear.Common;
 namespace Gear.Utilities.UI.ImageExtensions
 {
     [Serializable]
-    public class BlobbyCrossImg : UIImgComponent
+    public class BlobbyCrossImg : IUIImageComponent
     {
         [SerializeField] private float blobbyCrossTime;
 

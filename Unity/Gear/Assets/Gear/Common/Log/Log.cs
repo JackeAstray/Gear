@@ -26,7 +26,7 @@ namespace Gear.Common
         [HideInCallstack]
         private static bool IsEnabled(bool levelEnabled, LogChannel channel)
         {
-            return Config.Enable_LOG && levelEnabled && Config.IsChannelEnabled(channel);
+            return Config.EnableLog && levelEnabled && Config.IsChannelEnabled(channel);
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.UI;
 using Cysharp.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace Gear.Framework.Runtime.UIInput
             return Gear.Framework.Runtime.Modules.TryGet(out UIInputSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         /// <summary>初始化代数：引擎 Clear/Init 循环后递增，导航目标据此重新注册/申请 UI 模式。</summary>
         public int InitVersion { get; private set; }
@@ -226,9 +226,9 @@ namespace Gear.Framework.Runtime.UIInput
         private async UniTask InitCore(CancellationToken ct)
         {
             initProgress = 0;
-            isInited = false;
+            IsInited = false;
             InitVersion++;
-            // 初始化代次：LoadInputActionsAsync 含 await，期间 Clear/重启后不能继续注册与置 isInited
+            // 初始化代次：LoadInputActionsAsync 含 await，期间 Clear/重启后不能继续注册与置 IsInited
             int myGeneration = ++initGeneration;
 
             // 设备控件缓存可能来自上一次 Play（关闭域重载时），重新初始化时清空
@@ -291,7 +291,7 @@ namespace Gear.Framework.Runtime.UIInput
                 }
             }
 
-            isInited = true;
+            IsInited = true;
 
             // 轮播等目标在系统初始化前就注册了自动 UI 控制请求，初始化完成后补启用
             if (uiControlRequests.Count > 0 && currentMode != UIControlMode.UIControl)
@@ -304,7 +304,7 @@ namespace Gear.Framework.Runtime.UIInput
 
         public void Update(float logicTime, float realTime)
         {
-            if (!isInited) return;
+            if (!IsInited) return;
 
             // 轮询检测切换键
             PollToggleKeys();
@@ -420,7 +420,7 @@ namespace Gear.Framework.Runtime.UIInput
                 inputActions = null;
             }
 
-            isInited = false;
+            IsInited = false;
         }
         #endregion
 

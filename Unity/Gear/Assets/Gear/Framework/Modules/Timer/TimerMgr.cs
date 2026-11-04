@@ -1,4 +1,4 @@
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -53,7 +53,7 @@ namespace Gear.Framework.Modules.Timer
         /// <para>
         /// 关闭是有意的：池化会把同一个 <see cref="Timer"/> 实例重新租给下一次调用，
         /// 任何仍持有旧引用的代码（常见写法是 <c>timer.OnCompleted += ...</c> 之后又读
-        /// <c>timer.loopCount</c>）会静默作用到新计时器上，属于最难查的一类 bug。
+        /// <c>timer.LoopCount</c>）会静默作用到新计时器上，属于最难查的一类 bug。
         /// 只有当确实在一帧内创建上百个短计时器、并且代码不跨租约持有引用时才建议开启。
         /// </para>
         /// <para>开启后归还的实例会清空全部事件订阅，所以旧回调不会误触发。</para>
@@ -204,7 +204,7 @@ namespace Gear.Framework.Modules.Timer
                     try { timer.Cancel(); }
                     catch (Exception ex2) { Log.Warning("TimerMgr: OnCancelled 回调异常（已隔离）: {0}", ex2.Message); }
                 }
-                if (timer.state == Timer.TimerState.Finished || timer.state == Timer.TimerState.Cancelled)
+                if (timer.State == Timer.TimerState.Finished || timer.State == Timer.TimerState.Cancelled)
                 {
                     // 字典天然去重：快照中同一实例可能因回调重入被多次标记。
                     // 记下标记时的租约号，回收时用它确认"还是当初那个实例"

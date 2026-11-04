@@ -1,7 +1,7 @@
 ﻿using UnityEngine.InputSystem;
 
 using Gear.Common;
-namespace Gear.Utilities.UI.ButtonClick
+namespace Gear.Utilities.UI
 {
     /// <summary>
     /// 按钮类共用的键盘/手柄输入检测工具。

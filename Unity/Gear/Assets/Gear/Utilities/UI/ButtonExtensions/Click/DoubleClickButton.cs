@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Gear.Utilities.UI.ButtonClick
+namespace Gear.Utilities.UI
 {
     //双击按钮
     public class DoubleClickButton : Button

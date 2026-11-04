@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 模块来源 —— 让其他程序集把自己的模块贡献给 <c>ModulePresets</c>，

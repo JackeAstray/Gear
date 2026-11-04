@@ -1,5 +1,5 @@
 ﻿using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.Sound;
 using Cysharp.Threading.Tasks;
@@ -29,7 +29,7 @@ namespace Gear.Framework.Runtime.Languages
             return Gear.Framework.Runtime.Modules.TryGet(out LanguagesSystem system) ? system : Instance;
         }
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -115,7 +115,7 @@ namespace Gear.Framework.Runtime.Languages
             }
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             // 广播就绪：UIText 等组件据此重绑最新 CurrentLanguage（覆盖 Clear→Init 重订阅场景）
             try
             {
@@ -136,7 +136,7 @@ namespace Gear.Framework.Runtime.Languages
             CurrentLanguage?.Dispose();
             CurrentLanguage = null;
             // 重置初始化状态和相关数据
-            isInited = false;
+            IsInited = false;
             initProgress = 0;
             if (!ReferenceEquals(languagesContainer, null))
                 Modules.Get<ResourcesSystem>().DeleteAssetCache("ScriptableObjects/LanguagesContainer");

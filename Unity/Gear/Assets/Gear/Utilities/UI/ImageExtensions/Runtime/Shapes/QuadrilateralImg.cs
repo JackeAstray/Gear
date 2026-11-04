@@ -19,7 +19,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     ///   - 风筝形：TopLeft = (0.5, 0)，TopRight = (-0.5, 0)（上边缩成一个点）
     /// </summary>
     [Serializable]
-    public class QuadrilateralImg : UIImgComponent
+    public class QuadrilateralImg : IUIImageComponent
     {
         [SerializeField] private Vector2 topLeftOffset;     // 左上角偏移（宽/高比例）
         [SerializeField] private Vector2 topRightOffset;    // 右上角偏移（宽/高比例）

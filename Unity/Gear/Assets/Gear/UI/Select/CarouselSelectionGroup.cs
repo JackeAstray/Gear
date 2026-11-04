@@ -74,7 +74,7 @@ namespace Gear.UI.Select
                 ConfigureCarousels();
             }
 
-            if (UIInputSystem.GetOrInstance().isInited)
+            if (UIInputSystem.GetOrInstance().IsInited)
             {
                 Register();
             }
@@ -93,7 +93,7 @@ namespace Gear.UI.Select
         private void Update()
         {
             var inputSystem = UIInputSystem.GetOrInstance();
-            if (!inputSystem.isInited) return;
+            if (!inputSystem.IsInited) return;
 
             int version = inputSystem.InitVersion;
             if (lastInitVersion == version && registered) return;

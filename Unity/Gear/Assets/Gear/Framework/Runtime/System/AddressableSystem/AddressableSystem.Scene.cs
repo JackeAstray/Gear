@@ -45,11 +45,11 @@ namespace Gear.Framework.Runtime.Resources
                 Log.Warning("AddressableSystem 处于 Off 模式，无法加载场景: {0}", key);
                 return default;
             }
-            if (!isInited)
+            if (!IsInited)
             {
                 Log.Warning("AddressableSystem 未初始化，自动执行 Init()");
                 await Init();
-                if (!isInited) return default;
+                if (!IsInited) return default;
             }
 
             AsyncOperationHandle<SceneInstance> handle = default;

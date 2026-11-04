@@ -12,7 +12,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 倒角长方形
     /// </summary>
     [Serializable]
-    public class ChamferBoxImg : UIImgComponent
+    public class ChamferBoxImg : IUIImageComponent
     {
         [SerializeField] private Vector2 chamferBoxSize;
         [SerializeField] private Vector4 chamferBoxRadius;

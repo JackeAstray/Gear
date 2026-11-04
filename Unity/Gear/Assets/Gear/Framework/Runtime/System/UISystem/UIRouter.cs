@@ -67,7 +67,7 @@ namespace Gear.Framework.Runtime.UI
             where TWindow : UIController
             where TArgs : IWindowArgs
         {
-            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited)
+            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited)
             {
                 Log.Warning("[UIRouter] UISystem 尚未初始化，忽略 PushAsync<{0}>", typeof(TWindow).Name);
                 return null;
@@ -96,7 +96,7 @@ namespace Gear.Framework.Runtime.UI
         /// </summary>
         public static async UniTask<UILoadState> PushAsync(string windowId, params object[] args)
         {
-            if (string.IsNullOrEmpty(windowId) || !Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited)
+            if (string.IsNullOrEmpty(windowId) || !Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited)
             {
                 Log.Warning("[UIRouter] PushAsync 参数无效（windowId={0}）", windowId);
                 return null;
@@ -132,7 +132,7 @@ namespace Gear.Framework.Runtime.UI
 
             if (!stack.TryPop(out string windowId)) return false;
 
-            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited)
+            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited)
             {
                 Log.Debug("[UIRouter] Back：UISystem 未初始化，已清空栈");
                 stack.Clear();
@@ -146,7 +146,7 @@ namespace Gear.Framework.Runtime.UI
         private static bool TryCloseWindow(string windowId, string reason)
         {
             if (string.IsNullOrEmpty(windowId)) return false;
-            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.isInited) return false;
+            if (!Modules.TryGet(out UISystem ui) || ui == null || !ui.IsInited) return false;
 
             try
             {
@@ -166,7 +166,7 @@ namespace Gear.Framework.Runtime.UI
         {
             if (string.IsNullOrEmpty(windowId)) return;
             stack.Remove(windowId);
-            if (Modules.TryGet(out UISystem ui) && ui != null && ui.isInited)
+            if (Modules.TryGet(out UISystem ui) && ui != null && ui.IsInited)
             {
                 ui.CloseWindow(windowId);
             }

@@ -9,7 +9,7 @@ using Gear.Common;
 namespace Gear.Utilities.UI.ImageExtensions
 {
     [Serializable]
-    public class NTriangleRoundedImg : UIImgComponent
+    public class NTriangleRoundedImg : IUIImageComponent
     {
         [SerializeField] private float nTriangleRoundedTime;
         [SerializeField] private float nTriangleRoundedNumber;

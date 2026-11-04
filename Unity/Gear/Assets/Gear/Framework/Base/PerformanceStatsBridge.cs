@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>性能指标只读视图 —— 由 Modules 的 PerformanceMonitor 实现。</summary>
     public interface IPerformanceStats

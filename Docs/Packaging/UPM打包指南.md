@@ -4,7 +4,7 @@
 > 同时保留 `Assets/Gear` 作为开发期源码目录。
 > 旧的分发方式（整目录 `.unitypackage`）仍在，见 [.unitypackage 打包指南](打包指南.md)。
 >
-> **包身份**：固定为 `com.jackeastray.gear`（当前 `1.3.1`），必须与 `GearUpmExporter.cs` 里的
+> **包身份**：固定为 `com.jackeastray.gear`（当前 `2.0.0`），必须与 `GearUpmExporter.cs` 里的
 > `PackageName` / `PackageVersion` 一致。`upm` 分支是发布产物；2026-10 曾出现该分支仍为
 > `com.reunion.movement@1.3.0` 的旧包，安装前先用 `git show origin/upm:package.json` 核对 name/version。
 > 1.3.1 改了加密帧线格式（防重放），**客户端与服务端必须同步升级**，否则握手阶段即被拒绝。

@@ -3,7 +3,7 @@ using Gear.Framework.Modules.Http;
 using Gear.Framework.Modules.Timer;
 
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Utilities;
 using UnityEngine;
 

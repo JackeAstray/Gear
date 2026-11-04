@@ -7,10 +7,9 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Gear.Utilities.UI.ButtonClick;
 
 using Gear.Common;
-namespace Gear.Utilities.UI.ButtonAnimated
+namespace Gear.Utilities.UI
 {
     public enum ButtonAniState
     {

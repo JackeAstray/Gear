@@ -1,6 +1,6 @@
 using System;
 
-namespace Gear.Framework.Runtime.Base
+namespace Gear.Base
 {
     /// <summary>
     /// 声明模块的初始化顺序与依赖，由 <see cref="Gear.Framework.Runtime.ModuleCatalog"/> 在启动前校验。

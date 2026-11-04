@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Gear.Framework.Runtime.Scene;
+using Gear.Common;
 
 namespace Gear.Framework.Runtime.UI
 {
@@ -32,13 +33,13 @@ namespace Gear.Framework.Runtime.UI
         private void OnEnable()
         {
             // 向 SceneSystem 注册自身，避免场景切换时使用 FindObjectsByType 全场景遍历
-            if (SceneSystem.GetOrInstance().isInited)
+            if (SceneSystem.GetOrInstance().IsInited)
                 SceneSystem.GetOrInstance().RegisterUIWindow(this);
         }
 
         private void OnDisable()
         {
-            if (SceneSystem.GetOrInstance().isInited)
+            if (SceneSystem.GetOrInstance().IsInited)
                 SceneSystem.GetOrInstance().UnregisterUIWindow(this);
         }
     }

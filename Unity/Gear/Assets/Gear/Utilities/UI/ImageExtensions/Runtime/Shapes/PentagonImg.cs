@@ -10,7 +10,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 五角形
     /// </summary>
     [Serializable]
-    public class PentagonImg : UIImgComponent
+    public class PentagonImg : IUIImageComponent
     {
         [SerializeField] private Vector4 cornerRadius;
         [SerializeField] private bool uniformCornerRadius;

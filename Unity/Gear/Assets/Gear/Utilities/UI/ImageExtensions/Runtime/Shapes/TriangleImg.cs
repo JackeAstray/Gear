@@ -10,7 +10,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// 三角形
     /// </summary>
     [Serializable]
-    public class TriangleImg : UIImgComponent
+    public class TriangleImg : IUIImageComponent
     {
         [SerializeField] private Vector3 cornerRadius;
 #if UNITY_EDITOR

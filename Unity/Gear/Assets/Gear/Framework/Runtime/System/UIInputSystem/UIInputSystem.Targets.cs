@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Gear.Framework.Runtime.UI;
 using Cysharp.Threading.Tasks;
@@ -544,7 +544,7 @@ namespace Gear.Framework.Runtime.UIInput
         {
             if (owner == null) return;
             uiControlRequests.Add(owner);
-            if (isInited && currentMode != UIControlMode.UIControl)
+            if (IsInited && currentMode != UIControlMode.UIControl)
             {
                 EnableUIControl();
             }

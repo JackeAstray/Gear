@@ -19,7 +19,7 @@ namespace Gear.Tests
             Assert.IsFalse(completed);
             timer.Update(1f);
             Assert.IsTrue(completed);
-            Assert.AreEqual(Timer.TimerState.Finished, timer.state);
+            Assert.AreEqual(Timer.TimerState.Finished, timer.State);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Gear.Tests
 
             Assert.IsFalse(completed, "OnTick 内取消后不应触发 OnCompleted");
             Assert.IsTrue(cancelled);
-            Assert.AreEqual(Timer.TimerState.Cancelled, timer.state);
+            Assert.AreEqual(Timer.TimerState.Cancelled, timer.State);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Gear.Tests
             timer.Update(2.5f); // 单帧跨越 2 次循环 + 0.5 溢出
 
             Assert.AreEqual(2, loopCompleted, "长帧跨越的周期应逐次补发 OnLoopCompleted（2026-08-15 已修复多循环限制）");
-            Assert.AreEqual(0.5f, timer.elapsed, 0.001f, "溢出量应保留而非归零");
+            Assert.AreEqual(0.5f, timer.Elapsed, 0.001f, "溢出量应保留而非归零");
         }
 
         [Test]
@@ -66,10 +66,10 @@ namespace Gear.Tests
             timer.Update(1f);
             timer.Pause();
             timer.Update(1f); // 暂停期间不推进
-            Assert.AreEqual(1f, timer.elapsed, 0.001f);
+            Assert.AreEqual(1f, timer.Elapsed, 0.001f);
             timer.Resume();
             timer.Update(1f);
-            Assert.AreEqual(2f, timer.elapsed, 0.001f);
+            Assert.AreEqual(2f, timer.Elapsed, 0.001f);
         }
 
         [Test]
@@ -83,8 +83,8 @@ namespace Gear.Tests
             Assert.IsTrue(completed);
 
             timer.Start(); // 从 Finished 重新开始
-            Assert.AreEqual(Timer.TimerState.Running, timer.state);
-            Assert.AreEqual(0f, timer.elapsed, 0.001f);
+            Assert.AreEqual(Timer.TimerState.Running, timer.State);
+            Assert.AreEqual(0f, timer.Elapsed, 0.001f);
         }
 
         [Test]

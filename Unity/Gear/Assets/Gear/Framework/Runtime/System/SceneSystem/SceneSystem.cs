@@ -1,5 +1,5 @@
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Framework.Runtime.Resources;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -42,7 +42,7 @@ namespace Gear.Framework.Runtime.Scene
         private static readonly Lazy<SceneSystem> instance = new(() => new SceneSystem());
         public static SceneSystem Instance => instance.Value;
 
-        public bool isInited { get; private set; }
+        public bool IsInited { get; private set; }
 
         private double initProgress = 0;
         public double InitProgress { get { return initProgress; } }
@@ -162,7 +162,7 @@ namespace Gear.Framework.Runtime.Scene
             endProgressWaitingTime = 0.5f;
 
             initProgress = 100;
-            isInited = true;
+            IsInited = true;
             Log.Debug("SceneSystem 初始化完成");
             return UniTask.CompletedTask;
         }
@@ -171,7 +171,7 @@ namespace Gear.Framework.Runtime.Scene
         {
             Log.Debug("SceneSystem 清除数据");
 
-            isInited = false;
+            IsInited = false;
             // 先递增生命周期代次：排队中的 LoadScene 醒来后发现代次变化直接退出，不再继续加载；
             // 再取消在途加载信号（排队者用 SuppressCancellationThrow 吞异常）；
             // 最后强释放加载锁，避免排队者被永久阻塞
@@ -432,7 +432,7 @@ namespace Gear.Framework.Runtime.Scene
             // 双轨：Addressables 优先（场景已标记为 Addressable 时），失败/未标记则降级 SceneManager。
             // 注意：未开启热更新（enableHotUpdate=false，即 AddressablesMode.Off）或未初始化时，恒走 SceneManager。
             if (Config.AddressablesMode != AddressablesMode.Off
-                && AddressableSystem.GetOrInstance().isInited
+                && AddressableSystem.GetOrInstance().IsInited
                 && AddressableKeyExists(AddressableKeys.SceneRoot + levelName, typeof(SceneInstance)))
             {
                 bool loaded = false;

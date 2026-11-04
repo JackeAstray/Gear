@@ -39,7 +39,7 @@ of taking over the host project.
 
 ## Install as a UPM package
 
-Package id is fixed to **`com.jackeastray.gear`** (currently `1.3.1`) and can be installed straight from git:
+Package id is fixed to **`com.jackeastray.gear`** (currently `2.0.0`) and can be installed straight from git:
 
 ```json
 "com.jackeastray.gear": "https://github.com/JackeAstray/Gear.git#upm"
@@ -112,7 +112,7 @@ Documentation is currently Chinese-first:
 - [Docs/guides/跨平台构建指南.md](Docs/guides/跨平台构建指南.md) — multi-platform builds and `link.xml`
 - [Docs/guides/第三方依赖.md](Docs/guides/第三方依赖.md) — third-party dependencies and conflicts
 - [Docs/guides/测试与覆盖率.md](Docs/guides/测试与覆盖率.md) — how tests run and what CI gates
-- [Docs/guides/2.0-破坏性变更清单.md](Docs/guides/2.0-破坏性变更清单.md) — breaking changes scheduled for 2.0
+- [Docs/guides/2.0-迁移指南.md](Docs/guides/2.0-迁移指南.md) — breaking changes scheduled for 2.0
 
 ## Dependencies
 

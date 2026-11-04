@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 using Gear.Utilities;
 namespace Gear.Framework.Modules
 {

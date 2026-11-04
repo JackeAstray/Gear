@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 using Gear.Common;
-using Gear.Framework.Runtime.Base;
+using Gear.Base;
 
 namespace Gear.Framework.Runtime
 {
