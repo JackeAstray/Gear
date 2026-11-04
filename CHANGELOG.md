@@ -29,10 +29,21 @@
   `KcpServerChannel.cs`、`VertexStream.cs`→`VertexDataStream.cs`、`UIWindowResult.cs`→`WindowResult.cs`、
   `CommonExtensions.cs`→`Extensions.cs`、`Type.cs`→`ImageExEnums.cs`（类型名不变，仅文件）。
 
+### Removed
+
+- **根目录 `Images/`（445 MB 文档示例 GIF）**：示例图已无人维护，移除后 clone 不再被这批文件拖累；
+  `Docs/features.md` 的 18 处 `<img>` 一并清掉，各示例只保留文字说明。
+  历史提交里的 LFS 对象仍在，要从历史剔除需 `git filter-repo --path Images --invert-paths`。
+
 ### Fixed
 
 - 删除 10 处跨层死 `using Gear.Framework.Runtime;`（`Gear.Utilities` 并不引用该程序集，
   此前只是因为 `Gear.Framework.Runtime.Base` 的隐式命名空间链才“恰好”编译通过）。
+- `Tools/upm-publish.ps1 -Export` 一直崩溃：`$export = Start-Process ...` 与脚本参数 `[switch]$Export`
+  同名（PowerShell 变量不区分大小写），Process 被塞进 SwitchParameter 直接抛
+  `ArgumentTransformationMetadataException`。改名 `$exportProcess` 后导出链路跑通。
+- `link.xml` 与随包模板 `Documentation/CustomSystem.cs.txt` 里的旧命名空间 —— 由扩写后的
+  架构守卫旧名规则当场发现。
 
 ## [1.3.1] - 2026-11-04
 
