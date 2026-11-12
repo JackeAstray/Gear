@@ -214,28 +214,16 @@ namespace Gear.Utilities.UI.ImageExtensions
             Vector2 scale = transitionTexScale;
             Vector2 offset = transitionTexOffset;
 
-            // rect/纹理高度为 0 时跳过,避免除零产生 NaN 污染 transitionTex_ST
-            if (transitionKeepAspectRatio && transitionTexture != null && rectTransform != null
-                && rectTransform.rect.height > 0f && transitionTexture.height > 0)
-            {
-                float rectAspect = rectTransform.rect.width / rectTransform.rect.height;
-                float texAspect = (float)transitionTexture.width / transitionTexture.height;
-
-                // 让纹理像素在屏幕上保持各向同性需要 ST.x/ST.y == rectAspect/texAspect，
-                // 因此收缩的是"相对更大"的那一轴（原实现收缩的轴相反，反而把变形放大）
-                if (texAspect > rectAspect)
-                {
-                    scale.x *= rectAspect / texAspect;
-                    offset.x += (1 - rectAspect / texAspect) * 0.5f;
-                }
-                else
-                {
-                    scale.y *= texAspect / rectAspect;
-                    offset.y += (1 - texAspect / rectAspect) * 0.5f;
-                }
-            }
-
-            mat.SetVector(transitionTex_ST_Sp, new Vector4(scale.x, scale.y, offset.x, offset.y));
+            // 「保持纵横比」的宽高比补偿已下沉到着色器（RM_TransitionScaleOffset，用
+            // quadAspect + _TransitionTex_TexelSize 在像素空间里算），这里只写用户的缩放/偏移。
+            // 同一份 ST 同时用 Vector 与纹理 Tiling/Offset 两种 API 写入：
+            // 它们是同一份数据的不同写入口，任一路径失效时另一条仍能把用户值送达着色器。
+            var st = new Vector4(scale.x, scale.y, offset.x, offset.y);
+            mat.SetVector(transitionTex_ST_Sp, st);
+            mat.SetTextureScale(transitionTex_Sp, scale);
+            mat.SetTextureOffset(transitionTex_Sp, offset);
+            mat.SetFloat(transitionKeepAspectRatio_Sp, transitionKeepAspectRatio ? 1f : 0f);
+            mat.SetFloat(transitionScreenSpace_Sp, transitionScreenSpace ? 1f : 0f);
             mat.SetFloat(transitionTexRotation_Sp, transitionTexRotation);
             mat.SetFloat(transitionRate_Sp, transitionRate);
             mat.SetColor(transitionColor_Sp, transitionColor);

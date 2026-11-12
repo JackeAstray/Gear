@@ -171,6 +171,7 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField] private Vector2 transitionTexOffset = Vector2.zero;
         [SerializeField] private float transitionTexRotation = 0;
         [SerializeField] private bool transitionKeepAspectRatio;
+        [SerializeField] private bool transitionScreenSpace;
         [SerializeField][Range(0, 1)] private float transitionRate = 0f;
         [SerializeField][ColorUsage(true, true)] private Color transitionColor = Color.white;
         [SerializeField][Range(0, 1)] private float transitionWidth = 0.1f;
@@ -312,6 +313,8 @@ namespace Gear.Utilities.UI.ImageExtensions
         private static readonly int transitionClamp_Sp = Shader.PropertyToID("_TransitionClamp");
         private static readonly int transitionTexClampPadding_Sp = Shader.PropertyToID("_TransitionTexClampPadding");
         private static readonly int transitionUseUv0_Sp = Shader.PropertyToID("_TransitionUseUv0");
+        private static readonly int transitionKeepAspectRatio_Sp = Shader.PropertyToID("_TransitionKeepAspectRatio");
+        private static readonly int transitionScreenSpace_Sp = Shader.PropertyToID("_TransitionScreenSpace");
 
         private static readonly int shadowColor_Sp = Shader.PropertyToID("_ShadowColor");
         private static readonly int shadowBlurIntensity_Sp = Shader.PropertyToID("_ShadowBlurIntensity");

@@ -29,6 +29,8 @@ uniform half2 _TransitionRange;
 uniform half _TransitionClamp;
 uniform half _TransitionTexClampPadding;
 uniform half _TransitionUseUv0;
+uniform half _TransitionKeepAspectRatio;
+uniform half _TransitionScreenSpace;
 uniform int _PatternArea;
 
 // ---- 过渡模式判定（对齐 C# 的 TransitionMode 枚举）----
@@ -113,11 +115,61 @@ float2 RM_RotateTransitionUV(float2 uv, float aspect)
     return rotateUV(uv * s, radians(_TransitionTexRotation), s * 0.5) / s;
 }
 
+// NDC → 屏幕像素，按平台的 SV_POSITION 方向换算（D3D/Metal/Vulkan 原点在左上，GL 在左下）。
+// 屏幕空间采样要用它算面板中心/轴向，否则片元里的 IN.vertex.xy 与这里算出的像素坐标上下相反。
+float2 RM_TransitionNdcToPixel(float2 ndc)
+{
+#if UNITY_UV_STARTS_AT_TOP
+    return float2((ndc.x * 0.5 + 0.5) * _ScreenParams.x, (0.5 - ndc.y * 0.5) * _ScreenParams.y);
+#else
+    return float2((ndc.x * 0.5 + 0.5) * _ScreenParams.x, (ndc.y * 0.5 + 0.5) * _ScreenParams.y);
+#endif
+}
+
+// 过渡 UV 的像素宽高比：由屏幕空间导数得出。
+// 用屏幕空间（而不是网格自带的 quadAspect）后，图案的圆点按“当前视角的像素”保持正方 ——
+// 相机从任何角度看、过渡纹理转到任何角度，点阵都不会被拉成椭圆。
+// 退化（UV 在一轴上没有梯度）时回退到网格自带的 quadAspect。
+float RM_TransitionUvAspect(float2 uv, float fallbackAspect)
+{
+    const float2 dx = ddx(uv);
+    const float2 dy = ddy(uv);
+    const float gradU = length(float2(dx.x, dy.x));
+    const float gradV = length(float2(dx.y, dy.y));
+    return (gradU < 1e-8 || gradV < 1e-8) ? fallbackAspect : gradV / gradU;
+}
+
+// 「保持纵横比」：纹素在屏幕上保持正方形所需的 V 向收缩系数。
+// 过渡旋转已经搬到像素空间，这里再把「纹理自身宽高比 / 四边形宽高比」补齐 ——
+// 于是任意旋转角度、任意矩形比例下，图案都不会被拉成长短轴不等的椭圆。
+// Pattern 模式恒定启用；其余过渡模式由 _TransitionKeepAspectRatio 开关决定。
+float RM_TransitionTexelFix(float aspect)
+{
+    const float texAspect = _TransitionTex_TexelSize.z / max(_TransitionTex_TexelSize.w, 1e-6);
+    return texAspect / max(aspect, 1e-4);
+}
+
+// 返回过渡纹理采样用的 (scale.xy, offset.zw)，按需并入各向同性修正
+float4 RM_TransitionScaleOffset(float aspect, float keepAspect)
+{
+    float4 st = _TransitionTex_ST;
+
+    if (keepAspect > 0.5)
+    {
+        const float fix = RM_TransitionTexelFix(aspect);
+        st.y *= fix;
+        st.w += (1 - fix) * 0.5;
+    }
+
+    return st;
+}
+
 float RM_TransitionAlpha(float2 uvLocal, float aspect)
 {
     float2 uv = RM_RotateTransitionUV(uvLocal, aspect);
 
-    uv = uv * _TransitionTex_ST.xy + _TransitionTex_ST.zw;
+    const float4 st = RM_TransitionScaleOffset(aspect, _TransitionKeepAspectRatio);
+    uv = uv * st.xy + st.zw;
 
     if (RM_TMODE_WRAP(_TransitionMode))
     {

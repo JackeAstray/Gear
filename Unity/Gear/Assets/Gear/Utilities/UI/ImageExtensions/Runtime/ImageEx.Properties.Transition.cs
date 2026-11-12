@@ -239,6 +239,19 @@ namespace Gear.Utilities.UI.ImageExtensions
         }
 
         /// <summary>
+        /// 过渡纹理是否用屏幕空间采样（不受 3D 平面透视影响）
+        /// </summary>
+        public bool TransitionScreenSpace
+        {
+            get => transitionScreenSpace;
+            set
+            {
+                transitionScreenSpace = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>
         /// 过渡的进度
         /// </summary>
         public float TransitionRate

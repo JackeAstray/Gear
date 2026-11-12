@@ -98,7 +98,8 @@ namespace Gear.EditorTools.ImageExtensions
 
             if (!spSprite.hasMultipleDifferentValues && spSprite.objectReferenceValue != null)
             {
-                EditorGUILayout.PropertyField(spPreserveAspect);
+                EditorGUILayout.PropertyField(spPreserveAspect,
+                    new GUIContent("图片保持纵横比", "Sprite 按原始比例缩放（不铺满矩形）。注意：过渡纹理的「保持纵横比」只作用于图案，不会改变图片比例。"));
             }
 
             SetShowNativeSize(spSprite.objectReferenceValue != null, true);
@@ -252,13 +253,26 @@ namespace Gear.EditorTools.ImageExtensions
                         EditorGUILayout.PropertyField(spTransitionTexOffset, new GUIContent("偏移"));
                         EditorGUILayout.PropertyField(spTransitionSpeed, new GUIContent("速度"));
                         EditorGUILayout.PropertyField(spTransitionTexRotation, new GUIContent("旋转"));
-                        EditorGUILayout.PropertyField(spTransitionKeepAspectRatio, new GUIContent("保持纵横比"));
+                        if (mode == ImageEx.TransitionMode.Pattern)
+                        {
+                            // Pattern 在着色器里恒定按正方形纹素采样，开关对它没有意义
+                            EditorGUILayout.LabelField(
+                                new GUIContent("保持纵横比", "Pattern 模式始终按正方形纹素采样，任意旋转角度都不会被矩形宽高比拉长"),
+                                new GUIContent("始终开启"));
+                        }
+                        else
+                        {
+                            EditorGUILayout.PropertyField(spTransitionKeepAspectRatio,
+                                new GUIContent("保持纵横比", "按像素空间各向同性采样过渡纹理：任意矩形比例下纹理都不会被拉长"));
+                        }
                         EditorGUILayout.PropertyField(spTransitionReverse, new GUIContent("反向"));
 
                         // 过渡高级参数
                         EditorGUILayout.PropertyField(spTransitionClamp, new GUIContent("强制钳制", "对过渡 UV 做钳制，防止纹理采样越界"));
                         EditorGUILayout.PropertyField(spTransitionTexClampPadding, new GUIContent("钳制边距", "纹理钳制的额外边距（0~4）"));
                         EditorGUILayout.PropertyField(spTransitionUseUv0, new GUIContent("使用 UV0", "过渡采样使用 UV0 通道"));
+                        EditorGUILayout.PropertyField(spTransitionScreenSpace,
+                            new GUIContent("屏幕空间采样", "过渡纹理按「面板的屏幕中心 / 轴向 / 高度」构造刚性 2D 坐标系：贴住面板、随面板移动旋转缩放，但不吃 3D 平面透视 —— 摄像机任意角度、纹理任意旋转角度都保持正常比例"));
                         EditorGUI.indentLevel--;
                     }
 

@@ -40,7 +40,7 @@ namespace Gear.EditorTools.ImageExtensions
         private SerializedProperty spBlurType, spBlurIntensity;
         private SerializedProperty spShadowMode;
         private SerializedProperty spTransitionMode, spTransitionTex, spTransitionRate, spTransitionColor, spTransitionWidth, spTransitionSoftness, spTransitionReverse;
-        private SerializedProperty spTransitionTexScale, spTransitionTexOffset, spTransitionTexRotation, spTransitionKeepAspectRatio;
+        private SerializedProperty spTransitionTexScale, spTransitionTexOffset, spTransitionTexRotation, spTransitionKeepAspectRatio, spTransitionScreenSpace;
         private SerializedProperty spTransitionSpeed, spTransitionPatternReverse, spTransitionAutoPlaySpeed, spTransitionColorFilter, spTransitionColorGlow, spTransitionGradientValue, spTransitionRange;
         // 过渡高级参数（此前遗漏的序列化字段，补充 Inspector 入口）
         private SerializedProperty spTransitionClamp, spTransitionTexClampPadding, spTransitionUseUv0;
@@ -148,6 +148,7 @@ namespace Gear.EditorTools.ImageExtensions
             spTransitionTexOffset = serializedObject.FindProperty("transitionTexOffset");
             spTransitionTexRotation = serializedObject.FindProperty("transitionTexRotation");
             spTransitionKeepAspectRatio = serializedObject.FindProperty("transitionKeepAspectRatio");
+            spTransitionScreenSpace = serializedObject.FindProperty("transitionScreenSpace");
             spTransitionRate = serializedObject.FindProperty("transitionRate");
             spTransitionColor = serializedObject.FindProperty("transitionColor");
             spTransitionWidth = serializedObject.FindProperty("transitionWidth");

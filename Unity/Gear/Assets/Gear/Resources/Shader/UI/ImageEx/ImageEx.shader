@@ -93,6 +93,8 @@ Shader "ReunionMovement/UI/ImageEx"
         [Toggle] _TransitionClamp ("夹过渡纹理", Float) = 1
         _TransitionTexClampPadding ("过渡图块夹边距（像素）", Range(0, 4)) = 1
         [Toggle] _TransitionUseUv0 ("过渡使用精灵 UV0", Float) = 1
+        [Toggle] _TransitionKeepAspectRatio ("过渡保持纵横比", Float) = 0
+        [Toggle] _TransitionScreenSpace ("过渡屏幕空间采样", Float) = 0
 
         // 阴影相关属性（用于控制投影/镜像阴影的颜色、衰减、采样与镜像行为）
         [HDR] _ShadowColor ("Shadow Color", Color) = (0,0,0,0.5)
@@ -256,6 +258,8 @@ Shader "ReunionMovement/UI/ImageEx"
                 float4 worldPosition : TEXCOORD3;
                 fixed isShadowVertexFlag : TEXCOORD4; // tangent.w 阴影顶点标记
                 float quadAspect : TEXCOORD5; // 四边形宽高比，用于过渡纹理的各向同性旋转
+                float4 transitionScreen : TEXCOORD6; // 屏幕空间采样基底：中心(px).xy、面板屏幕高度(px).z
+                float4 transitionAxes : TEXCOORD7;   // 屏幕空间采样基底：面板在屏幕上的 X/Y 单位轴向
                 
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -368,6 +372,34 @@ Shader "ReunionMovement/UI/ImageEx"
                 #endif
                 OUT.isShadowVertexFlag = v.tangent.w;
                 OUT.quadAspect = max(v.size.x, 1e-4) / max(v.size.y, 1e-4);
+
+                // 过渡纹理屏幕空间采样的基底：面板在屏幕上的中心 / 轴向 / 高度（像素）。
+                // 用它构造“贴合面板、但不吃透视”的刚性 2D 坐标系：
+                // 图案随面板移动、旋转、缩放，但不会被斜视拉成椭圆。
+                float2 quadNorm = (v.uv1 - 0.001) / 0.998;
+                float3 quadCenterLocal = (abs(v.size.x) + abs(v.size.y) < 1e-6)
+                    ? float3(0, 0, 0)
+                    : v.vertex.xyz - float3((quadNorm - 0.5) * v.size, 0.0);
+                float3 halfX = float3(max(v.size.x, 1.0) * 0.5, 0, 0);
+                float3 halfY = float3(0, max(v.size.y, 1.0) * 0.5, 0);
+
+                float4 cClip = UnityObjectToClipPos(quadCenterLocal);
+                float4 xClip = UnityObjectToClipPos(quadCenterLocal + halfX);
+                float4 yClip = UnityObjectToClipPos(quadCenterLocal + halfY);
+                float3 cNdc = cClip.xyz / max(cClip.w, 1e-5);
+                float3 xNdc = xClip.xyz / max(xClip.w, 1e-5);
+                float3 yNdc = yClip.xyz / max(yClip.w, 1e-5);
+                float2 cPx = RM_TransitionNdcToPixel(cNdc.xy);
+                float2 xPx = RM_TransitionNdcToPixel(xNdc.xy) - cPx;
+                float2 yPx = RM_TransitionNdcToPixel(yNdc.xy) - cPx;
+
+                float2 ex = normalize(xPx + float2(1e-5, 0));
+                float2 eyRaw = yPx / max(length(yPx), 1e-5);
+                float2 eyOrtho = eyRaw - dot(eyRaw, ex) * ex;
+                float2 ey = length(eyOrtho) > 1e-5 ? normalize(eyOrtho) : float2(0, 1);
+                OUT.transitionScreen = float4(cPx, max(length(yPx) * 2.0, 1.0), 0);
+                OUT.transitionAxes = float4(ex, ey);
+
                 OUT.color = v.color * _Color;
 
                 return OUT;
@@ -390,6 +422,21 @@ Shader "ReunionMovement/UI/ImageEx"
                 float2 transitionUv = transitionBaseUv;
                 float2 transitionFilterUv = transitionBaseUv;
 
+                // 过渡 UV 的像素宽高比：用屏幕空间导数算，
+                // 相机任意视角 / 过渡纹理任意旋转角度下，点阵都按正方像素采样，不会被拉长
+                float transitionAspect = RM_TransitionUvAspect(transitionBaseUv, IN.quadAspect);
+
+                // 屏幕空间采样：图案贴合面板（中心 / 轴向 / 高度），但不跟随 3D 平面的透视。
+                // 摄像机任意角度、纹理任意旋转角度都保持正常比例，同时随面板一起移动/旋转/缩放。
+                if (_TransitionScreenSpace > 0.5)
+                {
+                    const float2 dPx = IN.vertex.xy - IN.transitionScreen.xy;
+                    const float hPx = max(IN.transitionScreen.z, 1.0);
+                    transitionUv = float2(dot(dPx, IN.transitionAxes.xy), dot(dPx, IN.transitionAxes.zw)) / hPx + 0.5;
+                    transitionFilterUv = transitionUv;
+                    transitionAspect = 1.0;
+                }
+
                 // 过渡逻辑（计算 transAlpha，并为 Melt/Burn 模式允许移动 UV）
                 float transAlpha = 1;
                 if (_TransitionMode != 0)
@@ -398,15 +445,17 @@ Shader "ReunionMovement/UI/ImageEx"
                     {
                         const half scale = lerp(100, 1, _TransitionWidth);
                         const half2 time = half2(-transition_rate() * 2, 0);
-                        transitionUv = RM_RotateTransitionUV(transitionUv, IN.quadAspect);
+                        transitionUv = RM_RotateTransitionUV(transitionUv, transitionAspect);
                         transitionFilterUv = transitionUv;
-                        transitionUv = transitionUv * _TransitionTex_ST.xy * scale + _TransitionTex_ST.zw + time;
+                        // Pattern 恒按正方形纹素采样：任意旋转角度、任意矩形宽高比都不会把图案拉长
+                        const float4 patternST = RM_TransitionScaleOffset(transitionAspect, 1);
+                        transitionUv = transitionUv * patternST.xy * scale + patternST.zw + time;
                         transAlpha = tex2D(_TransitionTex, transitionUv).a;
                         transAlpha = _TransitionReverse ? 1 - transAlpha : transAlpha;
                     }
                     else
                     {
-                        transAlpha = transition_alpha(transitionBaseUv, IN.quadAspect);
+                        transAlpha = transition_alpha(transitionUv, transitionAspect);
                     }
 
                     // Move UVs for Melt/Burn
@@ -573,5 +622,5 @@ Shader "ReunionMovement/UI/ImageEx"
             ENDCG
         }
     }
-    CustomEditor "ReunionMovement.EditorTools.ImageExtensions.ImageShaderGUI"
+    CustomEditor "Gear.EditorTools.ImageExtensions.ImageShaderGUI"
 }
