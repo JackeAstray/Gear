@@ -29614,7 +29614,7 @@ MonoBehaviour:
   clipReverse: 0
   clipSoftness: 1
   appendShadow: 1
-  shadowOffsetLocal: {x: 0, y: -14}
+  shadowOffsetLocal: {x: 14, y: -14}
   shadowColor: {r: 0.49, g: 0.36, b: 0.99, a: 0.85}
   shadowBlurIntensity: 10
   samplingWidth: 1
