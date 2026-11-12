@@ -355,8 +355,26 @@ namespace Gear.EditorTools.ImageExtensions
 
                     EditorGUILayout.PropertyField(spShadowOffsetLocal, new GUIContent("阴影偏移 (本地)"));
 
-                    // Shadow type dropdown
-                    EditorGUILayout.PropertyField(spShadowMode, new GUIContent("阴影类型"));
+                    // Shadow type dropdown：隐藏 SdfOutline（SDF 阴影已停用），只保留旧模式。
+                    if (!spShadowMode.hasMultipleDifferentValues)
+                    {
+                        ImageEx.ShadowMode[] shadowModes =
+                        {
+                            ImageEx.ShadowMode.Shadow,
+                            ImageEx.ShadowMode.Shadow3,
+                            ImageEx.ShadowMode.Mirror,
+                            ImageEx.ShadowMode.Outline8,
+                        };
+                        string[] shadowLabels = { "Shadow", "Shadow 3", "Mirror", "Outline8" };
+                        int current = System.Array.IndexOf(shadowModes, (ImageEx.ShadowMode)spShadowMode.intValue);
+                        if (current < 0) current = 0;
+                        int next = EditorGUILayout.Popup(new GUIContent("阴影类型"), current, shadowLabels);
+                        spShadowMode.intValue = (int)shadowModes[Mathf.Clamp(next, 0, shadowModes.Length - 1)];
+                    }
+                    else
+                    {
+                        EditorGUILayout.PropertyField(spShadowMode, new GUIContent("阴影类型"));
+                    }
 
                     // 阴影颜色（HDR）
                     SerializedProperty spShadowColor = serializedObject.FindProperty("shadowColor");

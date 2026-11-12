@@ -56,8 +56,7 @@ namespace Gear.Utilities.UI.ImageExtensions
             Shadow = 1,
             Shadow3 = 2,
             Mirror = 3,
-            /// <summary>已废弃：运行时统一按 SdfOutline 单 quad 处理，保留枚举值仅为兼容旧资源序列化。</summary>
-            [InspectorName("Outline8（已废弃）")]
+            /// <summary>兼容旧资源序列化；Inspector 中显示为 Outline8。</summary>
             Outline8 = 8,
             /// <summary>单 quad 等距膨胀轮廓阴影（性能优于 Outline8，属于附加模式）。</summary>
             SdfOutline = 9
