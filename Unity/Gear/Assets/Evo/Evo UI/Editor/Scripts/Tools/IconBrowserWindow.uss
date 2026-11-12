@@ -1,0 +1,174 @@
+/* Icon Browser. Shared pieces live in EvoEditorUITK.uss. */
+.evo-window--dark {
+    --icon-stage: rgba(0, 0, 0, 0.22);
+    --icon-stage-hover: rgba(255, 255, 255, 0.07);
+    --icon-stage-selected: rgba(58, 121, 187, 0.35);
+}
+
+/* Library icons are usually white, so the light theme keeps a dark stage behind them */
+.evo-window--light {
+    --icon-stage: rgb(82, 82, 82);
+    --icon-stage-hover: rgb(98, 98, 98);
+    --icon-stage-selected: rgb(52, 92, 140);
+}
+
+/* Filters */
+.icon-filters {
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 4px 0 0;
+}
+
+.icon-browser .icon-search {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: auto;
+    min-width: 60px;
+}
+
+.icon-browser .icon-category {
+    flex-shrink: 0;
+    width: 128px;
+    margin: 0 0 0 6px;
+}
+
+/* Grid */
+.icon-content {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: 0;
+}
+
+.icon-grid {
+    flex-grow: 1;
+}
+
+/* Rows are the collection items themselves: clear only the list's backgrounds, never the row padding */
+.icon-browser .icon-grid .unity-collection-view__item,
+.icon-browser .icon-grid .unity-collection-view__item:hover,
+.icon-browser .icon-grid .unity-collection-view__item:focus,
+.icon-browser .icon-grid .unity-collection-view__item:checked {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.icon-browser .icon-grid .icon-row,
+.icon-browser .icon-grid .icon-row:hover {
+    flex-direction: row;
+    padding: 0 0 0 10px;
+}
+
+.icon-tile {
+    flex-shrink: 0;
+}
+
+.icon-stage {
+    background-color: var(--icon-stage);
+}
+
+.icon-tile__stage {
+    border-width: 1px;
+    border-radius: 6px;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.icon-tile:hover > .icon-tile__stage {
+    background-color: var(--icon-stage-hover);
+}
+
+.icon-tile--selected > .icon-tile__stage,
+.icon-tile--selected:hover > .icon-tile__stage {
+    background-color: var(--icon-stage-selected);
+    border-color: var(--evo-accent);
+}
+
+.icon-tile__image {
+    flex-grow: 1;
+}
+
+.icon-tile__label {
+    height: 18px;
+    margin: 0;
+    padding: 3px 1px 0 1px;
+    font-size: 10px;
+    color: var(--evo-muted);
+    -unity-text-align: upper-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.icon-tile--selected > .icon-tile__label {
+    color: var(--evo-text);
+}
+
+/* Rows hold either a category separator or a row of tiles */
+.icon-row__tiles {
+    flex-direction: row;
+}
+
+.icon-section {
+    flex-grow: 1;
+    height: 100%;
+    padding: 4px 10px 0 2px;
+}
+
+/* Footer */
+.icon-selection {
+    flex-direction: row;
+    align-items: center;
+}
+
+.icon-selection__stage {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.icon-selection__image {
+    flex-grow: 1;
+}
+
+.icon-selection__text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-left: 10px;
+}
+
+.icon-selection__name {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    -unity-font-style: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.icon-selection__name--empty {
+    color: var(--evo-muted);
+    -unity-font-style: normal;
+}
+
+.icon-selection__category {
+    margin: 3px 0 0 0;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+}
+
+.icon-browser .icon-resolution {
+    flex-shrink: 0;
+    width: 76px;
+    margin: 0 0 0 8px;
+}
+
+.icon-footer > .evo-description {
+    margin-top: 8px;
+}
+
+.evo-window .icon-apply {
+    margin-top: 8px;
+}

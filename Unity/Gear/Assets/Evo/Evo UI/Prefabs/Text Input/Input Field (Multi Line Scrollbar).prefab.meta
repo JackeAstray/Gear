@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a5b2c768768399946abc2e3ec295ab9f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Input Field/Input Field (Multi Line Scrollbar).prefab
+  uploadId: 957982

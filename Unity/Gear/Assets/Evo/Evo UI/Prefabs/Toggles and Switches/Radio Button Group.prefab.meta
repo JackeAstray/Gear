@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a6c685518b203a744b6dd4d851b7c76f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Button/Radio Button Group.prefab
+  uploadId: 957982

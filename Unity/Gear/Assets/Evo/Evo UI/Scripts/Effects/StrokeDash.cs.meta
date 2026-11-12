@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 39538a70e16ef1549b25991c7ba3f431
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Scripts/Effects/StrokeDash.cs
+  uploadId: 957982
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 5c76f6b6529ee0e4b92063d0fd9d8c7f, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

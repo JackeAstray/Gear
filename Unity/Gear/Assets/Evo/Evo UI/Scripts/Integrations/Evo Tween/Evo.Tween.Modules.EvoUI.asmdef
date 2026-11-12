@@ -1,0 +1,17 @@
+{
+    "name": "Evo.Tween.Modules.EvoUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0be22c02e1bc314e86c8c9123dd75ca",
+        "GUID:5c2029f82e100e24893801e416288cc9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

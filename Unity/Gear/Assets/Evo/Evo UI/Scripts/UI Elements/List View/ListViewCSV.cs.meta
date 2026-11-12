@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e2f145530e3b3f748b85c89fb9b68d61
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/List View/ListViewCSV.cs
+  uploadId: 957982

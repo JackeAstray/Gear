@@ -1,0 +1,27 @@
+{
+    "name": "Evo.UI.Rendering.HDRP",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1938c58277649b240a50fcbfa4f73618",
+        "GUID:e0be22c02e1bc314e86c8c9123dd75ca",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.HighDefinition.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "EVO_UI_HDRP"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "17.0.0",
+            "define": "EVO_UI_HDRP"
+        }
+    ],
+    "noEngineReferences": false
+}

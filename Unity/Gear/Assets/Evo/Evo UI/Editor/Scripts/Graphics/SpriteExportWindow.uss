@@ -1,0 +1,78 @@
+/* Export as Sprite. Shared pieces live in EvoEditorUITK.uss. */
+.sprite-export .evo-object-field > .unity-base-field__label,
+.sprite-export .evo-text-field > .unity-base-field__label,
+.sprite-export__label {
+    min-width: 90px;
+    width: 90px;
+}
+
+/* The shape's name and size, right under its heading */
+.evo-body .sprite-export__shape {
+    margin-top: 0;
+}
+
+/* Preview, in an evo-well: the sprite on a checkerboard, with its slice guides */
+.sprite-export__preview {
+    height: 132px;
+    margin-top: 6px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.sprite-export__image {
+    flex-shrink: 0;
+    background-repeat: repeat;
+    background-size: 16px 16px;
+}
+
+.sprite-export__guide {
+    position: absolute;
+    background-color: var(--evo-accent);
+}
+
+.sprite-export__guide--vertical {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+}
+
+.sprite-export__guide--horizontal {
+    left: 0;
+    right: 0;
+    height: 1px;
+}
+
+.evo-body .sprite-export__preview-info {
+    margin-top: 4px;
+}
+
+/* A label and a segmented control, lined up with the field rows */
+.sprite-export__row {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 0 3px 0;
+}
+
+.sprite-export__label {
+    flex-shrink: 0;
+    margin: 0 0 0 var(--evo-property-label-padding);
+    padding: 0;
+    -unity-text-align: middle-left;
+}
+
+.sprite-export__row > .evo-segments {
+    flex-grow: 1;
+}
+
+.evo-body .sprite-export__info {
+    margin: 0 2px 6px 2px;
+}
+
+.sprite-export__options {
+    margin-top: 3px;
+}
+
+.evo-body .sprite-export__note {
+    margin-top: 4px;
+}

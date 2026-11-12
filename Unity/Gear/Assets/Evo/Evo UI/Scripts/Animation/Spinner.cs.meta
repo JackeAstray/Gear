@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 67950a40f90e59d4fb7ab40d0b740c39
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: b1a8958c86226364e8a5f1b10b48eb09, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/Animation/Spinner.cs
+  uploadId: 842076

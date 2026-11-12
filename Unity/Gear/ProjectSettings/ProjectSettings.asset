@@ -833,24 +833,26 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: UNITY_PHYSICS_ENABLED;DOTWEEN
-    EmbeddedLinux: DOTWEEN
+    Android: UNITY_PHYSICS_ENABLED;DOTWEEN;EVO_UI
+    EmbeddedLinux: DOTWEEN;EVO_UI
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
     Kepler: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
-    PS5: DOTWEEN
-    QNX: DOTWEEN
+    LinuxHeadlessSimulation: DOTWEEN;EVO_UI
+    Nintendo Switch: DOTWEEN;EVO_UI
+    Nintendo Switch 2: EVO_UI
+    PS4: DOTWEEN;EVO_UI
+    PS5: DOTWEEN;EVO_UI
+    QNX: DOTWEEN;EVO_UI
     ReservedCFE: DOTWEEN
-    Standalone: UNITY_PHYSICS_ENABLED;DOTWEEN
-    VisionOS: DOTWEEN
-    WebGL: UNITY_PHYSICS_ENABLED;DOTWEEN
-    Windows Store Apps: UNITY_PHYSICS_ENABLED;DOTWEEN
-    XboxOne: DOTWEEN
-    iPhone: UNITY_PHYSICS_ENABLED;DOTWEEN
-    tvOS: DOTWEEN
+    Server: EVO_UI
+    Standalone: UNITY_PHYSICS_ENABLED;DOTWEEN;EVO_UI
+    VisionOS: DOTWEEN;EVO_UI
+    WebGL: UNITY_PHYSICS_ENABLED;DOTWEEN;EVO_UI
+    Windows Store Apps: UNITY_PHYSICS_ENABLED;DOTWEEN;EVO_UI
+    XboxOne: DOTWEEN;EVO_UI
+    iPhone: UNITY_PHYSICS_ENABLED;DOTWEEN;EVO_UI
+    tvOS: DOTWEEN;EVO_UI
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

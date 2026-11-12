@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0c2f32bed09a9d643a10c88e7697fbb7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 54ae2bce32cdd52438d8ea1364092424, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Button/RadioButtonGroup.cs
+  uploadId: 842076

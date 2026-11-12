@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b42a20b2b09a02846947f282948fe2aa
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Switch/Switch.prefab
+  uploadId: 957982

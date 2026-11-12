@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5e359a61fdf3c34478c2bba989702e3f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Shaders/StrokeDash.shader
+  uploadId: 957982

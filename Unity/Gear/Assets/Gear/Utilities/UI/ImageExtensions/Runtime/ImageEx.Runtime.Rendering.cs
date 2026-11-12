@@ -14,15 +14,6 @@ namespace Gear.Utilities.UI.ImageExtensions
     public partial class ImageEx
     {
 
-        /// <summary>8 方向轮廓阴影的方向常量（避免每次网格重建分配数组）</summary>
-        private static readonly Vector2[] Outline8Directions = new Vector2[]
-        {
-            new Vector2(1, 0), new Vector2(0.707f, 0.707f), new Vector2(0, 1),
-            new Vector2(-0.707f, 0.707f), new Vector2(-1, 0),
-            new Vector2(-0.707f, -0.707f), new Vector2(0, -1),
-            new Vector2(0.707f, -0.707f)
-        };
-
         /// <summary>
         /// 生成网格
         /// </summary>
@@ -34,6 +25,16 @@ namespace Gear.Utilities.UI.ImageExtensions
             {
                 case Type.Simple:
                 case Type.Sliced:
+                    // 单 quad 轮廓阴影：SdfOutline（旧 Outline8 已废弃，统一走这里）
+                    if (appendShadow && (shadowMode == ShadowMode.SdfOutline || shadowMode == ShadowMode.Outline8))
+                    {
+                        float sdfGrow = Mathf.Max(shadowOffsetLocal.magnitude, 1f);
+                        float shadowSoftness = Mathf.Max(falloffDistance, shadowBlurIntensity);
+                        ImageHelper.GenerateSdfShadowSprite(vh, preserveAspect, canvas, rectTransform,
+                            ActiveSprite, color, sdfGrow, shadowSoftness);
+                        break;
+                    }
+
                     Vector2 effectiveShadowOffset = shadowOffsetLocal;
                     if (flipHorizontal) effectiveShadowOffset.x = -effectiveShadowOffset.x;
                     if (flipVertical) effectiveShadowOffset.y = -effectiveShadowOffset.y;
@@ -45,9 +46,6 @@ namespace Gear.Utilities.UI.ImageExtensions
                     // 根据阴影模式追加阴影四边形
                     if (appendShadow)
                     {
-                        float dist = effectiveShadowOffset.magnitude;
-                        if (dist < 0.01f) dist = 8f; // 最小偏移
-
                         switch (shadowMode)
                         {
                             case ShadowMode.Shadow:
@@ -72,17 +70,7 @@ namespace Gear.Utilities.UI.ImageExtensions
                                 ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
                                     ActiveSprite, color, effectiveShadowOffset, shadowScale);
                                 break;
-
-                            case ShadowMode.Outline8:
-                                // 8方向轮廓阴影
-                                Vector2[] dirs = Outline8Directions;
-                                for (int i = 0; i < 8; i++)
-                                {
-                                    Vector2 outlineOffset = dirs[i] * dist;
-                                    ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
-                                        ActiveSprite, color, outlineOffset, shadowScale, 1f);
-                                }
-                                break;
+                            // 注：Outline8 由外层单 quad 路径统一处理，不再走多四边形分支
                         }
                     }
                     break;
@@ -196,6 +184,9 @@ namespace Gear.Utilities.UI.ImageExtensions
 
             mat.SetFloat(outlineWidth_Sp, outlineWidth);
             mat.SetInt(enableDashedOutline_Sp, enableDashedOutline);
+            mat.SetFloat(dashLength_Sp, dashLength);
+            mat.SetFloat(dashGap_Sp, dashGap);
+            mat.SetFloat(dashSoftness_Sp, dashSoftness);
             mat.SetFloat(customTime_Sp, customTime);
             // 已移除 OUTLINED8 - 无操作
 
@@ -204,6 +195,18 @@ namespace Gear.Utilities.UI.ImageExtensions
 
             mat.SetColor(outlineColor_Sp, OutlineColor);
             mat.SetFloat(falloffDistance_Sp, FalloffDistance);
+
+            // 内阴影（形状路径专用；DrawShape=None 时 shader 端不会调用）
+            mat.SetInt(enableInnerShadow_Sp, enableInnerShadow ? 1 : 0);
+            mat.SetColor(innerShadowColor_Sp, innerShadowColor);
+            mat.SetFloat(innerShadowWidth_Sp, innerShadowWidth);
+            mat.SetFloat(innerShadowSoftness_Sp, innerShadowSoftness);
+
+            // 进度裁剪
+            mat.SetInt(clipMode_Sp, (int)clipMode);
+            mat.SetFloat(clipAmount_Sp, clipAmount);
+            mat.SetInt(clipReverse_Sp, clipReverse ? 1 : 0);
+            mat.SetFloat(clipSoftness_Sp, clipSoftness);
 
             mat.SetInt(blurType_Sp, (int)blurType);
             mat.SetFloat(blurIntensity_Sp, blurIntensity);
@@ -252,6 +255,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             mat.SetFloat(shadowScale_Sp, shadowScale);
             mat.SetFloat(allowOutOfBoundsShadow_Sp, allowOutOfBoundsShadow ? 1f : 0f);
             mat.SetInt(shadowMode_Sp, (int)shadowMode);
+            // SdfOutline 专用：向外扩张距离（像素），与网格侧的外扩量保持一致
+            mat.SetFloat(shadowGrow_Sp, Mathf.Max(shadowOffsetLocal.magnitude, 1f));
             mat.SetInt(shadowMirrorDirection_Sp, (int)shadowMirrorDirection);
             mat.SetFloat(shadowMirrorScale_Sp, shadowMirrorScale);
             mat.SetVector(shadowMirrorOffset_Sp, shadowMirrorOffset);
@@ -408,7 +413,20 @@ namespace Gear.Utilities.UI.ImageExtensions
             outlineWidth = mat.GetFloat(outlineWidth_Sp);
             outlineColor = mat.GetColor(outlineColor_Sp);
             enableDashedOutline = mat.GetInt(enableDashedOutline_Sp);
+            dashLength = mat.GetFloat(dashLength_Sp);
+            dashGap = mat.GetFloat(dashGap_Sp);
+            dashSoftness = mat.GetFloat(dashSoftness_Sp);
             customTime = mat.GetFloat(customTime_Sp);
+
+            enableInnerShadow = mat.GetInt(enableInnerShadow_Sp) == 1;
+            innerShadowColor = mat.GetColor(innerShadowColor_Sp);
+            innerShadowWidth = mat.GetFloat(innerShadowWidth_Sp);
+            innerShadowSoftness = mat.GetFloat(innerShadowSoftness_Sp);
+
+            clipMode = (ClipMode)mat.GetInt(clipMode_Sp);
+            clipAmount = mat.GetFloat(clipAmount_Sp);
+            clipReverse = mat.GetInt(clipReverse_Sp) == 1;
+            clipSoftness = mat.GetFloat(clipSoftness_Sp);
 
             // 阴影镜像方向
             shadowMirrorDirection = (ShadowDirection)mat.GetInt(shadowMirrorDirection_Sp);

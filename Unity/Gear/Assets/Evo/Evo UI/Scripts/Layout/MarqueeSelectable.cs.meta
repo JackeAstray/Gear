@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1a77af3b05e87134b957481fe20356b7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 43b52bf375f2d194abd9a470f1ee93b7, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 
+  assetPath: Assets/Evo/Evo UI/Scripts/Layout/MarqueeSelectable.cs
+  uploadId: 0

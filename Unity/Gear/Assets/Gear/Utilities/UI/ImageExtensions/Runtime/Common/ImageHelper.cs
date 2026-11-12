@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -95,7 +95,7 @@ namespace Gear.Utilities.UI.ImageExtensions
             suv[2] = new Vector2(uv.z, uv.w);
             suv[3] = new Vector2(uv.z, uv.y);
 
-            AddQuad(vh, sxy, color, suv, size, drawingDims, true, shadowOffsetLocal, shadowScale, shadowFade);
+            AddQuad(vh, sxy, color, suv, size, drawingDims, true, shadowOffsetLocal, shadowScale, shadowFade, false);
         }
 
         /// <summary>
@@ -110,6 +110,107 @@ namespace Gear.Utilities.UI.ImageExtensions
                 ? UnityEngine.Sprites.DataUtility.GetOuterUV(activeSprite)
                 : new Vector4(0, 0, 1, 1);
             AddShadowQuad(vh, v, uv, color, shadowOffsetLocal, shadowScale, shadowFade);
+        }
+
+        /// <summary>
+        /// 生成"单四边形 SDF 外阴影 + 主图"的合并网格（对应 <c>ShadowMode.SdfOutline</c>）。
+        /// <para>
+        /// 与 <see cref="AddShadowQuad"/> 的 8 方向偏移四边形不同：这里只生成一个"外扩"四边形，
+        /// 顶点位置向外扩 <paramref name="grow"/> 像素，但 <c>uv1</c> 仍按原始绘制区域做
+        /// <see cref="Mathf.InverseLerp"/>（可超出 0..1），于是着色器里的形状坐标会延伸到形状外侧，
+        /// 片元再按 SDF 距离做等距膨胀，得到 1 个 quad 的轮廓阴影（顶点 16→8，overdraw 16→2）。
+        /// </para>
+        /// <para>
+        /// 顶点顺序：先阴影（tangent.w=1）、后主图，保证主图盖在阴影之上。
+        /// </para>
+        /// </summary>
+        public static void GenerateSdfShadowSprite(VertexHelper vh, bool preserveAspect, Canvas canvas,
+            RectTransform rectTransform, Sprite activeSprite, Color32 color, float grow, float falloffDistance)
+        {
+            vh.Clear();
+
+            Vector4 v = GetDrawingDimensions(preserveAspect, activeSprite, canvas, rectTransform);
+            Vector4 uv = (activeSprite != null)
+                ? UnityEngine.Sprites.DataUtility.GetOuterUV(activeSprite)
+                : new Vector4(0, 0, 1, 1);
+
+            Vector2 size = new Vector2(v.z - v.x, v.w - v.y);
+
+            // 外扩量：grow + 一个衰减余量；限制不超过短边一半，避免极小图形生成退化四边形
+            float margin = Mathf.Max(falloffDistance, 0f) + 2f;
+            float expand = Mathf.Max(0f, grow + margin);
+            float maxExpand = Mathf.Min(size.x, size.y) * 0.5f;
+            expand = Mathf.Min(expand, maxExpand);
+
+            float x0 = v.x - expand;
+            float y0 = v.y - expand;
+            float x1 = v.z + expand;
+            float y1 = v.w + expand;
+            Vector4 expandedBounds = new Vector4(x0, y0, x1, y1);
+
+            // ---- 阴影四边形（外扩，uv1 用原始区域做逆插值，允许 <0 / >1） ----
+            int shadowStart = vh.currentVertCount;
+            AddSdfShadowVertex(vh, new Vector2(x0, y0), color, uv, v, expandedBounds, size);
+            AddSdfShadowVertex(vh, new Vector2(x0, y1), color, uv, v, expandedBounds, size);
+            AddSdfShadowVertex(vh, new Vector2(x1, y1), color, uv, v, expandedBounds, size);
+            AddSdfShadowVertex(vh, new Vector2(x1, y0), color, uv, v, expandedBounds, size);
+
+            vh.AddTriangle(shadowStart, shadowStart + 1, shadowStart + 2);
+            vh.AddTriangle(shadowStart + 2, shadowStart + 3, shadowStart);
+
+            // ---- 主图四边形（与 GenerateSimpleSprite 一致：uv1 归一化 + epsilon 内缩） ----
+            const float epsilon = 0.001f;
+            int mainStart = vh.currentVertCount;
+            Vector3[] corners =
+            {
+                new Vector2(v.x, v.y),
+                new Vector2(v.x, v.w),
+                new Vector2(v.z, v.w),
+                new Vector2(v.z, v.y),
+            };
+            Vector3[] uvs =
+            {
+                new Vector2(uv.x, uv.y),
+                new Vector2(uv.x, uv.w),
+                new Vector2(uv.z, uv.w),
+                new Vector2(uv.z, uv.y),
+            };
+
+            for (int i = 0; i < 4; i++)
+            {
+                float u = Mathf.InverseLerp(v.x, v.z, corners[i].x);
+                float w = Mathf.InverseLerp(v.y, v.w, corners[i].y);
+                u = Mathf.Lerp(epsilon, 1f - epsilon, u);
+                w = Mathf.Lerp(epsilon, 1f - epsilon, w);
+                Vector2 uv1 = new Vector2(u, w);
+
+                vh.AddVert(corners[i], color, uvs[i], uv1, size, Vector2.zero,
+                    Vector3.zero, Vector4.zero);
+            }
+
+            vh.AddTriangle(mainStart, mainStart + 1, mainStart + 2);
+            vh.AddTriangle(mainStart + 2, mainStart + 3, mainStart);
+        }
+
+        /// <summary>
+        /// 写入一个"外扩阴影"顶点：uv1 用原始绘制区域做逆插值（可超出 0..1），
+        /// 让着色器里的形状坐标覆盖到形状外侧；tangent.w=1 标记阴影顶点。
+        /// 精灵 UV 按外扩四边形线性映射（形状阴影通常不依赖贴图）。
+        /// </summary>
+        private static void AddSdfShadowVertex(VertexHelper vh, Vector2 position, Color32 color,
+            Vector4 spriteUv, Vector4 shapeBounds, Vector4 expandedBounds, Vector2 size)
+        {
+            float shapeU = Mathf.InverseLerp(shapeBounds.x, shapeBounds.z, position.x);
+            float shapeV = Mathf.InverseLerp(shapeBounds.y, shapeBounds.w, position.y);
+
+            float texU = Mathf.InverseLerp(expandedBounds.x, expandedBounds.z, position.x);
+            float texV = Mathf.InverseLerp(expandedBounds.y, expandedBounds.w, position.y);
+            Vector2 texcoord = new Vector2(
+                Mathf.Lerp(spriteUv.x, spriteUv.z, texU),
+                Mathf.Lerp(spriteUv.y, spriteUv.w, texV));
+
+            vh.AddVert(position, color, texcoord, new Vector2(shapeU, shapeV), size, Vector2.zero,
+                Vector3.zero, new Vector4(0f, 0f, 0f, 1f));
         }
 
         /// <summary>

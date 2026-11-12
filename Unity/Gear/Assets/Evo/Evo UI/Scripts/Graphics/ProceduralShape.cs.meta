@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 000d98cb17947fd458b36c27f5472af5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 3c7898085350fdb4d8dc7e608254fffe, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 
+  assetPath: Assets/Evo/Evo UI/Scripts/Graphics/ProceduralRect.cs
+  uploadId: 0

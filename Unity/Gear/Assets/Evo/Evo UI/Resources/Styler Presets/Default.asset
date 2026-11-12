@@ -1,0 +1,230 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42939178eadba994ab57405394a12e26, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  audioItems:
+  - itemID: Hover SFX
+    formerIDs: []
+    audioAsset: {fileID: 8300000, guid: dd9ee4ce18edbc34191b74119ac21f4f, type: 3}
+  - itemID: Click SFX
+    formerIDs: []
+    audioAsset: {fileID: 8300000, guid: 503de6bf0c32f134f96d4a92662f3e45, type: 3}
+  - itemID: Notification SFX
+    formerIDs: []
+    audioAsset: {fileID: 8300000, guid: 04ee76c723465b54196cedac182ba2c1, type: 3}
+  colorItems:
+  - itemID: Primary
+    formerIDs: []
+    colorValue: {r: 1, g: 1, b: 1, a: 1}
+  - itemID: Primary (Dim)
+    formerIDs: []
+    colorValue: {r: 1, g: 1, b: 1, a: 0.39215687}
+  - itemID: Primary (Tint)
+    formerIDs: []
+    colorValue: {r: 1, g: 1, b: 1, a: 0.19607843}
+  - itemID: Primary (Soft)
+    formerIDs: []
+    colorValue: {r: 1, g: 1, b: 1, a: 0.039215688}
+  - itemID: Secondary
+    formerIDs: []
+    colorValue: {r: 0.09411765, g: 0.09411765, b: 0.105882354, a: 1}
+  - itemID: Accent
+    formerIDs: []
+    colorValue: {r: 0.39215687, g: 0.7058824, b: 1, a: 1}
+  - itemID: Accent (Tint)
+    formerIDs: []
+    colorValue: {r: 0.3921569, g: 0.7058824, b: 1, a: 0.29411766}
+  - itemID: Accent (Soft)
+    formerIDs: []
+    colorValue: {r: 0.3921569, g: 0.7058824, b: 1, a: 0.05882353}
+  - itemID: Background
+    formerIDs: []
+    colorValue: {r: 0.10980392, g: 0.14117648, b: 0.17254902, a: 1}
+  - itemID: Background (Dim)
+    formerIDs: []
+    colorValue: {r: 0.07058824, g: 0.101960786, b: 0.1254902, a: 1}
+  - itemID: Background (Tint)
+    formerIDs: []
+    colorValue: {r: 0.19607843, g: 0.23529412, b: 0.27450982, a: 1}
+  - itemID: Negative
+    formerIDs: []
+    colorValue: {r: 1, g: 0.39215687, b: 0.39215687, a: 1}
+  - itemID: Shadow
+    formerIDs: []
+    colorValue: {r: 0.047058824, g: 0.06666667, b: 0.09019608, a: 0.5019608}
+  fontItems:
+  - itemID: Light
+    formerIDs: []
+    fontAsset: {fileID: 11400000, guid: b9eaf5570922ec845b483eb8974e9cef, type: 2}
+    providerFonts: []
+  - itemID: Regular
+    formerIDs: []
+    fontAsset: {fileID: 11400000, guid: 6bdb9c1d8b3ace1408d2de12e30ae744, type: 2}
+    providerFonts: []
+  - itemID: Bold
+    formerIDs: []
+    fontAsset: {fileID: 11400000, guid: 8788bd9d9a3de504b832c80b8618fbff, type: 2}
+    providerFonts: []
+  gradientItems:
+  - itemID: Red Blue
+    formerIDs: []
+    gradientValue:
+      serializedVersion: 2
+      key0: {r: 0.74509805, g: 0.27450982, b: 0.27450982, a: 1}
+      key1: {r: 0.39215687, g: 0.5882353, b: 0.98039216, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+  shapeStyleItems:
+  - itemID: Radius
+    formerIDs: []
+    flags: 2
+    sprite: {fileID: 0}
+    scaleMode: 0
+    softness: 0
+    shape: 0
+    polygonSides: 0
+    shapeAngle: 0
+    shapeSkew: {x: 0, y: 0}
+    radiusMode: 0
+    independentCorners: 0
+    squircleCorners: 0
+    cornerRadius: {x: 16, y: 16, z: 16, w: 16}
+    fillCenter: 1
+    outlineWidth: 0
+    innerShadowOffset: {x: 0, y: 0}
+    innerShadowSize: 0
+    innerShadowSoftness: 0
+    outerShadowOffset: {x: 0, y: 0}
+    outerShadowSize: 0
+    outerShadowSoftness: 0
+    outerShadowOutsideOnly: 0
+  - itemID: Background
+    formerIDs: []
+    flags: 10
+    sprite: {fileID: 0}
+    scaleMode: 1
+    softness: 0
+    shape: 0
+    polygonSides: 6
+    shapeAngle: 0
+    shapeSkew: {x: 0, y: 0}
+    radiusMode: 0
+    independentCorners: 0
+    squircleCorners: 0
+    cornerRadius: {x: 16, y: 16, z: 16, w: 16}
+    fillCenter: 1
+    outlineWidth: 1.5
+    innerShadowOffset: {x: 0, y: 0}
+    innerShadowSize: 0
+    innerShadowSoftness: 0
+    outerShadowOffset: {x: 0, y: 0}
+    outerShadowSize: 0
+    outerShadowSoftness: 0
+    outerShadowOutsideOnly: 0
+  - itemID: Background (Pill)
+    formerIDs: []
+    flags: 10
+    sprite: {fileID: 0}
+    scaleMode: 1
+    softness: 0
+    shape: 0
+    polygonSides: 6
+    shapeAngle: 0
+    shapeSkew: {x: 0, y: 0}
+    radiusMode: 1
+    independentCorners: 0
+    squircleCorners: 0
+    cornerRadius: {x: 100, y: 100, z: 100, w: 100}
+    fillCenter: 1
+    outlineWidth: 1.5
+    innerShadowOffset: {x: 0, y: 0}
+    innerShadowSize: 0
+    innerShadowSoftness: 0
+    outerShadowOffset: {x: 0, y: 0}
+    outerShadowSize: 0
+    outerShadowSoftness: 0
+    outerShadowOutsideOnly: 0
+  - itemID: Background (Shadow)
+    formerIDs: []
+    flags: 42
+    sprite: {fileID: 0}
+    scaleMode: 1
+    softness: 0
+    shape: 0
+    polygonSides: 6
+    shapeAngle: 0
+    shapeSkew: {x: 0, y: 0}
+    radiusMode: 0
+    independentCorners: 0
+    squircleCorners: 0
+    cornerRadius: {x: 16, y: 16, z: 16, w: 16}
+    fillCenter: 1
+    outlineWidth: 1.5
+    innerShadowOffset: {x: 0, y: 0}
+    innerShadowSize: 0
+    innerShadowSoftness: 0
+    outerShadowOffset: {x: 0, y: -10}
+    outerShadowSize: 0
+    outerShadowSoftness: 30
+    outerShadowOutsideOnly: 0
+  - itemID: Background (Container)
+    formerIDs: []
+    flags: 10
+    sprite: {fileID: 0}
+    scaleMode: 1
+    softness: 0
+    shape: 0
+    polygonSides: 6
+    shapeAngle: 0
+    shapeSkew: {x: 0, y: 0}
+    radiusMode: 0
+    independentCorners: 0
+    squircleCorners: 0
+    cornerRadius: {x: 28, y: 28, z: 28, w: 28}
+    fillCenter: 1
+    outlineWidth: 1.5
+    innerShadowOffset: {x: 0, y: 0}
+    innerShadowSize: 0
+    innerShadowSoftness: 0
+    outerShadowOffset: {x: 0, y: 0}
+    outerShadowSize: 0
+    outerShadowSoftness: 0
+    outerShadowOutsideOnly: 0
+  spriteItems: []
+  textStyleItems: []
+  updateMode: 0
+  keepOnGlobalApply: 0

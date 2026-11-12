@@ -1,0 +1,1831 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1185448487959672385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4673981268286872007}
+  - component: {fileID: 1411577509234945097}
+  m_Layer: 5
+  m_Name: Demo Screen Tag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4673981268286872007
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185448487959672385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1662943625049473957}
+  - {fileID: 6324633587282571319}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1411577509234945097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185448487959672385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f244c5e982246428543328ceb45c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  page: 
+  placement: 0
+  padding: 10
+  pillGap: 8
+  pill: {fileID: 6324633587282571319}
+  arrow: {fileID: 8989429524222588358}
+--- !u!1 &2267532339449963383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6324633587282571319}
+  - component: {fileID: 2308647082642821799}
+  - component: {fileID: 4859807838598376426}
+  - component: {fileID: 8612207451016883889}
+  - component: {fileID: 6260089973214720100}
+  - component: {fileID: 1804906418560435621}
+  m_Layer: 5
+  m_Name: Pill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6324633587282571319
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267532339449963383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6485670903579000475}
+  - {fileID: 2506466103146070197}
+  m_Father: {fileID: 4673981268286872007}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 8}
+  m_SizeDelta: {x: 0, y: 44}
+  m_Pivot: {x: 0, y: 0}
+--- !u!222 &2308647082642821799
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267532339449963383}
+  m_CullTransparentMesh: 1
+--- !u!114 &4859807838598376426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267532339449963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000d98cb17947fd458b36c27f5472af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  useDefaultStylerPreset: 1
+  preset: {fileID: 11400000, guid: 62d3d5000dc484241a42d255128f3aa7, type: 2}
+  shapeStyleID: 
+  interactableObject: {fileID: 8612207451016883889}
+  shape: 0
+  polygonSides: 4
+  shapeAngle: 0
+  shapeSkew: {x: 0, y: 0}
+  sprite: {fileID: 0}
+  scaleMode: 1
+  raycastMode: 1
+  clipMethod: 0
+  clipOrigin: 0
+  clipAmount: 1
+  clipClockwise: 1
+  roundedClipEdges: 0
+  fillCenter: 1
+  softness: 0
+  fillColorMode: 3
+  fillColor: {r: 1, g: 1, b: 1, a: 1}
+  fillStyler:
+    color:
+      lastValue: {r: 0.2627451, g: 0.27058825, b: 0.2784314, a: 1}
+      hasValue: 1
+      stylerID: Background (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 1
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Background (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0.2627451, g: 0.27058825, b: 0.2784314, a: 1}
+      hasValue: 1
+      stylerID: Background (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Accent
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Accent
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Background (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  fillGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  fillGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  fillGradientType: 0
+  fillGradientSpace: 0
+  fillGradientAngle: 0
+  fillGradientZoom: 1
+  fillGradientReverse: 0
+  fillPattern: 0
+  patternSource: 0
+  patternSprite: {fileID: 0}
+  patternShape: 1
+  patternPolygonSides: 4
+  patternRadius: 0
+  patternSize: {x: 16, y: 16}
+  patternGap: {x: 16, y: 16}
+  patternOffset: {x: 0, y: 0}
+  patternAngle: 0
+  patternFalloff: 0
+  patternFalloffOrigin: {x: 0.5, y: 0.5}
+  patternFalloffStart: 0
+  patternFalloffEnd: 100
+  patternColorMode: 1
+  patternColor: {r: 1, g: 1, b: 1, a: 0.5}
+  patternStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  patternGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  patternGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  patternGradientType: 0
+  patternGradientSpace: 0
+  patternGradientAngle: 0
+  patternGradientZoom: 1
+  patternGradientReverse: 0
+  outlineWidth: 0
+  outlineDashed: 0
+  outlineDashLength: 12
+  outlineDashGap: 8
+  outlineDashOffset: 0
+  outlineDashRounded: 1
+  outlineColorMode: 1
+  outlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  outlineStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  outlineGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  outlineGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  outlineGradientType: 0
+  outlineGradientSpace: 0
+  outlineGradientAngle: 0
+  outlineGradientZoom: 1
+  outlineGradientReverse: 0
+  radiusMode: 1
+  independentCorners: 0
+  squircleCorners: 0
+  cornerRadius: {x: 100, y: 100, z: 100, w: 100}
+  radiusSyncMode: 0
+  radiusSyncTarget: {fileID: 0}
+  radiusSyncTargetName: 
+  innerShadowOffset: {x: 0, y: 0}
+  innerShadowSize: 0
+  innerShadowSoftness: 0
+  innerShadowColorMode: 1
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  innerShadowStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  innerShadowGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  innerShadowGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  innerShadowGradientType: 0
+  innerShadowGradientSpace: 0
+  innerShadowGradientAngle: 0
+  innerShadowGradientZoom: 1
+  innerShadowGradientReverse: 0
+  outerShadowOffset: {x: 0, y: 0}
+  outerShadowSize: 0
+  outerShadowSoftness: 0
+  outerShadowOutsideOnly: 0
+  outerShadowColorMode: 1
+  outerShadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  outerShadowStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  outerShadowGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  outerShadowGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  outerShadowGradientType: 0
+  outerShadowGradientSpace: 0
+  outerShadowGradientAngle: 0
+  outerShadowGradientZoom: 1
+  outerShadowGradientReverse: 0
+  backdropBlur:
+    enabled: 0
+    sourceCamera: {fileID: 0}
+    resolution: 2
+    updateInterval: 1
+    iterations: 2
+    radius: 3
+    saturation: 1
+    brightness: 1
+    noise: 0
+    shader: {fileID: 0}
+  embeddedShader: {fileID: 4800000, guid: b7598b26455755d49879b2d607c81dcf, type: 3}
+  operandOnly: 0
+  shapeOperations: []
+--- !u!114 &8612207451016883889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267532339449963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cee470036f92aa4c9d975a401c4d0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4859807838598376426}
+  styleProvider: 1
+  useDefaultStylerPreset: 1
+  stylerPreset: {fileID: 11400000, guid: 62d3d5000dc484241a42d255128f3aa7, type: 2}
+  ripple:
+    enabled: 0
+    targetGraphic: {fileID: 0}
+    shader: {fileID: 0}
+    color: {r: 1, g: 1, b: 1, a: 0.125}
+    coverage: 1
+    softness: 1
+    centered: 0
+    duration: 0.1
+    fadeOutDuration: 0.4
+  spotlight:
+    enabled: 0
+    targetGraphic: {fileID: 0}
+    shader: {fileID: 0}
+    visibility: 0
+    color: {r: 1, g: 1, b: 1, a: 0.08}
+    radius: 100
+    softness: 1
+    followDuration: 0
+    fadeInDuration: 0.1
+    fadeOutDuration: 0.1
+  borderGlow:
+    enabled: 0
+    targetGraphic: {fileID: 0}
+    shader: {fileID: 0}
+    visibility: 0
+    color: {r: 1, g: 1, b: 1, a: 0.8}
+    width: 2
+    ambient: 0
+    radius: 100
+    softness: 1
+    followDuration: 0
+    fadeInDuration: 0.1
+    fadeOutDuration: 0.1
+  soundEffects: 0
+  highlightedSFX:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Hover SFX
+    audioClip: {fileID: 0}
+  pressedSFX:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Click SFX
+    audioClip: {fileID: 0}
+  selectedSFX:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: 
+    audioClip: {fileID: 0}
+  cursorStates: 0
+  disabledCursor:
+    texture: {fileID: 0}
+    hotspot: {x: 0, y: 0}
+  normalCursor:
+    texture: {fileID: 0}
+    hotspot: {x: 0, y: 0}
+  highlightedCursor:
+    texture: {fileID: 0}
+    hotspot: {x: 0, y: 0}
+  pressedCursor:
+    texture: {fileID: 0}
+    hotspot: {x: 0, y: 0}
+  selectedCursor:
+    texture: {fileID: 0}
+    hotspot: {x: 0, y: 0}
+  resolveRaycast: 1
+  transitionDuration: 0.1
+  interactionState: 1
+  onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1411577509234945097}
+        m_TargetAssemblyTypeName: Evo.UI.Demo.DemoScreenTag, Evo.UI
+        m_MethodName: Open
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onSelect:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  onSubmit:
+    m_PersistentCalls:
+      m_Calls: []
+  allowDoubleClick: 0
+  doubleClickDuration: 0.25
+  imageObject: {fileID: 0}
+  iconElement: {fileID: 0}
+  textObject: {fileID: 0}
+  textContainer: {fileID: 0}
+  contentFitter: {fileID: 0}
+  contentLayout: {fileID: 0}
+--- !u!114 &6260089973214720100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267532339449963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 18
+    m_Right: 16
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &1804906418560435621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267532339449963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
+--- !u!1 &2350792074071362202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1662943625049473957}
+  - component: {fileID: 5284623488923751866}
+  - component: {fileID: 7805969510096631789}
+  m_Layer: 5
+  m_Name: Outline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1662943625049473957
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350792074071362202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4673981268286872007}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5284623488923751866
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350792074071362202}
+  m_CullTransparentMesh: 1
+--- !u!114 &7805969510096631789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350792074071362202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000d98cb17947fd458b36c27f5472af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  useDefaultStylerPreset: 1
+  preset: {fileID: 11400000, guid: 62d3d5000dc484241a42d255128f3aa7, type: 2}
+  shapeStyleID: 
+  interactableObject: {fileID: 8612207451016883889}
+  shape: 0
+  polygonSides: 4
+  shapeAngle: 0
+  shapeSkew: {x: 0, y: 0}
+  sprite: {fileID: 0}
+  scaleMode: 1
+  raycastMode: 0
+  clipMethod: 0
+  clipOrigin: 0
+  clipAmount: 1
+  clipClockwise: 1
+  roundedClipEdges: 0
+  fillCenter: 0
+  softness: 0
+  fillColorMode: 3
+  fillColor: {r: 1, g: 1, b: 1, a: 1}
+  fillStyler:
+    color:
+      lastValue: {r: 1, g: 1, b: 1, a: 0}
+      hasValue: 1
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 1
+      alphaOverride: 0
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  fillGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  fillGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  fillGradientType: 0
+  fillGradientSpace: 0
+  fillGradientAngle: 0
+  fillGradientZoom: 1
+  fillGradientReverse: 0
+  fillPattern: 0
+  patternSource: 0
+  patternSprite: {fileID: 0}
+  patternShape: 1
+  patternPolygonSides: 4
+  patternRadius: 0
+  patternSize: {x: 16, y: 16}
+  patternGap: {x: 16, y: 16}
+  patternOffset: {x: 0, y: 0}
+  patternAngle: 0
+  patternFalloff: 0
+  patternFalloffOrigin: {x: 0.5, y: 0.5}
+  patternFalloffStart: 0
+  patternFalloffEnd: 100
+  patternColorMode: 1
+  patternColor: {r: 1, g: 1, b: 1, a: 0.5}
+  patternStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  patternGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  patternGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  patternGradientType: 0
+  patternGradientSpace: 0
+  patternGradientAngle: 0
+  patternGradientZoom: 1
+  patternGradientReverse: 0
+  outlineWidth: 2
+  outlineDashed: 1
+  outlineDashLength: 10
+  outlineDashGap: 7
+  outlineDashOffset: 0
+  outlineDashRounded: 1
+  outlineColorMode: 3
+  outlineColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  outlineStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 1
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 1, g: 1, b: 1, a: 0.19607843}
+      hasValue: 1
+      stylerID: Primary (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Accent
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Accent
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary (Tint)
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  outlineGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  outlineGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  outlineGradientType: 0
+  outlineGradientSpace: 0
+  outlineGradientAngle: 0
+  outlineGradientZoom: 1
+  outlineGradientReverse: 0
+  radiusMode: 0
+  independentCorners: 0
+  squircleCorners: 0
+  cornerRadius: {x: 14, y: 14, z: 14, w: 14}
+  radiusSyncMode: 0
+  radiusSyncTarget: {fileID: 0}
+  radiusSyncTargetName: 
+  innerShadowOffset: {x: 0, y: 0}
+  innerShadowSize: 0
+  innerShadowSoftness: 0
+  innerShadowColorMode: 1
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  innerShadowStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  innerShadowGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  innerShadowGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  innerShadowGradientType: 0
+  innerShadowGradientSpace: 0
+  innerShadowGradientAngle: 0
+  innerShadowGradientZoom: 1
+  innerShadowGradientReverse: 0
+  outerShadowOffset: {x: 0, y: 0}
+  outerShadowSize: 0
+  outerShadowSoftness: 0
+  outerShadowOutsideOnly: 0
+  outerShadowColorMode: 1
+  outerShadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  outerShadowStyler:
+    color:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    enableInteraction: 0
+    disabledColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    normalColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    highlightedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    pressedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+    selectedColor:
+      lastValue: {r: 0, g: 0, b: 0, a: 0}
+      hasValue: 0
+      stylerID: Primary
+      color: {r: 1, g: 1, b: 1, a: 1}
+      overrideAlpha: 0
+      alphaOverride: 1
+  outerShadowGradientStyler:
+    gradientID: 
+    enableInteraction: 0
+    disabledGradientID: 
+    normalGradientID: 
+    highlightedGradientID: 
+    pressedGradientID: 
+    selectedGradientID: 
+  outerShadowGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  outerShadowGradientType: 0
+  outerShadowGradientSpace: 0
+  outerShadowGradientAngle: 0
+  outerShadowGradientZoom: 1
+  outerShadowGradientReverse: 0
+  backdropBlur:
+    enabled: 0
+    sourceCamera: {fileID: 0}
+    resolution: 2
+    updateInterval: 1
+    iterations: 2
+    radius: 3
+    saturation: 1
+    brightness: 1
+    noise: 0
+    shader: {fileID: 0}
+  embeddedShader: {fileID: 4800000, guid: b7598b26455755d49879b2d607c81dcf, type: 3}
+  operandOnly: 0
+  shapeOperations: []
+--- !u!1 &8989429524222588358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2506466103146070197}
+  - component: {fileID: 7879777826891865159}
+  - component: {fileID: 3225335025992392155}
+  - component: {fileID: 2325164900794565827}
+  - component: {fileID: 5612049317822272892}
+  m_Layer: 5
+  m_Name: Arrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2506466103146070197
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989429524222588358}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6324633587282571319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7879777826891865159
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989429524222588358}
+  m_CullTransparentMesh: 1
+--- !u!114 &3225335025992392155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989429524222588358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c5d7f68b70710b3498cc4687882dd844, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2325164900794565827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989429524222588358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f503d8a54a79b428dfbcb4448abeac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultStylerPreset: 1
+  preset: {fileID: 11400000, guid: 62d3d5000dc484241a42d255128f3aa7, type: 2}
+  targetGraphic: {fileID: 3225335025992392155}
+  targetText: {fileID: 0}
+  targetGradient: {fileID: 0}
+  objectType: 0
+  colorID: Primary
+  fontID: Light
+  textStyleID: 
+  gradientID: 
+  spriteID: 
+  useCustomColor: 0
+  overrideAlpha: 0
+  alphaOverride: 1
+  enableInteraction: 1
+  interactableObject: {fileID: 8612207451016883889}
+  enableColorInteraction: 1
+  disabledColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Primary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  normalColor:
+    lastValue: {r: 1, g: 1, b: 1, a: 1}
+    hasValue: 1
+    stylerID: Primary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  highlightedColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Secondary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  pressedColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Secondary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  selectedColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Primary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  enableFontInteraction: 0
+  disabledFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  normalFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  highlightedFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  pressedFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  selectedFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+--- !u!114 &5612049317822272892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989429524222588358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 18
+  m_MinHeight: 18
+  m_PreferredWidth: 18
+  m_PreferredHeight: 18
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!1 &9214245442365226342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6485670903579000475}
+  - component: {fileID: 157099407392860154}
+  - component: {fileID: 8295519500511411862}
+  - component: {fileID: 5520092539279432756}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6485670903579000475
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214245442365226342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6324633587282571319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &157099407392860154
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214245442365226342}
+  m_CullTransparentMesh: 1
+--- !u!114 &8295519500511411862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214245442365226342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Component
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8788bd9d9a3de504b832c80b8618fbff, type: 2}
+  m_sharedMaterial: {fileID: 1214448472341378963, guid: 8788bd9d9a3de504b832c80b8618fbff, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 22
+  m_fontSizeBase: 22
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5520092539279432756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214245442365226342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f503d8a54a79b428dfbcb4448abeac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultStylerPreset: 1
+  preset: {fileID: 11400000, guid: 62d3d5000dc484241a42d255128f3aa7, type: 2}
+  targetGraphic: {fileID: 8295519500511411862}
+  targetText: {fileID: 8295519500511411862}
+  targetGradient: {fileID: 0}
+  objectType: 1
+  colorID: Primary
+  fontID: Bold
+  textStyleID: 
+  gradientID: 
+  spriteID: 
+  useCustomColor: 0
+  overrideAlpha: 0
+  alphaOverride: 1
+  enableInteraction: 1
+  interactableObject: {fileID: 8612207451016883889}
+  enableColorInteraction: 1
+  disabledColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Primary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  normalColor:
+    lastValue: {r: 1, g: 1, b: 1, a: 1}
+    hasValue: 1
+    stylerID: Primary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  highlightedColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Secondary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  pressedColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Secondary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  selectedColor:
+    lastValue: {r: 0, g: 0, b: 0, a: 0}
+    hasValue: 0
+    stylerID: Primary
+    color: {r: 1, g: 1, b: 1, a: 1}
+    overrideAlpha: 0
+    alphaOverride: 1
+  enableFontInteraction: 0
+  disabledFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  normalFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  highlightedFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  pressedFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}
+  selectedFont:
+    lastValue: {fileID: 0}
+    hasValue: 0
+    stylerID: Regular
+    font: {fileID: 0}

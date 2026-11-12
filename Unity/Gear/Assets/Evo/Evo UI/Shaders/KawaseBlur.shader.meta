@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: dfe9f0234011fb54199d860a48603d6b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Shaders/BlurDualKawase.shader
+  uploadId: 957982

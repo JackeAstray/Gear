@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a2f7b7e9d0c2cc141b61a5d8d356b81e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Prefabs/Button/Button.prefab
+  uploadId: 842076

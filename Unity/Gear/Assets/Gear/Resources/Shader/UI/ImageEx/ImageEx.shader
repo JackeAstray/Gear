@@ -70,6 +70,21 @@ Shader "ReunionMovement/UI/ImageEx"
         // 虚线开关、自定义时间
         _EnableDashedOutline ("启用虚线轮廓", int) = 0 
         _CustomTime ("自定义时间值", Float) = 0
+        _DashLength ("虚线长度（像素）", float) = 0
+        _DashGap ("虚线间隔（像素）", float) = 14
+        _DashSoftness ("虚线柔边", Range(0, 1)) = 0
+
+        // 内阴影（Inner Shadow）：形状描边内侧按 SDF 深度叠色
+        _EnableInnerShadow ("启用内阴影", int) = 0
+        [HDR] _InnerShadowColor ("内阴影颜色", Color) = (0, 0, 0, 1)
+        _InnerShadowWidth ("内阴影宽度（像素）", float) = 0
+        _InnerShadowSoftness ("内阴影柔和度", Range(0, 1)) = 0.5
+
+        // 进度裁剪（Clip / Progress）
+        _ClipMode ("裁剪模式", int) = 0
+        _ClipAmount ("裁剪比例", Range(0, 1)) = 1
+        _ClipReverse ("反向裁剪", int) = 0
+        _ClipSoftness ("裁剪柔和度（像素）", float) = 1
 
         _BlurType ("模糊类型", int) = 0
         _BlurIntensity ("模糊强度", Range(0, 1)) = 0
@@ -312,6 +327,10 @@ Shader "ReunionMovement/UI/ImageEx"
             #include "../../Common/RM_Blur.cginc"
             // -------------------- 描边（OUTLINE） --------------------
             #include "../../Common/RM_Outline.cginc"
+            // -------------------- 内阴影（INNER SHADOW） --------------------
+            #include "../../Common/RM_InnerShadow.cginc"
+            // -------------------- 进度裁剪（CLIP / PROGRESS） --------------------
+            #include "../../Common/RM_Clip.cginc"
             // -------------------- 阴影（SHADOW） --------------------
             #include "../../Common/RM_Shadow.cginc"
             // -------------------- 色调滤镜（TONE） --------------------
@@ -467,7 +486,17 @@ Shader "ReunionMovement/UI/ImageEx"
                 // 使用 tangent.w 标记检测阴影顶点，避免黑色 Tint 导致误判
                 if (IN.isShadowVertexFlag > 0.5)
                 {
-                    return RM_RenderShadow(IN.shapeData, _FalloffDistance, _StrokeWidth, _OutlineWidth, texcoord, transAlpha, transitionFilterUv, IN.color.a);
+                    half4 shadowResult = RM_RenderShadow(IN.shapeData, _FalloffDistance, _StrokeWidth, _OutlineWidth, texcoord, transAlpha, transitionFilterUv, IN.color.a);
+
+                    // 形状路径下的阴影也跟随进度裁剪；纯贴图路径没有形状尺寸，跳过
+                    if (_DrawShape != 0)
+                    {
+                        float2 shadowSize = max(float2(IN.shapeData.z, IN.shapeData.w), 1.0);
+                        float2 shadowUv = float2(IN.shapeData.x, IN.shapeData.y) / shadowSize;
+                        shadowResult.a *= RM_GetClipMask(shadowUv, shadowSize, shadowSize.x / shadowSize.y);
+                    }
+
+                    return shadowResult;
                 }
 
                 // 统一采样入口：采样模式（Pixelation/RGB Shift/Edge）优先，其次模糊（Blur），否则直接采样
@@ -530,6 +559,9 @@ Shader "ReunionMovement/UI/ImageEx"
                         color = half4(lerp(_OutlineColor.rgb, color.rgb, lerpFac), lerp(_OutlineColor.a * color.a, color.a, lerpFac));
                         color.a *= alpha;
                     }
+
+                    // 内阴影：放在描边之后、过渡之前，避免被描边覆盖，也跟随过渡遮罩
+                    RM_ApplyInnerShadow(color, sdfData);
                 }
 
                 // 应用过渡过滤器
@@ -585,6 +617,23 @@ Shader "ReunionMovement/UI/ImageEx"
                             color.a = 0;
                         }
                     }
+                }
+
+                // 进度裁剪：形状路径用 SDF 归一化坐标，纯贴图路径用 UV（尺寸取贴图尺寸）
+                {
+                    float2 clipSize;
+                    float2 clipUv;
+                    if (_DrawShape != 0)
+                    {
+                        clipSize = max(float2(IN.shapeData.z, IN.shapeData.w), 1.0);
+                        clipUv = float2(IN.shapeData.x, IN.shapeData.y) / clipSize;
+                    }
+                    else
+                    {
+                        clipUv = texcoord;
+                        clipSize = max(_MainTex_TexelSize.zw, 1.0);
+                    }
+                    color.a *= RM_GetClipMask(clipUv, clipSize, clipSize.x / clipSize.y);
                 }
 
                 #ifdef UNITY_UI_CLIP_RECT

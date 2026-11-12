@@ -16,6 +16,24 @@ uniform float _CustomTime;
 uniform half _StrokeWidth;
 uniform half _StrokeFill;
 uniform half _FalloffDistance;
+
+// 虚线参数（像素）：_DashLength <= 0 时回退到旧的 UV 比例虚线，保证旧资源观感不变
+uniform float _DashLength;
+uniform float _DashGap;
+uniform float _DashSoftness;
+
+// 像素级虚线：s 为沿边/沿圆周的像素坐标，time 为动画偏移（像素）
+float RM_DashPattern(float s, float time)
+{
+    float period = max(_DashLength + _DashGap, 1.0);
+    float t = fmod(s + time, period);
+    if (t < 0.0) t += period;
+
+    float soft = max(_DashSoftness, 0.0) * 0.5;
+    float start = smoothstep(0.0, soft + 0.5, t);
+    float end = 1.0 - smoothstep(max(_DashLength - soft, 0.0), _DashLength + 0.5, t);
+    return saturate(start * end);
+}
 // 注：_DrawShape 已在 RM_SDFShapes.cginc（更早包含）中声明
 
 // 生成虚线效果（支持圆形和矩形）
@@ -42,29 +60,53 @@ float RM_GenerateDashedEffect(float4 shapeData, float time, float aspectRatio, i
         float edgeMask = smoothstep(innerRadius, innerRadius + 0.01, distance) * 
                          (1.0 - smoothstep(outerRadius - 0.01, outerRadius, distance));
 
-        float dashPattern = step(0.5, frac(normalizedAngle * 15.0 + _CustomTime));
+        float dashPattern;
+        if (_DashLength > 0.0)
+        {
+            // 圆周弧长（像素）驱动，长度/间隔与矩形一致
+            float circumference = 6.2831853 * radius;
+            dashPattern = RM_DashPattern(normalizedAngle * circumference, time * 60.0);
+        }
+        else
+        {
+            dashPattern = step(0.5, frac(normalizedAngle * 15.0 + _CustomTime));
+        }
+
         dashedEffect = dashPattern * edgeMask;
     }
     else if (shapeType == 3) // RECTANGLE
     {
         float2 uv = shapeData.xy / float2(shapeData.z, shapeData.w);
-        time = fmod(time, wavelength / 2);
-
-        float dashedTop = generateDashedPattern(uv.x + time, wavelength, dashRatio);
-        float dashedBottom = generateDashedPattern(uv.x - time, wavelength, dashRatio);
-        float dashedLeft = generateDashedPattern(uv.y + time, wavelength, dashRatio);
-        float dashedRight = generateDashedPattern(uv.y - time, wavelength, dashRatio);
-
         float edgeWidth = _OutlineWidth / shapeData.w;
         float edgeTop = getEdge(1.0 - uv.y, edgeWidth, 1.0);
         float edgeBottom = getEdge(uv.y, edgeWidth, 1.0);
         float edgeLeft = getEdge(uv.x, edgeWidth, aspectRatio);
         float edgeRight = getEdge(1.0 - uv.x, edgeWidth, aspectRatio);
 
-        dashedEffect = edgeTop * dashedTop +
-                       edgeBottom * dashedBottom +
-                       edgeLeft * dashedLeft +
-                       edgeRight * dashedRight;
+        if (_DashLength > 0.0)
+        {
+            // 像素级虚线：横边按 x、竖边按 y，长度/间隔一致，且随 _CustomTime 平移
+            float offset = time * 60.0;
+            float dashTop = RM_DashPattern(shapeData.x, offset);
+            float dashBottom = RM_DashPattern(shapeData.x, offset);
+            float dashLeft = RM_DashPattern(shapeData.y, offset);
+            float dashRight = RM_DashPattern(shapeData.y, offset);
+
+            return saturate(edgeTop * dashTop + edgeBottom * dashBottom +
+                            edgeLeft * dashLeft + edgeRight * dashRight);
+        }
+
+        float oldWavelength = wavelength;
+        float oldDashRatio = dashRatio;
+        time = fmod(time, oldWavelength / 2);
+
+        float oldTop = generateDashedPattern(uv.x + time, oldWavelength, oldDashRatio);
+        float oldBottom = generateDashedPattern(uv.x - time, oldWavelength, oldDashRatio);
+        float oldLeft = generateDashedPattern(uv.y + time, oldWavelength, oldDashRatio);
+        float oldRight = generateDashedPattern(uv.y - time, oldWavelength, oldDashRatio);
+
+        return saturate(edgeTop * oldTop + edgeBottom * oldBottom +
+                        edgeLeft * oldLeft + edgeRight * oldRight);
     }
     return saturate(dashedEffect);
 }

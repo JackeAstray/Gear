@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9f2e333a77f91e64390747c7ccb4fbe4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 6011adaa950a1e145b621479658430a2, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Input Field/InputFieldEnhancer.cs
+  uploadId: 0

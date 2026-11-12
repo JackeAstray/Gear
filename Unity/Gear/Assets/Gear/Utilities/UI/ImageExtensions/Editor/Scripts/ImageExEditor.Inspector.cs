@@ -443,6 +443,76 @@ namespace Gear.EditorTools.ImageExtensions
                 EditorGUILayout.EndVertical();
             }
 
+            // ==================== 内阴影（INNER SHADOW） ====================
+            bool showInnerShadow = spShape.hasMultipleDifferentValues || spShape.enumValueIndex != (int)DrawShape.None;
+            if (showInnerShadow)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.BeginVertical("Box");
+                {
+                    EditorGUILayout.LabelField("内阴影", EditorStyles.boldLabel);
+
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(spEnableInnerShadow, new GUIContent("启用"));
+
+                    if (spEnableInnerShadow.hasMultipleDifferentValues || spEnableInnerShadow.boolValue)
+                    {
+                        EditorGUI.BeginChangeCheck();
+                        EditorGUI.showMixedValue = spInnerShadowColor.hasMultipleDifferentValues;
+                        Color newInnerShadowColor = EditorGUILayout.ColorField(
+                            new GUIContent("颜色"), spInnerShadowColor.colorValue, true, true, true);
+                        EditorGUI.showMixedValue = false;
+                        if (EditorGUI.EndChangeCheck()) spInnerShadowColor.colorValue = newInnerShadowColor;
+
+                        EditorGUILayout.PropertyField(spInnerShadowWidth, new GUIContent("宽度（像素）"));
+                        EditorGUILayout.PropertyField(spInnerShadowSoftness, new GUIContent("柔和度"));
+                    }
+
+                    EditorGUI.indentLevel--;
+                }
+                EditorGUILayout.EndVertical();
+            }
+
+            // ==================== 虚线（DASH） ====================
+            if (spEnableDashedOutline.hasMultipleDifferentValues || spEnableDashedOutline.intValue != 0)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.BeginVertical("Box");
+                {
+                    EditorGUILayout.LabelField("虚线（像素级）", EditorStyles.boldLabel);
+
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(spDashLength, new GUIContent("长度（像素）"));
+                    EditorGUILayout.PropertyField(spDashGap, new GUIContent("间隔（像素）"));
+                    EditorGUILayout.PropertyField(spDashSoftness, new GUIContent("柔边"));
+                    EditorGUILayout.HelpBox(
+                        "长度 = 0 时使用旧的 UV 比例虚线；> 0 时矩形按像素、圆形按周长均匀排布，并随「自定义时间」平移。",
+                        MessageType.None);
+                    EditorGUI.indentLevel--;
+                }
+                EditorGUILayout.EndVertical();
+            }
+
+            // ==================== 进度裁剪（CLIP / PROGRESS） ====================
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginVertical("Box");
+            {
+                EditorGUILayout.LabelField("进度裁剪", EditorStyles.boldLabel);
+
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(spClipMode, new GUIContent("模式"));
+
+                if (spClipMode.hasMultipleDifferentValues || spClipMode.enumValueIndex != (int)ImageEx.ClipMode.None)
+                {
+                    EditorGUILayout.PropertyField(spClipAmount, new GUIContent("比例"));
+                    EditorGUILayout.PropertyField(spClipReverse, new GUIContent("反向"));
+                    EditorGUILayout.PropertyField(spClipSoftness, new GUIContent("柔和度（像素）"));
+                }
+
+                EditorGUI.indentLevel--;
+            }
+            EditorGUILayout.EndVertical();
+
             //刷新
             serializedObject.ApplyModifiedProperties();
             serializedObject.Update();

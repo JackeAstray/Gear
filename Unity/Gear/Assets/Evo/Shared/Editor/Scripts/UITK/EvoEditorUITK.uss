@@ -1,0 +1,974 @@
+/* Colors and building blocks shared by Evo's editor windows. Each window adds its own layout on top. */
+.evo-window--dark {
+    --evo-panel: rgba(0, 0, 0, 0.12);
+    --evo-hover: rgba(255, 255, 255, 0.07);
+    --evo-well: rgba(0, 0, 0, 0.22);
+    --evo-chip: rgba(255, 255, 255, 0.08);
+    --evo-segment: rgba(255, 255, 255, 0.12);
+    --evo-border: rgba(255, 255, 255, 0.08);
+    --evo-border-hover: rgba(255, 255, 255, 0.22);
+    --evo-text: rgb(210, 210, 210);
+    --evo-muted: rgba(255, 255, 255, 0.5);
+    --evo-accent: rgb(58, 121, 187);
+    --evo-accent-hover: rgb(72, 136, 204);
+    --evo-accent-soft: rgba(58, 121, 187, 0.28);
+    --evo-accent-text: rgb(146, 190, 236);
+    --evo-success: rgb(92, 168, 104);
+    --evo-error: rgb(208, 92, 82);
+    --evo-warning: rgb(222, 178, 86);
+
+    /* Controls, matching EvoEditorGUI.Palette */
+    --evo-control: rgba(0, 0, 0, 0.2);
+    --evo-control-hover: rgba(255, 255, 255, 0.1);
+    --evo-control-press: rgba(255, 255, 255, 0.06);
+    --evo-control-border-hover: rgba(255, 255, 255, 0.15);
+    --evo-control-border-press: rgba(255, 255, 255, 0.25);
+    --evo-check: rgba(0, 0, 0, 0.2);
+    --evo-callout-warning: rgba(204, 153, 26, 0.2);
+    --evo-callout-error: rgba(204, 51, 51, 0.2);
+}
+
+.evo-window--light {
+    --evo-panel: rgba(0, 0, 0, 0.04);
+    --evo-hover: rgba(0, 0, 0, 0.06);
+    --evo-well: rgba(0, 0, 0, 0.08);
+    --evo-chip: rgba(0, 0, 0, 0.07);
+    --evo-segment: rgb(250, 250, 250);
+    --evo-border: rgba(0, 0, 0, 0.12);
+    --evo-border-hover: rgba(0, 0, 0, 0.3);
+    --evo-text: rgb(9, 9, 9);
+    --evo-muted: rgba(0, 0, 0, 0.55);
+    --evo-accent: rgb(58, 114, 176);
+    --evo-accent-hover: rgb(70, 128, 192);
+    --evo-accent-soft: rgba(58, 114, 176, 0.2);
+    --evo-accent-text: rgb(38, 86, 140);
+    --evo-success: rgb(64, 140, 76);
+    --evo-error: rgb(186, 64, 54);
+    --evo-warning: rgb(150, 100, 0);
+
+    /* Controls, matching EvoEditorGUI.Palette */
+    --evo-control: rgba(0, 0, 0, 0.1);
+    --evo-control-hover: rgba(0, 0, 0, 0.06);
+    --evo-control-press: rgba(0, 0, 0, 0.1);
+    --evo-control-border-hover: rgba(0, 0, 0, 0.15);
+    --evo-control-border-press: rgba(0, 0, 0, 0.25);
+    --evo-check: rgba(0, 0, 0, 0.1);
+    --evo-callout-warning: rgba(255, 204, 51, 0.3);
+    --evo-callout-error: rgba(255, 77, 77, 0.3);
+}
+
+/* Space before the label of a toggle or dropdown row, past the row's 2px edge, like EvoEditorGUI's PropertyLabelPadding */
+.evo-window {
+    --evo-property-label-padding: 4px;
+}
+
+/* Header */
+/* Header and footer use the editor's toolbar colors, so they match the window tab like a toolbar does */
+.evo-header {
+    flex-shrink: 0;
+    padding: 8px 8px 10px 12px;
+    background-color: var(--unity-colors-toolbar-background);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--unity-colors-toolbar-border);
+}
+
+/* The title menu's hover area already adds space above its text */
+.evo-header__title-row {
+    flex-direction: row;
+    align-items: center;
+    height: 26px;
+    margin-top: -2px;
+}
+
+.evo-header__spacer {
+    flex-grow: 1;
+    min-width: 4px;
+}
+
+.evo-title {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    -unity-font-style: bold;
+}
+
+.evo-subtitle {
+    margin: 3px 4px 0 0;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+    white-space: normal;
+}
+
+/* A title that opens a menu, such as a preset or library switcher */
+.evo-window .evo-title-menu {
+    flex-shrink: 1;
+    min-width: 0;
+    height: 26px;
+    margin: 0 0 0 -6px;
+    padding: 0 6px;
+    border-width: 0;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 0.1s;
+}
+
+.evo-window .evo-title-menu:hover,
+.evo-window .evo-title-menu:active,
+.evo-window .evo-title-menu:hover:active {
+    background-color: var(--evo-hover);
+}
+
+.evo-window .evo-title-menu > .unity-toolbar-menu__text {
+    flex-shrink: 1;
+    font-size: 15px;
+    -unity-font-style: bold;
+    color: var(--evo-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.evo-window .evo-title-menu > .unity-toolbar-menu__arrow {
+    flex-shrink: 0;
+    margin-left: 6px;
+}
+
+.evo-window .evo-more-menu {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    border-width: 0;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.evo-window .evo-more-menu:hover,
+.evo-window .evo-more-menu:active,
+.evo-window .evo-more-menu:hover:active {
+    background-color: var(--evo-hover);
+}
+
+.evo-window .evo-more-menu > .unity-toolbar-menu__text,
+.evo-window .evo-more-menu > .unity-toolbar-menu__arrow {
+    display: none;
+}
+
+.evo-more-menu__icon {
+    width: 16px;
+    height: 16px;
+}
+
+.evo-header__meta {
+    flex-direction: row;
+    align-items: center;
+    min-height: 18px;
+    margin: 1px 4px 0 0;
+}
+
+.evo-header__path {
+    flex-shrink: 1;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -unity-text-overflow-position: start;
+    cursor: link;
+}
+
+.evo-header__path:hover {
+    color: var(--evo-text);
+}
+
+.evo-header__count {
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin: 0 0 0 8px;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+    -unity-text-align: middle-right;
+}
+
+/* Form body */
+.evo-body {
+    flex-grow: 1;
+}
+
+.evo-body__content {
+    padding: 10px 12px 12px 12px;
+}
+
+.evo-window .evo-field {
+    margin: 0 0 4px 0;
+}
+
+.evo-window .evo-field > .unity-base-field__label {
+    min-width: 90px;
+    width: 90px;
+}
+
+.evo-heading {
+    margin: 0 0 5px 2px;
+    padding: 0;
+    font-size: 11px;
+    -unity-font-style: bold;
+    color: var(--evo-muted);
+}
+
+.evo-body .evo-heading {
+    margin-top: 10px;
+}
+
+.evo-body .evo-heading--first {
+    margin-top: 0;
+}
+
+/* A recessed box that holds a list, such as checkable keys or picked textures */
+.evo-well {
+    padding: 2px;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: var(--evo-border);
+    background-color: var(--evo-well);
+}
+
+/* Segmented control: options side by side in an evo-well, a little rounder */
+.evo-segments {
+    flex-direction: row;
+    height: 24px;
+    border-radius: 5px;
+}
+
+.evo-window .evo-segment {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0;
+    padding: 0 4px;
+    border-width: 0;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--evo-muted);
+    font-size: 11px;
+    transition-duration: 0.1s;
+}
+
+.evo-window .evo-segment:hover {
+    background-color: var(--evo-hover);
+    color: var(--evo-text);
+}
+
+.evo-window .evo-segment--selected,
+.evo-window .evo-segment--selected:hover {
+    background-color: var(--evo-segment);
+    color: var(--evo-text);
+    -unity-font-style: bold;
+}
+
+/* Small borderless button with a symbol or an icon, such as the cross that dismisses or removes something */
+.evo-window .evo-icon-button {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    border-width: 0;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--evo-muted);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+}
+
+.evo-window .evo-icon-button:hover {
+    background-color: var(--evo-hover);
+    color: var(--evo-text);
+}
+
+.evo-icon-button__icon {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+}
+
+/* Controls in EvoEditorGUI's style: button, toggle, dropdown, search field, and callout.
+   Add evo-inverted to a control, or to a container of them, for the lighter fill that sits on another fill (WithInvertedColor),
+   and evo-flat to show the fill only on hover (WithoutIdleBackground). */
+.evo-window--dark .evo-inverted {
+    --evo-control: rgba(255, 255, 255, 0.08);
+    --evo-control-hover: rgba(255, 255, 255, 0.16);
+    --evo-control-press: rgba(255, 255, 255, 0.12);
+}
+
+.evo-window--light .evo-inverted {
+    --evo-control: rgba(255, 255, 255, 0.2);
+    --evo-control-hover: rgba(0, 0, 0, 0.04);
+    --evo-control-press: rgba(0, 0, 0, 0.08);
+}
+
+/* After evo-inverted, so a flat control stays flat inside an inverted container */
+.evo-window .evo-flat {
+    --evo-control: rgba(0, 0, 0, 0);
+}
+
+.evo-window .evo-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    margin: 0;
+    padding: 0 6px;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: var(--evo-control);
+    color: var(--evo-text);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    transition-duration: 0.1s;
+}
+
+/* States use :enabled to outrank the editor theme's, which would also outline a focused button in blue */
+.evo-window .evo-button:focus:enabled {
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.evo-window .evo-button:hover:enabled {
+    background-color: var(--evo-control-hover);
+    border-color: var(--evo-control-border-hover);
+}
+
+.evo-window .evo-button:active:enabled {
+    background-color: var(--evo-control-press);
+    border-color: var(--evo-control-border-press);
+}
+
+/* The fill and text colors above outrank the editor theme's disabled look, so a disabled button fades like EvoEditorGUI's */
+.evo-window .evo-button:disabled {
+    opacity: 0.5;
+}
+
+.evo-window .evo-button > .unity-button__image {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px 0 0;
+    padding: 0;
+    --unity-image-tint-color: var(--evo-text);
+}
+
+/* With an icon, the text moves into its own element */
+.evo-window .evo-button > .unity-text-element {
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.evo-window .evo-button--icon-after {
+    flex-direction: row-reverse;
+}
+
+.evo-window .evo-button--icon-after > .unity-button__image {
+    margin: 0 0 0 6px;
+}
+
+.evo-window .evo-button.unity-button--with-icon-only > .unity-button__image {
+    margin: 0;
+}
+
+.evo-window .evo-button--colored-icon > .unity-button__image {
+    --unity-image-tint-color: rgb(255, 255, 255);
+}
+
+.evo-window .evo-toggle {
+    flex-direction: row;
+    align-items: center;
+    height: 22px;
+    margin: 0 0 3px 0;
+    padding: 0 3px 0 1px;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: var(--evo-control);
+    transition-duration: 0.1s;
+}
+
+.evo-window .evo-toggle:hover:enabled {
+    background-color: var(--evo-control-hover);
+    border-color: var(--evo-control-border-hover);
+}
+
+.evo-window .evo-toggle:active:enabled {
+    background-color: var(--evo-control-press);
+    border-color: var(--evo-control-border-press);
+}
+
+.evo-window .evo-toggle > .unity-base-field__label {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    width: auto;
+    margin: 0 0 0 var(--evo-property-label-padding);
+    padding: 0;
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+}
+
+/* The editor theme tints a focused field's label, which EvoEditorGUI's toggle doesn't */
+.evo-window .evo-toggle:focus:enabled > .unity-base-field__label {
+    color: var(--unity-colors-label-text);
+}
+
+.evo-window .evo-toggle > .unity-toggle__input {
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    margin: 0;
+}
+
+.evo-toggle__state {
+    flex-direction: row;
+    margin-left: 5px;
+}
+
+.evo-window .evo-toggle__on,
+.evo-window .evo-toggle__off {
+    margin: 0;
+    padding: 0;
+    color: var(--evo-text);
+    -unity-text-align: middle-right;
+}
+
+.evo-toggle__on,
+.evo-toggle:checked .evo-toggle__off {
+    display: none;
+}
+
+.evo-toggle:checked .evo-toggle__on {
+    display: flex;
+}
+
+.evo-window .evo-toggle .unity-toggle__checkmark {
+    display: none;
+}
+
+.evo-toggle__box {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: var(--evo-control-border-press);
+    background-color: var(--evo-check);
+}
+
+.evo-toggle:checked .evo-toggle__box {
+    border-color: var(--evo-text);
+    background-color: var(--evo-text);
+}
+
+.evo-toggle__check {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    display: none;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.evo-toggle:checked .evo-toggle__check {
+    display: flex;
+}
+
+.evo-window--dark .evo-toggle__check {
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+}
+
+.evo-window--light .evo-toggle__check {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.evo-toggle__dash {
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    top: 5px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--evo-text);
+    display: none;
+}
+
+/* Mixed values, as when several objects are edited at once: a dash in the empty box, and no state */
+.evo-window .evo-toggle--mixed .evo-toggle__box {
+    border-color: var(--evo-control-border-press);
+    background-color: var(--evo-check);
+}
+
+.evo-window .evo-toggle--mixed .evo-toggle__check,
+.evo-window .evo-toggle--mixed .evo-toggle__on,
+.evo-window .evo-toggle--mixed .evo-toggle__off {
+    display: none;
+}
+
+.evo-window .evo-toggle--mixed .evo-toggle__dash {
+    display: flex;
+}
+
+/* Dropdown, text field and object field rows: the label and the control on a rounded fill */
+.evo-window .evo-dropdown,
+.evo-window .evo-text-field,
+.evo-window .evo-object-field {
+    align-items: center;
+    min-height: 22px;
+    margin: 0 0 3px 0;
+    padding: 2px;
+    border-radius: 4px;
+    background-color: var(--evo-control);
+}
+
+.evo-window .evo-dropdown > .unity-base-field__label,
+.evo-window .evo-text-field > .unity-base-field__label,
+.evo-window .evo-object-field > .unity-base-field__label {
+    margin: 0 0 0 var(--evo-property-label-padding);
+    padding: 0;
+    -unity-text-align: middle-left;
+}
+
+/* The editor theme tints a focused field's label, which EvoEditorGUI's rows don't */
+.evo-window .evo-dropdown:focus:enabled > .unity-base-field__label,
+.evo-window .evo-text-field:focus:enabled > .unity-base-field__label,
+.evo-window .evo-object-field:focus:enabled > .unity-base-field__label {
+    color: var(--unity-colors-label-text);
+}
+
+/* The popup itself works like a button, with the lighter fill of a control on another fill (CreateDropdown marks it evo-inverted) */
+.evo-window .evo-dropdown > .unity-base-popup-field__input {
+    margin: 0;
+    padding: 0 3px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: var(--evo-control);
+    color: var(--evo-text);
+    transition-duration: 0.1s;
+}
+
+/* The editor theme lights the popup whenever the field is hovered, label included, though only the popup opens the menu,
+   and outlines it in blue when focused. CreateDropdown lets the popup take the pointer, so its own states drive it. */
+.evo-window .evo-dropdown:hover:enabled > .unity-base-popup-field__input,
+.evo-window .evo-dropdown:focus:enabled > .unity-base-popup-field__input {
+    background-color: var(--evo-control);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.evo-window .evo-dropdown > .unity-base-popup-field__input:hover:enabled {
+    background-color: var(--evo-control-hover);
+    border-color: var(--evo-control-border-hover);
+}
+
+/* Pressing the popup marks the field, and the label never does, since it doesn't open the menu */
+.evo-window .evo-dropdown:active:enabled > .unity-base-popup-field__input {
+    background-color: var(--evo-control-press);
+    border-color: var(--evo-control-border-press);
+}
+
+.evo-window .evo-dropdown .unity-base-popup-field__text {
+    color: var(--evo-text);
+    text-overflow: ellipsis;
+}
+
+.evo-window .evo-dropdown .unity-base-popup-field__arrow {
+    -unity-background-image-tint-color: var(--evo-text);
+}
+
+/* Without a label there's no row to hold, so the popup alone is the control, shaped like a button */
+.evo-window .evo-dropdown.unity-base-field--no-label {
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.evo-window .evo-dropdown.unity-base-field--no-label > .unity-base-popup-field__input {
+    align-self: stretch;
+    padding: 0 6px;
+    border-radius: 4px;
+}
+
+/* The text field's input. With a label, CreateTextField marks it evo-inverted for the popup's lighter fill.
+   The editor theme only changes an input's outline and side padding on hover and focus, and loses to these rules. */
+.evo-window .evo-text-field > .unity-base-text-field__input {
+    margin: 0;
+    padding: 0 4px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: var(--evo-control);
+}
+
+.evo-window .evo-text-field:hover:enabled > .unity-base-text-field__input {
+    border-color: var(--evo-control-border-press);
+}
+
+.evo-window .evo-text-field:focus:enabled > .unity-base-text-field__input {
+    border-color: var(--evo-accent);
+}
+
+.evo-window .evo-text-field--multiline > .unity-base-text-field__input {
+    padding: 2px 4px;
+    white-space: normal;
+}
+
+/* Without a label there's no row, and the input alone is the control, filling the field */
+.evo-window .evo-text-field.unity-base-field--no-label {
+    align-items: stretch;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* The object field's picker, with the popup's lighter fill (CreateObjectField marks it evo-inverted).
+   Its outline reacts like a text field's: on hover, and in the accent color while focused. */
+.evo-window .evo-object-field > .unity-object-field__input {
+    margin: 0;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: var(--evo-control);
+}
+
+.evo-window .evo-object-field:hover:enabled > .unity-object-field__input {
+    border-color: var(--evo-control-border-press);
+}
+
+.evo-window .evo-object-field:focus:enabled > .unity-object-field__input {
+    border-color: var(--evo-accent);
+}
+
+/* The search field is one rounded fill around the editor's text input, which drops its own frame.
+   Only its outline reacts: it shows on hover and takes the accent color while typing. */
+.evo-window .evo-search {
+    height: 22px;
+    margin: 0;
+    border-radius: 4px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: var(--evo-control);
+    transition-duration: 0.1s;
+}
+
+.evo-window .evo-search:hover:enabled {
+    border-color: var(--evo-control-border-press);
+}
+
+/* After hover, so it wins when both apply */
+.evo-window .evo-search:focus:enabled {
+    border-color: var(--evo-accent);
+}
+
+.evo-window .evo-search > .unity-search-field-base__search-button {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin: 0 0 0 5px;
+    -unity-background-image-tint-color: var(--evo-muted);
+}
+
+.evo-window .evo-search > .unity-search-field-base__text-field {
+    margin: 0;
+}
+
+/* The editor theme reframes the input when it or its field is hovered or focused, so those states are listed to outrank it */
+.evo-window .evo-search > .unity-search-field-base__text-field > .unity-search-field-base__text-field__input,
+.evo-window .evo-search > .unity-search-field-base__text-field > .unity-search-field-base__text-field__input:hover,
+.evo-window .evo-search > .unity-search-field-base__text-field > .unity-search-field-base__text-field__input:focus,
+.evo-window .evo-search > .unity-search-field-base__text-field:hover > .unity-search-field-base__text-field__input,
+.evo-window .evo-search > .unity-search-field-base__text-field:focus > .unity-search-field-base__text-field__input {
+    padding: 0 4px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* Apart from the rule above, whose state selectors would outrank the placeholder's color */
+.evo-window .evo-search .unity-search-field-base__text-field__input {
+    color: var(--evo-text);
+    font-size: 12px;
+}
+
+.evo-window .evo-search .unity-base-text-field__input--placeholder {
+    color: var(--evo-muted);
+}
+
+/* The editor theme draws its own cross as the clear button's background */
+.evo-window .evo-search > .evo-icon-button {
+    margin-right: 1px;
+    background-image: none;
+}
+
+.evo-window .evo-search > .evo-icon-button > .evo-icon-button__icon {
+    --unity-image-tint-color: var(--evo-muted);
+}
+
+.evo-window .evo-search > .evo-icon-button:hover > .evo-icon-button__icon {
+    --unity-image-tint-color: var(--evo-text);
+}
+
+.evo-window .evo-search > .unity-search-field-base__cancel-button--off {
+    display: none;
+}
+
+.evo-callout {
+    flex-direction: row;
+    align-items: center;
+    min-height: 36px;
+    margin: 5px 0;
+    padding: 5px 6px 4px 8px;
+    border-radius: 4px;
+    background-color: var(--evo-control);
+}
+
+.evo-callout--warning {
+    background-color: var(--evo-callout-warning);
+}
+
+.evo-callout--error {
+    background-color: var(--evo-callout-error);
+}
+
+.evo-callout__icon {
+    flex-shrink: 0;
+    width: 21px;
+    height: 21px;
+    margin-right: 4px;
+}
+
+.evo-callout__text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    white-space: normal;
+}
+
+/* Messages */
+.evo-description {
+    min-height: 16px;
+    margin: 6px 2px 0 2px;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+    white-space: normal;
+}
+
+.evo-description--warning {
+    color: var(--evo-warning);
+}
+
+.evo-status {
+    margin: 6px 2px 0 2px;
+}
+
+.evo-status__row {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.evo-status__label {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    white-space: normal;
+}
+
+.evo-status--running .evo-status__label {
+    color: var(--evo-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -unity-text-overflow-position: middle;
+}
+
+.evo-window .evo-status__dismiss {
+    width: 16px;
+    height: 16px;
+    margin: -1px -2px 0 6px;
+}
+
+.evo-status__track {
+    margin-top: 5px;
+}
+
+/* Progress track */
+.evo-progress {
+    height: 3px;
+    border-radius: 2px;
+    background-color: var(--evo-well);
+    overflow: hidden;
+}
+
+.evo-progress__fill {
+    height: 100%;
+    border-radius: 2px;
+    background-color: var(--evo-accent);
+}
+
+.evo-progress--done > .evo-progress__fill {
+    background-color: var(--evo-success);
+}
+
+.evo-progress--failed > .evo-progress__fill {
+    background-color: var(--evo-error);
+}
+
+/* Footer and buttons. evo-primary and evo-secondary only size a button, so it keeps its own colors:
+   Evo's on a CreateButton, the editor theme's on a plain Button. The primary one is bold. */
+.evo-footer {
+    flex-shrink: 0;
+    padding: 8px 10px 10px 10px;
+    background-color: var(--unity-colors-toolbar-background);
+    border-top-width: 1px;
+    border-top-color: var(--unity-colors-toolbar-border);
+}
+
+.evo-buttons {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.evo-window .evo-primary {
+    height: 28px;
+    margin: 0;
+    padding: 0 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    -unity-font-style: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.evo-buttons > .evo-primary {
+    min-width: 110px;
+}
+
+.evo-window .evo-secondary {
+    height: 28px;
+    margin: 0 6px 0 0;
+    padding: 0 14px;
+    border-radius: 4px;
+}
+
+/* Shadow under the header once content scrolls beneath it */
+.evo-scroll-shadow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 14px;
+    opacity: 0;
+    transition-duration: 0.15s;
+}
+
+.evo-scroll-shadow--visible {
+    opacity: 1;
+}
+
+/* Category separator in a grid, like the UI Catalog's */
+.evo-section {
+    flex-direction: row;
+    align-items: center;
+}
+
+.evo-section--link {
+    cursor: link;
+}
+
+.evo-section__icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+.evo-section__title {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    -unity-font-style: bold;
+}
+
+.evo-section__line {
+    flex-grow: 1;
+    height: 1px;
+    margin-left: 10px;
+    background-color: var(--evo-border);
+}
+
+.evo-section--link:hover > .evo-section__title {
+    color: var(--evo-accent-hover);
+}
+
+/* Small pill, such as a category link or a Default badge */
+.evo-window .evo-chip {
+    flex-shrink: 0;
+    height: 18px;
+    margin: 0 6px 0 0;
+    padding: 0 8px;
+    border-width: 0;
+    border-radius: 9px;
+    background-color: var(--evo-chip);
+    font-size: 11px;
+    -unity-text-align: middle-center;
+}
+
+.evo-window .evo-chip--link:hover {
+    background-color: var(--evo-border-hover);
+}
+
+.evo-window .evo-chip--accent {
+    background-color: var(--evo-accent-soft);
+    color: var(--evo-accent-text);
+    -unity-font-style: bold;
+}
+
+/* Empty state */
+.evo-empty {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px 48px 20px;
+}
+
+.evo-empty__title {
+    margin-bottom: 4px;
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.evo-empty__message {
+    max-width: 260px;
+    color: var(--evo-muted);
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+/* An Evo button, sized up; listed after evo-button so it wins */
+.evo-window .evo-empty__button {
+    height: 24px;
+    margin-top: 12px;
+    padding: 0 14px;
+}

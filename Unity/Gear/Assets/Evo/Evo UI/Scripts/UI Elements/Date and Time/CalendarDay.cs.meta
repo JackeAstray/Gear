@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e0cbc1c0307b1a2428afe861e6891451
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 11777ce105717614ca96221f6a580e83, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Date and Time/CalendarDay.cs
+  uploadId: 957982

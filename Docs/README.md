@@ -32,6 +32,8 @@
 | [重构方案](design/重构方案.md) | 现状体检、问题清单、六阶段改造计划 |
 | [便捷性与可移植性评估](design/便捷性与可移植性评估.md) | 调用 / 跨平台 / 插件便携性：现状、已落地项、路线图 |
 | [S 验收清单](design/S-验收清单.md) | “全量 S”的验收标准、已通过命令与剩余阻塞项 |
+| [UI-ImageEx与工具-参考Evo升级方案](design/UI-ImageEx与工具-参考Evo升级方案.md) | Evo 优劣拆解、ImageEx 顶点化/材质池路线、UI 工具台与动效组件落地清单 |
+| [Evo对照-ImageEx清理与UI能力补齐](design/Evo对照-ImageEx清理与UI能力补齐.md) | 以项目内 Evo 为参照：ImageEx 落后设计清理清单、UI 模块补齐优先级、里程碑 |
 
 ## ④ 专题
 

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f2c6ba35f46549145aefd03f2dea71cc
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Shaders/WarningStripe.shader
+  uploadId: 957982

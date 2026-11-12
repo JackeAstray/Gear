@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b7598b26455755d49879b2d607c81dcf
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Shaders/ProceduralRect.shader
+  uploadId: 957982

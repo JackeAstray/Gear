@@ -1,0 +1,19 @@
+{
+    "name": "Evo.Tween.Modules.Transforms.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5c2029f82e100e24893801e416288cc9",
+        "GUID:4df033fce1b61b845a8c58be301595b6"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

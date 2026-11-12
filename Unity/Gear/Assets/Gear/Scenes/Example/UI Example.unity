@@ -186,6 +186,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -206,6 +210,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 220
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0.035513878, b: 1, a: 1}
   transitionWidth: 0.2
@@ -384,6 +389,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &840306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -392,6 +401,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840303}
   m_CullTransparentMesh: 0
+--- !u!1 &23573879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23573880}
+  - component: {fileID: 23573882}
+  - component: {fileID: 23573881}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &23573880
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23573879}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 63540317}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &23573881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23573879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u80CC\u666F\u6A21\u7CCA\uFF1AUIBackdropBlur \u6293\u5C4F + 4-tap \u6A21\u7CCA\uFF08Play
+    \u751F\u6548\uFF09"
+--- !u!222 &23573882
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23573879}
+  m_CullTransparentMesh: 1
 --- !u!1 &40630826
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +548,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -479,6 +572,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -657,6 +751,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &40630829
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -740,6 +838,125 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50312924}
   m_CullTransparentMesh: 1
+--- !u!1 &63540316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 63540317}
+  - component: {fileID: 63540321}
+  - component: {fileID: 63540320}
+  - component: {fileID: 63540319}
+  - component: {fileID: 63540318}
+  m_Layer: 0
+  m_Name: "\u80CC\u666F\u6A21\u7CCA"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &63540317
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63540316}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 23573880}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &63540318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63540316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7029b1a6531d019439c363d6dd0e2a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.Backdrop.UIBackdropBlur
+  sourceCamera: {fileID: 1221921367}
+  downsample: 2
+  iterations: 2
+  blurRadius: 2
+  captureInterval: 1
+  skipWhenInvisible: 1
+  excludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &63540319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63540316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &63540320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63540316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &63540321
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63540316}
+  m_CullTransparentMesh: 1
 --- !u!1 &104643844
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +1024,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -827,6 +1048,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 220
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0.903
   transitionColor: {r: 128, g: 0, b: 0, a: 1}
   transitionWidth: 0.2
@@ -1005,6 +1227,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &104643847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1013,6 +1239,310 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104643844}
   m_CullTransparentMesh: 0
+--- !u!1 &156198559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156198560}
+  - component: {fileID: 156198563}
+  - component: {fileID: 156198562}
+  - component: {fileID: 156198561}
+  m_Layer: 0
+  m_Name: "\u5185\u9634\u5F71\u5361\u7247"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &156198560
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156198559}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1360320580}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &156198561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156198559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &156198562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156198559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.22, g: 0.28, b: 0.42, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
+  appendShadow: 0
+  shadowOffsetLocal: {x: 8, y: -8}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  shadowBlurIntensity: 1
+  samplingWidth: 1
+  samplingScale: 1
+  shadowScale: 1
+  allowOutOfBoundsShadow: 1
+  shadowMode: 1
+  drawShape: 3
+  imageType: 0
+  materialMode: 0
+  blurType: 0
+  blurIntensity: 1
+  transitionMode: 0
+  transitionTexture: {fileID: 0}
+  transitionTexScale: {x: 1, y: 1}
+  transitionTexOffset: {x: 0, y: 0}
+  transitionTexRotation: 0
+  transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
+  transitionRate: 0
+  transitionColor: {r: 1, g: 1, b: 1, a: 1}
+  transitionWidth: 0.1
+  transitionSoftness: 0.1
+  transitionReverse: 0
+  transitionSpeed: {x: 0, y: 0}
+  transitionPatternReverse: 0
+  transitionAutoPlaySpeed: 0
+  transitionColorFilter: 0
+  transitionColorGlow: 0
+  transitionGradient: {fileID: 0}
+  transitionGradientValue:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  transitionRange: {x: 0, y: 0}
+  transitionClamp: 1
+  transitionTexClampPadding: 1
+  transitionUseUv0: 1
+  strokeWidth: 0
+  outlineWidth: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  shadowMirrorDirection: 0
+  shadowMirrorScale: 1
+  shadowMirrorOffset: {x: 0, y: 0}
+  shadowMirrorShowSource: 0
+  shadowMirrorTintMix: 0.5
+  shadowColorFilter: 4
+  shadowColorGlow: 0
+  customTime: 0
+  enableDashedOutline: 0
+  falloffDistance: 0.5
+  constrainRotation: 1
+  shapeRotation: 0
+  flipHorizontal: 0
+  flipVertical: 0
+  alphaThreshold: 0
+  triangle:
+    cornerRadius: {x: 0, y: 0, z: 0}
+    uniformCornerRadius: 0
+  rectangle:
+    cornerRadius: {x: 20, y: 20, z: 20, w: 20}
+    uniformCornerRadius: 0
+  circle:
+    radius: 0
+    fitRadius: 0
+  pentagon:
+    cornerRadius: {x: 0, y: 0, z: 0, w: 0}
+    uniformCornerRadius: 0
+    tipRadius: 0.001
+    tipSize: 1
+  hexagon:
+    cornerRadius: {x: 1, y: 1, z: 1, w: 1}
+    uniformCornerRadius: 0
+    tipSize: {x: 1, y: 1}
+    uniformTipSize: 0
+    tipRadius: {x: 1, y: 1}
+    uniformTipRadius: 0
+  chamferBox:
+    chamferBoxSize: {x: 1, y: 1}
+    chamferBoxRadius: {x: 0, y: 0, z: 0, w: 0}
+  quadrilateral:
+    topLeftOffset: {x: 0, y: 0}
+    topRightOffset: {x: 0, y: 0}
+    bottomLeftOffset: {x: 0, y: 0}
+    bottomRightOffset: {x: 0, y: 0}
+  nStarPolygon:
+    sideCount: 3
+    inset: 2
+    cornerRadius: 0
+    offset: {x: 0, y: 0}
+  blobbyCross:
+    blobbyCrossTime: 0
+  squircle:
+    squircleTime: 0
+  nTriangleRounded:
+    nTriangleRoundedTime: 0
+    nTriangleRoundedNumber: 0
+  gradientEffect:
+    enabled: 1
+    gradientType: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 0.32, g: 0.42, b: 0.62, a: 1}
+      key1: {r: 0.16, g: 0.2, b: 0.32, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    cornerGradientColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    rotation: 35
+  m_ToneFilter: 0
+  m_ToneIntensity: 1
+  m_ColorFilterMode: 0
+  m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+  m_ColorIntensity: 1
+  m_ColorGlow: 0
+  m_EdgeMode: 0
+  m_EdgeWidth: 0.5
+  m_EdgeColorFilterMode: 4
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EdgeColorGlow: 0
+  m_EdgeShinyRate: 0.5
+  m_EdgeShinyWidth: 0.5
+  m_EdgeShinyAutoPlaySpeed: 1
+  m_SamplingMode: 0
+  m_SamplingIntensity: 0.5
+  m_TargetMode: 0
+  m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
+  m_TargetRange: 0.1
+  m_TargetSoftness: 0.5
+  m_PatternArea: 0
+  m_DetailMode: 0
+  m_DetailTex: {fileID: 0}
+  m_DetailTexScale: {x: 1, y: 1}
+  m_DetailTexOffset: {x: 0, y: 0}
+  m_DetailTexSpeed: {x: 0, y: 0}
+  m_DetailIntensity: 1
+  m_DetailThreshold: {x: 0, y: 1}
+  m_DetailColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EnableGradientTex: 0
+  m_GradientTex: {fileID: 0}
+  m_GradientOffset: 0
+  m_GradientScale: 1
+  m_BlendType: 0
+  cameraTexture: {fileID: 0}
+  enableInnerShadow: 1
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 0.85}
+  innerShadowWidth: 16
+  innerShadowSoftness: 0.7
+--- !u!222 &156198563
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156198559}
+  m_CullTransparentMesh: 1
 --- !u!1 &184937292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,6 +1610,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -1100,6 +1634,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -1278,6 +1813,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &184937295
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1361,6 +1900,327 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191165049}
   m_CullTransparentMesh: 1
+--- !u!1 &203371787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203371788}
+  - component: {fileID: 203371792}
+  - component: {fileID: 203371791}
+  - component: {fileID: 203371790}
+  - component: {fileID: 203371789}
+  m_Layer: 0
+  m_Name: "\u865A\u7EBF\u63CF\u8FB9\u6D41\u52A8\uFF08\u8FD0\u884C\u65F6\uFF09"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &203371788
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203371787}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1140587077}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &203371789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203371787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292f4594d337f8c4483290de2fab0f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageExDashCrawler
+  speed: 0
+  useUnscaledTime: 1
+  restartOnEnable: 1
+  period: 64
+--- !u!114 &203371790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203371787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &203371791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203371787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.16, g: 0.16, b: 0.2, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
+  appendShadow: 0
+  shadowOffsetLocal: {x: 8, y: -8}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  shadowBlurIntensity: 1
+  samplingWidth: 1
+  samplingScale: 1
+  shadowScale: 1
+  allowOutOfBoundsShadow: 1
+  shadowMode: 1
+  drawShape: 3
+  imageType: 0
+  materialMode: 0
+  blurType: 0
+  blurIntensity: 1
+  transitionMode: 0
+  transitionTexture: {fileID: 0}
+  transitionTexScale: {x: 1, y: 1}
+  transitionTexOffset: {x: 0, y: 0}
+  transitionTexRotation: 0
+  transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
+  transitionRate: 0
+  transitionColor: {r: 1, g: 1, b: 1, a: 1}
+  transitionWidth: 0.1
+  transitionSoftness: 0.1
+  transitionReverse: 0
+  transitionSpeed: {x: 0, y: 0}
+  transitionPatternReverse: 0
+  transitionAutoPlaySpeed: 0
+  transitionColorFilter: 0
+  transitionColorGlow: 0
+  transitionGradient: {fileID: 0}
+  transitionGradientValue:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  transitionRange: {x: 0, y: 0}
+  transitionClamp: 1
+  transitionTexClampPadding: 1
+  transitionUseUv0: 1
+  strokeWidth: 0
+  outlineWidth: 4
+  outlineColor: {r: 0.55, g: 0.9, b: 1, a: 1}
+  shadowMirrorDirection: 0
+  shadowMirrorScale: 1
+  shadowMirrorOffset: {x: 0, y: 0}
+  shadowMirrorShowSource: 0
+  shadowMirrorTintMix: 0.5
+  shadowColorFilter: 4
+  shadowColorGlow: 0
+  customTime: 0
+  enableDashedOutline: 1
+  falloffDistance: 0.5
+  constrainRotation: 1
+  shapeRotation: 0
+  flipHorizontal: 0
+  flipVertical: 0
+  alphaThreshold: 0
+  triangle:
+    cornerRadius: {x: 0, y: 0, z: 0}
+    uniformCornerRadius: 0
+  rectangle:
+    cornerRadius: {x: 20, y: 20, z: 20, w: 20}
+    uniformCornerRadius: 0
+  circle:
+    radius: 0
+    fitRadius: 0
+  pentagon:
+    cornerRadius: {x: 0, y: 0, z: 0, w: 0}
+    uniformCornerRadius: 0
+    tipRadius: 0.001
+    tipSize: 1
+  hexagon:
+    cornerRadius: {x: 1, y: 1, z: 1, w: 1}
+    uniformCornerRadius: 0
+    tipSize: {x: 1, y: 1}
+    uniformTipSize: 0
+    tipRadius: {x: 1, y: 1}
+    uniformTipRadius: 0
+  chamferBox:
+    chamferBoxSize: {x: 1, y: 1}
+    chamferBoxRadius: {x: 0, y: 0, z: 0, w: 0}
+  quadrilateral:
+    topLeftOffset: {x: 0, y: 0}
+    topRightOffset: {x: 0, y: 0}
+    bottomLeftOffset: {x: 0, y: 0}
+    bottomRightOffset: {x: 0, y: 0}
+  nStarPolygon:
+    sideCount: 3
+    inset: 2
+    cornerRadius: 0
+    offset: {x: 0, y: 0}
+  blobbyCross:
+    blobbyCrossTime: 0
+  squircle:
+    squircleTime: 0
+  nTriangleRounded:
+    nTriangleRoundedTime: 0
+    nTriangleRoundedNumber: 0
+  gradientEffect:
+    enabled: 0
+    gradientType: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    cornerGradientColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    rotation: 0
+  m_ToneFilter: 0
+  m_ToneIntensity: 1
+  m_ColorFilterMode: 0
+  m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+  m_ColorIntensity: 1
+  m_ColorGlow: 0
+  m_EdgeMode: 0
+  m_EdgeWidth: 0.5
+  m_EdgeColorFilterMode: 4
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EdgeColorGlow: 0
+  m_EdgeShinyRate: 0.5
+  m_EdgeShinyWidth: 0.5
+  m_EdgeShinyAutoPlaySpeed: 1
+  m_SamplingMode: 0
+  m_SamplingIntensity: 0.5
+  m_TargetMode: 0
+  m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
+  m_TargetRange: 0.1
+  m_TargetSoftness: 0.5
+  m_PatternArea: 0
+  m_DetailMode: 0
+  m_DetailTex: {fileID: 0}
+  m_DetailTexScale: {x: 1, y: 1}
+  m_DetailTexOffset: {x: 0, y: 0}
+  m_DetailTexSpeed: {x: 0, y: 0}
+  m_DetailIntensity: 1
+  m_DetailThreshold: {x: 0, y: 1}
+  m_DetailColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EnableGradientTex: 0
+  m_GradientTex: {fileID: 0}
+  m_GradientOffset: 0
+  m_GradientScale: 1
+  m_BlendType: 0
+  cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
+--- !u!222 &203371792
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203371787}
+  m_CullTransparentMesh: 1
 --- !u!1 &228356459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,6 +2288,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -1448,6 +2312,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -1626,6 +2491,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &228356462
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1701,6 +2570,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -1721,6 +2594,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -1899,6 +2773,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &307112962
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2124,6 +3002,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 3, y: -3}
   shadowColor: {r: 1, g: 0.11957219, b: 0, a: 0.7058824}
@@ -2144,6 +3026,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -2322,6 +3205,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &319118930
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2330,6 +3217,310 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319118927}
   m_CullTransparentMesh: 0
+--- !u!1 &326725465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 326725466}
+  - component: {fileID: 326725469}
+  - component: {fileID: 326725468}
+  - component: {fileID: 326725467}
+  m_Layer: 0
+  m_Name: "\u8FDB\u5EA6\u88C1\u526A 65%"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &326725466
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326725465}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1715190265}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &326725467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326725465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &326725468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326725465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.18, g: 0.3, b: 0.26, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  clipMode: 2
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 8
+  appendShadow: 0
+  shadowOffsetLocal: {x: 8, y: -8}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  shadowBlurIntensity: 1
+  samplingWidth: 1
+  samplingScale: 1
+  shadowScale: 1
+  allowOutOfBoundsShadow: 1
+  shadowMode: 1
+  drawShape: 3
+  imageType: 0
+  materialMode: 0
+  blurType: 0
+  blurIntensity: 1
+  transitionMode: 0
+  transitionTexture: {fileID: 0}
+  transitionTexScale: {x: 1, y: 1}
+  transitionTexOffset: {x: 0, y: 0}
+  transitionTexRotation: 0
+  transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
+  transitionRate: 0
+  transitionColor: {r: 1, g: 1, b: 1, a: 1}
+  transitionWidth: 0.1
+  transitionSoftness: 0.1
+  transitionReverse: 0
+  transitionSpeed: {x: 0, y: 0}
+  transitionPatternReverse: 0
+  transitionAutoPlaySpeed: 0
+  transitionColorFilter: 0
+  transitionColorGlow: 0
+  transitionGradient: {fileID: 0}
+  transitionGradientValue:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  transitionRange: {x: 0, y: 0}
+  transitionClamp: 1
+  transitionTexClampPadding: 1
+  transitionUseUv0: 1
+  strokeWidth: 0
+  outlineWidth: 2
+  outlineColor: {r: 0.7, g: 1, b: 0.85, a: 0.6}
+  shadowMirrorDirection: 0
+  shadowMirrorScale: 1
+  shadowMirrorOffset: {x: 0, y: 0}
+  shadowMirrorShowSource: 0
+  shadowMirrorTintMix: 0.5
+  shadowColorFilter: 4
+  shadowColorGlow: 0
+  customTime: 0
+  enableDashedOutline: 0
+  falloffDistance: 0.5
+  constrainRotation: 1
+  shapeRotation: 0
+  flipHorizontal: 0
+  flipVertical: 0
+  alphaThreshold: 0
+  triangle:
+    cornerRadius: {x: 0, y: 0, z: 0}
+    uniformCornerRadius: 0
+  rectangle:
+    cornerRadius: {x: 20, y: 20, z: 20, w: 20}
+    uniformCornerRadius: 0
+  circle:
+    radius: 0
+    fitRadius: 0
+  pentagon:
+    cornerRadius: {x: 0, y: 0, z: 0, w: 0}
+    uniformCornerRadius: 0
+    tipRadius: 0.001
+    tipSize: 1
+  hexagon:
+    cornerRadius: {x: 1, y: 1, z: 1, w: 1}
+    uniformCornerRadius: 0
+    tipSize: {x: 1, y: 1}
+    uniformTipSize: 0
+    tipRadius: {x: 1, y: 1}
+    uniformTipRadius: 0
+  chamferBox:
+    chamferBoxSize: {x: 1, y: 1}
+    chamferBoxRadius: {x: 0, y: 0, z: 0, w: 0}
+  quadrilateral:
+    topLeftOffset: {x: 0, y: 0}
+    topRightOffset: {x: 0, y: 0}
+    bottomLeftOffset: {x: 0, y: 0}
+    bottomRightOffset: {x: 0, y: 0}
+  nStarPolygon:
+    sideCount: 3
+    inset: 2
+    cornerRadius: 0
+    offset: {x: 0, y: 0}
+  blobbyCross:
+    blobbyCrossTime: 0
+  squircle:
+    squircleTime: 0
+  nTriangleRounded:
+    nTriangleRoundedTime: 0
+    nTriangleRoundedNumber: 0
+  gradientEffect:
+    enabled: 1
+    gradientType: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 0.35, g: 0.85, b: 0.55, a: 1}
+      key1: {r: 0.1, g: 0.35, b: 0.3, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    cornerGradientColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    rotation: 35
+  m_ToneFilter: 0
+  m_ToneIntensity: 1
+  m_ColorFilterMode: 0
+  m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+  m_ColorIntensity: 1
+  m_ColorGlow: 0
+  m_EdgeMode: 0
+  m_EdgeWidth: 0.5
+  m_EdgeColorFilterMode: 4
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EdgeColorGlow: 0
+  m_EdgeShinyRate: 0.5
+  m_EdgeShinyWidth: 0.5
+  m_EdgeShinyAutoPlaySpeed: 1
+  m_SamplingMode: 0
+  m_SamplingIntensity: 0.5
+  m_TargetMode: 0
+  m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
+  m_TargetRange: 0.1
+  m_TargetSoftness: 0.5
+  m_PatternArea: 0
+  m_DetailMode: 0
+  m_DetailTex: {fileID: 0}
+  m_DetailTexScale: {x: 1, y: 1}
+  m_DetailTexOffset: {x: 0, y: 0}
+  m_DetailTexSpeed: {x: 0, y: 0}
+  m_DetailIntensity: 1
+  m_DetailThreshold: {x: 0, y: 1}
+  m_DetailColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EnableGradientTex: 0
+  m_GradientTex: {fileID: 0}
+  m_GradientOffset: 0
+  m_GradientScale: 1
+  m_BlendType: 0
+  cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
+--- !u!222 &326725469
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326725465}
+  m_CullTransparentMesh: 1
 --- !u!1 &389057310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2397,6 +3588,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -2417,6 +3612,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 4, b: 0, a: 1}
   transitionWidth: 0
@@ -2595,6 +3791,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &389057313
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2670,6 +3870,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -2690,6 +3894,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -2868,6 +4073,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &391404686
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2943,6 +4152,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 0, y: 0}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5882353}
@@ -2963,6 +4176,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -3141,6 +4355,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &410396152
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3216,6 +4434,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -3236,6 +4458,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -3414,6 +4637,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &425652647
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3609,6 +4836,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 0, y: 0}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5882353}
@@ -3629,6 +4860,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -3807,6 +5039,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &442191081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4021,6 +5257,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2131389261}
   - {fileID: 1911001201}
   - {fileID: 1885818767}
   m_Father: {fileID: 0}
@@ -4097,6 +5334,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -4117,6 +5358,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -4295,6 +5537,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &479420044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4370,6 +5616,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 8, y: -105.4}
   shadowColor: {r: 1, g: 1, b: 1, a: 0.49019608}
@@ -4390,6 +5640,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 32, b: 0, a: 1}
   transitionWidth: 0.25
@@ -4568,6 +5819,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &493681089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4643,6 +5898,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -4663,6 +5922,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0.35
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 1
@@ -4841,6 +6101,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &515931150
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4916,6 +6180,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -4936,6 +6204,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -5114,6 +6383,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 8400000, guid: fb86a938787430049a0c8af616e035d7, type: 2}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &564208403
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5189,6 +6462,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -5209,6 +6486,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -5387,6 +6665,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &582972145
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5478,7 +6760,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1479144323}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2508711
+  m_Size: 0.23893805
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5588,6 +6870,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -5608,6 +6894,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -5786,6 +7073,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &604812177
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5861,6 +7152,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -5881,6 +7176,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -6059,6 +7355,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &632584476
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6134,6 +7434,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -6154,6 +7458,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -6332,6 +7637,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &635677603
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6407,6 +7716,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -6427,6 +7740,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -6605,6 +7919,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &659240149
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6680,6 +7998,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -6700,6 +8022,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -6878,6 +8201,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &680362035
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7080,6 +8407,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -7100,6 +8431,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0.15
   transitionColor: {r: 0.1579299, g: 0.17060955, b: 0.8584906, a: 1}
   transitionWidth: 0.2
@@ -7278,6 +8610,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &687910526
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7389,6 +8725,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 1, g: 0.1537725, b: 0, a: 0.7058824}
@@ -7409,6 +8749,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0.15
   transitionColor: {r: 0.4274208, g: 0.51635635, b: 0.8018868, a: 1}
   transitionWidth: 0.2
@@ -7587,6 +8928,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &720133379
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7662,6 +9007,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -7682,6 +9031,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -7860,6 +9210,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &781452804
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7935,6 +9289,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -7955,6 +9313,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -8133,6 +9492,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 8400000, guid: fb86a938787430049a0c8af616e035d7, type: 2}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &816039884
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8208,6 +9571,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 1, g: 0.15294118, b: 0, a: 0.7058824}
@@ -8228,6 +9595,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 2.9960787, b: 0, a: 1}
   transitionWidth: 0
@@ -8406,6 +9774,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &819086914
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8683,6 +10055,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 5, y: -5}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5882353}
@@ -8703,6 +10079,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -8881,6 +10258,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &963315569
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8956,6 +10337,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -8976,6 +10361,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -9154,6 +10540,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &966567570
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9229,6 +10619,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -9249,6 +10643,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -9427,6 +10822,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &989659900
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9577,6 +10976,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -9597,6 +11000,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -9775,6 +11179,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 8400000, guid: fb86a938787430049a0c8af616e035d7, type: 2}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1032825096
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9850,6 +11258,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -9870,6 +11282,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -10048,6 +11461,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1065028793
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10123,6 +11540,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -10143,6 +11564,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -10321,6 +11743,10 @@ MonoBehaviour:
   m_GradientScale: 0.1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1082522235
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10396,6 +11822,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -10416,6 +11846,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -10594,6 +12025,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 8400000, guid: fb86a938787430049a0c8af616e035d7, type: 2}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1083121730
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10669,6 +12104,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 1, g: 0.11957219, b: 0, a: 0.7058824}
@@ -10689,6 +12128,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -10867,6 +12307,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1138596011
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10875,6 +12319,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1138596008}
   m_CullTransparentMesh: 0
+--- !u!1 &1140587076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1140587077}
+  - component: {fileID: 1140587079}
+  - component: {fileID: 1140587078}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1140587077
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140587076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 203371788}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1140587078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140587076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "EnableDashedOutline + ImageExDashCrawler\uFF1A\u63CF\u8FB9\u865A\u7EBF\u6EDA\u52A8"
+--- !u!222 &1140587079
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140587076}
+  m_CullTransparentMesh: 1
 --- !u!1 &1221921365
 GameObject:
   m_ObjectHideFlags: 0
@@ -11079,6 +12602,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -11099,6 +12626,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -11277,6 +12805,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1226673022
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11343,7 +12875,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1238233216
 Canvas:
   m_ObjectHideFlags: 0
@@ -11353,8 +12885,8 @@ Canvas:
   m_GameObject: {fileID: 1238233213}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 2013166644}
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -11374,9 +12906,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238233213}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.17115533, y: 0, z: 0, w: 0.9852441}
+  m_LocalPosition: {x: 0, y: 0, z: 90.84117}
+  m_LocalScale: {x: 0.22552745, y: 0.22552745, z: 0.22552745}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 191165050}
@@ -11385,9 +12917,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 189, y: -31.675957}
+  m_SizeDelta: {x: 512, y: 512}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1243792509
 GameObject:
   m_ObjectHideFlags: 0
@@ -11455,6 +12987,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -11475,6 +13011,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -11653,6 +13190,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1243792512
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11774,6 +13315,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -11794,6 +13339,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: -55
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.7490196}
   transitionWidth: 0.8
@@ -11835,7 +13381,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  transitionRange: {x: 0.5451128, y: 1}
+  transitionRange: {x: 0.5451127, y: 1}
   transitionClamp: 1
   transitionTexClampPadding: 1
   transitionUseUv0: 1
@@ -11972,6 +13518,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1263647970
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12047,6 +13597,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -12067,6 +13621,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 7.968628, g: 4.0886154, b: 0, a: 1}
   transitionWidth: 0.8
@@ -12245,6 +13800,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1283611869
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12320,6 +13879,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 3, y: -3}
   shadowColor: {r: 1, g: 0.11957219, b: 0, a: 0.7058824}
@@ -12340,6 +13903,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -12518,6 +14082,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1297731418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12593,6 +14161,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -12613,6 +14185,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -12791,6 +14364,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1309871983
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12866,6 +14443,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -12886,6 +14467,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -13064,6 +14646,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1344072095
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13139,6 +14725,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -13159,6 +14749,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: -55
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.7490196}
   transitionWidth: 0.8
@@ -13337,6 +14928,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1347212177
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13389,6 +14984,86 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351046503}
+  m_CullTransparentMesh: 1
+--- !u!1 &1360320579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1360320580}
+  - component: {fileID: 1360320582}
+  - component: {fileID: 1360320581}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1360320580
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360320579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 156198560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1360320581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360320579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u5185\u9634\u5F71\uFF1A\u5F62\u72B6\u5185\u4FA7\u6309 SDF \u6DF1\u5EA6\u538B\u6697\uFF08Evo
+    \u6709\u3001Gear \u672C\u6B21\u8865\u9F50\uFF09"
+--- !u!222 &1360320582
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360320579}
   m_CullTransparentMesh: 1
 --- !u!1 &1363223796
 GameObject:
@@ -13457,6 +15132,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -13477,6 +15156,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: -55
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.7490196}
   transitionWidth: 0.8
@@ -13655,6 +15335,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1363223799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13730,6 +15414,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -13750,6 +15438,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -13928,6 +15617,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1370966741
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14419,6 +16112,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -14439,6 +16136,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -14617,6 +16315,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1451069955
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14692,6 +16394,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -14712,6 +16418,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -14890,6 +16597,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1451664777
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14965,6 +16676,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -14985,6 +16700,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -15163,6 +16879,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1469053283
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15313,6 +17033,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -15333,6 +17057,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -15511,6 +17236,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1525572499
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15586,6 +17315,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -15606,6 +17339,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -15784,6 +17518,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1544569385
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15859,6 +17597,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -15879,6 +17621,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -16057,6 +17800,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1548677175
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16065,6 +17812,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548677172}
   m_CullTransparentMesh: 0
+--- !u!1 &1552265012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1552265013}
+  - component: {fileID: 1552265015}
+  - component: {fileID: 1552265014}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1552265013
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552265012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2056148280}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1552265014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552265012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "GradientEffect + ImageExGradientSpinner\uFF1A\u7EBF\u6027\u6E10\u53D8\u6301\u7EED\u65CB\u8F6C"
+--- !u!222 &1552265015
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552265012}
+  m_CullTransparentMesh: 1
 --- !u!1 &1567395376
 GameObject:
   m_ObjectHideFlags: 0
@@ -16132,6 +17958,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -16152,6 +17982,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -16330,6 +18161,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1567395379
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16413,6 +18248,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657626227}
   m_CullTransparentMesh: 1
+--- !u!1 &1660194317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660194318}
+  - component: {fileID: 1660194320}
+  - component: {fileID: 1660194319}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1660194318
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660194317}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1784371338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1660194319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660194317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "SdfOutline\uFF1A1 \u4E2A\u5916\u6269 quad \u4EE3\u66FF Outline8 \u7684\u591A\u56DB\u8FB9\u5F62"
+--- !u!222 &1660194320
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660194317}
+  m_CullTransparentMesh: 1
 --- !u!1 &1661877634
 GameObject:
   m_ObjectHideFlags: 0
@@ -16480,6 +18394,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -16500,6 +18418,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: -55
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.7490196}
   transitionWidth: 0.8
@@ -16678,6 +18597,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1661877637
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16753,6 +18676,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -16773,6 +18700,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -16951,6 +18879,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1681060974
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16959,6 +18891,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681060971}
   m_CullTransparentMesh: 0
+--- !u!1 &1715190264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1715190265}
+  - component: {fileID: 1715190267}
+  - component: {fileID: 1715190266}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1715190265
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715190264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 326725466}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1715190266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715190264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Progress Clip\uFF1A\u6A2A\u5411\u88C1\u526A + \u67D4\u548C\u8FB9\u7F18\uFF08\u8840\u6761/\u52A0\u8F7D\u6761\uFF09"
+--- !u!222 &1715190267
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715190264}
+  m_CullTransparentMesh: 1
 --- !u!1 &1751935778
 GameObject:
   m_ObjectHideFlags: 0
@@ -17026,6 +19037,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 1
   shadowOffsetLocal: {x: 0, y: 0}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5882353}
@@ -17046,6 +19061,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -17224,6 +19240,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1751935781
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17344,6 +19364,310 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1784371337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1784371338}
+  - component: {fileID: 1784371341}
+  - component: {fileID: 1784371340}
+  - component: {fileID: 1784371339}
+  m_Layer: 0
+  m_Name: "\u5355 quad \u8F6E\u5ED3\u9634\u5F71"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1784371338
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784371337}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1660194318}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1784371339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784371337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &1784371340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784371337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.28, g: 0.24, b: 0.36, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
+  appendShadow: 1
+  shadowOffsetLocal: {x: 14, y: 14}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.65}
+  shadowBlurIntensity: 5
+  samplingWidth: 1
+  samplingScale: 1
+  shadowScale: 1
+  allowOutOfBoundsShadow: 1
+  shadowMode: 9
+  drawShape: 3
+  imageType: 0
+  materialMode: 0
+  blurType: 0
+  blurIntensity: 1
+  transitionMode: 0
+  transitionTexture: {fileID: 0}
+  transitionTexScale: {x: 1, y: 1}
+  transitionTexOffset: {x: 0, y: 0}
+  transitionTexRotation: 0
+  transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
+  transitionRate: 0
+  transitionColor: {r: 1, g: 1, b: 1, a: 1}
+  transitionWidth: 0.1
+  transitionSoftness: 0.1
+  transitionReverse: 0
+  transitionSpeed: {x: 0, y: 0}
+  transitionPatternReverse: 0
+  transitionAutoPlaySpeed: 0
+  transitionColorFilter: 0
+  transitionColorGlow: 0
+  transitionGradient: {fileID: 0}
+  transitionGradientValue:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  transitionRange: {x: 0, y: 0}
+  transitionClamp: 1
+  transitionTexClampPadding: 1
+  transitionUseUv0: 1
+  strokeWidth: 0
+  outlineWidth: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  shadowMirrorDirection: 0
+  shadowMirrorScale: 1
+  shadowMirrorOffset: {x: 0, y: 0}
+  shadowMirrorShowSource: 0
+  shadowMirrorTintMix: 0.5
+  shadowColorFilter: 4
+  shadowColorGlow: 0
+  customTime: 0
+  enableDashedOutline: 0
+  falloffDistance: 0.5
+  constrainRotation: 1
+  shapeRotation: 0
+  flipHorizontal: 0
+  flipVertical: 0
+  alphaThreshold: 0
+  triangle:
+    cornerRadius: {x: 0, y: 0, z: 0}
+    uniformCornerRadius: 0
+  rectangle:
+    cornerRadius: {x: 20, y: 20, z: 20, w: 20}
+    uniformCornerRadius: 0
+  circle:
+    radius: 0
+    fitRadius: 0
+  pentagon:
+    cornerRadius: {x: 0, y: 0, z: 0, w: 0}
+    uniformCornerRadius: 0
+    tipRadius: 0.001
+    tipSize: 1
+  hexagon:
+    cornerRadius: {x: 1, y: 1, z: 1, w: 1}
+    uniformCornerRadius: 0
+    tipSize: {x: 1, y: 1}
+    uniformTipSize: 0
+    tipRadius: {x: 1, y: 1}
+    uniformTipRadius: 0
+  chamferBox:
+    chamferBoxSize: {x: 1, y: 1}
+    chamferBoxRadius: {x: 0, y: 0, z: 0, w: 0}
+  quadrilateral:
+    topLeftOffset: {x: 0, y: 0}
+    topRightOffset: {x: 0, y: 0}
+    bottomLeftOffset: {x: 0, y: 0}
+    bottomRightOffset: {x: 0, y: 0}
+  nStarPolygon:
+    sideCount: 3
+    inset: 2
+    cornerRadius: 0
+    offset: {x: 0, y: 0}
+  blobbyCross:
+    blobbyCrossTime: 0
+  squircle:
+    squircleTime: 0
+  nTriangleRounded:
+    nTriangleRoundedTime: 0
+    nTriangleRoundedNumber: 0
+  gradientEffect:
+    enabled: 1
+    gradientType: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 0.45, g: 0.36, b: 0.6, a: 1}
+      key1: {r: 0.2, g: 0.16, b: 0.3, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    cornerGradientColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    rotation: 35
+  m_ToneFilter: 0
+  m_ToneIntensity: 1
+  m_ColorFilterMode: 0
+  m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+  m_ColorIntensity: 1
+  m_ColorGlow: 0
+  m_EdgeMode: 0
+  m_EdgeWidth: 0.5
+  m_EdgeColorFilterMode: 4
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EdgeColorGlow: 0
+  m_EdgeShinyRate: 0.5
+  m_EdgeShinyWidth: 0.5
+  m_EdgeShinyAutoPlaySpeed: 1
+  m_SamplingMode: 0
+  m_SamplingIntensity: 0.5
+  m_TargetMode: 0
+  m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
+  m_TargetRange: 0.1
+  m_TargetSoftness: 0.5
+  m_PatternArea: 0
+  m_DetailMode: 0
+  m_DetailTex: {fileID: 0}
+  m_DetailTexScale: {x: 1, y: 1}
+  m_DetailTexOffset: {x: 0, y: 0}
+  m_DetailTexSpeed: {x: 0, y: 0}
+  m_DetailIntensity: 1
+  m_DetailThreshold: {x: 0, y: 1}
+  m_DetailColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EnableGradientTex: 0
+  m_GradientTex: {fileID: 0}
+  m_GradientOffset: 0
+  m_GradientScale: 1
+  m_BlendType: 0
+  cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
+--- !u!222 &1784371341
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784371337}
+  m_CullTransparentMesh: 1
 --- !u!1 &1792333529
 GameObject:
   m_ObjectHideFlags: 0
@@ -17411,6 +19735,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -17431,6 +19759,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -17609,6 +19938,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1792333532
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17684,6 +20017,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -17704,6 +20041,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -17882,6 +20220,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1795617802
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18032,6 +20374,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -18052,6 +20398,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -18230,6 +20577,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1809466479
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18380,6 +20731,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -18400,6 +20755,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -18578,6 +20934,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1864547435
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18653,6 +21013,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -18673,6 +21037,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -18851,6 +21216,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1885818769
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19034,6 +21403,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -19054,6 +21427,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 220
   transitionKeepAspectRatio: 1
+  transitionScreenSpace: 0
   transitionRate: 0.521
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.308
@@ -19232,6 +21606,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1941607839
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19382,6 +21760,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -19402,6 +21784,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0.15
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -19580,6 +21963,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &1959774831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19622,6 +22009,13 @@ RectTransform:
   - {fileID: 1032825094}
   - {fileID: 564208401}
   - {fileID: 1083121728}
+  - {fileID: 156198560}
+  - {fileID: 1784371338}
+  - {fileID: 326725466}
+  - {fileID: 2056148280}
+  - {fileID: 203371788}
+  - {fileID: 2139825360}
+  - {fileID: 63540317}
   - {fileID: 1082522233}
   - {fileID: 2062355372}
   - {fileID: 582972143}
@@ -19944,6 +22338,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -19964,6 +22362,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -20142,6 +22541,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &2020801948
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20150,6 +22553,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020801945}
   m_CullTransparentMesh: 0
+--- !u!1 &2030385645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030385646}
+  - component: {fileID: 2030385648}
+  - component: {fileID: 2030385647}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2030385646
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030385645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2139825360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 16, y: -10}
+  m_SizeDelta: {x: -32, y: 24}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &2030385647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030385645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Transition Shiny + ImageExTransitionLooper\uFF1A\u8FC7\u6E21\u8FDB\u5EA6\u5F80\u8FD4"
+--- !u!222 &2030385648
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030385645}
+  m_CullTransparentMesh: 1
 --- !u!1 &2053571690
 GameObject:
   m_ObjectHideFlags: 0
@@ -20217,6 +22699,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -20237,6 +22723,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -20415,6 +22902,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &2053571693
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20423,6 +22914,327 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053571690}
   m_CullTransparentMesh: 0
+--- !u!1 &2056148279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2056148280}
+  - component: {fileID: 2056148284}
+  - component: {fileID: 2056148283}
+  - component: {fileID: 2056148282}
+  - component: {fileID: 2056148281}
+  m_Layer: 0
+  m_Name: "\u6E10\u53D8\u65CB\u8F6C\uFF08\u8FD0\u884C\u65F6\uFF09"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2056148280
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056148279}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1552265013}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2056148281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056148279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a957c49c7fe558b4e8b2080d0d45039a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageExGradientSpinner
+  speed: 45
+  useUnscaledTime: 1
+  restartOnEnable: 1
+  wrapAngle: 1
+--- !u!114 &2056148282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056148279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &2056148283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056148279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.2, g: 0.24, b: 0.4, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
+  appendShadow: 0
+  shadowOffsetLocal: {x: 8, y: -8}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  shadowBlurIntensity: 1
+  samplingWidth: 1
+  samplingScale: 1
+  shadowScale: 1
+  allowOutOfBoundsShadow: 1
+  shadowMode: 1
+  drawShape: 3
+  imageType: 0
+  materialMode: 0
+  blurType: 0
+  blurIntensity: 1
+  transitionMode: 0
+  transitionTexture: {fileID: 0}
+  transitionTexScale: {x: 1, y: 1}
+  transitionTexOffset: {x: 0, y: 0}
+  transitionTexRotation: 0
+  transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
+  transitionRate: 0
+  transitionColor: {r: 1, g: 1, b: 1, a: 1}
+  transitionWidth: 0.1
+  transitionSoftness: 0.1
+  transitionReverse: 0
+  transitionSpeed: {x: 0, y: 0}
+  transitionPatternReverse: 0
+  transitionAutoPlaySpeed: 0
+  transitionColorFilter: 0
+  transitionColorGlow: 0
+  transitionGradient: {fileID: 0}
+  transitionGradientValue:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  transitionRange: {x: 0, y: 0}
+  transitionClamp: 1
+  transitionTexClampPadding: 1
+  transitionUseUv0: 1
+  strokeWidth: 0
+  outlineWidth: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  shadowMirrorDirection: 0
+  shadowMirrorScale: 1
+  shadowMirrorOffset: {x: 0, y: 0}
+  shadowMirrorShowSource: 0
+  shadowMirrorTintMix: 0.5
+  shadowColorFilter: 4
+  shadowColorGlow: 0
+  customTime: 0
+  enableDashedOutline: 0
+  falloffDistance: 0.5
+  constrainRotation: 1
+  shapeRotation: 0
+  flipHorizontal: 0
+  flipVertical: 0
+  alphaThreshold: 0
+  triangle:
+    cornerRadius: {x: 0, y: 0, z: 0}
+    uniformCornerRadius: 0
+  rectangle:
+    cornerRadius: {x: 20, y: 20, z: 20, w: 20}
+    uniformCornerRadius: 0
+  circle:
+    radius: 0
+    fitRadius: 0
+  pentagon:
+    cornerRadius: {x: 0, y: 0, z: 0, w: 0}
+    uniformCornerRadius: 0
+    tipRadius: 0.001
+    tipSize: 1
+  hexagon:
+    cornerRadius: {x: 1, y: 1, z: 1, w: 1}
+    uniformCornerRadius: 0
+    tipSize: {x: 1, y: 1}
+    uniformTipSize: 0
+    tipRadius: {x: 1, y: 1}
+    uniformTipRadius: 0
+  chamferBox:
+    chamferBoxSize: {x: 1, y: 1}
+    chamferBoxRadius: {x: 0, y: 0, z: 0, w: 0}
+  quadrilateral:
+    topLeftOffset: {x: 0, y: 0}
+    topRightOffset: {x: 0, y: 0}
+    bottomLeftOffset: {x: 0, y: 0}
+    bottomRightOffset: {x: 0, y: 0}
+  nStarPolygon:
+    sideCount: 3
+    inset: 2
+    cornerRadius: 0
+    offset: {x: 0, y: 0}
+  blobbyCross:
+    blobbyCrossTime: 0
+  squircle:
+    squircleTime: 0
+  nTriangleRounded:
+    nTriangleRoundedTime: 0
+    nTriangleRoundedNumber: 0
+  gradientEffect:
+    enabled: 1
+    gradientType: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 0.95, g: 0.55, b: 0.25, a: 1}
+      key1: {r: 0.25, g: 0.45, b: 0.95, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    cornerGradientColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    rotation: 35
+  m_ToneFilter: 0
+  m_ToneIntensity: 1
+  m_ColorFilterMode: 0
+  m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+  m_ColorIntensity: 1
+  m_ColorGlow: 0
+  m_EdgeMode: 0
+  m_EdgeWidth: 0.5
+  m_EdgeColorFilterMode: 4
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EdgeColorGlow: 0
+  m_EdgeShinyRate: 0.5
+  m_EdgeShinyWidth: 0.5
+  m_EdgeShinyAutoPlaySpeed: 1
+  m_SamplingMode: 0
+  m_SamplingIntensity: 0.5
+  m_TargetMode: 0
+  m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
+  m_TargetRange: 0.1
+  m_TargetSoftness: 0.5
+  m_PatternArea: 0
+  m_DetailMode: 0
+  m_DetailTex: {fileID: 0}
+  m_DetailTexScale: {x: 1, y: 1}
+  m_DetailTexOffset: {x: 0, y: 0}
+  m_DetailTexSpeed: {x: 0, y: 0}
+  m_DetailIntensity: 1
+  m_DetailThreshold: {x: 0, y: 1}
+  m_DetailColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EnableGradientTex: 0
+  m_GradientTex: {fileID: 0}
+  m_GradientOffset: 0
+  m_GradientScale: 1
+  m_BlendType: 0
+  cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
+--- !u!222 &2056148284
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056148279}
+  m_CullTransparentMesh: 1
 --- !u!1 &2062355371
 GameObject:
   m_ObjectHideFlags: 0
@@ -20490,6 +23302,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -20510,6 +23326,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   transitionWidth: 0.8
@@ -20688,6 +23505,10 @@ MonoBehaviour:
   m_GradientScale: 2
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &2062355374
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20763,6 +23584,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -20783,6 +23608,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: -55
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 0, g: 0, b: 0, a: 0.7490196}
   transitionWidth: 0.8
@@ -20961,6 +23787,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &2097635560
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21036,6 +23866,10 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
   appendShadow: 0
   shadowOffsetLocal: {x: 8, y: -8}
   shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
@@ -21056,6 +23890,7 @@ MonoBehaviour:
   transitionTexOffset: {x: 0, y: 0}
   transitionTexRotation: 0
   transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
   transitionRate: 0
   transitionColor: {r: 1, g: 1, b: 1, a: 1}
   transitionWidth: 0.1
@@ -21234,6 +24069,10 @@ MonoBehaviour:
   m_GradientScale: 1
   m_BlendType: 0
   cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
 --- !u!222 &2101935648
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21242,6 +24081,403 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101935645}
   m_CullTransparentMesh: 0
+--- !u!1 &2131389260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2131389261}
+  - component: {fileID: 2131389263}
+  - component: {fileID: 2131389262}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2131389261
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131389260}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 463844999}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -420, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2131389262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131389260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f168bd78da5483647b8e123f79a1fca0, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2131389263
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131389260}
+  m_CullTransparentMesh: 1
+--- !u!1 &2139825359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2139825360}
+  - component: {fileID: 2139825364}
+  - component: {fileID: 2139825363}
+  - component: {fileID: 2139825362}
+  - component: {fileID: 2139825361}
+  m_Layer: 0
+  m_Name: "\u8FC7\u6E21\u5FAA\u73AF\uFF08\u8FD0\u884C\u65F6\uFF09"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2139825360
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139825359}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2030385646}
+  m_Father: {fileID: 1961290207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2139825361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139825359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0058e9a68b4f5204c9ab87963117db5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageExTransitionLooper
+  speed: 0.8
+  useUnscaledTime: 1
+  restartOnEnable: 1
+  pingPong: 1
+  edgeHold: 0
+--- !u!114 &2139825362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139825359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 110
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &2139825363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139825359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3, g: 0.2, b: 0.2, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  clipMode: 0
+  clipAmount: 1
+  clipReverse: 0
+  clipSoftness: 1
+  appendShadow: 0
+  shadowOffsetLocal: {x: 8, y: -8}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.5}
+  shadowBlurIntensity: 1
+  samplingWidth: 1
+  samplingScale: 1
+  shadowScale: 1
+  allowOutOfBoundsShadow: 1
+  shadowMode: 1
+  drawShape: 3
+  imageType: 0
+  materialMode: 0
+  blurType: 0
+  blurIntensity: 1
+  transitionMode: 4
+  transitionTexture: {fileID: 0}
+  transitionTexScale: {x: 1, y: 1}
+  transitionTexOffset: {x: 0, y: 0}
+  transitionTexRotation: 0
+  transitionKeepAspectRatio: 0
+  transitionScreenSpace: 0
+  transitionRate: 0.4
+  transitionColor: {r: 1, g: 0.85, b: 0.6, a: 1}
+  transitionWidth: 0.18
+  transitionSoftness: 0.4
+  transitionReverse: 0
+  transitionSpeed: {x: 0, y: 0}
+  transitionPatternReverse: 0
+  transitionAutoPlaySpeed: 0
+  transitionColorFilter: 0
+  transitionColorGlow: 0
+  transitionGradient: {fileID: 0}
+  transitionGradientValue:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  transitionRange: {x: 0, y: 0}
+  transitionClamp: 1
+  transitionTexClampPadding: 1
+  transitionUseUv0: 1
+  strokeWidth: 0
+  outlineWidth: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  shadowMirrorDirection: 0
+  shadowMirrorScale: 1
+  shadowMirrorOffset: {x: 0, y: 0}
+  shadowMirrorShowSource: 0
+  shadowMirrorTintMix: 0.5
+  shadowColorFilter: 4
+  shadowColorGlow: 0
+  customTime: 0
+  enableDashedOutline: 0
+  falloffDistance: 0.5
+  constrainRotation: 1
+  shapeRotation: 0
+  flipHorizontal: 0
+  flipVertical: 0
+  alphaThreshold: 0
+  triangle:
+    cornerRadius: {x: 0, y: 0, z: 0}
+    uniformCornerRadius: 0
+  rectangle:
+    cornerRadius: {x: 20, y: 20, z: 20, w: 20}
+    uniformCornerRadius: 0
+  circle:
+    radius: 0
+    fitRadius: 0
+  pentagon:
+    cornerRadius: {x: 0, y: 0, z: 0, w: 0}
+    uniformCornerRadius: 0
+    tipRadius: 0.001
+    tipSize: 1
+  hexagon:
+    cornerRadius: {x: 1, y: 1, z: 1, w: 1}
+    uniformCornerRadius: 0
+    tipSize: {x: 1, y: 1}
+    uniformTipSize: 0
+    tipRadius: {x: 1, y: 1}
+    uniformTipRadius: 0
+  chamferBox:
+    chamferBoxSize: {x: 1, y: 1}
+    chamferBoxRadius: {x: 0, y: 0, z: 0, w: 0}
+  quadrilateral:
+    topLeftOffset: {x: 0, y: 0}
+    topRightOffset: {x: 0, y: 0}
+    bottomLeftOffset: {x: 0, y: 0}
+    bottomRightOffset: {x: 0, y: 0}
+  nStarPolygon:
+    sideCount: 3
+    inset: 2
+    cornerRadius: 0
+    offset: {x: 0, y: 0}
+  blobbyCross:
+    blobbyCrossTime: 0
+  squircle:
+    squircleTime: 0
+  nTriangleRounded:
+    nTriangleRoundedTime: 0
+    nTriangleRoundedNumber: 0
+  gradientEffect:
+    enabled: 0
+    gradientType: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    cornerGradientColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    rotation: 0
+  m_ToneFilter: 0
+  m_ToneIntensity: 1
+  m_ColorFilterMode: 0
+  m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+  m_ColorIntensity: 1
+  m_ColorGlow: 0
+  m_EdgeMode: 0
+  m_EdgeWidth: 0.5
+  m_EdgeColorFilterMode: 4
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EdgeColorGlow: 0
+  m_EdgeShinyRate: 0.5
+  m_EdgeShinyWidth: 0.5
+  m_EdgeShinyAutoPlaySpeed: 1
+  m_SamplingMode: 0
+  m_SamplingIntensity: 0.5
+  m_TargetMode: 0
+  m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
+  m_TargetRange: 0.1
+  m_TargetSoftness: 0.5
+  m_PatternArea: 0
+  m_DetailMode: 0
+  m_DetailTex: {fileID: 0}
+  m_DetailTexScale: {x: 1, y: 1}
+  m_DetailTexOffset: {x: 0, y: 0}
+  m_DetailTexSpeed: {x: 0, y: 0}
+  m_DetailIntensity: 1
+  m_DetailThreshold: {x: 0, y: 1}
+  m_DetailColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EnableGradientTex: 0
+  m_GradientTex: {fileID: 0}
+  m_GradientOffset: 0
+  m_GradientScale: 1
+  m_BlendType: 0
+  cameraTexture: {fileID: 0}
+  enableInnerShadow: 0
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  innerShadowWidth: 8
+  innerShadowSoftness: 0.5
+--- !u!222 &2139825364
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139825359}
+  m_CullTransparentMesh: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

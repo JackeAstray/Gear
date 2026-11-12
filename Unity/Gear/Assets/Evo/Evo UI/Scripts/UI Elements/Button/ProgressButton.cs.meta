@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d988ffb1b582118459adc149c1c708a8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: a7ef4f3c4cec36e47bb7c50ca1eaef17, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Button/ProgressButton.cs
+  uploadId: 842076

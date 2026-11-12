@@ -1,0 +1,9447 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2c51628fcf0414c80bfa27772f8772, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  categories:
+  - AI
+  - Arrows
+  - Business
+  - Communication
+  - Design
+  - Development
+  - Devices
+  - Editing
+  - Emoji
+  - Files
+  - Food
+  - Gaming
+  - Interface
+  - Logos
+  - Map
+  - Media
+  - Nature
+  - Security
+  - Shapes
+  - Sports
+  - Status
+  - System
+  - Time
+  - UI Controls
+  - Weather
+  icons:
+  - ID: Sparkle
+    category: AI
+    searchKeywords:
+    - generative ai
+    - artificial intelligence
+    - generative
+    - generation
+    - generate
+    - magic
+    - sparkle
+    - sparkles
+    - stars
+    - assistant
+    - automation
+    - smart
+    - enhance
+    - ai
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e56e82399437f8940b208807fa24bd15, type: 3}
+  - ID: Sparkle (Fill)
+    category: AI
+    searchKeywords:
+    - generative ai
+    - generative ai (fill)
+    - artificial intelligence
+    - generative
+    - generation
+    - generate
+    - magic
+    - sparkle
+    - sparkles
+    - stars
+    - assistant
+    - automation
+    - smart
+    - enhance
+    - ai
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f57593857927c0940be5f29ec064d62f, type: 3}
+  - ID: Picture AI
+    category: AI
+    searchKeywords:
+    - picture ai
+    - artificial intelligence
+    - image generation
+    - picture generation
+    - text to image
+    - generative art
+    - photo
+    - photograph
+    - image
+    - landscape
+    - magic
+    - sparkle
+    - create
+    - enhance
+    - ai
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b3a16edbff8315a40be866084788e259, type: 3}
+  - ID: Picture AI (Fill)
+    category: AI
+    searchKeywords:
+    - picture ai
+    - picture ai (fill)
+    - artificial intelligence
+    - image generation
+    - picture generation
+    - text to image
+    - generative art
+    - photo
+    - photograph
+    - image
+    - landscape
+    - magic
+    - sparkle
+    - create
+    - enhance
+    - ai
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c4dd52f293c767e4c929bd86192fefe4, type: 3}
+  - ID: Search AI
+    category: AI
+    searchKeywords:
+    - search ai
+    - artificial intelligence
+    - smart search
+    - semantic search
+    - intelligent search
+    - find
+    - lookup
+    - discover
+    - magnifier
+    - magnifying glass
+    - research
+    - sparkle
+    - assistant
+    - ai
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4dc52ecd8e171e34c98c6d78f175fcbf, type: 3}
+  - ID: Search AI (Fill)
+    category: AI
+    searchKeywords:
+    - search ai
+    - search ai (fill)
+    - artificial intelligence
+    - smart search
+    - semantic search
+    - intelligent search
+    - find
+    - lookup
+    - discover
+    - magnifier
+    - magnifying glass
+    - research
+    - sparkle
+    - assistant
+    - ai
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8297303d6c952fc4a8e1cc7856c32217, type: 3}
+  - ID: Arrow Down
+    category: Arrows
+    searchKeywords:
+    - arrow down
+    - arrow
+    - down
+    - downward
+    - bottom
+    - direction
+    - move down
+    - descend
+    - south
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fb5f5c5dd993a964e8e8f78dcb227a2e, type: 3}
+  - ID: Arrow Down (Circle Fill)
+    category: Arrows
+    searchKeywords:
+    - arrow down
+    - arrow down (circle fill)
+    - arrow
+    - down
+    - downward
+    - bottom
+    - direction
+    - move down
+    - descend
+    - south
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 084ee4ef20f55ca488c4bcd02067d15b, type: 3}
+  - ID: Arrow Down (Circle)
+    category: Arrows
+    searchKeywords:
+    - arrow down
+    - arrow down (circle)
+    - arrow
+    - down
+    - downward
+    - bottom
+    - direction
+    - move down
+    - descend
+    - south
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c5a272d4e88f4a94fb647c2220faccec, type: 3}
+  - ID: Arrow Left
+    category: Arrows
+    searchKeywords:
+    - arrow left
+    - arrow
+    - left
+    - leftward
+    - back
+    - previous
+    - direction
+    - move left
+    - west
+    - return
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 73bc676a002bbb247ad056dccce5d8a4, type: 3}
+  - ID: Arrow Left (Circle Fill)
+    category: Arrows
+    searchKeywords:
+    - arrow left
+    - arrow left (circle fill)
+    - arrow
+    - left
+    - leftward
+    - back
+    - previous
+    - direction
+    - move left
+    - west
+    - return
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fbfcc207bd272934691d11467a477851, type: 3}
+  - ID: Arrow Left (Circle)
+    category: Arrows
+    searchKeywords:
+    - arrow left
+    - arrow left (circle)
+    - arrow
+    - left
+    - leftward
+    - back
+    - previous
+    - direction
+    - move left
+    - west
+    - return
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5238004c7f7bfa9418533e56706fbd23, type: 3}
+  - ID: Arrow Right
+    category: Arrows
+    searchKeywords:
+    - arrow right
+    - arrow
+    - right
+    - rightward
+    - forward
+    - next
+    - direction
+    - move right
+    - east
+    - continue
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c5d7f68b70710b3498cc4687882dd844, type: 3}
+  - ID: Arrow Right (Circle Fill)
+    category: Arrows
+    searchKeywords:
+    - arrow right
+    - arrow right (circle fill)
+    - arrow
+    - right
+    - rightward
+    - forward
+    - next
+    - direction
+    - move right
+    - east
+    - continue
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8473923a22fa1994183ce875e9b1408a, type: 3}
+  - ID: Arrow Right (Circle)
+    category: Arrows
+    searchKeywords:
+    - arrow right
+    - arrow right (circle)
+    - arrow
+    - right
+    - rightward
+    - forward
+    - next
+    - direction
+    - move right
+    - east
+    - continue
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 62dbe75926c58484d8be1c122750b278, type: 3}
+  - ID: Arrow Up
+    category: Arrows
+    searchKeywords:
+    - arrow up
+    - arrow
+    - up
+    - upward
+    - top
+    - direction
+    - move up
+    - ascend
+    - north
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a3871bb9da6c4ae408b03b7244bd80db, type: 3}
+  - ID: Arrow Up (Circle Fill)
+    category: Arrows
+    searchKeywords:
+    - arrow up
+    - arrow up (circle fill)
+    - arrow
+    - up
+    - upward
+    - top
+    - direction
+    - move up
+    - ascend
+    - north
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 7c004a8ae2af7274a93dd0f5515b7351, type: 3}
+  - ID: Arrow Up (Circle)
+    category: Arrows
+    searchKeywords:
+    - arrow up
+    - arrow up (circle)
+    - arrow
+    - up
+    - upward
+    - top
+    - direction
+    - move up
+    - ascend
+    - north
+    - arrows
+    - navigation
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e11e2633dacf7dd49a239aa36b4e9a2f, type: 3}
+  - ID: Down
+    category: Arrows
+    searchKeywords:
+    - down
+    - chevron
+    - chevron down
+    - caret
+    - caret down
+    - downward
+    - expand
+    - dropdown
+    - bottom
+    - arrow
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f3ccf1e5e815a6f479374e4a8870b9d3, type: 3}
+  - ID: Left
+    category: Arrows
+    searchKeywords:
+    - left
+    - chevron
+    - chevron left
+    - caret
+    - caret left
+    - leftward
+    - back
+    - previous
+    - arrow
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c02ad6f766681ed4b8d85a727b0e836c, type: 3}
+  - ID: Move
+    category: Arrows
+    searchKeywords:
+    - move
+    - drag
+    - pan
+    - move tool
+    - position
+    - translate
+    - reposition
+    - four arrows
+    - four directions
+    - transform
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 084c8fbea0331e8448173235695d782d, type: 3}
+  - ID: Refresh
+    category: Arrows
+    searchKeywords:
+    - refresh
+    - reload
+    - refresh page
+    - retry
+    - sync
+    - synchronize
+    - update
+    - repeat
+    - restart
+    - rotate
+    - reset
+    - circular arrow
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 67e12a107ad03fa4a9495b48c07a6852, type: 3}
+  - ID: Right
+    category: Arrows
+    searchKeywords:
+    - right
+    - chevron
+    - chevron right
+    - caret
+    - caret right
+    - rightward
+    - next
+    - forward
+    - arrow
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d8c00234241712d41a24c4e4850d6a06, type: 3}
+  - ID: Shuffle
+    category: Arrows
+    searchKeywords:
+    - shuffle
+    - random
+    - randomize
+    - mix
+    - crossing arrows
+    - crossed arrows
+    - swap
+    - reorder
+    - playlist
+    - music
+    - media
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a92e012f3de742de8b26eddaa43f05c4, type: 3}
+  - ID: Skip
+    category: Arrows
+    searchKeywords:
+    - skip
+    - double chevron
+    - chevrons right
+    - fast forward
+    - next
+    - forward
+    - advance
+    - continue
+    - skip ahead
+    - media
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d89ce1a17ed4efb47822357fe6279aa2, type: 3}
+  - ID: Up
+    category: Arrows
+    searchKeywords:
+    - up
+    - chevron
+    - chevron up
+    - caret
+    - caret up
+    - upward
+    - collapse
+    - top
+    - arrow
+    - arrows
+    - navigation
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2d7093dc0a4b10c4d918996bd828648c, type: 3}
+  - ID: Ad
+    category: Business
+    searchKeywords:
+    - ad
+    - advertisement
+    - advertising
+    - advert
+    - promotion
+    - marketing
+    - sponsor
+    - sponsored
+    - campaign
+    - commercial
+    - ads
+    - circle
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 802e030b9ac1c244cbf095eee141ca80, type: 3}
+  - ID: Ad (Fill)
+    category: Business
+    searchKeywords:
+    - ad
+    - ad (fill)
+    - advertisement
+    - advertising
+    - advert
+    - promotion
+    - marketing
+    - sponsor
+    - sponsored
+    - campaign
+    - commercial
+    - ads
+    - circle
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d9084f3bc22fb6c4f8864e4c6f3339b6, type: 3}
+  - ID: Cash
+    category: Business
+    searchKeywords:
+    - cash
+    - money
+    - currency
+    - payment
+    - pay
+    - banknote
+    - bank note
+    - bill
+    - cash payment
+    - finance
+    - bank
+    - banking
+    - purchase
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 26d59e0af5193dc4691dc4ced394bbed, type: 3}
+  - ID: Cash (Fill)
+    category: Business
+    searchKeywords:
+    - cash
+    - cash (fill)
+    - money
+    - currency
+    - payment
+    - pay
+    - banknote
+    - bank note
+    - bill
+    - cash payment
+    - finance
+    - bank
+    - banking
+    - purchase
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6fff217320c52204b8af3eb5c28410ea, type: 3}
+  - ID: Chart Horizontal
+    category: Business
+    searchKeywords:
+    - chart horizontal
+    - chart
+    - graph
+    - horizontal bar chart
+    - bar chart
+    - analytics
+    - statistics
+    - stats
+    - data
+    - report
+    - dashboard
+    - comparison
+    - ranking
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 77a044e4c9cbc3243979c3129518c363, type: 3}
+  - ID: Chart Line
+    category: Business
+    searchKeywords:
+    - chart line
+    - chart
+    - graph
+    - line chart
+    - line graph
+    - analytics
+    - statistics
+    - stats
+    - data
+    - trend
+    - growth
+    - performance
+    - report
+    - dashboard
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fe81cfff8bf5d174dacc45039e9b7266, type: 3}
+  - ID: Chart Pie
+    category: Business
+    searchKeywords:
+    - chart pie
+    - chart
+    - graph
+    - pie chart
+    - analytics
+    - statistics
+    - stats
+    - data
+    - proportion
+    - percentage
+    - distribution
+    - report
+    - dashboard
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2784a0c75a4dd464a9169b75474e7939, type: 3}
+  - ID: Chart Pie (Fill)
+    category: Business
+    searchKeywords:
+    - chart pie
+    - chart pie (fill)
+    - chart
+    - graph
+    - pie chart
+    - analytics
+    - statistics
+    - stats
+    - data
+    - proportion
+    - percentage
+    - distribution
+    - report
+    - dashboard
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6f231d28d7574374db1106fa73ed2e77, type: 3}
+  - ID: Chart Vertical
+    category: Business
+    searchKeywords:
+    - chart vertical
+    - chart
+    - graph
+    - vertical bar chart
+    - bar chart
+    - column chart
+    - analytics
+    - statistics
+    - stats
+    - data
+    - report
+    - dashboard
+    - histogram
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8d111348ab0e4b34baf71251b06c900c, type: 3}
+  - ID: Coupon
+    category: Business
+    searchKeywords:
+    - coupon
+    - voucher
+    - ticket
+    - discount
+    - promo
+    - promotion
+    - offer
+    - deal
+    - redeem
+    - redemption
+    - shopping
+    - receipt
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9a048347bbca68240a65e329923bdeb8, type: 3}
+  - ID: Coupon (Fill)
+    category: Business
+    searchKeywords:
+    - coupon
+    - coupon (fill)
+    - voucher
+    - ticket
+    - discount
+    - promo
+    - promotion
+    - offer
+    - deal
+    - redeem
+    - redemption
+    - shopping
+    - receipt
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a062efe1f6bca3d4b9d1243c755b44c5, type: 3}
+  - ID: Credit Card
+    category: Business
+    searchKeywords:
+    - credit card
+    - payment
+    - pay
+    - debit card
+    - bank card
+    - banking
+    - purchase
+    - checkout
+    - billing
+    - transaction
+    - finance
+    - wallet
+    - card payment
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 888a21c1c4597e74999bc36eaa1ab337, type: 3}
+  - ID: Credit Card (Fill)
+    category: Business
+    searchKeywords:
+    - credit card
+    - credit card (fill)
+    - payment
+    - pay
+    - debit card
+    - bank card
+    - banking
+    - purchase
+    - checkout
+    - billing
+    - transaction
+    - finance
+    - wallet
+    - card payment
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c92a1ffaacd1a0f4da4edcd29240ae4b, type: 3}
+  - ID: Dashboard
+    category: Business
+    searchKeywords:
+    - dashboard
+    - gauge
+    - speedometer
+    - meter
+    - speed
+    - performance
+    - monitor
+    - instrument
+    - dial
+    - analytics
+    - dashboard gauge
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e81e5bf0088fe8246873ebe42b3b5e45, type: 3}
+  - ID: Dashboard (Fill)
+    category: Business
+    searchKeywords:
+    - dashboard
+    - dashboard (fill)
+    - gauge
+    - speedometer
+    - meter
+    - speed
+    - performance
+    - monitor
+    - instrument
+    - dial
+    - analytics
+    - dashboard gauge
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2f8637a005a1d714a8ed583620b13802, type: 3}
+  - ID: Gift
+    category: Business
+    searchKeywords:
+    - gift
+    - present
+    - reward
+    - bonus
+    - giveaway
+    - surprise
+    - birthday
+    - celebration
+    - gift box
+    - ribbon
+    - bow
+    - package
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 18bae9d25da1508479dab64fbf549b54, type: 3}
+  - ID: Gift (Fill)
+    category: Business
+    searchKeywords:
+    - gift
+    - gift (fill)
+    - present
+    - reward
+    - bonus
+    - giveaway
+    - surprise
+    - birthday
+    - celebration
+    - gift box
+    - ribbon
+    - bow
+    - package
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 926d2d566918aed4cb128d2a21d26d7e, type: 3}
+  - ID: Sale
+    category: Business
+    searchKeywords:
+    - sale
+    - discount
+    - percentage
+    - percent
+    - offer
+    - deal
+    - promotion
+    - promo
+    - price
+    - coupon
+    - shopping
+    - badge
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 90aa6463ed7856a409dc493f2ec9b0ec, type: 3}
+  - ID: Sale (Fill)
+    category: Business
+    searchKeywords:
+    - sale
+    - sale (fill)
+    - discount
+    - percentage
+    - percent
+    - offer
+    - deal
+    - promotion
+    - promo
+    - price
+    - coupon
+    - shopping
+    - badge
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4bf14ac1860e70c48840c69cb2066c74, type: 3}
+  - ID: Shopping Bag
+    category: Business
+    searchKeywords:
+    - shopping bag
+    - shop
+    - shopping
+    - store
+    - purchase
+    - buy
+    - retail
+    - bag
+    - checkout
+    - ecommerce
+    - shopping cart
+    - basket
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: dc5cbcf78fa2bee4194b96618a770bd2, type: 3}
+  - ID: Shopping Bag (Fill)
+    category: Business
+    searchKeywords:
+    - shopping bag
+    - shopping bag (fill)
+    - shop
+    - shopping
+    - store
+    - purchase
+    - buy
+    - retail
+    - bag
+    - checkout
+    - ecommerce
+    - shopping cart
+    - basket
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 30d417b3fff72b04ca1d072329b00f5f, type: 3}
+  - ID: Stock
+    category: Business
+    searchKeywords:
+    - stock
+    - stocks
+    - stock market
+    - trading
+    - trade
+    - candlestick
+    - candlestick chart
+    - finance
+    - investment
+    - exchange
+    - price
+    - market
+    - chart
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f4d680668355cd240836800a07e38454, type: 3}
+  - ID: Stock (Fill)
+    category: Business
+    searchKeywords:
+    - stock
+    - stock (fill)
+    - stocks
+    - stock market
+    - trading
+    - trade
+    - candlestick
+    - candlestick chart
+    - finance
+    - investment
+    - exchange
+    - price
+    - market
+    - chart
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9ec2d90f8619b4b40a9a706ce198a72e, type: 3}
+  - ID: Wallet
+    category: Business
+    searchKeywords:
+    - wallet
+    - money
+    - payment
+    - pay
+    - cash
+    - currency
+    - finance
+    - balance
+    - purse
+    - account
+    - billing
+    - business
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 196e55ea34a7f914c90aa49f74e54c6a, type: 3}
+  - ID: Wallet (Fill)
+    category: Business
+    searchKeywords:
+    - wallet
+    - wallet (fill)
+    - money
+    - payment
+    - pay
+    - cash
+    - currency
+    - finance
+    - balance
+    - purse
+    - account
+    - billing
+    - business
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 50c2d9a92d544604b987a2d9a7b87363, type: 3}
+  - ID: Comment
+    category: Communication
+    searchKeywords:
+    - comment
+    - chat
+    - discussion
+    - conversation
+    - comments
+    - feedback
+    - reply
+    - replies
+    - speech bubble
+    - chat bubbles
+    - dialogue
+    - forum
+    - communication
+    - contact
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5369080410e27d64a9660056e363bd1f, type: 3}
+  - ID: Comment (Fill)
+    category: Communication
+    searchKeywords:
+    - comment
+    - comment (fill)
+    - chat
+    - discussion
+    - conversation
+    - comments
+    - feedback
+    - reply
+    - replies
+    - speech bubble
+    - chat bubbles
+    - dialogue
+    - forum
+    - communication
+    - contact
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 7465d6a539315d541a99f02bab65d915, type: 3}
+  - ID: Group
+    category: Communication
+    searchKeywords:
+    - group
+    - users
+    - people
+    - team
+    - community
+    - members
+    - friends
+    - contacts
+    - audience
+    - multiplayer
+    - collaboration
+    - two people
+    - communication
+    - contact
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c76c22ccccdc203478a2ec9fbfc92cfb, type: 3}
+  - ID: Group (Fill)
+    category: Communication
+    searchKeywords:
+    - group
+    - group (fill)
+    - users
+    - people
+    - team
+    - community
+    - members
+    - friends
+    - contacts
+    - audience
+    - multiplayer
+    - collaboration
+    - two people
+    - communication
+    - contact
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 077d119fb6559ac40871c5eeaa82fad7, type: 3}
+  - ID: Mail
+    category: Communication
+    searchKeywords:
+    - mail
+    - email
+    - e-mail
+    - envelope
+    - inbox
+    - outbox
+    - letter
+    - message
+    - contact
+    - post
+    - newsletter
+    - communication
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 87d25f49eb5959f49b2968e2eb95b5d6, type: 3}
+  - ID: Mail (Fill)
+    category: Communication
+    searchKeywords:
+    - mail
+    - mail (fill)
+    - email
+    - e-mail
+    - envelope
+    - inbox
+    - outbox
+    - letter
+    - message
+    - contact
+    - post
+    - newsletter
+    - communication
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1f009d72d0c3c5945999118daf4a7314, type: 3}
+  - ID: Message
+    category: Communication
+    searchKeywords:
+    - message
+    - chat
+    - speech bubble
+    - chat bubble
+    - text
+    - sms
+    - messenger
+    - conversation
+    - dialog
+    - dialogue
+    - reply
+    - typing
+    - talk
+    - communication
+    - contact
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b8ad7374bcc57ce42b0ce6327ac42bc5, type: 3}
+  - ID: Message (Fill)
+    category: Communication
+    searchKeywords:
+    - message
+    - message (fill)
+    - chat
+    - speech bubble
+    - chat bubble
+    - text
+    - sms
+    - messenger
+    - conversation
+    - dialog
+    - dialogue
+    - reply
+    - typing
+    - talk
+    - communication
+    - contact
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c0ea127475e7a6f47ae5765710e78aa6, type: 3}
+  - ID: Notification
+    category: Communication
+    searchKeywords:
+    - notification
+    - bell
+    - alert
+    - notifications
+    - reminder
+    - notification bell
+    - ring
+    - subscribe
+    - alarm
+    - news
+    - updates
+    - communication
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5fc9e5009b450244d9ce57473b65eab2, type: 3}
+  - ID: Notification (Fill)
+    category: Communication
+    searchKeywords:
+    - notification
+    - notification (fill)
+    - bell
+    - alert
+    - notifications
+    - reminder
+    - notification bell
+    - ring
+    - subscribe
+    - alarm
+    - news
+    - updates
+    - communication
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b0f67956743386745835f5ed5e84144a, type: 3}
+  - ID: Phone
+    category: Communication
+    searchKeywords:
+    - phone
+    - telephone
+    - call
+    - phone call
+    - handset
+    - receiver
+    - dial
+    - contact
+    - support
+    - hotline
+    - voice call
+    - landline
+    - communication
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 44f8cab193bdea14fafe99f8c5409bc6, type: 3}
+  - ID: Phone (Fill)
+    category: Communication
+    searchKeywords:
+    - phone
+    - phone (fill)
+    - telephone
+    - call
+    - phone call
+    - handset
+    - receiver
+    - dial
+    - contact
+    - support
+    - hotline
+    - voice call
+    - landline
+    - communication
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 33c2766f1d4df2a4fa9c58a9f90d8f62, type: 3}
+  - ID: RSS
+    category: Communication
+    searchKeywords:
+    - rss
+    - feed
+    - news feed
+    - subscribe
+    - subscription
+    - syndication
+    - broadcast
+    - signal
+    - updates
+    - wireless
+    - communication
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 419a745162d37ab438b89dc6447c61ae, type: 3}
+  - ID: Send
+    category: Communication
+    searchKeywords:
+    - send
+    - paper plane
+    - paper airplane
+    - submit
+    - dispatch
+    - message
+    - mail
+    - forward
+    - outgoing
+    - deliver
+    - send message
+    - communication
+    - contact
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 84fd579376742ed44a93549a61057691, type: 3}
+  - ID: Send (Fill)
+    category: Communication
+    searchKeywords:
+    - send
+    - send (fill)
+    - paper plane
+    - paper airplane
+    - submit
+    - dispatch
+    - message
+    - mail
+    - forward
+    - outgoing
+    - deliver
+    - send message
+    - communication
+    - contact
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fb24fa5fad83e1348a9d444a2acb9598, type: 3}
+  - ID: Share
+    category: Communication
+    searchKeywords:
+    - share
+    - sharing
+    - social
+    - network
+    - connected
+    - nodes
+    - distribute
+    - forward
+    - send
+    - collaboration
+    - share link
+    - communication
+    - contact
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: de0d0e7449d70974ebfdd6c5c3502de6, type: 3}
+  - ID: Share (Fill)
+    category: Communication
+    searchKeywords:
+    - share
+    - share (fill)
+    - sharing
+    - social
+    - network
+    - connected
+    - nodes
+    - distribute
+    - forward
+    - send
+    - collaboration
+    - share link
+    - communication
+    - contact
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fcfc41efe1ef54a42aeb5c6a88e30e56, type: 3}
+  - ID: User (Circle Fill)
+    category: Communication
+    searchKeywords:
+    - user
+    - user (circle fill)
+    - person
+    - profile
+    - avatar
+    - account
+    - user profile
+    - identity
+    - member
+    - contact
+    - login
+    - sign in
+    - portrait
+    - communication
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d9e912e6b0dbd484183c58e8cf4eaec2, type: 3}
+  - ID: User (Circle)
+    category: Communication
+    searchKeywords:
+    - user
+    - user (circle)
+    - person
+    - profile
+    - avatar
+    - account
+    - user profile
+    - identity
+    - member
+    - contact
+    - login
+    - sign in
+    - portrait
+    - communication
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3c56e859ac02b4e46b10760296681bf3, type: 3}
+  - ID: Animation (Fill)
+    category: Design
+    searchKeywords:
+    - animation
+    - animation (fill)
+    - animate
+    - motion
+    - movement
+    - transition
+    - tween
+    - timeline
+    - sequence
+    - play
+    - playback
+    - speed
+    - timing
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fdb479db7016ee44cb8a887a779a6421, type: 3}
+  - ID: Border Radius
+    category: Design
+    searchKeywords:
+    - border radius
+    - corner radius
+    - radius
+    - rounded corner
+    - rounded corners
+    - rounded
+    - round
+    - corner
+    - corners
+    - squircle
+    - curve
+    - smooth
+    - shape
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 94c1d4247786456d91c796ddf7c981a1, type: 3}
+  - ID: Brightness
+    category: Design
+    searchKeywords:
+    - brightness
+    - light
+    - lighting
+    - exposure
+    - contrast
+    - sun
+    - display
+    - screen
+    - adjustment
+    - day
+    - theme
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: aa5d337382c224944adabe23f1bd7db4, type: 3}
+  - ID: Color Filter
+    category: Design
+    searchKeywords:
+    - color filter
+    - colour filter
+    - rgb
+    - colors
+    - colours
+    - blend
+    - blending
+    - overlap
+    - circles
+    - channels
+    - image adjustment
+    - photo filter
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 37c9987270d6acd4bbb601708a65f4da, type: 3}
+  - ID: Color Filter (Fill)
+    category: Design
+    searchKeywords:
+    - color filter
+    - color filter (fill)
+    - colour filter
+    - rgb
+    - colors
+    - colours
+    - blend
+    - blending
+    - overlap
+    - circles
+    - channels
+    - image adjustment
+    - photo filter
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5b67724e045202a4d888c44d464c3c81, type: 3}
+  - ID: Color Picker
+    category: Design
+    searchKeywords:
+    - color picker
+    - colour picker
+    - eyedropper
+    - eye dropper
+    - pipette
+    - sample
+    - sampling
+    - color sample
+    - colour sample
+    - palette
+    - paint
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 68e2f9ef75783ec4b87e5f7fe6117514, type: 3}
+  - ID: Color Picker (Fill)
+    category: Design
+    searchKeywords:
+    - color picker
+    - color picker (fill)
+    - colour picker
+    - eyedropper
+    - eye dropper
+    - pipette
+    - sample
+    - sampling
+    - color sample
+    - colour sample
+    - palette
+    - paint
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 81f1e6f0d50a593439040188a55314ff, type: 3}
+  - ID: Dot Grid
+    category: Design
+    searchKeywords:
+    - dot grid
+    - dots
+    - grid
+    - dotted grid
+    - dot matrix
+    - pattern
+    - points
+    - snap
+    - guides
+    - background
+    - texture
+    - layout
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ff487ae4e7e046e282407b43497d02cb, type: 3}
+  - ID: Drop
+    category: Design
+    searchKeywords:
+    - drop
+    - droplet
+    - water drop
+    - ink
+    - liquid
+    - fluid
+    - color
+    - colour
+    - opacity
+    - transparency
+    - tint
+    - blend
+    - water
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5234d47afeae4bb2ac9e3cb3299a7419, type: 3}
+  - ID: Drop (Fill)
+    category: Design
+    searchKeywords:
+    - drop
+    - drop (fill)
+    - droplet
+    - water drop
+    - ink
+    - liquid
+    - fluid
+    - color
+    - colour
+    - opacity
+    - transparency
+    - tint
+    - blend
+    - water
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 7dc2667b63fb4440bc3968ee1661f0fc, type: 3}
+  - ID: Ease
+    category: Design
+    searchKeywords:
+    - ease
+    - easing
+    - ease in out
+    - curve
+    - bezier
+    - bezier curve
+    - motion curve
+    - animation curve
+    - interpolation
+    - smoothing
+    - timing
+    - transition
+    - tween
+    - animation
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a16c247548f5495293655059fc7c0307, type: 3}
+  - ID: Effect (Fill)
+    category: Design
+    searchKeywords:
+    - effect
+    - effect (fill)
+    - effects
+    - fx
+    - vfx
+    - visual effect
+    - filter
+    - transition
+    - fade
+    - dissolve
+    - particles
+    - halftone
+    - circle
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ea133dadf80341b4f9dfccbd0ba4d780, type: 3}
+  - ID: Layers (Fill)
+    category: Design
+    searchKeywords:
+    - layers
+    - layers (fill)
+    - layer
+    - stack
+    - stacked
+    - overlap
+    - depth
+    - order
+    - arrange
+    - composite
+    - composition
+    - cards
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d72e98920cc8c1b4f9af380aa2db7b0d, type: 3}
+  - ID: Layout
+    category: Design
+    searchKeywords:
+    - layout
+    - page layout
+    - grid
+    - panel
+    - columns
+    - header
+    - sidebar
+    - arrange
+    - structure
+    - template
+    - interface
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a20d3fd97baec3840a44e5564e85bb53, type: 3}
+  - ID: Layout (Fill)
+    category: Design
+    searchKeywords:
+    - layout
+    - layout (fill)
+    - page layout
+    - grid
+    - panel
+    - columns
+    - header
+    - sidebar
+    - arrange
+    - structure
+    - template
+    - interface
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 76f6c2e3017651d4e82d6f4185ba8fc3, type: 3}
+  - ID: Layout Flexible (Fill)
+    category: Design
+    searchKeywords:
+    - layout flexible
+    - layout flexible (fill)
+    - flexible layout
+    - responsive layout
+    - grid
+    - masonry
+    - columns
+    - panels
+    - arrange
+    - adaptive
+    - interface
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 731def87da8627a4ca8b0f1c9e6c6bb2, type: 3}
+  - ID: Mark Pen
+    category: Design
+    searchKeywords:
+    - mark pen
+    - marker
+    - highlighter
+    - felt tip
+    - pen
+    - draw
+    - drawing
+    - highlight
+    - ink
+    - write
+    - nib
+    - circle
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: eba40857686e887478d4f9dda881cd92, type: 3}
+  - ID: Mark Pen (Fill)
+    category: Design
+    searchKeywords:
+    - mark pen
+    - mark pen (fill)
+    - marker
+    - highlighter
+    - felt tip
+    - pen
+    - draw
+    - drawing
+    - highlight
+    - ink
+    - write
+    - nib
+    - circle
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 15a382410b2fd574b83fefc61c57262f, type: 3}
+  - ID: Paint
+    category: Design
+    searchKeywords:
+    - paint
+    - paint bucket
+    - bucket
+    - paint can
+    - pour
+    - color
+    - colour
+    - coloring
+    - flood
+    - tint
+    - recolor
+    - painting
+    - art
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b15294551a8d4c11a544ef001421d74c, type: 3}
+  - ID: Paint (Fill)
+    category: Design
+    searchKeywords:
+    - paint
+    - paint (fill)
+    - paint bucket
+    - bucket
+    - paint can
+    - pour
+    - color
+    - colour
+    - coloring
+    - flood fill
+    - tint
+    - recolor
+    - painting
+    - art
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ea63e1ca06ab4bb88fa393ba6eb6033a, type: 3}
+  - ID: Paint Brush
+    category: Design
+    searchKeywords:
+    - paint brush
+    - paintbrush
+    - brush
+    - painting
+    - draw
+    - drawing
+    - art
+    - artist
+    - creative
+    - stroke
+    - paint
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4b19e4cbb30ac0c439a74de57feb1ba7, type: 3}
+  - ID: Paint Brush (Fill)
+    category: Design
+    searchKeywords:
+    - paint brush
+    - paint brush (fill)
+    - paintbrush
+    - brush
+    - painting
+    - draw
+    - drawing
+    - art
+    - artist
+    - creative
+    - stroke
+    - paint
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c86f14ff8424df44fa26fd62a519e403, type: 3}
+  - ID: Palette
+    category: Design
+    searchKeywords:
+    - palette
+    - paint palette
+    - color palette
+    - colour palette
+    - colors
+    - colours
+    - swatches
+    - theme
+    - art
+    - artist
+    - painting
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 05ebc6253b95c8a4e84e50e87f5b97d1, type: 3}
+  - ID: Palette (Fill)
+    category: Design
+    searchKeywords:
+    - palette
+    - palette (fill)
+    - paint palette
+    - color palette
+    - colour palette
+    - colors
+    - colours
+    - swatches
+    - theme
+    - art
+    - artist
+    - painting
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 72fd909ed4234314c87cbca8c9d53b39, type: 3}
+  - ID: Rows
+    category: Design
+    searchKeywords:
+    - rows
+    - two rows
+    - split
+    - horizontal split
+    - stack
+    - stacked
+    - list
+    - table
+    - divider
+    - sections
+    - panels
+    - arrange
+    - layout
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9151404c1a5f404d81d057ad9847e731, type: 3}
+  - ID: Rows (Fill)
+    category: Design
+    searchKeywords:
+    - rows
+    - rows (fill)
+    - two rows
+    - split
+    - horizontal split
+    - stack
+    - stacked
+    - list
+    - table
+    - divider
+    - sections
+    - panels
+    - arrange
+    - layout
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 86b208ffb40d4c1e8918229975494246, type: 3}
+  - ID: Scale
+    category: Design
+    searchKeywords:
+    - scale
+    - resize
+    - enlarge
+    - expand
+    - grow
+    - shrink
+    - size
+    - dimensions
+    - transform
+    - stretch
+    - zoom
+    - diagonal arrow
+    - aspect
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 23333a69582d413fb7ddd2a352c916b6, type: 3}
+  - ID: Scale (Fill)
+    category: Design
+    searchKeywords:
+    - scale
+    - scale (fill)
+    - resize
+    - enlarge
+    - expand
+    - grow
+    - shrink
+    - size
+    - dimensions
+    - transform
+    - stretch
+    - zoom
+    - diagonal arrow
+    - aspect
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1112680639414d5693afcd58c8affa7d, type: 3}
+  - ID: Spacing Horizontal
+    category: Design
+    searchKeywords:
+    - spacing horizontal
+    - horizontal spacing
+    - spacing
+    - padding
+    - margin
+    - width
+    - gap
+    - resize
+    - alignment
+    - left
+    - right
+    - layout
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 230ad398f174c7a47a78812626be1499, type: 3}
+  - ID: Spacing Vertical
+    category: Design
+    searchKeywords:
+    - spacing vertical
+    - vertical spacing
+    - spacing
+    - padding
+    - margin
+    - height
+    - gap
+    - resize
+    - alignment
+    - top
+    - bottom
+    - layout
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 333920613037d974ea5865bb1bed1c98, type: 3}
+  - ID: Sticker
+    category: Design
+    searchKeywords:
+    - sticker
+    - decal
+    - label
+    - sticky note
+    - adhesive
+    - folded corner
+    - sticker sheet
+    - decoration
+    - square
+    - design
+    - graphics
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f8dd4f6cd41788448a23017cba2c219c, type: 3}
+  - ID: Sticker (Fill)
+    category: Design
+    searchKeywords:
+    - sticker
+    - sticker (fill)
+    - decal
+    - label
+    - sticky note
+    - adhesive
+    - folded corner
+    - sticker sheet
+    - decoration
+    - square
+    - design
+    - graphics
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4d823a2fc2b13ac4ca73e0c550f3b870, type: 3}
+  - ID: Braces
+    category: Development
+    searchKeywords:
+    - braces
+    - curly braces
+    - curly brackets
+    - brace
+    - bracket
+    - code
+    - coding
+    - programming
+    - syntax
+    - json
+    - object
+    - block
+    - development
+    - developer
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 76941f4022497f8499c379a9f6b67a1a, type: 3}
+  - ID: Brackets
+    category: Development
+    searchKeywords:
+    - brackets
+    - square brackets
+    - bracket
+    - array
+    - index
+    - list
+    - code
+    - coding
+    - programming
+    - syntax
+    - collection
+    - development
+    - developer
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 706c07dc504242b48afcf3ffdbd773e1, type: 3}
+  - ID: Brackets Angle
+    category: Development
+    searchKeywords:
+    - brackets angle
+    - angle brackets
+    - chevrons
+    - markup
+    - html
+    - xml
+    - tag
+    - tags
+    - code
+    - coding
+    - programming
+    - syntax
+    - development
+    - developer
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8b736e6af82becc4a84a599619629650, type: 3}
+  - ID: Bug
+    category: Development
+    searchKeywords:
+    - bug
+    - debug
+    - debugging
+    - error
+    - issue
+    - defect
+    - fault
+    - problem
+    - insect
+    - beetle
+    - testing
+    - report bug
+    - development
+    - developer
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c609c2004f2a14740b2ef1f0507b3ad0, type: 3}
+  - ID: Bug (Fill)
+    category: Development
+    searchKeywords:
+    - bug
+    - bug (fill)
+    - debug
+    - debugging
+    - error
+    - issue
+    - defect
+    - fault
+    - problem
+    - insect
+    - beetle
+    - testing
+    - report bug
+    - development
+    - developer
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c026044d7375d1e4e906094b6a75000c, type: 3}
+  - ID: Code
+    category: Development
+    searchKeywords:
+    - code
+    - source code
+    - coding
+    - programming
+    - developer
+    - script
+    - scripting
+    - syntax
+    - html
+    - markup
+    - slash
+    - angle brackets
+    - development
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9234de1118aac5749adb4244f3cf2efc, type: 3}
+  - ID: Terminal
+    category: Development
+    searchKeywords:
+    - terminal
+    - console
+    - command line
+    - command prompt
+    - cli
+    - shell
+    - prompt
+    - script
+    - execute
+    - run
+    - underscore
+    - development
+    - developer
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 99f004010dc26d9448d05d880c4b0eee, type: 3}
+  - ID: Terminal Box
+    category: Development
+    searchKeywords:
+    - terminal box
+    - terminal
+    - console
+    - command line
+    - command prompt
+    - cli
+    - shell
+    - prompt
+    - window
+    - execute
+    - run
+    - development
+    - developer
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 08bebb8ed60db7540be83ebbddeb2456, type: 3}
+  - ID: Terminal Box (Fill)
+    category: Development
+    searchKeywords:
+    - terminal box
+    - terminal box (fill)
+    - terminal
+    - console
+    - command line
+    - command prompt
+    - cli
+    - shell
+    - prompt
+    - window
+    - execute
+    - run
+    - development
+    - developer
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a8c3f86cae42c474fa26b66d3caecd8f, type: 3}
+  - ID: Battery
+    category: Devices
+    searchKeywords:
+    - battery
+    - power
+    - charge
+    - energy
+    - electric
+    - electricity
+    - capacity
+    - level
+    - remaining
+    - portable
+    - status
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4ce34d41047bbd048ae3235975fba268, type: 3}
+  - ID: Battery (Fill)
+    category: Devices
+    searchKeywords:
+    - battery
+    - battery (fill)
+    - power
+    - charge
+    - energy
+    - electric
+    - electricity
+    - capacity
+    - level
+    - remaining
+    - portable
+    - status
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9bbd39c3c00104f469b87e5b6a767b67, type: 3}
+  - ID: Battery Charging
+    category: Devices
+    searchKeywords:
+    - battery charging
+    - battery
+    - charge
+    - charging
+    - recharge
+    - power
+    - energy
+    - electric
+    - electricity
+    - lightning
+    - bolt
+    - plugged in
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 29be1b1a8d56abb428b4b8189fa0685d, type: 3}
+  - ID: Battery Charging (Fill)
+    category: Devices
+    searchKeywords:
+    - battery charging
+    - battery charging (fill)
+    - battery
+    - charge
+    - charging
+    - recharge
+    - power
+    - energy
+    - electric
+    - electricity
+    - lightning
+    - bolt
+    - plugged in
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c83018531923245408179ff33fe9ae85, type: 3}
+  - ID: Bluetooth
+    category: Devices
+    searchKeywords:
+    - bluetooth
+    - wireless
+    - connection
+    - connect
+    - pair
+    - pairing
+    - radio
+    - connectivity
+    - network
+    - bluetooth enabled
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a83ca9a7aedc29d40b58f78718293e44, type: 3}
+  - ID: Bluetooth Off
+    category: Devices
+    searchKeywords:
+    - bluetooth off
+    - bluetooth
+    - wireless
+    - connection
+    - disconnected
+    - disconnect
+    - disabled
+    - off
+    - unpaired
+    - no bluetooth
+    - slash
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9aa7e66a6a8a8cf43a3abedbe4c4eac7, type: 3}
+  - ID: Bulb
+    category: Devices
+    searchKeywords:
+    - bulb
+    - light bulb
+    - lightbulb
+    - lamp
+    - lighting
+    - light
+    - idea
+    - inspiration
+    - innovation
+    - electric
+    - energy
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0e39d9c4eb98c534387700581acf914a, type: 3}
+  - ID: Bulb (Fill)
+    category: Devices
+    searchKeywords:
+    - bulb
+    - bulb (fill)
+    - light bulb
+    - lightbulb
+    - lamp
+    - lighting
+    - light
+    - idea
+    - inspiration
+    - innovation
+    - electric
+    - energy
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f0d786e8a6e92ce47b9fb10e6d8d698c, type: 3}
+  - ID: Device
+    category: Devices
+    searchKeywords:
+    - devices
+    - desktop
+    - mobile
+    - tablet
+    - phone
+    - screen
+    - responsive
+    - cross platform
+    - multi device
+    - device
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 98a59f7d3b68a8b419a058ecfc542b4b, type: 3}
+  - ID: Device (Fill)
+    category: Devices
+    searchKeywords:
+    - device (fill)
+    - devices
+    - desktop
+    - mobile
+    - tablet
+    - phone
+    - screen
+    - responsive
+    - cross platform
+    - multi device
+    - device
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3c03f2a34da6d1e46a778d9b16fa65ee, type: 3}
+  - ID: Display
+    category: Devices
+    searchKeywords:
+    - display
+    - monitor
+    - screen
+    - desktop
+    - computer
+    - tv
+    - television
+    - display screen
+    - resolution
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 52c2a9a1b9d53d54a9b3bd8a9e9577c3, type: 3}
+  - ID: Display (Fill)
+    category: Devices
+    searchKeywords:
+    - display
+    - display (fill)
+    - monitor
+    - screen
+    - desktop
+    - computer
+    - tv
+    - television
+    - display screen
+    - resolution
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: abad9722bbe61a74196f6d340f8e1c05, type: 3}
+  - ID: Drone
+    category: Devices
+    searchKeywords:
+    - drone
+    - quadcopter
+    - uav
+    - flying
+    - flight
+    - aircraft
+    - remote control
+    - propeller
+    - rotor
+    - aerial
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1f95adae44c3d62489e8f87fcbbf5fb6, type: 3}
+  - ID: Flashlight
+    category: Devices
+    searchKeywords:
+    - flashlight
+    - torch
+    - light
+    - lighting
+    - beam
+    - lamp
+    - illumination
+    - portable
+    - camping
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f150926fcb992364889d8f8568880d99, type: 3}
+  - ID: Flashlight (Fill)
+    category: Devices
+    searchKeywords:
+    - flashlight
+    - flashlight (fill)
+    - torch
+    - light
+    - lighting
+    - beam
+    - lamp
+    - illumination
+    - portable
+    - camping
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2baee4408f7047848943c6b4610a7008, type: 3}
+  - ID: Laptop
+    category: Devices
+    searchKeywords:
+    - laptop
+    - computer
+    - notebook
+    - portable
+    - pc
+    - screen
+    - laptop computer
+    - workstation
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ecbdbce80cc660d42bf630ff99b739e4, type: 3}
+  - ID: Laptop (Fill)
+    category: Devices
+    searchKeywords:
+    - laptop
+    - laptop (fill)
+    - computer
+    - notebook
+    - portable
+    - pc
+    - screen
+    - laptop computer
+    - workstation
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5336ed4cc7014cc47940bef762718ef0, type: 3}
+  - ID: Mouse
+    category: Devices
+    searchKeywords:
+    - mouse
+    - computer mouse
+    - pointer
+    - cursor
+    - click
+    - input
+    - peripheral
+    - scroll wheel
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 228889aa81880d84a96de6771bd789f8, type: 3}
+  - ID: Mouse (Fill)
+    category: Devices
+    searchKeywords:
+    - mouse
+    - mouse (fill)
+    - computer mouse
+    - pointer
+    - cursor
+    - click
+    - input
+    - peripheral
+    - scroll wheel
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 175ce4678c4be7a4da8f75dee01237b9, type: 3}
+  - ID: Phone Vibration
+    category: Devices
+    searchKeywords:
+    - phone vibration
+    - phone
+    - smartphone
+    - mobile
+    - vibration
+    - vibrate
+    - haptic
+    - haptics
+    - silent mode
+    - ring
+    - alert
+    - notification
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 461a87a939e60794b9276b435be6fbb4, type: 3}
+  - ID: Phone Vibration (Fill)
+    category: Devices
+    searchKeywords:
+    - phone vibration
+    - phone vibration (fill)
+    - phone
+    - smartphone
+    - mobile
+    - vibration
+    - vibrate
+    - haptic
+    - haptics
+    - silent mode
+    - ring
+    - alert
+    - notification
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fa72480b7defb0d4e8ef9c1131518feb, type: 3}
+  - ID: Scan
+    category: Devices
+    searchKeywords:
+    - scan
+    - scanner
+    - scanning
+    - scan code
+    - barcode
+    - qr
+    - qr code
+    - recognition
+    - capture
+    - scan line
+    - frame
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: efaf696559396274ea97112906938d0f, type: 3}
+  - ID: Smartphone
+    category: Devices
+    searchKeywords:
+    - phone
+    - smartphone
+    - smart phone
+    - mobile
+    - mobile phone
+    - cellphone
+    - cell phone
+    - handheld
+    - touchscreen
+    - screen
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 85a6ca513d51c4f4598ca7e1553f3bee, type: 3}
+  - ID: Smartphone (Fill)
+    category: Devices
+    searchKeywords:
+    - phone
+    - phone (fill)
+    - smartphone (fill)
+    - smartphone
+    - smart phone
+    - mobile
+    - mobile phone
+    - cellphone
+    - cell phone
+    - handheld
+    - touchscreen
+    - screen
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5eae9ab3f6ede984cae9442bbcb3caa0, type: 3}
+  - ID: Speaker
+    category: Devices
+    searchKeywords:
+    - speaker
+    - loudspeaker
+    - sound system
+    - audio
+    - sound
+    - music
+    - stereo
+    - woofer
+    - output
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b4f35dbe5242e1a46af4ea236e6136ba, type: 3}
+  - ID: Speaker (Fill)
+    category: Devices
+    searchKeywords:
+    - speaker
+    - speaker (fill)
+    - loudspeaker
+    - sound system
+    - audio
+    - sound
+    - music
+    - stereo
+    - woofer
+    - output
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 603f38edd9090794680a9e36445f24a5, type: 3}
+  - ID: Webcam
+    category: Devices
+    searchKeywords:
+    - webcam
+    - web camera
+    - camera
+    - video
+    - video call
+    - video chat
+    - conference
+    - stream
+    - streaming
+    - record
+    - meeting
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: aa51317c26895fa4093b2585c75f973a, type: 3}
+  - ID: Webcam (Fill)
+    category: Devices
+    searchKeywords:
+    - webcam
+    - webcam (fill)
+    - web camera
+    - camera
+    - video
+    - video call
+    - video chat
+    - conference
+    - stream
+    - streaming
+    - record
+    - meeting
+    - device
+    - devices
+    - hardware
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fc81c6a72c040c345877403e1db4f343, type: 3}
+  - ID: Wi-Fi
+    category: Devices
+    searchKeywords:
+    - wi-fi
+    - wifi
+    - wi fi
+    - wireless
+    - internet
+    - network
+    - connection
+    - connect
+    - signal
+    - connectivity
+    - online
+    - wlan
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 421a982351c86ac4da2289b1b13f8155, type: 3}
+  - ID: Wi-Fi Off
+    category: Devices
+    searchKeywords:
+    - wi-fi off
+    - wifi
+    - wi fi
+    - wireless
+    - internet
+    - network
+    - disconnected
+    - disconnect
+    - offline
+    - disabled
+    - no signal
+    - no internet
+    - slash
+    - device
+    - devices
+    - hardware
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1a12a1ce688ffcb47aa21029f11b1fd7, type: 3}
+  - ID: Clipboard
+    category: Editing
+    searchKeywords:
+    - clipboard
+    - clip board
+    - board
+    - checklist
+    - task list
+    - notes
+    - document
+    - clipboard text
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2d67d9f1e3babdd4ab050192982db478, type: 3}
+  - ID: Clipboard (Fill)
+    category: Editing
+    searchKeywords:
+    - clipboard
+    - clipboard (fill)
+    - clip board
+    - board
+    - checklist
+    - task list
+    - notes
+    - document
+    - clipboard text
+    - editing
+    - editor
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 23146b55090e00e44924e063ba593029, type: 3}
+  - ID: Copy
+    category: Editing
+    searchKeywords:
+    - copy
+    - duplicate
+    - clone
+    - replicate
+    - clipboard
+    - copy file
+    - copy selection
+    - overlap
+    - squares
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 44ee2d24cf8cc594890bb0ac35b5ca76, type: 3}
+  - ID: Copy (Fill)
+    category: Editing
+    searchKeywords:
+    - copy
+    - copy (fill)
+    - duplicate
+    - clone
+    - replicate
+    - clipboard
+    - copy file
+    - copy selection
+    - overlap
+    - squares
+    - editing
+    - editor
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c282ddf1435a62645b6b1200335e74db, type: 3}
+  - ID: Edit
+    category: Editing
+    searchKeywords:
+    - edit
+    - modify
+    - change
+    - write
+    - writing
+    - compose
+    - edit document
+    - update
+    - rename
+    - pencil
+    - square
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 12abb4b731c24f640806d1281a144ced, type: 3}
+  - ID: Eraser
+    category: Editing
+    searchKeywords:
+    - eraser
+    - erase
+    - remove
+    - clear
+    - rubber
+    - delete
+    - cleanup
+    - drawing
+    - correction
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 16342a04c0ebc444289b3feeb0fc8e9f, type: 3}
+  - ID: Eraser (Fill)
+    category: Editing
+    searchKeywords:
+    - eraser
+    - eraser (fill)
+    - erase
+    - remove
+    - clear
+    - rubber
+    - delete
+    - cleanup
+    - drawing
+    - correction
+    - editing
+    - editor
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: bbdec9d1c94fba04f844b6c36a6a1d20, type: 3}
+  - ID: Fonts
+    category: Editing
+    searchKeywords:
+    - fonts
+    - font
+    - typography
+    - typeface
+    - text
+    - text style
+    - text effects
+    - letters
+    - aa
+    - uppercase
+    - lowercase
+    - type
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b29b80f2e0c622840af54b7e5421c9a3, type: 3}
+  - ID: List Order
+    category: Editing
+    searchKeywords:
+    - list order
+    - sort
+    - sorting
+    - ordered list
+    - reorder
+    - list
+    - ascending
+    - descending
+    - arrange
+    - up
+    - down
+    - arrows
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5c58d0ad5173f714889c00789121efb6, type: 3}
+  - ID: Paste
+    category: Editing
+    searchKeywords:
+    - paste
+    - clipboard
+    - insert
+    - duplicate
+    - paste content
+    - paste file
+    - copied
+    - document
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 826f4f4b7ea000545b08c6fa9ce24be6, type: 3}
+  - ID: Paste (Fill)
+    category: Editing
+    searchKeywords:
+    - paste
+    - paste (fill)
+    - clipboard
+    - insert
+    - duplicate
+    - paste content
+    - paste file
+    - copied
+    - document
+    - editing
+    - editor
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a5a59f51bb2c9774bb0045388a1b2a99, type: 3}
+  - ID: Pencil
+    category: Editing
+    searchKeywords:
+    - pencil
+    - write
+    - writing
+    - draw
+    - drawing
+    - sketch
+    - edit
+    - compose
+    - annotate
+    - annotation
+    - pen
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 63968149e634d8248905a591a96ce6d1, type: 3}
+  - ID: Pencil (Fill)
+    category: Editing
+    searchKeywords:
+    - pencil
+    - pencil (fill)
+    - write
+    - writing
+    - draw
+    - drawing
+    - sketch
+    - edit
+    - compose
+    - annotate
+    - annotation
+    - pen
+    - editing
+    - editor
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2bef697af95f3914b912ec1f53607179, type: 3}
+  - ID: Quote (Fill)
+    category: Editing
+    searchKeywords:
+    - quote
+    - quote (fill)
+    - quotation
+    - quotation marks
+    - blockquote
+    - citation
+    - cite
+    - testimonial
+    - speech bubble
+    - text
+    - double quote
+    - editing
+    - editor
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4d65489ac526ec44eb6cc41cacfef287, type: 3}
+  - ID: Translate
+    category: Editing
+    searchKeywords:
+    - translate
+    - translation
+    - language
+    - languages
+    - localization
+    - localisation
+    - locale
+    - multilingual
+    - international
+    - character
+    - text
+    - editing
+    - editor
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: cc6d024618ef94b448f5cb8b34bcba42, type: 3}
+  - ID: Angel
+    category: Emoji
+    searchKeywords:
+    - angel
+    - face
+    - emoticon
+    - emotion
+    - halo
+    - innocent
+    - good
+    - blessed
+    - smile
+    - smiling
+    - happy
+    - emoji
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b2ae7cef5ea7a754584fc0a35ea6f41a, type: 3}
+  - ID: Angel (Fill)
+    category: Emoji
+    searchKeywords:
+    - angel
+    - angel (fill)
+    - face
+    - emoticon
+    - emotion
+    - halo
+    - innocent
+    - good
+    - blessed
+    - smile
+    - smiling
+    - happy
+    - emoji
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3d95cb0f1148b7140b67784b0deacfac, type: 3}
+  - ID: Angry
+    category: Emoji
+    searchKeywords:
+    - angry
+    - face
+    - emoticon
+    - emotion
+    - mad
+    - anger
+    - furious
+    - rage
+    - annoyed
+    - frustrated
+    - frown
+    - emoji
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e0fc168da18a4ff44a4f7d87616d2bac, type: 3}
+  - ID: Angry (Fill)
+    category: Emoji
+    searchKeywords:
+    - angry
+    - angry (fill)
+    - face
+    - emoticon
+    - emotion
+    - mad
+    - anger
+    - furious
+    - rage
+    - annoyed
+    - frustrated
+    - frown
+    - emoji
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1bc0250efee46464b87c4b7da3291d2c, type: 3}
+  - ID: Happy
+    category: Emoji
+    searchKeywords:
+    - happy
+    - face
+    - emoticon
+    - emotion
+    - smile
+    - smiley
+    - smiling
+    - joy
+    - cheerful
+    - positive
+    - pleased
+    - emoji
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5d42ac9a06eda7745abbcaf871fd4422, type: 3}
+  - ID: Happy (Fill)
+    category: Emoji
+    searchKeywords:
+    - happy
+    - happy (fill)
+    - face
+    - emoticon
+    - emotion
+    - smile
+    - smiley
+    - smiling
+    - joy
+    - cheerful
+    - positive
+    - pleased
+    - emoji
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a3db108d352ddfb4f9a07b9ec869ffb6, type: 3}
+  - ID: Sad
+    category: Emoji
+    searchKeywords:
+    - sad
+    - face
+    - emoticon
+    - emotion
+    - unhappy
+    - frown
+    - frowning
+    - disappointed
+    - sorrow
+    - negative
+    - emoji
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 607e758d1323bcd4d8e2a7209a4ac50e, type: 3}
+  - ID: Sad (Fill)
+    category: Emoji
+    searchKeywords:
+    - sad
+    - sad (fill)
+    - face
+    - emoticon
+    - emotion
+    - unhappy
+    - frown
+    - frowning
+    - disappointed
+    - sorrow
+    - negative
+    - emoji
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 42558080e833d6145af292fb30d606e1, type: 3}
+  - ID: Sob
+    category: Emoji
+    searchKeywords:
+    - sob
+    - face
+    - emoticon
+    - emotion
+    - cry
+    - crying
+    - tears
+    - weeping
+    - sad
+    - upset
+    - sorrow
+    - emoji
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8bd34f34375fcc94e9fe2492638844b7, type: 3}
+  - ID: Sob (Fill)
+    category: Emoji
+    searchKeywords:
+    - sob
+    - sob (fill)
+    - face
+    - emoticon
+    - emotion
+    - cry
+    - crying
+    - tears
+    - weeping
+    - sad
+    - upset
+    - sorrow
+    - emoji
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ef2ebcb87fb49014aaa683828d183038, type: 3}
+  - ID: Surprised
+    category: Emoji
+    searchKeywords:
+    - surprised
+    - face
+    - emoticon
+    - emotion
+    - surprise
+    - shock
+    - shocked
+    - astonished
+    - amazed
+    - wow
+    - open mouth
+    - emoji
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f02d0efba203f1e4b880c8c430b99d2d, type: 3}
+  - ID: Surprised (Fill)
+    category: Emoji
+    searchKeywords:
+    - surprised
+    - surprised (fill)
+    - face
+    - emoticon
+    - emotion
+    - surprise
+    - shock
+    - shocked
+    - astonished
+    - amazed
+    - wow
+    - open mouth
+    - emoji
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d4e4855bc2b2b8747b42fac7ab610433, type: 3}
+  - ID: Thumbs Down
+    category: Emoji
+    searchKeywords:
+    - thumbs down
+    - thumb down
+    - dislike
+    - disapprove
+    - negative
+    - bad
+    - downvote
+    - feedback
+    - rating
+    - reject
+    - hand
+    - emoji
+    - emoticon
+    - reaction
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 96f2cf31ad7553f49ae215930876ea7d, type: 3}
+  - ID: Thumbs Down (Fill)
+    category: Emoji
+    searchKeywords:
+    - thumbs down
+    - thumbs down (fill)
+    - thumb down
+    - dislike
+    - disapprove
+    - negative
+    - bad
+    - downvote
+    - feedback
+    - rating
+    - reject
+    - hand
+    - emoji
+    - emoticon
+    - reaction
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ee466cb5035ebf4449a392a0748f724a, type: 3}
+  - ID: Thumbs Up
+    category: Emoji
+    searchKeywords:
+    - thumbs up
+    - thumb up
+    - like
+    - approve
+    - positive
+    - good
+    - upvote
+    - feedback
+    - rating
+    - accept
+    - hand
+    - emoji
+    - emoticon
+    - reaction
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 91227b9d3c967fe48a8147414ef761da, type: 3}
+  - ID: Thumbs Up (Fill)
+    category: Emoji
+    searchKeywords:
+    - thumbs up
+    - thumbs up (fill)
+    - thumb up
+    - like
+    - approve
+    - positive
+    - good
+    - upvote
+    - feedback
+    - rating
+    - accept
+    - hand
+    - emoji
+    - emoticon
+    - reaction
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a60d9ae100de2b54e87152e27d641296, type: 3}
+  - ID: Attachment
+    category: Files
+    searchKeywords:
+    - attachment
+    - attach
+    - paperclip
+    - paper clip
+    - enclosure
+    - file attachment
+    - upload
+    - document
+    - email
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 12f5c57fd2b0a314082234f6710b199e, type: 3}
+  - ID: Book
+    category: Files
+    searchKeywords:
+    - book
+    - reading
+    - read
+    - ebook
+    - library
+    - manual
+    - guide
+    - documentation
+    - education
+    - learning
+    - knowledge
+    - cover
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d8eaeea9dbeb05447909791110e46d8b, type: 3}
+  - ID: Book (Fill)
+    category: Files
+    searchKeywords:
+    - book
+    - book (fill)
+    - reading
+    - read
+    - ebook
+    - library
+    - manual
+    - guide
+    - documentation
+    - education
+    - learning
+    - knowledge
+    - cover
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 06cf82dc4f4f2ac4694918ec63822968, type: 3}
+  - ID: Document
+    category: Files
+    searchKeywords:
+    - document
+    - text document
+    - page
+    - paper
+    - report
+    - article
+    - text
+    - writing
+    - doc
+    - folded corner
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f469b9398fcf77c45a71ba075d39b309, type: 3}
+  - ID: Document (Fill)
+    category: Files
+    searchKeywords:
+    - document
+    - document (fill)
+    - text document
+    - page
+    - paper
+    - report
+    - article
+    - text
+    - writing
+    - doc
+    - folded corner
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f54878c204a75084a9f872f0416901bc, type: 3}
+  - ID: Download
+    category: Files
+    searchKeywords:
+    - download
+    - cloud download
+    - save
+    - receive
+    - fetch
+    - import
+    - transfer
+    - cloud
+    - down
+    - arrow
+    - get file
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 12742f2ca06fc1344bdf113933851c63, type: 3}
+  - ID: Download (Fill)
+    category: Files
+    searchKeywords:
+    - download
+    - download (fill)
+    - cloud download
+    - save
+    - receive
+    - fetch
+    - import
+    - transfer
+    - cloud
+    - down
+    - arrow
+    - get file
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: dbce5229a8c7e1d42b6e543168320e55, type: 3}
+  - ID: External Link
+    category: Files
+    searchKeywords:
+    - external link
+    - open external
+    - open in new tab
+    - new window
+    - launch
+    - outbound
+    - url
+    - website
+    - link
+    - arrow
+    - export
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 12ae72cf6eac3b749b221dc16d1a4204, type: 3}
+  - ID: File
+    category: Files
+    searchKeywords:
+    - page
+    - paper
+    - document
+    - blank
+    - empty
+    - new file
+    - asset
+    - folded corner
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 310f0d92b88c73e41a6bcc7d133cfc9b, type: 3}
+  - ID: File (Fill)
+    category: Files
+    searchKeywords:
+    - file (fill)
+    - page
+    - paper
+    - document
+    - blank
+    - empty
+    - new file
+    - asset
+    - folded corner
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4dc1c452abbe80e46b5e0cc16c08353c, type: 3}
+  - ID: Folder
+    category: Files
+    searchKeywords:
+    - folder
+    - directory
+    - organize
+    - storage
+    - archive
+    - closed folder
+    - file manager
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e535a92be80f61045a95c4a0931eb90a, type: 3}
+  - ID: Folder (Fill)
+    category: Files
+    searchKeywords:
+    - folder
+    - folder (fill)
+    - directory
+    - organize
+    - storage
+    - archive
+    - closed folder
+    - file manager
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6abc11ad563223e478f7236b6c2f5c97, type: 3}
+  - ID: Folder Open
+    category: Files
+    searchKeywords:
+    - folder open
+    - folder
+    - open folder
+    - directory
+    - browse
+    - file manager
+    - open
+    - explore
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d98352ea476d62b47aba8792b0b0031f, type: 3}
+  - ID: Folder Open (Fill)
+    category: Files
+    searchKeywords:
+    - folder open
+    - folder open (fill)
+    - folder
+    - open folder
+    - directory
+    - browse
+    - file manager
+    - open
+    - explore
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 074e646bb96aff046ad548101c13707d, type: 3}
+  - ID: Link
+    category: Files
+    searchKeywords:
+    - link
+    - chain
+    - hyperlink
+    - url
+    - website
+    - connect
+    - connection
+    - anchor
+    - web link
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 15cf2ea18427822478469a9bcbe262b8, type: 3}
+  - ID: Unlink
+    category: Files
+    searchKeywords:
+    - unlink
+    - broken link
+    - break link
+    - disconnect
+    - detach
+    - remove link
+    - chain
+    - unbound
+    - separate
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 41d511c947e81ed4e8785f5f530be75a, type: 3}
+  - ID: Upload
+    category: Files
+    searchKeywords:
+    - upload
+    - cloud upload
+    - send
+    - publish
+    - export
+    - transfer
+    - cloud
+    - up
+    - arrow
+    - add file
+    - file
+    - files
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 61ac604c0abe46f478b83244216b33f6, type: 3}
+  - ID: Upload (Fill)
+    category: Files
+    searchKeywords:
+    - upload
+    - upload (fill)
+    - cloud upload
+    - send
+    - publish
+    - export
+    - transfer
+    - cloud
+    - up
+    - arrow
+    - add file
+    - file
+    - files
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ec9afef7a1a7a224e8ba82ac5c92d5ee, type: 3}
+  - ID: Birthday Cake
+    category: Food
+    searchKeywords:
+    - birthday cake
+    - cake
+    - birthday
+    - celebration
+    - party
+    - anniversary
+    - dessert
+    - sweet
+    - candle
+    - baking
+    - food
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4a1a626c02cf00948ae625ffbdd0f52c, type: 3}
+  - ID: Birthday Cake (Fill)
+    category: Food
+    searchKeywords:
+    - birthday cake
+    - birthday cake (fill)
+    - cake
+    - birthday
+    - celebration
+    - party
+    - anniversary
+    - dessert
+    - sweet
+    - candle
+    - baking
+    - food
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6541e259c52f3344f9003f8d7391b5a1, type: 3}
+  - ID: Cookie
+    category: Food
+    searchKeywords:
+    - cookie
+    - biscuit
+    - snack
+    - dessert
+    - sweet
+    - bakery
+    - baking
+    - chocolate chip
+    - treat
+    - food
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 541902dbf88594645a79e0d95bcc5f3e, type: 3}
+  - ID: Cookie (Fill)
+    category: Food
+    searchKeywords:
+    - cookie
+    - cookie (fill)
+    - biscuit
+    - snack
+    - dessert
+    - sweet
+    - bakery
+    - baking
+    - chocolate chip
+    - treat
+    - food
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: aeaf1ea425c86b641b24702a86ec25d7, type: 3}
+  - ID: Glass Cup
+    category: Food
+    searchKeywords:
+    - glass cup
+    - glass
+    - cup
+    - drink
+    - beverage
+    - water
+    - juice
+    - soda
+    - refreshment
+    - hydrate
+    - tumbler
+    - food
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9bdc75de71eb7c245ba18672aa92986a, type: 3}
+  - ID: Glass Cup (Fill)
+    category: Food
+    searchKeywords:
+    - glass cup
+    - glass cup (fill)
+    - glass
+    - cup
+    - drink
+    - beverage
+    - water
+    - juice
+    - soda
+    - refreshment
+    - hydrate
+    - tumbler
+    - food
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6d967828f88482c4baa029a8b7c7490e, type: 3}
+  - ID: Coin
+    category: Gaming
+    searchKeywords:
+    - coin
+    - money
+    - currency
+    - payment
+    - token
+    - credit
+    - credits
+    - reward
+    - economy
+    - finance
+    - gold
+    - premium currency
+    - sparkle
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fa4c45a39958ed84c9eee6b3c37f569f, type: 3}
+  - ID: Coin (Fill)
+    category: Gaming
+    searchKeywords:
+    - coin
+    - coin (fill)
+    - money
+    - currency
+    - payment
+    - token
+    - credit
+    - credits
+    - reward
+    - economy
+    - finance
+    - gold
+    - premium currency
+    - sparkle
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c335f3f06ff1baf40a74cbafc91ca9fe, type: 3}
+  - ID: Controller
+    category: Gaming
+    searchKeywords:
+    - controller
+    - game controller
+    - gamepad
+    - joypad
+    - joystick
+    - game
+    - gaming
+    - video game
+    - console
+    - play
+    - input
+    - buttons
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d02b354738a41644aab264f513a5eed9, type: 3}
+  - ID: Controller (Fill)
+    category: Gaming
+    searchKeywords:
+    - controller
+    - controller (fill)
+    - game controller
+    - gamepad
+    - joypad
+    - joystick
+    - game
+    - gaming
+    - video game
+    - console
+    - play
+    - input
+    - buttons
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 994b83ca4b83f554d82b5f301d3c95ed, type: 3}
+  - ID: Diamond
+    category: Gaming
+    searchKeywords:
+    - diamond
+    - gem
+    - gemstone
+    - jewel
+    - jewelry
+    - crystal
+    - premium
+    - luxury
+    - valuable
+    - treasure
+    - reward
+    - currency
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8f0ca04dee9c96d419284d0d8b8d60cf, type: 3}
+  - ID: Diamond (Fill)
+    category: Gaming
+    searchKeywords:
+    - diamond
+    - diamond (fill)
+    - gem
+    - gemstone
+    - jewel
+    - jewelry
+    - crystal
+    - premium
+    - luxury
+    - valuable
+    - treasure
+    - reward
+    - currency
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 684d18e1fbe72da49a1bb971a447381f, type: 3}
+  - ID: Heart
+    category: Gaming
+    searchKeywords:
+    - heart
+    - love
+    - like
+    - favorite
+    - favourite
+    - health
+    - life
+    - lives
+    - valentine
+    - affection
+    - romance
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b1d8a0e014eec1a4e86ff6f8990a4389, type: 3}
+  - ID: Heart (Fill)
+    category: Gaming
+    searchKeywords:
+    - heart
+    - heart (fill)
+    - love
+    - like
+    - favorite
+    - favourite
+    - health
+    - life
+    - lives
+    - valentine
+    - affection
+    - romance
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d3beb2bcc72801844826789ea357f4b5, type: 3}
+  - ID: Heart Crack
+    category: Gaming
+    searchKeywords:
+    - heart crack
+    - heart
+    - broken heart
+    - heartbreak
+    - cracked heart
+    - broken
+    - dislike
+    - unfavorite
+    - unfavourite
+    - health
+    - damage
+    - loss
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0655c765b0d20f84fbd87fafd594cf63, type: 3}
+  - ID: Heart Crack (Fill)
+    category: Gaming
+    searchKeywords:
+    - heart crack
+    - heart crack (fill)
+    - heart
+    - broken heart
+    - heartbreak
+    - cracked heart
+    - broken
+    - dislike
+    - unfavorite
+    - unfavourite
+    - health
+    - damage
+    - loss
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 858f0c04c0da06c4d86da13d0d916548, type: 3}
+  - ID: Heart Half
+    category: Gaming
+    searchKeywords:
+    - heart half
+    - heart
+    - love
+    - like
+    - favorite
+    - favourite
+    - health
+    - life
+    - lives
+    - partial
+    - half heart
+    - half filled
+    - game
+    - gaming
+    - half
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8052ecfb36b7b604aabec19884289bfe, type: 3}
+  - ID: Random
+    category: Gaming
+    searchKeywords:
+    - random
+    - randomize
+    - dice
+    - die
+    - roll
+    - roll dice
+    - chance
+    - luck
+    - lucky
+    - gamble
+    - board game
+    - probability
+    - shuffle
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 41b8a3a9ba3946f5894bfff23572d12b, type: 3}
+  - ID: Random (Fill)
+    category: Gaming
+    searchKeywords:
+    - random
+    - random (fill)
+    - randomize
+    - dice
+    - die
+    - roll
+    - roll dice
+    - chance
+    - luck
+    - lucky
+    - gamble
+    - board game
+    - probability
+    - shuffle
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 362586ea82104e269259c472299ac155, type: 3}
+  - ID: Star
+    category: Gaming
+    searchKeywords:
+    - star
+    - favorite
+    - favourite
+    - rating
+    - review
+    - bookmark
+    - award
+    - featured
+    - five point
+    - night
+    - achievement
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5bc36343c9ead2e4289637a8122e3d27, type: 3}
+  - ID: Star (Fill)
+    category: Gaming
+    searchKeywords:
+    - star
+    - star (fill)
+    - favorite
+    - favourite
+    - rating
+    - review
+    - bookmark
+    - award
+    - featured
+    - five point
+    - night
+    - achievement
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3acbdf5ab46598e4585caa4360c87db9, type: 3}
+  - ID: Star Half
+    category: Gaming
+    searchKeywords:
+    - star half
+    - star
+    - favorite
+    - favourite
+    - rating
+    - review
+    - partial
+    - half star
+    - half rating
+    - half filled
+    - two tone
+    - game
+    - gaming
+    - half
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: adeadc7eddb4f5141aa869426d396877, type: 3}
+  - ID: Sword
+    category: Gaming
+    searchKeywords:
+    - sword
+    - weapon
+    - blade
+    - combat
+    - battle
+    - attack
+    - melee
+    - fight
+    - fantasy
+    - rpg
+    - equipment
+    - game
+    - gaming
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 945135b97e7445c4bab5ebf0c6ff558f, type: 3}
+  - ID: Sword (Fill)
+    category: Gaming
+    searchKeywords:
+    - sword
+    - sword (fill)
+    - weapon
+    - blade
+    - combat
+    - battle
+    - attack
+    - melee
+    - fight
+    - fantasy
+    - rpg
+    - equipment
+    - game
+    - gaming
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0b1a0bceb820434498de959b4b59b33a, type: 3}
+  - ID: Trophy
+    category: Gaming
+    searchKeywords:
+    - trophy
+    - award
+    - achievement
+    - winner
+    - winning
+    - champion
+    - championship
+    - victory
+    - prize
+    - cup
+    - reward
+    - competition
+    - leaderboard
+    - sports
+    - gaming
+    - game
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 95d509cdd22d0724a8e201915f4bf9f8, type: 3}
+  - ID: Trophy (Fill)
+    category: Gaming
+    searchKeywords:
+    - trophy
+    - trophy (fill)
+    - award
+    - achievement
+    - winner
+    - winning
+    - champion
+    - championship
+    - victory
+    - prize
+    - cup
+    - reward
+    - competition
+    - leaderboard
+    - sports
+    - gaming
+    - game
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: bb495334e9f486b49aa375e8af39c790, type: 3}
+  - ID: Add
+    category: Interface
+    searchKeywords:
+    - add
+    - plus
+    - new
+    - create
+    - insert
+    - positive
+    - increase
+    - append
+    - expand
+    - addition
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: bd4197e75ec71d24e95e8ed88e58762c, type: 3}
+  - ID: Add (Circle Fill)
+    category: Interface
+    searchKeywords:
+    - add
+    - add (circle fill)
+    - plus
+    - new
+    - create
+    - insert
+    - positive
+    - increase
+    - append
+    - expand
+    - addition
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 19bd15e80d79d0947b6c710f366aa2c3, type: 3}
+  - ID: Add (Circle)
+    category: Interface
+    searchKeywords:
+    - add
+    - add (circle)
+    - plus
+    - new
+    - create
+    - insert
+    - positive
+    - increase
+    - append
+    - expand
+    - addition
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9a30edc77db5904458718e6ce9dc62d6, type: 3}
+  - ID: Close
+    category: Interface
+    searchKeywords:
+    - close
+    - cross
+    - x
+    - cancel
+    - dismiss
+    - exit
+    - remove
+    - clear
+    - times
+    - multiply
+    - close window
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d6175a21c35fc2847b6862477c12d68a, type: 3}
+  - ID: Close (Circle Fill)
+    category: Interface
+    searchKeywords:
+    - close
+    - close (circle fill)
+    - cross
+    - x
+    - cancel
+    - dismiss
+    - exit
+    - remove
+    - clear
+    - times
+    - multiply
+    - close window
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 476f77a4a8b92784caed2a5822e359c6, type: 3}
+  - ID: Close (Circle)
+    category: Interface
+    searchKeywords:
+    - close
+    - close (circle)
+    - cross
+    - x
+    - cancel
+    - dismiss
+    - exit
+    - remove
+    - clear
+    - times
+    - multiply
+    - close window
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 83d372a598c79ef4ab0107c11ce05fd9, type: 3}
+  - ID: Dots
+    category: Interface
+    searchKeywords:
+    - dots
+    - six dots
+    - grip
+    - grip dots
+    - drag handle
+    - handle
+    - drag
+    - drag and drop
+    - move
+    - reorder
+    - rearrange
+    - grabber
+    - horizontal
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b28bd2ccde525c34baff440b418d150e, type: 3}
+  - ID: Dots Vertical
+    category: Interface
+    searchKeywords:
+    - dots vertical
+    - vertical dots
+    - six dots
+    - grip
+    - grip vertical
+    - drag handle
+    - handle
+    - drag
+    - drag and drop
+    - move
+    - reorder
+    - rearrange
+    - grabber
+    - vertical
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b218e7fdf8ac46640a50e01ae64dc39d, type: 3}
+  - ID: Filter
+    category: Interface
+    searchKeywords:
+    - filter
+    - filters
+    - filter list
+    - funnel
+    - sort
+    - sorting
+    - refine
+    - narrow down
+    - options
+    - adjust
+    - list
+    - lines
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0213d5481068e4149a3418ffadf1cfa7, type: 3}
+  - ID: Hamburger Menu
+    category: Interface
+    searchKeywords:
+    - hamburger menu
+    - menu
+    - hamburger
+    - navigation menu
+    - bars
+    - three lines
+    - drawer
+    - sidebar
+    - nav
+    - list
+    - navigation
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ff3ce5258b7e5584a9f2eb7707f76468, type: 3}
+  - ID: Home
+    category: Interface
+    searchKeywords:
+    - home
+    - house
+    - homepage
+    - home page
+    - main
+    - start
+    - dashboard
+    - building
+    - navigation
+    - roof
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c107aad9ae2eac448afb8d8f6562ef60, type: 3}
+  - ID: Home (Fill)
+    category: Interface
+    searchKeywords:
+    - home
+    - home (fill)
+    - house
+    - homepage
+    - home page
+    - main
+    - start
+    - dashboard
+    - building
+    - navigation
+    - roof
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d0a5a4ea827690945805f50645b3a62e, type: 3}
+  - ID: Minus
+    category: Interface
+    searchKeywords:
+    - minus
+    - subtract
+    - subtraction
+    - negative
+    - remove
+    - decrease
+    - reduce
+    - collapse
+    - less
+    - dash
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 61d785aa645d5cd46b8d5187b83c57ce, type: 3}
+  - ID: Minus (Circle Fill)
+    category: Interface
+    searchKeywords:
+    - minus
+    - minus (circle fill)
+    - subtract
+    - subtraction
+    - negative
+    - remove
+    - decrease
+    - reduce
+    - collapse
+    - less
+    - dash
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2176525b062b0dc48a8300cbee1290eb, type: 3}
+  - ID: Minus (Circle)
+    category: Interface
+    searchKeywords:
+    - minus
+    - minus (circle)
+    - subtract
+    - subtraction
+    - negative
+    - remove
+    - decrease
+    - reduce
+    - collapse
+    - less
+    - dash
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: dfaaa2f8dc2053a4c8705832922c618b, type: 3}
+  - ID: More
+    category: Interface
+    searchKeywords:
+    - more
+    - ellipsis
+    - three dots
+    - dots
+    - overflow
+    - options
+    - menu
+    - horizontal
+    - additional
+    - more options
+    - navigation
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4d0051f0e7a402a4ab51ce4e659ec38d, type: 3}
+  - ID: More (Circle Fill)
+    category: Interface
+    searchKeywords:
+    - more
+    - more (circle fill)
+    - ellipsis
+    - three dots
+    - dots
+    - overflow
+    - options
+    - menu
+    - horizontal
+    - additional
+    - more options
+    - navigation
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a18c5d926f01d3745baee3523d916cba, type: 3}
+  - ID: More (Circle)
+    category: Interface
+    searchKeywords:
+    - more
+    - more (circle)
+    - ellipsis
+    - three dots
+    - dots
+    - overflow
+    - options
+    - menu
+    - horizontal
+    - additional
+    - more options
+    - navigation
+    - interface
+    - ui
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2552b0c5fddf4e94593e17703f6f5855, type: 3}
+  - ID: Search
+    category: Interface
+    searchKeywords:
+    - search
+    - find
+    - lookup
+    - discover
+    - query
+    - magnifier
+    - magnifying glass
+    - inspect
+    - browse
+    - search icon
+    - navigation
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b32a8592a61a35944b7e8b0956d8e8f7, type: 3}
+  - ID: Search (Fill)
+    category: Interface
+    searchKeywords:
+    - search
+    - search (fill)
+    - find
+    - lookup
+    - discover
+    - query
+    - magnifier
+    - magnifying glass
+    - inspect
+    - browse
+    - search icon
+    - navigation
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ea3850ad0e27b9d4889ae2da56839e7a, type: 3}
+  - ID: Zoom In
+    category: Interface
+    searchKeywords:
+    - zoom in
+    - zoom
+    - magnify
+    - magnifier
+    - magnifying glass
+    - enlarge
+    - increase
+    - expand
+    - plus
+    - add
+    - inspect
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5537ba63eb930414ba93d0a9757473bc, type: 3}
+  - ID: Zoom In (Fill)
+    category: Interface
+    searchKeywords:
+    - zoom in
+    - zoom in (fill)
+    - zoom
+    - magnify
+    - magnifier
+    - magnifying glass
+    - enlarge
+    - increase
+    - expand
+    - plus
+    - add
+    - inspect
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 30af55143f9b7a0419724aa08115974d, type: 3}
+  - ID: Zoom Out
+    category: Interface
+    searchKeywords:
+    - zoom out
+    - zoom
+    - magnifier
+    - magnifying glass
+    - reduce
+    - decrease
+    - shrink
+    - minus
+    - subtract
+    - scale down
+    - interface
+    - ui
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 34f27f5308e59aa4cb5759e2774d24d7, type: 3}
+  - ID: Zoom Out (Fill)
+    category: Interface
+    searchKeywords:
+    - zoom out
+    - zoom out (fill)
+    - zoom
+    - magnifier
+    - magnifying glass
+    - reduce
+    - decrease
+    - shrink
+    - minus
+    - subtract
+    - scale down
+    - interface
+    - ui
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8dbe1fbaf955a964d8f8dc68aed4072f, type: 3}
+  - ID: Apple
+    category: Logos
+    searchKeywords:
+    - apple
+    - apple logo
+    - technology
+    - ios
+    - mac
+    - macos
+    - iphone
+    - ipad
+    - apple device
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 96180cc25fb95674e96587e5f8259c10, type: 3}
+  - ID: Bluesky
+    category: Logos
+    searchKeywords:
+    - bluesky
+    - bluesky logo
+    - social
+    - social media
+    - social network
+    - bsky
+    - butterfly
+    - microblogging
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9ce38d3414b880e4e8993905e9f1aeca, type: 3}
+  - ID: Discord
+    category: Logos
+    searchKeywords:
+    - discord
+    - discord logo
+    - chat
+    - voice chat
+    - community
+    - server
+    - gaming
+    - messenger
+    - social
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 97fb5871c0a89504e9fc579ab786ff05, type: 3}
+  - ID: Facebook
+    category: Logos
+    searchKeywords:
+    - facebook
+    - facebook logo
+    - meta
+    - social
+    - social media
+    - social network
+    - community
+    - fb
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 244a99f5fcdd5cf4f946cce06402bb79, type: 3}
+  - ID: Facebook (Color)
+    category: Logos
+    searchKeywords:
+    - facebook
+    - facebook (color)
+    - facebook logo
+    - meta
+    - social
+    - social media
+    - social network
+    - community
+    - fb
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fd82d4dbe22922a4b9061d925f0d291b, type: 3}
+  - ID: Github
+    category: Logos
+    searchKeywords:
+    - github
+    - github logo
+    - git
+    - repository
+    - source code
+    - code
+    - developer
+    - development
+    - version control
+    - octocat
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ec9ae7c9ba4f0a749adbc5c978997220, type: 3}
+  - ID: Google
+    category: Logos
+    searchKeywords:
+    - google
+    - google logo
+    - search
+    - search engine
+    - alphabet
+    - web
+    - internet
+    - google account
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 80a54c27c3ce04a4aa25add8e16f9af3, type: 3}
+  - ID: Google (Color)
+    category: Logos
+    searchKeywords:
+    - google
+    - google (color)
+    - google logo
+    - search
+    - search engine
+    - alphabet
+    - web
+    - internet
+    - google account
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0d0db9244e5481f4eaf5f27276faa082, type: 3}
+  - ID: Instagram
+    category: Logos
+    searchKeywords:
+    - instagram
+    - instagram logo
+    - social
+    - social media
+    - photo
+    - photos
+    - camera
+    - reels
+    - stories
+    - meta
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8939692e72f106f43b0e745dfe452e51, type: 3}
+  - ID: Instagram (Color)
+    category: Logos
+    searchKeywords:
+    - instagram
+    - instagram (color)
+    - instagram logo
+    - social
+    - social media
+    - photo
+    - photos
+    - camera
+    - reels
+    - stories
+    - meta
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a50fc1d7d2f03fe4fa32fffa17719633, type: 3}
+  - ID: PlayStation
+    category: Logos
+    searchKeywords:
+    - playstation
+    - playstation logo
+    - sony
+    - ps
+    - ps4
+    - ps5
+    - console
+    - game
+    - gaming
+    - video games
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e3752e0b70b6a954da2e0ee01489e788, type: 3}
+  - ID: Reddit
+    category: Logos
+    searchKeywords:
+    - reddit
+    - reddit logo
+    - social
+    - social media
+    - community
+    - forum
+    - discussion
+    - subreddit
+    - snoo
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8d57ad7b8a8111049973f878d05426f8, type: 3}
+  - ID: Reddit (Color)
+    category: Logos
+    searchKeywords:
+    - reddit
+    - reddit (color)
+    - reddit logo
+    - social
+    - social media
+    - community
+    - forum
+    - discussion
+    - subreddit
+    - snoo
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3f39b99ebe7bd704086cfcc422a978e9, type: 3}
+  - ID: Steam
+    category: Logos
+    searchKeywords:
+    - steam
+    - steam logo
+    - valve
+    - game
+    - gaming
+    - pc
+    - game store
+    - video games
+    - launcher
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 827846bd8ff06a84bb96564c24e1c2b6, type: 3}
+  - ID: Steam (Color)
+    category: Logos
+    searchKeywords:
+    - steam
+    - steam (color)
+    - steam logo
+    - valve
+    - game
+    - gaming
+    - pc
+    - game store
+    - video games
+    - launcher
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9c3756816a630fc45af9b5d3cbd6c813, type: 3}
+  - ID: TikTok
+    category: Logos
+    searchKeywords:
+    - tiktok
+    - tiktok logo
+    - social
+    - social media
+    - short video
+    - video
+    - music
+    - douyin
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f9702a5f01d36324d827acc0b3e74aeb, type: 3}
+  - ID: TikTok (Color)
+    category: Logos
+    searchKeywords:
+    - tiktok
+    - tiktok (color)
+    - tiktok logo
+    - social
+    - social media
+    - short video
+    - video
+    - music
+    - douyin
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 42c76bf4c1e56124a8ed07f953938526, type: 3}
+  - ID: Twitch
+    category: Logos
+    searchKeywords:
+    - twitch
+    - twitch logo
+    - stream
+    - streaming
+    - live
+    - livestream
+    - gaming
+    - broadcast
+    - video
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e1c3494e1cd760b4cae2b6d74577479e, type: 3}
+  - ID: Twitch (Color)
+    category: Logos
+    searchKeywords:
+    - twitch
+    - twitch (color)
+    - twitch logo
+    - stream
+    - streaming
+    - live
+    - livestream
+    - gaming
+    - broadcast
+    - video
+    - color
+    - colour
+    - colored
+    - coloured
+    - full color
+    - multicolor
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8e13b73d329b10343a17fc37eb13ef1e, type: 3}
+  - ID: Twitter
+    category: Logos
+    searchKeywords:
+    - twitter
+    - twitter logo
+    - social
+    - social media
+    - social network
+    - tweet
+    - bird
+    - microblogging
+    - legacy twitter
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 7e005dc1001ce9f4d853f7fc602d5eb9, type: 3}
+  - ID: Twitter X
+    category: Logos
+    searchKeywords:
+    - twitter x
+    - twitter
+    - x logo
+    - social
+    - social media
+    - social network
+    - tweet
+    - microblogging
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c3e295e652c12a64c94c40659baa5adb, type: 3}
+  - ID: Xbox
+    category: Logos
+    searchKeywords:
+    - xbox
+    - xbox logo
+    - microsoft
+    - console
+    - game
+    - gaming
+    - video games
+    - game pass
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: d18d78db70674714ead50936d0e7e732, type: 3}
+  - ID: YouTube
+    category: Logos
+    searchKeywords:
+    - youtube
+    - youtube logo
+    - video
+    - watch
+    - channel
+    - streaming
+    - play
+    - social media
+    - yt
+    - monochrome
+    - monotone
+    - white
+    - brand
+    - brands
+    - logo
+    - logos
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2c9ce72ef4d51a54b90160bfdc8abbb3, type: 3}
+  - ID: Compass
+    category: Map
+    searchKeywords:
+    - compass
+    - direction
+    - navigation
+    - navigate
+    - north
+    - orientation
+    - heading
+    - explore
+    - travel
+    - compass needle
+    - map
+    - geography
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 520f06e222bc0cc458460309c8e78974, type: 3}
+  - ID: Compass (Fill)
+    category: Map
+    searchKeywords:
+    - compass
+    - compass (fill)
+    - direction
+    - navigation
+    - navigate
+    - north
+    - orientation
+    - heading
+    - explore
+    - travel
+    - compass needle
+    - map
+    - geography
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f8c18375b7129da47bb9b80bc86a4e59, type: 3}
+  - ID: Location
+    category: Map
+    searchKeywords:
+    - location
+    - map pin
+    - pin
+    - marker
+    - place
+    - position
+    - gps
+    - address
+    - destination
+    - geolocation
+    - navigation
+    - map
+    - geography
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0e0eaa519bfb9bc409ef000fa2776643, type: 3}
+  - ID: Location (Fill)
+    category: Map
+    searchKeywords:
+    - location
+    - location (fill)
+    - map pin
+    - pin
+    - marker
+    - place
+    - position
+    - gps
+    - address
+    - destination
+    - geolocation
+    - navigation
+    - map
+    - geography
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 061ed3b61e96ade418649094ad89a80e, type: 3}
+  - ID: Map
+    category: Map
+    searchKeywords:
+    - map
+    - folded map
+    - atlas
+    - navigation
+    - route
+    - directions
+    - travel
+    - geography
+    - explore
+    - terrain
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f1ba9ba2dd57b744fa5891823a28fb5e, type: 3}
+  - ID: Map (Fill)
+    category: Map
+    searchKeywords:
+    - map
+    - map (fill)
+    - folded map
+    - atlas
+    - navigation
+    - route
+    - directions
+    - travel
+    - geography
+    - explore
+    - terrain
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: afb8be5ca84a8f0479b44203430e5828, type: 3}
+  - ID: Planet
+    category: Map
+    searchKeywords:
+    - planet
+    - space
+    - astronomy
+    - universe
+    - cosmos
+    - orbit
+    - saturn
+    - solar system
+    - ringed planet
+    - galaxy
+    - map
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 84cafe318a4bdb648adf846edc6d69ee, type: 3}
+  - ID: Planet (Fill)
+    category: Map
+    searchKeywords:
+    - planet
+    - planet (fill)
+    - space
+    - astronomy
+    - universe
+    - cosmos
+    - orbit
+    - saturn
+    - solar system
+    - ringed planet
+    - galaxy
+    - map
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 095dfc3e8c576d74595ecf7cdeb932e0, type: 3}
+  - ID: World
+    category: Map
+    searchKeywords:
+    - world
+    - earth
+    - globe
+    - global
+    - international
+    - planet
+    - geography
+    - worldwide
+    - internet
+    - language
+    - continents
+    - map
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c06ed3ac2d0760e4e9594cdf12e3ef19, type: 3}
+  - ID: World (Fill)
+    category: Map
+    searchKeywords:
+    - world
+    - world (fill)
+    - earth
+    - globe
+    - global
+    - international
+    - planet
+    - geography
+    - worldwide
+    - internet
+    - language
+    - continents
+    - map
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8ae371bd62a1df64694229b7451be02a, type: 3}
+  - ID: Audio Tape
+    category: Media
+    searchKeywords:
+    - audio tape
+    - cassette
+    - tape
+    - cassette tape
+    - audio
+    - sound
+    - music
+    - recording
+    - retro
+    - analog
+    - mixtape
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8c3386b6da598a54abae1dd020c718f8, type: 3}
+  - ID: Audio Tape (Fill)
+    category: Media
+    searchKeywords:
+    - audio tape
+    - audio tape (fill)
+    - cassette
+    - tape
+    - cassette tape
+    - audio
+    - sound
+    - music
+    - recording
+    - retro
+    - analog
+    - mixtape
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0eaf93c7b6c0dec4bbc6c3c3a13c95af, type: 3}
+  - ID: Camera
+    category: Media
+    searchKeywords:
+    - camera
+    - photo
+    - photograph
+    - photography
+    - picture
+    - image
+    - snapshot
+    - capture
+    - shoot
+    - lens
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a576aad6425c59f4485ea808c9a2addc, type: 3}
+  - ID: Camera (Fill)
+    category: Media
+    searchKeywords:
+    - camera
+    - camera (fill)
+    - photo
+    - photograph
+    - photography
+    - picture
+    - image
+    - snapshot
+    - capture
+    - shoot
+    - lens
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 629ef2a2034272545bba0c96444a7ac4, type: 3}
+  - ID: Comparison
+    category: Media
+    searchKeywords:
+    - comparison
+    - compare
+    - before and after
+    - before after
+    - split view
+    - image comparison
+    - side by side
+    - difference
+    - preview
+    - slider
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: eb5b21b3859c0eb48a3d23efa5aa4d23, type: 3}
+  - ID: Mic
+    category: Media
+    searchKeywords:
+    - mic
+    - microphone
+    - audio input
+    - voice
+    - speech
+    - talk
+    - record
+    - recording
+    - podcast
+    - karaoke
+    - audio
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 75d8afa30dcdce944b689974b3d5fb22, type: 3}
+  - ID: Mic (Fill)
+    category: Media
+    searchKeywords:
+    - mic
+    - mic (fill)
+    - microphone
+    - audio input
+    - voice
+    - speech
+    - talk
+    - record
+    - recording
+    - podcast
+    - karaoke
+    - audio
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0c8f03c16ba373f4c8543abae520212e, type: 3}
+  - ID: Mic Off
+    category: Media
+    searchKeywords:
+    - mic off
+    - microphone
+    - microphone off
+    - mic mute
+    - muted microphone
+    - mute
+    - muted
+    - silent
+    - disable
+    - no audio input
+    - voice
+    - slash
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6dfb773021d92724fbad6141548d5ccf, type: 3}
+  - ID: Mic Off (Fill)
+    category: Media
+    searchKeywords:
+    - mic off
+    - mic off (fill)
+    - microphone
+    - microphone off
+    - mic mute
+    - muted microphone
+    - mute
+    - muted
+    - silent
+    - disable
+    - no audio input
+    - voice
+    - slash
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 08a62aea5d8f3e641b51157dccbc27f2, type: 3}
+  - ID: Music
+    category: Media
+    searchKeywords:
+    - music
+    - audio
+    - sound
+    - song
+    - melody
+    - musical note
+    - notes
+    - music note
+    - tune
+    - track
+    - beamed notes
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e0b730013bfe91e468621c0c257963e0, type: 3}
+  - ID: Music (Fill)
+    category: Media
+    searchKeywords:
+    - music
+    - music (fill)
+    - audio
+    - sound
+    - song
+    - melody
+    - musical note
+    - notes
+    - music note
+    - tune
+    - track
+    - beamed notes
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 98fbf9a4ed0541d4681bbda157c0dd7f, type: 3}
+  - ID: Pause
+    category: Media
+    searchKeywords:
+    - pause
+    - playback
+    - player
+    - pause playback
+    - hold
+    - suspend
+    - break
+    - media control
+    - audio
+    - video
+    - two bars
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5dabff2736ee8554aa0c1e918bd83a75, type: 3}
+  - ID: Pause (Circle Fill)
+    category: Media
+    searchKeywords:
+    - pause
+    - pause (circle fill)
+    - playback
+    - player
+    - pause playback
+    - hold
+    - suspend
+    - break
+    - media control
+    - audio
+    - video
+    - two bars
+    - media
+    - multimedia
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b7db9c12082ca03499e9cdd31b38c888, type: 3}
+  - ID: Pause (Circle)
+    category: Media
+    searchKeywords:
+    - pause
+    - pause (circle)
+    - playback
+    - player
+    - pause playback
+    - hold
+    - suspend
+    - break
+    - media control
+    - audio
+    - video
+    - two bars
+    - media
+    - multimedia
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1b07d3ce5c8672f4a8a81d61d4669b20, type: 3}
+  - ID: Photo
+    category: Media
+    searchKeywords:
+    - photo
+    - photograph
+    - picture
+    - image
+    - landscape
+    - mountains
+    - gallery
+    - camera roll
+    - wallpaper
+    - thumbnail
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1fad0619cebe11f4cafeab4c4dafc1d3, type: 3}
+  - ID: Photo (Fill)
+    category: Media
+    searchKeywords:
+    - photo
+    - photo (fill)
+    - photograph
+    - picture
+    - image
+    - landscape
+    - mountains
+    - gallery
+    - camera roll
+    - wallpaper
+    - thumbnail
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5c8187828a3478e429f563692bb0ea34, type: 3}
+  - ID: Photo Gallery (Fill)
+    category: Media
+    searchKeywords:
+    - photo gallery
+    - photo gallery (fill)
+    - gallery
+    - photo
+    - photos
+    - image
+    - images
+    - picture
+    - pictures
+    - album
+    - collection
+    - slideshow
+    - carousel
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 05a067adb5b2caa418e0f77c2ede0427, type: 3}
+  - ID: Play
+    category: Media
+    searchKeywords:
+    - play
+    - playback
+    - player
+    - start
+    - resume
+    - watch
+    - listen
+    - video
+    - audio
+    - media control
+    - triangle
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 318856bc445183049927f740c666381e, type: 3}
+  - ID: Play (Circle Fill)
+    category: Media
+    searchKeywords:
+    - play
+    - play (circle fill)
+    - playback
+    - player
+    - start
+    - resume
+    - watch
+    - listen
+    - video
+    - audio
+    - media control
+    - triangle
+    - media
+    - multimedia
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6e5bf24865899194a8ec06af8780d38a, type: 3}
+  - ID: Play (Circle)
+    category: Media
+    searchKeywords:
+    - play
+    - play (circle)
+    - playback
+    - player
+    - start
+    - resume
+    - watch
+    - listen
+    - video
+    - audio
+    - media control
+    - triangle
+    - media
+    - multimedia
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c1f95956a2f64ea448ebee32d1aabf8a, type: 3}
+  - ID: Play (Fill)
+    category: Media
+    searchKeywords:
+    - play
+    - play (fill)
+    - playback
+    - player
+    - start
+    - resume
+    - watch
+    - listen
+    - video
+    - audio
+    - media control
+    - triangle
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9e78cc0e8b1b99f4b8662481fe960548, type: 3}
+  - ID: Playlist
+    category: Media
+    searchKeywords:
+    - playlist
+    - play list
+    - music list
+    - songs
+    - tracks
+    - queue
+    - audio
+    - music
+    - list
+    - library
+    - musical note
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c79b1df358243a84ba8970605668273a, type: 3}
+  - ID: Playlist (Fill)
+    category: Media
+    searchKeywords:
+    - playlist
+    - playlist (fill)
+    - play list
+    - music list
+    - songs
+    - tracks
+    - queue
+    - audio
+    - music
+    - list
+    - library
+    - musical note
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4a96fb32b7f0a1e48a5fa838cd12bd4d, type: 3}
+  - ID: Video
+    category: Media
+    searchKeywords:
+    - video
+    - movie
+    - film
+    - clip
+    - playback
+    - player
+    - watch
+    - play
+    - screen
+    - recording
+    - cinema
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: eff190062819a2946afa9d2342dfbf21, type: 3}
+  - ID: Video (Fill)
+    category: Media
+    searchKeywords:
+    - video
+    - video (fill)
+    - movie
+    - film
+    - clip
+    - playback
+    - player
+    - watch
+    - play
+    - screen
+    - recording
+    - cinema
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 64b61b37042882e429dd9bd3fd5311cd, type: 3}
+  - ID: Volume
+    category: Media
+    searchKeywords:
+    - volume
+    - audio
+    - sound
+    - loudspeaker
+    - volume on
+    - speaker
+    - enable sound
+    - sound on
+    - audible
+    - output
+    - sound waves
+    - listen
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 499a7bc76363a6a49a5840241b58a585, type: 3}
+  - ID: Volume (Fill)
+    category: Media
+    searchKeywords:
+    - volume
+    - volume (fill)
+    - audio
+    - sound
+    - loudspeaker
+    - volume on
+    - speaker
+    - enable sound
+    - sound on
+    - audible
+    - output
+    - sound waves
+    - listen
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: dd089a5d5fd10a944ac657916ba54f0a, type: 3}
+  - ID: Volume Mute
+    category: Media
+    searchKeywords:
+    - volume mute
+    - volume
+    - audio
+    - sound
+    - speaker
+    - mute
+    - muted
+    - silent
+    - silence
+    - no sound
+    - sound off
+    - volume off
+    - cross
+    - media
+    - multimedia
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8bd84f76a2362f44fb396a50e8dc6264, type: 3}
+  - ID: Volume Mute (Fill)
+    category: Media
+    searchKeywords:
+    - volume mute
+    - volume mute (fill)
+    - volume
+    - audio
+    - sound
+    - speaker
+    - mute
+    - muted
+    - silent
+    - silence
+    - no sound
+    - sound off
+    - volume off
+    - cross
+    - media
+    - multimedia
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 55f838b4ad02f1946ac6cce4baf6332c, type: 3}
+  - ID: Campfire
+    category: Nature
+    searchKeywords:
+    - campfire
+    - fire
+    - flame
+    - bonfire
+    - camping
+    - camp
+    - outdoor
+    - outdoors
+    - wood
+    - logs
+    - heat
+    - warmth
+    - nature
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: e025838ba1e751b4f975196805ee1bdb, type: 3}
+  - ID: Campfire (Fill)
+    category: Nature
+    searchKeywords:
+    - campfire
+    - campfire (fill)
+    - fire
+    - flame
+    - bonfire
+    - camping
+    - camp
+    - outdoor
+    - outdoors
+    - wood
+    - logs
+    - heat
+    - warmth
+    - nature
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 51f74fcf321f02748adefda08c985f8c, type: 3}
+  - ID: Cat
+    category: Nature
+    searchKeywords:
+    - cat
+    - kitten
+    - feline
+    - pet
+    - animal
+    - meow
+    - cat face
+    - whiskers
+    - nature
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8034c58a3e06fd24b92175be8b8c42b1, type: 3}
+  - ID: Cat (Fill)
+    category: Nature
+    searchKeywords:
+    - cat
+    - cat (fill)
+    - kitten
+    - feline
+    - pet
+    - animal
+    - meow
+    - cat face
+    - whiskers
+    - nature
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 327ba77f3918c5b4ca81c5fd92a541f1, type: 3}
+  - ID: Dog
+    category: Nature
+    searchKeywords:
+    - dog
+    - puppy
+    - canine
+    - pet
+    - animal
+    - woof
+    - dog face
+    - hound
+    - nature
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 541ddb1d771ea4244aa81400eed8eec4, type: 3}
+  - ID: Dog (Fill)
+    category: Nature
+    searchKeywords:
+    - dog
+    - dog (fill)
+    - puppy
+    - canine
+    - pet
+    - animal
+    - woof
+    - dog face
+    - hound
+    - nature
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6bbf2431b025cc64fb4acd78538c7e3d, type: 3}
+  - ID: Flower
+    category: Nature
+    searchKeywords:
+    - flower
+    - plant
+    - bloom
+    - blossom
+    - floral
+    - tulip
+    - garden
+    - spring
+    - botanical
+    - petal
+    - nature
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 27ca29e2835f53f43a3e0d957dca267e, type: 3}
+  - ID: Flower (Fill)
+    category: Nature
+    searchKeywords:
+    - flower
+    - flower (fill)
+    - plant
+    - bloom
+    - blossom
+    - floral
+    - tulip
+    - garden
+    - spring
+    - botanical
+    - petal
+    - nature
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c9717fc9152de404d969b78e515c0525, type: 3}
+  - ID: Paw
+    category: Nature
+    searchKeywords:
+    - paw
+    - paw print
+    - pet
+    - animal
+    - footprint
+    - track
+    - dog
+    - cat
+    - wildlife
+    - nature
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 22bd50c20fa1d8445994dc837bde45f5, type: 3}
+  - ID: Paw (Fill)
+    category: Nature
+    searchKeywords:
+    - paw
+    - paw (fill)
+    - paw print
+    - pet
+    - animal
+    - footprint
+    - track
+    - dog
+    - cat
+    - wildlife
+    - nature
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 02a0b0cf10138e44e95d085e572a3ad9, type: 3}
+  - ID: Tree
+    category: Nature
+    searchKeywords:
+    - tree
+    - plant
+    - forest
+    - wood
+    - woodland
+    - park
+    - leaf
+    - leaves
+    - environment
+    - ecology
+    - outdoors
+    - nature
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 126cb0c1f0a28354cbc7037c3cc9e32e, type: 3}
+  - ID: Tree (Fill)
+    category: Nature
+    searchKeywords:
+    - tree
+    - tree (fill)
+    - plant
+    - forest
+    - wood
+    - woodland
+    - park
+    - leaf
+    - leaves
+    - environment
+    - ecology
+    - outdoors
+    - nature
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5d8af9f081b096b4d8ff20b59abed192, type: 3}
+  - ID: Key
+    category: Security
+    searchKeywords:
+    - key
+    - access
+    - password
+    - authentication
+    - authorization
+    - unlock
+    - permission
+    - credential
+    - login
+    - license
+    - secure
+    - security
+    - protection
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 07875e412043a5c42b34bdeb5b4cc21f, type: 3}
+  - ID: Key (Fill)
+    category: Security
+    searchKeywords:
+    - key
+    - key (fill)
+    - access
+    - password
+    - authentication
+    - authorization
+    - unlock
+    - permission
+    - credential
+    - login
+    - license
+    - secure
+    - security
+    - protection
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5f9b774a366287a4291e5fd4744bde6a, type: 3}
+  - ID: Lock
+    category: Security
+    searchKeywords:
+    - lock
+    - padlock
+    - locked
+    - secure
+    - security
+    - privacy
+    - private
+    - protected
+    - password
+    - restricted
+    - authentication
+    - closed lock
+    - protection
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3ca2fd20823cd744daa73b79210d57fc, type: 3}
+  - ID: Lock (Fill)
+    category: Security
+    searchKeywords:
+    - lock
+    - lock (fill)
+    - padlock
+    - locked
+    - secure
+    - security
+    - privacy
+    - private
+    - protected
+    - password
+    - restricted
+    - authentication
+    - closed lock
+    - protection
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0f1c3d17eb15e1c4e9f8a374b3404398, type: 3}
+  - ID: Shield
+    category: Security
+    searchKeywords:
+    - shield
+    - protection
+    - protect
+    - defense
+    - defence
+    - secure
+    - safety
+    - privacy
+    - guard
+    - armor
+    - armour
+    - security
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0b2f9d415f37c8f458d54fbb4d5ce22e, type: 3}
+  - ID: Shield (Fill)
+    category: Security
+    searchKeywords:
+    - shield
+    - shield (fill)
+    - protection
+    - protect
+    - defense
+    - defence
+    - secure
+    - safety
+    - privacy
+    - guard
+    - armor
+    - armour
+    - security
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 87f22a97563024344920a9faed0ab4e7, type: 3}
+  - ID: Cut Frame
+    category: Shapes
+    searchKeywords:
+    - cut frame
+    - frame
+    - corners
+    - corner brackets
+    - bracket frame
+    - border
+    - focus frame
+    - selection frame
+    - target
+    - viewfinder
+    - crop
+    - nine slice
+    - 9 slice
+    - sliced
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9f2d011e814a22b43981b6ee688e77ba, type: 3}
+  - ID: Cut Frame (With Lines)
+    category: Shapes
+    searchKeywords:
+    - cut frame
+    - cut frame (with lines)
+    - frame
+    - corners
+    - corner brackets
+    - bracket frame
+    - border
+    - box
+    - rectangle
+    - focus frame
+    - selection frame
+    - target
+    - nine slice
+    - 9 slice
+    - sliced
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1e8ee0cc50b8e4042baa80d067f2dc8f, type: 3}
+  - ID: Diamond Square
+    category: Shapes
+    searchKeywords:
+    - diamond square
+    - diamond
+    - rhombus
+    - rhomb
+    - rotated square
+    - quadrilateral
+    - geometry
+    - geometric
+    - four sides
+    - tile
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c1dc9108404b2c94a977e87401efdc33, type: 3}
+  - ID: Diamond Square (Fill)
+    category: Shapes
+    searchKeywords:
+    - diamond square
+    - diamond square (fill)
+    - diamond
+    - rhombus
+    - rhomb
+    - rotated square
+    - quadrilateral
+    - geometry
+    - geometric
+    - four sides
+    - tile
+    - shape
+    - shapes
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 23c40bdccf10c6d4482b335647abf801, type: 3}
+  - ID: Hexagon
+    category: Shapes
+    searchKeywords:
+    - hexagon
+    - hexagonal
+    - polygon
+    - geometry
+    - geometric
+    - six sides
+    - 6 sides
+    - honeycomb
+    - tile
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 479ae5e123ba89a428695979cb870cc8, type: 3}
+  - ID: Hexagon (Fill)
+    category: Shapes
+    searchKeywords:
+    - hexagon
+    - hexagon (fill)
+    - hexagonal
+    - polygon
+    - geometry
+    - geometric
+    - six sides
+    - 6 sides
+    - honeycomb
+    - tile
+    - shape
+    - shapes
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 551a87dca04bdd44db37e503d7a5f51a, type: 3}
+  - ID: Octagon
+    category: Shapes
+    searchKeywords:
+    - octagon
+    - octagonal
+    - polygon
+    - geometry
+    - geometric
+    - eight sides
+    - 8 sides
+    - stop sign
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 839b990691203e748b34d67aef1f510a, type: 3}
+  - ID: Octagon (Fill)
+    category: Shapes
+    searchKeywords:
+    - octagon
+    - octagon (fill)
+    - octagonal
+    - polygon
+    - geometry
+    - geometric
+    - eight sides
+    - 8 sides
+    - stop sign
+    - shape
+    - shapes
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9e2f8b37e2fe38348882177617c95394, type: 3}
+  - ID: Pentagon
+    category: Shapes
+    searchKeywords:
+    - pentagon
+    - pentagonal
+    - polygon
+    - geometry
+    - geometric
+    - five sides
+    - 5 sides
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 21c9c75e5a1109b439b9c561f2b19436, type: 3}
+  - ID: Pentagon (Fill)
+    category: Shapes
+    searchKeywords:
+    - pentagon
+    - pentagon (fill)
+    - pentagonal
+    - polygon
+    - geometry
+    - geometric
+    - five sides
+    - 5 sides
+    - shape
+    - shapes
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 953e97af493262b48a344f2f8acdd1da, type: 3}
+  - ID: Shapes
+    category: Shapes
+    searchKeywords:
+    - geometry
+    - geometric
+    - collection
+    - primitives
+    - symbols
+    - triangle
+    - heart
+    - circle
+    - square
+    - shape
+    - shapes
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 65e88b7c37dc53b4690a198cb3c7222c, type: 3}
+  - ID: Triangle
+    category: Shapes
+    searchKeywords:
+    - triangle
+    - triangular
+    - polygon
+    - geometry
+    - geometric
+    - three sides
+    - 3 sides
+    - pyramid
+    - shape
+    - shapes
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2e5997621f399cf488d574b78a54edaf, type: 3}
+  - ID: Triangle (Fill)
+    category: Shapes
+    searchKeywords:
+    - triangle
+    - triangle (fill)
+    - triangular
+    - polygon
+    - geometry
+    - geometric
+    - three sides
+    - 3 sides
+    - pyramid
+    - shape
+    - shapes
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 47f0d1ea34d0e0c40be65adf5d82ebd6, type: 3}
+  - ID: Basketball
+    category: Sports
+    searchKeywords:
+    - basketball
+    - basket ball
+    - ball
+    - hoops
+    - court
+    - game
+    - team
+    - sport
+    - athletics
+    - sports
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: abc01967cb70f4d439f55446e996d4fc, type: 3}
+  - ID: Basketball (Fill)
+    category: Sports
+    searchKeywords:
+    - basketball
+    - basketball (fill)
+    - basket ball
+    - ball
+    - hoops
+    - court
+    - game
+    - team
+    - sport
+    - athletics
+    - sports
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 29306c368cc217c4db2a56d879b6a759, type: 3}
+  - ID: Dumbbell
+    category: Sports
+    searchKeywords:
+    - dumbbell
+    - weight
+    - weights
+    - weightlifting
+    - gym
+    - fitness
+    - exercise
+    - workout
+    - strength
+    - training
+    - barbell
+    - sports
+    - sport
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3f00d1664a9851444a75c3c31cddf236, type: 3}
+  - ID: Dumbbell (Fill)
+    category: Sports
+    searchKeywords:
+    - dumbbell
+    - dumbbell (fill)
+    - weight
+    - weights
+    - weightlifting
+    - gym
+    - fitness
+    - exercise
+    - workout
+    - strength
+    - training
+    - barbell
+    - sports
+    - sport
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a36c70e0f55d9d64aa5db301896c6305, type: 3}
+  - ID: Fitness
+    category: Sports
+    searchKeywords:
+    - fitness
+    - biceps
+    - muscle
+    - muscular
+    - flex
+    - arm
+    - strength
+    - strong
+    - gym
+    - workout
+    - exercise
+    - bodybuilding
+    - sports
+    - sport
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4f2b67631422e2641b93bea186b175a5, type: 3}
+  - ID: Fitness (Fill)
+    category: Sports
+    searchKeywords:
+    - fitness
+    - fitness (fill)
+    - biceps
+    - muscle
+    - muscular
+    - flex
+    - arm
+    - strength
+    - strong
+    - gym
+    - workout
+    - exercise
+    - bodybuilding
+    - sports
+    - sport
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a4330e27775ac0a4197def656464ddb8, type: 3}
+  - ID: Playground
+    category: Sports
+    searchKeywords:
+    - playground
+    - sports field
+    - playing field
+    - soccer
+    - football
+    - pitch
+    - field
+    - court
+    - stadium
+    - team
+    - match
+    - sports
+    - sport
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: c37ecc61ec21f3747bdf36a98ef044a0, type: 3}
+  - ID: Playground (Fill)
+    category: Sports
+    searchKeywords:
+    - playground
+    - playground (fill)
+    - sports field
+    - playing field
+    - soccer
+    - football
+    - pitch
+    - field
+    - court
+    - stadium
+    - team
+    - match
+    - sports
+    - sport
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fba83a42810278544b57fcbf4ae532ec, type: 3}
+  - ID: Alert
+    category: Status
+    searchKeywords:
+    - alert
+    - warning
+    - danger
+    - caution
+    - error
+    - attention
+    - exclamation
+    - exclamation mark
+    - triangle
+    - warning triangle
+    - important
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b4cd174a8b017bc458aaeac05acfcc0c, type: 3}
+  - ID: Alert (Fill)
+    category: Status
+    searchKeywords:
+    - alert
+    - alert (fill)
+    - warning
+    - danger
+    - caution
+    - error
+    - attention
+    - exclamation
+    - exclamation mark
+    - triangle
+    - warning triangle
+    - important
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 00a801bd6904596438a107d69e411248, type: 3}
+  - ID: Check
+    category: Status
+    searchKeywords:
+    - check
+    - tick
+    - checkmark
+    - check mark
+    - done
+    - complete
+    - completed
+    - success
+    - confirm
+    - accept
+    - approve
+    - correct
+    - yes
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1fe9abdc905125641be7d2a8471ee62f, type: 3}
+  - ID: Check (Circle Fill)
+    category: Status
+    searchKeywords:
+    - check
+    - check (circle fill)
+    - tick
+    - checkmark
+    - check mark
+    - done
+    - complete
+    - completed
+    - success
+    - confirm
+    - accept
+    - approve
+    - correct
+    - yes
+    - status
+    - circle
+    - circular
+    - round
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 254a0d621e2620845a4d196be808a696, type: 3}
+  - ID: Check (Circle)
+    category: Status
+    searchKeywords:
+    - check
+    - check (circle)
+    - tick
+    - checkmark
+    - check mark
+    - done
+    - complete
+    - completed
+    - success
+    - confirm
+    - accept
+    - approve
+    - correct
+    - yes
+    - status
+    - circle
+    - circular
+    - round
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f8fe00a6df49c0b4784be7db94e72972, type: 3}
+  - ID: Checks
+    category: Status
+    searchKeywords:
+    - checks
+    - double check
+    - double tick
+    - checkmarks
+    - read receipt
+    - delivered
+    - seen
+    - done
+    - complete
+    - success
+    - verified
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ac40cf4879dbe0f40933ff2ca275928a, type: 3}
+  - ID: Circle Dash
+    category: Status
+    searchKeywords:
+    - circle dash
+    - dashed circle
+    - dashed
+    - dotted
+    - circle
+    - ring
+    - border
+    - loading
+    - loader
+    - spinner
+    - progress
+    - pending
+    - processing
+    - busy
+    - buffering
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 91c729bef1bc44afb77cda6d89ef3510, type: 3}
+  - ID: Circle Dash (Fill)
+    category: Status
+    searchKeywords:
+    - circle dash
+    - circle dash (fill)
+    - loading
+    - loader
+    - spinner
+    - progress
+    - pending
+    - processing
+    - busy
+    - buffering
+    - circle
+    - ring
+    - dashed circle
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a11ebe55ac8073043aceb276d2ee6f1c, type: 3}
+  - ID: Forbid
+    category: Status
+    searchKeywords:
+    - forbid
+    - forbidden
+    - prohibited
+    - ban
+    - banned
+    - block
+    - blocked
+    - disabled
+    - denied
+    - no entry
+    - not allowed
+    - circle slash
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b07c44a4f0a067d47b2fce80a42424ad, type: 3}
+  - ID: Forbid (Fill)
+    category: Status
+    searchKeywords:
+    - forbid
+    - forbid (fill)
+    - forbidden
+    - prohibited
+    - ban
+    - banned
+    - block
+    - blocked
+    - disabled
+    - denied
+    - no entry
+    - not allowed
+    - circle slash
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ea8d94327b120394ab86bc42f13848f2, type: 3}
+  - ID: Heartbeat
+    category: Status
+    searchKeywords:
+    - heartbeat
+    - pulse
+    - heart rate
+    - ecg
+    - ekg
+    - electrocardiogram
+    - health
+    - medical
+    - vital signs
+    - activity
+    - monitor
+    - signal
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6891f9eff3bf24548ac52a6ce59a707d, type: 3}
+  - ID: Information
+    category: Status
+    searchKeywords:
+    - information
+    - info
+    - information circle
+    - help
+    - about
+    - details
+    - notice
+    - tooltip
+    - circle
+    - lowercase i
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6fdf25f10f97c59438276b94ab56b6fc, type: 3}
+  - ID: Information (Fill)
+    category: Status
+    searchKeywords:
+    - information
+    - information (fill)
+    - info
+    - information circle
+    - help
+    - about
+    - details
+    - notice
+    - tooltip
+    - circle
+    - lowercase i
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4bcddd47a43c89949970f2273e43fa01, type: 3}
+  - ID: Question
+    category: Status
+    searchKeywords:
+    - question
+    - question mark
+    - help
+    - support
+    - faq
+    - unknown
+    - inquiry
+    - ask
+    - circle
+    - help center
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 34fae120dc4ed4948b62a2948a266d58, type: 3}
+  - ID: Question (Fill)
+    category: Status
+    searchKeywords:
+    - question
+    - question (fill)
+    - question mark
+    - help
+    - support
+    - faq
+    - unknown
+    - inquiry
+    - ask
+    - circle
+    - help center
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4bc531f52d504e448b0719700a7b33b6, type: 3}
+  - ID: Verified
+    category: Status
+    searchKeywords:
+    - verified
+    - verify
+    - verification
+    - certified
+    - official
+    - authentic
+    - trusted
+    - approved
+    - check
+    - checkmark
+    - badge
+    - seal
+    - success
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 98af6aa6a827a2e40b10689c5ab0f4eb, type: 3}
+  - ID: Verified (Fill)
+    category: Status
+    searchKeywords:
+    - verified
+    - verified (fill)
+    - verify
+    - verification
+    - certified
+    - official
+    - authentic
+    - trusted
+    - approved
+    - check
+    - checkmark
+    - badge
+    - seal
+    - success
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2956b0cf23aa8034a9274cd9dc6315c1, type: 3}
+  - ID: Warning
+    category: Status
+    searchKeywords:
+    - warning
+    - alert
+    - caution
+    - error
+    - attention
+    - exclamation
+    - exclamation mark
+    - notice
+    - important
+    - circle
+    - exclamation circle
+    - status
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6e2b714d92e757b428f657647e62e9fb, type: 3}
+  - ID: Warning (Fill)
+    category: Status
+    searchKeywords:
+    - warning
+    - warning (fill)
+    - alert
+    - caution
+    - error
+    - attention
+    - exclamation
+    - exclamation mark
+    - notice
+    - important
+    - circle
+    - exclamation circle
+    - status
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ac3517569edde514485e878cd529e6a8, type: 3}
+  - ID: Eye
+    category: System
+    searchKeywords:
+    - eye
+    - view
+    - visible
+    - visibility
+    - show
+    - preview
+    - watch
+    - see
+    - reveal
+    - password visibility
+    - look
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8dc037fb3d9140e40a2566b43ec097b7, type: 3}
+  - ID: Eye (Fill)
+    category: System
+    searchKeywords:
+    - eye
+    - eye (fill)
+    - view
+    - visible
+    - visibility
+    - show
+    - preview
+    - watch
+    - see
+    - reveal
+    - password visibility
+    - look
+    - system
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6efc5fd5000199441a7dba6bcdff16f9, type: 3}
+  - ID: Gear
+    category: System
+    searchKeywords:
+    - gear
+    - cog
+    - cogwheel
+    - gearwheel
+    - settings
+    - configuration
+    - preferences
+    - options
+    - mechanical
+    - spokes
+    - wheel
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5ab3019d796b00a47a1c015f1e977a7c, type: 3}
+  - ID: Gear (Fill)
+    category: System
+    searchKeywords:
+    - gear
+    - gear (fill)
+    - cog
+    - cogwheel
+    - gearwheel
+    - settings
+    - configuration
+    - preferences
+    - options
+    - mechanical
+    - spokes
+    - wheel
+    - system
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8330e45620121054cbc5278b94d1099a, type: 3}
+  - ID: Power
+    category: System
+    searchKeywords:
+    - power
+    - power button
+    - on off
+    - shutdown
+    - shut down
+    - turn off
+    - turn on
+    - standby
+    - start
+    - boot
+    - energy
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4c831a21c77ca174780acdcd937b1040, type: 3}
+  - ID: Settings
+    category: System
+    searchKeywords:
+    - settings
+    - setting
+    - preferences
+    - options
+    - configure
+    - configuration
+    - gear
+    - cog
+    - cogwheel
+    - adjust
+    - controls
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 84eafa975c3919745a06ff6386417a05, type: 3}
+  - ID: Settings (Fill)
+    category: System
+    searchKeywords:
+    - settings
+    - settings (fill)
+    - setting
+    - preferences
+    - options
+    - configure
+    - configuration
+    - gear
+    - cog
+    - cogwheel
+    - adjust
+    - controls
+    - system
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 282c195fe1003af44b5ad8cf4564db59, type: 3}
+  - ID: Settings Nut
+    category: System
+    searchKeywords:
+    - settings nut
+    - settings
+    - setting
+    - nut
+    - hex nut
+    - hexagon
+    - bolt
+    - hardware
+    - configure
+    - configuration
+    - preferences
+    - options
+    - mechanical
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1ec23763f3d656d438c5463396821e00, type: 3}
+  - ID: Settings Nut (Fill)
+    category: System
+    searchKeywords:
+    - settings nut
+    - settings nut (fill)
+    - settings
+    - setting
+    - nut
+    - hex nut
+    - hexagon
+    - bolt
+    - hardware
+    - configure
+    - configuration
+    - preferences
+    - options
+    - mechanical
+    - system
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b4733f8a1fef3ab4b965b982e219d9d8, type: 3}
+  - ID: Tool
+    category: System
+    searchKeywords:
+    - tool
+    - wrench
+    - spanner
+    - repair
+    - maintenance
+    - tools
+    - utility
+    - utilities
+    - fix
+    - build
+    - configure
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: f56a29f093cf964429b6d3ac7ffade1e, type: 3}
+  - ID: Tool (Fill)
+    category: System
+    searchKeywords:
+    - tool
+    - tool (fill)
+    - wrench
+    - spanner
+    - repair
+    - maintenance
+    - tools
+    - utility
+    - utilities
+    - fix
+    - build
+    - configure
+    - system
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 702e69aa521c3eb409091b93f472f93f, type: 3}
+  - ID: Trash Can
+    category: System
+    searchKeywords:
+    - trash can
+    - trash
+    - delete
+    - remove
+    - discard
+    - bin
+    - garbage
+    - waste
+    - recycle bin
+    - clear
+    - dispose
+    - system
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 14cd93fad8a23874abf2ecbc8d2ae0d1, type: 3}
+  - ID: Trash Can (Fill)
+    category: System
+    searchKeywords:
+    - trash can
+    - trash can (fill)
+    - trash
+    - delete
+    - remove
+    - discard
+    - bin
+    - garbage
+    - waste
+    - recycle bin
+    - clear
+    - dispose
+    - system
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4ae952337cdc50940818fabeebd80cc4, type: 3}
+  - ID: Alarm
+    category: Time
+    searchKeywords:
+    - alarm
+    - alarm clock
+    - wake
+    - wake up
+    - reminder
+    - ring
+    - bell
+    - timer
+    - schedule
+    - deadline
+    - time
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1ee019ddfa66e234a9a95998890a31c8, type: 3}
+  - ID: Alarm (Fill)
+    category: Time
+    searchKeywords:
+    - alarm
+    - alarm (fill)
+    - alarm clock
+    - wake
+    - wake up
+    - reminder
+    - ring
+    - bell
+    - timer
+    - schedule
+    - deadline
+    - time
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 33bbb85497d41ae44b6b0a503ee3c802, type: 3}
+  - ID: Calendar
+    category: Time
+    searchKeywords:
+    - calendar
+    - date
+    - day
+    - month
+    - year
+    - schedule
+    - event
+    - appointment
+    - agenda
+    - planner
+    - booking
+    - time
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0c8ef18bc96eb3840ab88b3775d51bdb, type: 3}
+  - ID: Calendar (Fill)
+    category: Time
+    searchKeywords:
+    - calendar
+    - calendar (fill)
+    - date
+    - day
+    - month
+    - year
+    - schedule
+    - event
+    - appointment
+    - agenda
+    - planner
+    - booking
+    - time
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: ccd0735e6b0cadc41876c74ed997bbed, type: 3}
+  - ID: Clock
+    category: Time
+    searchKeywords:
+    - clock
+    - time
+    - hour
+    - minute
+    - history
+    - recent
+    - duration
+    - wait
+    - schedule
+    - analog clock
+    - timepiece
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 44dd96f11bcbd4a459ace7e6a96f2d7d, type: 3}
+  - ID: Clock (Fill)
+    category: Time
+    searchKeywords:
+    - clock
+    - clock (fill)
+    - time
+    - hour
+    - minute
+    - history
+    - recent
+    - duration
+    - wait
+    - schedule
+    - analog clock
+    - timepiece
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1016e2a158c32d1449dfe5616d82c2ab, type: 3}
+  - ID: Watch
+    category: Time
+    searchKeywords:
+    - watch
+    - wristwatch
+    - wrist watch
+    - time
+    - clock
+    - wearable
+    - accessory
+    - hour
+    - minute
+    - timepiece
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 7212d932bbef0b045ba857e25f3595fc, type: 3}
+  - ID: Watch (Fill)
+    category: Time
+    searchKeywords:
+    - watch
+    - watch (fill)
+    - wristwatch
+    - wrist watch
+    - time
+    - clock
+    - wearable
+    - accessory
+    - hour
+    - minute
+    - timepiece
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 0b392cfa4dbbd58498a119eafb4dcd5f, type: 3}
+  - ID: Badge Indicator (Fill)
+    category: UI Controls
+    searchKeywords:
+    - badge indicator
+    - badge indicator (fill)
+    - badge
+    - indicator
+    - notification badge
+    - notification dot
+    - unread
+    - count
+    - status
+    - corner
+    - marker
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 3e8494d5c912761408a272a4930e9ebd, type: 3}
+  - ID: Button (Fill)
+    category: UI Controls
+    searchKeywords:
+    - button
+    - button (fill)
+    - push button
+    - click
+    - press
+    - action
+    - submit
+    - call to action
+    - cta
+    - control
+    - rounded rectangle
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 4fc69952963ba284982d77b42fd33126, type: 3}
+  - ID: Carousel (Fill)
+    category: UI Controls
+    searchKeywords:
+    - carousel
+    - carousel (fill)
+    - slider
+    - slideshow
+    - slides
+    - gallery
+    - cards
+    - swipe
+    - scroll
+    - snap
+    - horizontal
+    - page view
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9d92e51afac354748942a7e06d77fdb6, type: 3}
+  - ID: Cursor Box (Fill)
+    category: UI Controls
+    searchKeywords:
+    - cursor box
+    - cursor box (fill)
+    - cursor
+    - pointer
+    - mouse pointer
+    - click
+    - select
+    - selection
+    - hit area
+    - raycast
+    - interaction
+    - square
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1fa619a3011acbb4ea3e77903e6be021, type: 3}
+  - ID: Dropdown (Fill)
+    category: UI Controls
+    searchKeywords:
+    - dropdown
+    - dropdown (fill)
+    - drop down
+    - select
+    - select box
+    - combobox
+    - combo box
+    - options
+    - menu
+    - list
+    - expand
+    - caret
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 78b73b2ba22102d44b07fb5cea59fa45, type: 3}
+  - ID: Focus (Fill)
+    category: UI Controls
+    searchKeywords:
+    - focus
+    - focus (fill)
+    - target
+    - aim
+    - crosshair
+    - reticle
+    - center
+    - viewfinder
+    - focus point
+    - virtual cursor
+    - gamepad cursor
+    - cursor
+    - selection
+    - corners
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 175625d67ef125142a31d40c99b0ea9b, type: 3}
+  - ID: Input Field (Fill)
+    category: UI Controls
+    searchKeywords:
+    - input field
+    - input field (fill)
+    - text input
+    - text field
+    - textbox
+    - text box
+    - form
+    - typing
+    - caret
+    - cursor
+    - entry
+    - editable
+    - inputfield
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 7f523309c4f52484494de571a1aba19f, type: 3}
+  - ID: Marquee Selection
+    category: UI Controls
+    searchKeywords:
+    - marquee selection
+    - marquee
+    - selection
+    - select
+    - drag select
+    - box select
+    - rubber band
+    - selection box
+    - dashed rectangle
+    - multi select
+    - cursor
+    - pointer
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b17df33450be29b4b9c829178be7a674, type: 3}
+  - ID: Pages (Fill)
+    category: UI Controls
+    searchKeywords:
+    - pages
+    - pages (fill)
+    - page
+    - tabs
+    - tab view
+    - pager
+    - paging
+    - pagination
+    - cards
+    - stack
+    - swipe
+    - panels
+    - slides
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 37b0d31448ef2a64ead74c64384dfb4a, type: 3}
+  - ID: Scroll Area (Fill)
+    category: UI Controls
+    searchKeywords:
+    - scroll area
+    - scroll area (fill)
+    - scroll
+    - scrollbar
+    - scroll bar
+    - scroll view
+    - scrollview
+    - list
+    - viewport
+    - vertical
+    - overflow
+    - up
+    - down
+    - content
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: bd45e4356c4d25b43aa652c1325f3671, type: 3}
+  - ID: Scrollbar (Fill)
+    category: UI Controls
+    searchKeywords:
+    - scrollbar
+    - scrollbar (fill)
+    - scroll bar
+    - scroll
+    - scrolling
+    - scroll handle
+    - handle
+    - track
+    - vertical
+    - overflow
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9427d0bb269d83346ab4b6963698b5f6, type: 3}
+  - ID: Selector
+    category: UI Controls
+    searchKeywords:
+    - selector
+    - select
+    - selection
+    - switcher
+    - option
+    - options
+    - left right
+    - arrows
+    - cycle
+    - choose
+    - previous
+    - next
+    - horizontal selector
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9a4fe5b684cb50b4fb412f2421719f07, type: 3}
+  - ID: Sheet List (Fill)
+    category: UI Controls
+    searchKeywords:
+    - sheet list
+    - sheet list (fill)
+    - spreadsheet
+    - sheet
+    - table
+    - data table
+    - grid
+    - rows
+    - columns
+    - list
+    - data
+    - report
+    - cells
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: b740d16337585494ca9a28766c4aac8a, type: 3}
+  - ID: Slider (Fill)
+    category: UI Controls
+    searchKeywords:
+    - slider
+    - slider (fill)
+    - range
+    - range slider
+    - adjust
+    - adjustment
+    - value
+    - knob
+    - handle
+    - track
+    - volume
+    - horizontal
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 9e0babda1f62270439119684626da803, type: 3}
+  - ID: Switch (Fill)
+    category: UI Controls
+    searchKeywords:
+    - switch
+    - switch (fill)
+    - toggle
+    - toggle switch
+    - on off
+    - enable
+    - disable
+    - boolean
+    - setting
+    - option
+    - checkbox
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 85d35dd96b6f66943b4c451d95372813, type: 3}
+  - ID: Window (Fill)
+    category: UI Controls
+    searchKeywords:
+    - window
+    - window (fill)
+    - panel
+    - dialog
+    - modal
+    - popup
+    - pop up
+    - browser window
+    - title bar
+    - application
+    - frame
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6433a92d8776f8c4f97ee092aedac869, type: 3}
+  - ID: Window Frame (Fill)
+    category: UI Controls
+    searchKeywords:
+    - window frame
+    - window frame (fill)
+    - window
+    - panel
+    - frame
+    - border
+    - viewport
+    - container
+    - bounds
+    - corners
+    - rect
+    - resize
+    - ui
+    - ui control
+    - ui controls
+    - user interface
+    - interface
+    - widget
+    - component
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 558728b8c5708084cadb855f3ab33176, type: 3}
+  - ID: Cloud
+    category: Weather
+    searchKeywords:
+    - cloud
+    - cloudy
+    - overcast
+    - sky
+    - forecast
+    - cloud cover
+    - atmosphere
+    - weather
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 5f6ce13f7aeb6a748917c26e3577558f, type: 3}
+  - ID: Cloud (Fill)
+    category: Weather
+    searchKeywords:
+    - cloud
+    - cloud (fill)
+    - cloudy
+    - overcast
+    - sky
+    - forecast
+    - cloud cover
+    - atmosphere
+    - weather
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 1febd43f6f3292d4f9fd3f4211b6ca94, type: 3}
+  - ID: Moon
+    category: Weather
+    searchKeywords:
+    - moon
+    - crescent
+    - crescent moon
+    - night
+    - evening
+    - lunar
+    - sleep
+    - dark
+    - dark mode
+    - night mode
+    - space
+    - weather
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 71cfaf520443adc4ba2bc1a051fa6862, type: 3}
+  - ID: Moon (Fill)
+    category: Weather
+    searchKeywords:
+    - moon
+    - moon (fill)
+    - crescent
+    - crescent moon
+    - night
+    - evening
+    - lunar
+    - sleep
+    - dark
+    - dark mode
+    - night mode
+    - space
+    - weather
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 35f12dc3e2e4848408f3a865e63dcf85, type: 3}
+  - ID: Rain
+    category: Weather
+    searchKeywords:
+    - rain
+    - rainy
+    - raining
+    - rainfall
+    - shower
+    - precipitation
+    - wet
+    - drops
+    - raindrops
+    - cloud
+    - forecast
+    - weather
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 859d055b9f4e8df41aa77282fb2b621a, type: 3}
+  - ID: Rain (Fill)
+    category: Weather
+    searchKeywords:
+    - rain
+    - rain (fill)
+    - rainy
+    - raining
+    - rainfall
+    - shower
+    - precipitation
+    - wet
+    - drops
+    - raindrops
+    - cloud
+    - forecast
+    - weather
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 6899132e3e6fe3f438be61b2665e207a, type: 3}
+  - ID: Snow
+    category: Weather
+    searchKeywords:
+    - snow
+    - snowflake
+    - snowy
+    - winter
+    - ice
+    - icy
+    - frost
+    - cold
+    - freezing
+    - frozen
+    - crystal
+    - forecast
+    - weather
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 8ed847214bbafc54889d0be418c82c8a, type: 3}
+  - ID: Snow (Fill)
+    category: Weather
+    searchKeywords:
+    - snow
+    - snow (fill)
+    - snowflake
+    - snowy
+    - winter
+    - ice
+    - icy
+    - frost
+    - cold
+    - freezing
+    - frozen
+    - crystal
+    - forecast
+    - weather
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: 2f3596a6446e03e4a9288ec6e1c44713, type: 3}
+  - ID: Sun
+    category: Weather
+    searchKeywords:
+    - sun
+    - sunny
+    - sunshine
+    - day
+    - daylight
+    - light
+    - light mode
+    - summer
+    - warm
+    - hot
+    - clear sky
+    - forecast
+    - weather
+    - outline
+    - outlined
+    - line
+    - stroke
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: fa6fb45dd8d89f7458c2fb8333b1db08, type: 3}
+  - ID: Sun (Fill)
+    category: Weather
+    searchKeywords:
+    - sun
+    - sun (fill)
+    - sunny
+    - sunshine
+    - day
+    - daylight
+    - light
+    - light mode
+    - summer
+    - warm
+    - hot
+    - clear sky
+    - forecast
+    - weather
+    - fill
+    - filled
+    - solid
+    resolutions:
+    - resolution: 64
+      sprite: {fileID: 21300000, guid: a54476942c2f63c4895b6179dcbc7978, type: 3}

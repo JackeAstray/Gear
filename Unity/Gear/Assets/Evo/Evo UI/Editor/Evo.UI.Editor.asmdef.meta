@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b1b04218137baae4aa8a6bcfee004ef9
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Editor/Evo.UI.Editor.asmdef
+  uploadId: 957982

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d717894d0072c094590717a4f04f18a2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Charts/Line Chart.prefab
+  uploadId: 957982

@@ -1,0 +1,21 @@
+{
+    "name": "Evo.Tween.Modules.EvoUI.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5c2029f82e100e24893801e416288cc9",
+        "GUID:4df033fce1b61b845a8c58be301595b6",
+        "GUID:79d99550c8064ba45b632238ed4b1839",
+        "GUID:e0be22c02e1bc314e86c8c9123dd75ca"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2bbaff98332a4774c8a3b661084c7c1f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 2fb3965012f1f0141b08bed5b11cd852, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/Layout/Pages.cs
+  uploadId: 842076

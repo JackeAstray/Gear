@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 42939178eadba994ab57405394a12e26
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 04c0495bbfa08514c8b4d280c8aaba37, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/Styler/StylerPreset.cs
+  uploadId: 842076

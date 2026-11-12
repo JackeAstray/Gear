@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a37e96ac92edbcf4f85ab67fc433512f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Charts/Radar Chart.prefab
+  uploadId: 957982

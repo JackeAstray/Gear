@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 03ce0ff2bb6f11340b817011988d5c7b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Animated/Counter.prefab
+  uploadId: 957982

@@ -1,0 +1,30 @@
+{
+    "name": "Evo.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1938c58277649b240a50fcbfa4f73618",
+        "GUID:5c2029f82e100e24893801e416288cc9",
+        "GUID:ab9157c70a6a4ade89ba49b842c31004",
+        "GUID:e39842947943c974c96e0048c6854cca",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:6572381e8157783499bf6ce8f56b9292",
+        "GUID:283c44d2715769af3e5038d7cabfa7f7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "media.lightside.unitext",
+            "expression": "",
+            "define": "EVO_UNITEXT"
+        }
+    ],
+    "noEngineReferences": false
+}

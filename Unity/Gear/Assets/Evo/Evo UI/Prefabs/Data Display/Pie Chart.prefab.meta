@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 89ebcb560ba0d0643864249efde144f1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Charts/Pie Chart.prefab
+  uploadId: 957982

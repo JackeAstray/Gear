@@ -1,0 +1,10 @@
+E:\Github\Gear\.audit-build\bin\Debug\netstandard2.1\t.deps.json
+E:\Github\Gear\.audit-build\bin\Debug\netstandard2.1\t.dll
+E:\Github\Gear\.audit-build\bin\Debug\netstandard2.1\t.pdb
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.GeneratedMSBuildEditorConfig.editorconfig
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.AssemblyInfoInputs.cache
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.AssemblyInfo.cs
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.csproj.CoreCompileInputs.cache
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.sourcelink.json
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.dll
+E:\Github\Gear\.audit-build\obj\Debug\netstandard2.1\t.pdb

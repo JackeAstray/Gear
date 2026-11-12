@@ -24,6 +24,7 @@ uniform float _SamplingScale;
 uniform float _AllowOutOfBoundsShadow;
 uniform float _ShadowScale;
 uniform float _ShadowMode;
+uniform float _ShadowGrow;
 uniform int _ShadowMirrorDirection;
 uniform float _ShadowMirrorScale;
 uniform float2 _ShadowMirrorOffset;
@@ -95,8 +96,21 @@ half4 RM_RenderShadow(
 
     float shadowMask = baseSample.a;
 
+    // SdfOutline（_ShadowMode == 9）：单四边形等距膨胀阴影。
+    // 网格侧只生成一个外扩 quad，uv1 已按原始形状区域外插；这里按 SDF 距离向外扩张 _ShadowGrow 像素。
+    if (_ShadowMode == 9)
+    {
+        if (_DrawShape != 0)
+        {
+            float sdfDataShadow = 0;
+            float pixelScaleShadow = 1;
+            // 用阴影模糊强度作为柔和度来源（与既有阴影模式一致），越大边缘越软
+            RM_ComputeSdfData(shapeData, max(_ShadowBlurIntensity, 0.0001), sdfDataShadow, pixelScaleShadow);
+            shadowMask *= sampleSdf(sdfDataShadow - _ShadowGrow, pixelScaleShadow);
+        }
+    }
     // SDF 形状遮罩（原为 RECTANGLE||CIRCLE||... 关键字：改为按 _DrawShape 运行时判定）
-    if (_DrawShape != 0)
+    else if (_DrawShape != 0)
     {        float sdfDataShadow = 0;
         float shadowFalloffDistance = max(_ShadowBlurIntensity, 0.0001);
         float pixelScaleShadow = clamp(1.0 / shadowFalloffDistance, 1.0 / 2048.0, 2048.0);

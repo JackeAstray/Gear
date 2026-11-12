@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 877c9ae6c7f3fa34eb205fdbeb4d24b4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: f044579ebf897b442b252e213dba6db2, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Notification/Notification.cs
+  uploadId: 842076

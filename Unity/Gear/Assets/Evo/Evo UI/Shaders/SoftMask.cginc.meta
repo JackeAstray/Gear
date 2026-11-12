@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5d266dffc169a7045b075493e8c3cc2b
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Shaders/SoftMask.cginc
+  uploadId: 957982

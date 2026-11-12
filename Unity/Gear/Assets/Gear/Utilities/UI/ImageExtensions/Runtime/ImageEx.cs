@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Gear.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +56,11 @@ namespace Gear.Utilities.UI.ImageExtensions
             Shadow = 1,
             Shadow3 = 2,
             Mirror = 3,
-            Outline8 = 8
+            /// <summary>已废弃：运行时统一按 SdfOutline 单 quad 处理，保留枚举值仅为兼容旧资源序列化。</summary>
+            [InspectorName("Outline8（已废弃）")]
+            Outline8 = 8,
+            /// <summary>单 quad 等距膨胀轮廓阴影（性能优于 Outline8，属于附加模式）。</summary>
+            SdfOutline = 9
         }
 
         public enum ShadowDirection
@@ -323,6 +327,7 @@ namespace Gear.Utilities.UI.ImageExtensions
         private static readonly int shadowScale_Sp = Shader.PropertyToID("_ShadowScale");
         private static readonly int allowOutOfBoundsShadow_Sp = Shader.PropertyToID("_AllowOutOfBoundsShadow");
         private static readonly int shadowMode_Sp = Shader.PropertyToID("_ShadowMode");
+        private static readonly int shadowGrow_Sp = Shader.PropertyToID("_ShadowGrow");
         private static readonly int shadowMirrorDirection_Sp = Shader.PropertyToID("_ShadowMirrorDirection");
         private static readonly int shadowMirrorScale_Sp = Shader.PropertyToID("_ShadowMirrorScale");
         private static readonly int shadowMirrorOffset_Sp = Shader.PropertyToID("_ShadowMirrorOffset");

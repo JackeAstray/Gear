@@ -1,0 +1,1 @@
+namespace T { public class A {} }

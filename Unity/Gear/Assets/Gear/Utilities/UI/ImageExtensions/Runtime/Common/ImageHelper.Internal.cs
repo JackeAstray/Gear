@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +33,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             bool appendShadow,
             Vector2 shadowOffsetLocal,
             float shadowScale = 1f,
-            float shadowFade = 1f)
+            float shadowFade = 1f,
+            bool addMainQuad = true)
         {
             // 插入 UV 以避免边缘出现纹理包裹伪影
             float epsilon = 0.001f;
@@ -71,6 +72,9 @@ namespace Gear.Utilities.UI.ImageExtensions
 
                 vertexHelper.AddTriangle(startIndex2, startIndex2 + 1, startIndex2 + 2);
                 vertexHelper.AddTriangle(startIndex2 + 2, startIndex2 + 3, startIndex2);
+
+                // 仅要阴影时不再追加主图（旧实现会重复追加主图，导致多倍 overdraw）
+                if (!addMainQuad) return;
             }
 
             // 添加原始四边形顶点（在阴影之上）

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e4290d4e2c9c26141aa23ef313af52b5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 02b947348ac603f42938c07ecd242211, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Off Screen Indicator/OffScreenIndicatorObject.cs
+  uploadId: 957982

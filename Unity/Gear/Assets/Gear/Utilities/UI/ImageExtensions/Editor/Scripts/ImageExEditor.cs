@@ -24,6 +24,7 @@ namespace Gear.EditorTools.ImageExtensions
         private SerializedProperty spConstrainRotation, spShapeRotation, spFlipHorizontal, spFlipVertical;
         private SerializedProperty spShape;
         private SerializedProperty spStrokeWidth, spOutlineWidth, spOutlineColor, spFalloffDistance, spEnableDashedOutline, spCustomTime;
+        private SerializedProperty spDashLength, spDashGap, spDashSoftness;
         private SerializedProperty spShadowMirrorDirection;
         private SerializedProperty spShadowScale;
         private SerializedProperty spShadowMirrorScale, spShadowMirrorOffset;
@@ -33,6 +34,12 @@ namespace Gear.EditorTools.ImageExtensions
         // 非法 DrawShape 值限频告警标记（Inspector 绘制路径不抛异常）
         private bool m_invalidShapeLogged;
         private SerializedProperty spShadowColorFilter, spShadowColorGlow;
+
+        // 内阴影
+        private SerializedProperty spEnableInnerShadow, spInnerShadowColor, spInnerShadowWidth, spInnerShadowSoftness;
+
+        // 进度裁剪
+        private SerializedProperty spClipMode, spClipAmount, spClipReverse, spClipSoftness;
 
         private SerializedProperty spMaterialSettings, spMaterial, spImageType;
 
@@ -97,6 +104,17 @@ namespace Gear.EditorTools.ImageExtensions
             spFalloffDistance = serializedObject.FindProperty("falloffDistance");
             spEnableDashedOutline = serializedObject.FindProperty("enableDashedOutline");
             spCustomTime = serializedObject.FindProperty("customTime");
+            spDashLength = serializedObject.FindProperty("dashLength");
+            spDashGap = serializedObject.FindProperty("dashGap");
+            spDashSoftness = serializedObject.FindProperty("dashSoftness");
+            spEnableInnerShadow = serializedObject.FindProperty("enableInnerShadow");
+            spInnerShadowColor = serializedObject.FindProperty("innerShadowColor");
+            spInnerShadowWidth = serializedObject.FindProperty("innerShadowWidth");
+            spInnerShadowSoftness = serializedObject.FindProperty("innerShadowSoftness");
+            spClipMode = serializedObject.FindProperty("clipMode");
+            spClipAmount = serializedObject.FindProperty("clipAmount");
+            spClipReverse = serializedObject.FindProperty("clipReverse");
+            spClipSoftness = serializedObject.FindProperty("clipSoftness");
             spShadowMirrorDirection = serializedObject.FindProperty("shadowMirrorDirection");
             spShadowScale = serializedObject.FindProperty("shadowScale");
             spShadowMirrorScale = serializedObject.FindProperty("shadowMirrorScale");

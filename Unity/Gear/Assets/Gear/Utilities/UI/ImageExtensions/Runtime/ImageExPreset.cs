@@ -80,6 +80,25 @@ namespace Gear.Utilities.UI.ImageExtensions
         [Range(0, 1)] public float edgeShinyWidth = 0.5f;
         [Range(-5, 5)] public float edgeShinyAutoPlaySpeed = 1f;
 
+        [Header("内阴影")]
+        public bool enableInnerShadow;
+        [ColorUsage(true, true)] public Color innerShadowColor = new Color(0f, 0f, 0f, 1f);
+        public float innerShadowWidth = 8f;
+        [Range(0, 1)] public float innerShadowSoftness = 0.5f;
+
+        [Header("进度裁剪")]
+        public ImageEx.ClipMode clipMode;
+        [Range(0, 1)] public float clipAmount = 1f;
+        public bool clipReverse;
+        public float clipSoftness = 1f;
+
+        [Header("渐变效果（GradientEffect）")]
+        public bool gradientEnabled;
+        public GradientType gradientType;
+        public Gradient gradient = new Gradient();
+        public float gradientRotation;
+        public Color[] cornerGradientColors;
+
         [Header("细节纹理")]
         public ImageEx.DetailFilter detailMode;
         public Texture detailTex;
@@ -177,6 +196,24 @@ namespace Gear.Utilities.UI.ImageExtensions
             target.EdgeShinyWidth = edgeShinyWidth;
             target.EdgeShinyAutoPlaySpeed = edgeShinyAutoPlaySpeed;
 
+            target.EnableInnerShadow = enableInnerShadow;
+            target.InnerShadowColor = innerShadowColor;
+            target.InnerShadowWidth = innerShadowWidth;
+            target.InnerShadowSoftness = innerShadowSoftness;
+
+            target.Clip = clipMode;
+            target.ClipAmount = clipAmount;
+            target.ClipReverse = clipReverse;
+            target.ClipSoftness = clipSoftness;
+
+            GradientEffect gradientEffect = target.GradientEffect;
+            gradientEffect.Enabled = gradientEnabled;
+            gradientEffect.GradientType = gradientType;
+            if (gradient != null) gradientEffect.Gradient = gradient;
+            gradientEffect.Rotation = gradientRotation;
+            if (cornerGradientColors != null) gradientEffect.CornerGradientColors = cornerGradientColors;
+            target.GradientEffect = gradientEffect;
+
             // 细节
             target.Detail = detailMode;
             target.DetailTex = detailTex;
@@ -266,6 +303,23 @@ namespace Gear.Utilities.UI.ImageExtensions
             edgeShinyWidth = source.EdgeShinyWidth;
             edgeShinyAutoPlaySpeed = source.EdgeShinyAutoPlaySpeed;
 
+            enableInnerShadow = source.EnableInnerShadow;
+            innerShadowColor = source.InnerShadowColor;
+            innerShadowWidth = source.InnerShadowWidth;
+            innerShadowSoftness = source.InnerShadowSoftness;
+
+            clipMode = source.Clip;
+            clipAmount = source.ClipAmount;
+            clipReverse = source.ClipReverse;
+            clipSoftness = source.ClipSoftness;
+
+            GradientEffect gradientEffect = source.GradientEffect;
+            gradientEnabled = gradientEffect.Enabled;
+            gradientType = gradientEffect.GradientType;
+            gradient = gradientEffect.Gradient;
+            gradientRotation = gradientEffect.Rotation;
+            cornerGradientColors = gradientEffect.CornerGradientColors;
+
             detailMode = source.Detail;
             detailTex = source.DetailTex;
             detailTexScale = source.DetailTexScale;
@@ -345,6 +399,19 @@ namespace Gear.Utilities.UI.ImageExtensions
                 && Near(edgeShinyRate, other.edgeShinyRate)
                 && Near(edgeShinyWidth, other.edgeShinyWidth)
                 && Near(edgeShinyAutoPlaySpeed, other.edgeShinyAutoPlaySpeed)
+                && enableInnerShadow == other.enableInnerShadow
+                && Near(innerShadowColor, other.innerShadowColor)
+                && Near(innerShadowWidth, other.innerShadowWidth)
+                && Near(innerShadowSoftness, other.innerShadowSoftness)
+                && clipMode == other.clipMode
+                && Near(clipAmount, other.clipAmount)
+                && clipReverse == other.clipReverse
+                && Near(clipSoftness, other.clipSoftness)
+                && gradientEnabled == other.gradientEnabled
+                && gradientType == other.gradientType
+                && SameGradient(gradient, other.gradient)
+                && Near(gradientRotation, other.gradientRotation)
+                && SameColorArray(cornerGradientColors, other.cornerGradientColors)
                 && detailMode == other.detailMode
                 && detailTex == other.detailTex
                 && Near(detailTexScale, other.detailTexScale)
@@ -370,6 +437,46 @@ namespace Gear.Utilities.UI.ImageExtensions
                 && allowOutOfBoundsShadow == other.allowOutOfBoundsShadow
                 && Near(samplingWidth, other.samplingWidth)
                 && Near(samplingScale, other.samplingScale);
+        }
+
+        private static bool SameGradient(Gradient a, Gradient b)
+        {
+            if (ReferenceEquals(a, b)) return true;
+            if (a == null || b == null) return false;
+            if (a.mode != b.mode) return false;
+
+            GradientColorKey[] colorKeysA = a.colorKeys;
+            GradientColorKey[] colorKeysB = b.colorKeys;
+            if (colorKeysA.Length != colorKeysB.Length) return false;
+            for (int i = 0; i < colorKeysA.Length; i++)
+            {
+                if (!Mathf.Approximately(colorKeysA[i].time, colorKeysB[i].time)) return false;
+                if (colorKeysA[i].color != colorKeysB[i].color) return false;
+            }
+
+            GradientAlphaKey[] alphaKeysA = a.alphaKeys;
+            GradientAlphaKey[] alphaKeysB = b.alphaKeys;
+            if (alphaKeysA.Length != alphaKeysB.Length) return false;
+            for (int i = 0; i < alphaKeysA.Length; i++)
+            {
+                if (!Mathf.Approximately(alphaKeysA[i].time, alphaKeysB[i].time)) return false;
+                if (!Mathf.Approximately(alphaKeysA[i].alpha, alphaKeysB[i].alpha)) return false;
+            }
+
+            return true;
+        }
+
+        private static bool SameColorArray(Color[] a, Color[] b)
+        {
+            if (ReferenceEquals(a, b)) return true;
+            if (a == null || b == null) return false;
+            if (a.Length != b.Length) return false;
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (!Near(a[i], b[i])) return false;
+            }
+
+            return true;
         }
 
         private static bool Near(float a, float b) => Mathf.Abs(a - b) < 1e-4f;

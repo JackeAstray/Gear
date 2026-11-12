@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7acb39557d322634fa55174fed69e488
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 13cbcf9df2ac86a40bd556049ddb264a, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Carousel/Carousel.cs
+  uploadId: 842076

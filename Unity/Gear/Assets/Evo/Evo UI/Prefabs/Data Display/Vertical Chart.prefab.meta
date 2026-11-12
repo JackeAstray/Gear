@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a09d8a0a35b2ff046b7454c8104cf86b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Prefabs/Charts/Vertical Chart.prefab
+  uploadId: 957982

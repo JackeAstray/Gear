@@ -1,0 +1,151 @@
+/* Project Settings > Evo UI. Shared pieces live in EvoEditorUITK.uss. */
+.evo-settings {
+    flex-grow: 1;
+}
+
+/* Sized like the title the settings window draws for IMGUI pages */
+.evo-settings__title {
+    flex-shrink: 0;
+    margin: 8px 12px 0 12px;
+    padding: 0;
+    font-size: 19px;
+    -unity-font-style: bold;
+}
+
+/* A description under a heading, before the controls it introduces */
+.evo-window .evo-settings__intro {
+    min-height: 0;
+    margin: 0 2px 8px 2px;
+}
+
+.evo-window .evo-settings__note {
+    margin-top: 5px;
+}
+
+/* Provider list, in an evo-well: rows like a vertical segmented control, with the chosen one raised */
+.evo-settings__providers {
+    border-radius: 5px;
+}
+
+.evo-settings__provider {
+    flex-direction: row;
+    align-items: center;
+    min-height: 40px;
+    padding: 4px 6px 4px 10px;
+    border-radius: 3px;
+    transition-duration: 0.1s;
+}
+
+.evo-settings__provider:hover {
+    background-color: var(--evo-hover);
+}
+
+.evo-settings__provider--selected,
+.evo-settings__provider--selected:hover {
+    background-color: var(--evo-segment);
+}
+
+/* A provider that isn't installed can't be picked, so it never lights up, even when it's the saved choice */
+.evo-settings__provider--unavailable:hover,
+.evo-settings__provider--selected.evo-settings__provider--unavailable {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.evo-settings__radio {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-radius: 7px;
+    border-color: var(--evo-control-border-press);
+    background-color: var(--evo-check);
+}
+
+/* Filled like a checked toggle's box */
+.evo-settings__provider--selected .evo-settings__radio {
+    border-color: var(--evo-text);
+    background-color: var(--evo-text);
+}
+
+.evo-settings__provider--unavailable .evo-settings__radio {
+    opacity: 0.4;
+}
+
+.evo-settings__radio-dot {
+    display: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.evo-settings__provider--selected .evo-settings__radio-dot {
+    display: flex;
+}
+
+.evo-window--dark .evo-settings__radio-dot {
+    background-color: rgb(0, 0, 0);
+}
+
+.evo-window--light .evo-settings__radio-dot {
+    background-color: rgb(255, 255, 255);
+}
+
+.evo-settings__provider-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.evo-settings__provider-name {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: var(--evo-text);
+}
+
+.evo-settings__provider--selected .evo-settings__provider-name {
+    -unity-font-style: bold;
+}
+
+.evo-settings__provider--unavailable .evo-settings__provider-name {
+    color: var(--evo-muted);
+    -unity-font-style: normal;
+}
+
+.evo-settings__provider-detail {
+    margin: 1px 0 0 0;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+    white-space: normal;
+}
+
+.evo-settings__provider-detail--warning {
+    color: var(--evo-warning);
+}
+
+.evo-window .evo-settings__chip {
+    margin: 0 4px 0 8px;
+}
+
+/* Prefab options hang off the Prefabs toggle */
+.evo-settings__nested {
+    margin: 0 0 3px 8px;
+    padding-left: 8px;
+    border-left-width: 1px;
+    border-left-color: var(--evo-border);
+}
+
+.evo-settings__actions {
+    margin-top: 8px;
+}
+
+.evo-window .evo-settings__actions > .evo-primary {
+    min-width: 170px;
+}
+
+.evo-window .evo-settings__status {
+    margin-top: 10px;
+}

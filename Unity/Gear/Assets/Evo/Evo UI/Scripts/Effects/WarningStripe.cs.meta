@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0f56913add9235340b56c58af2a0710e
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.9.9
+  assetPath: Assets/Evo/Evo UI/Scripts/Effects/WarningStripe.cs
+  uploadId: 957982
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 4e54ecc1c5c80c248a8e46ed26956510, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

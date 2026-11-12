@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 64b4011eeb88fd64bb4f374851baa2f0
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Prefabs/Scrollbar/Scrollbar (Horizontal).prefab
+  uploadId: 842076

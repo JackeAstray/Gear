@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42939178eadba994ab57405394a12e26, type: 3}
+  m_Name: Party Game
+  m_EditorClassIdentifier: 
+  audioItems:
+  - itemID: Hover SFX
+    audioAsset: {fileID: 8300000, guid: dd9ee4ce18edbc34191b74119ac21f4f, type: 3}
+  - itemID: Click SFX
+    audioAsset: {fileID: 8300000, guid: 503de6bf0c32f134f96d4a92662f3e45, type: 3}
+  colorItems:
+  - itemID: Yellow
+    colorValue: {r: 1, g: 0.83137256, b: 0.23137255, a: 1}
+  - itemID: Yellow (Dark)
+    colorValue: {r: 0.9169811, g: 0.73430204, b: 0.15052326, a: 1}
+  - itemID: Blue
+    colorValue: {r: 0.23137255, g: 0.42352942, b: 1, a: 1}
+  - itemID: Blue (Light)
+    colorValue: {r: 0.41568628, g: 0.5647059, b: 1, a: 1}
+  - itemID: Pink
+    colorValue: {r: 1, g: 0.36078432, b: 0.61960787, a: 1}
+  - itemID: Pink (Light)
+    colorValue: {r: 1, g: 0.47843137, b: 0.69803923, a: 1}
+  - itemID: Pink (Pale)
+    colorValue: {r: 1, g: 0.5176471, b: 0.7294118, a: 1}
+  - itemID: Pink (Dark)
+    colorValue: {r: 0.9098039, g: 0.3137255, b: 0.6039216, a: 1}
+  - itemID: Pink (Deep)
+    colorValue: {r: 0.87058824, g: 0.24705882, b: 0.5176471, a: 1}
+  - itemID: Mint
+    colorValue: {r: 0.30980393, g: 0.8901961, b: 0.6901961, a: 1}
+  - itemID: Ink
+    colorValue: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
+  - itemID: Primary
+    colorValue: {r: 1, g: 1, b: 1, a: 1}
+  - itemID: Shadow
+    colorValue: {r: 0.047058824, g: 0.06666667, b: 0.09019608, a: 0.5019608}
+  fontItems:
+  - itemID: Bold
+    fontAsset: {fileID: 11400000, guid: 8788bd9d9a3de504b832c80b8618fbff, type: 2}
+    providerFonts: []
+  gradientItems: []
+  shapeStyleItems: []
+  spriteItems: []
+  textStyleItems: []
+  updateMode: 0
+  keepOnGlobalApply: 1

@@ -1,0 +1,76 @@
+/* Sprite Optimizer. Shared pieces live in EvoEditorUITK.uss. */
+.sprite-optimizer .evo-field > .unity-base-field__label {
+    min-width: 120px;
+    width: 120px;
+}
+
+.optimizer-bias-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.sprite-optimizer .optimizer-bias-row > .evo-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-bottom: 0;
+}
+
+.evo-window .optimizer-reset {
+    flex-shrink: 0;
+    height: 20px;
+    margin: 0 0 0 4px;
+    padding: 0 8px;
+}
+
+/* Texture list, in an evo-well */
+.optimizer-textures {
+    margin-bottom: 6px;
+}
+
+.optimizer-texture {
+    flex-direction: row;
+    align-items: center;
+    height: 22px;
+    padding: 0 2px 0 6px;
+    border-radius: 3px;
+}
+
+.optimizer-texture:hover {
+    background-color: var(--evo-hover);
+}
+
+.optimizer-texture__icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+.optimizer-texture__name {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.optimizer-texture__size {
+    flex-shrink: 0;
+    margin: 0 6px;
+    padding: 0;
+    font-size: 11px;
+    color: var(--evo-muted);
+}
+
+/* A description inside the list, without a description's spacing */
+.evo-body .optimizer-more {
+    min-height: 0;
+    margin: 4px 6px;
+}
+
+.evo-body .optimizer-empty {
+    margin: 0 2px 6px 2px;
+}

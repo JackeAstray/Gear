@@ -1,0 +1,25 @@
+{
+    "name": "Evo.Tween.Modules.RenderPipelines",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5c2029f82e100e24893801e416288cc9",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "EVO_RP_CORE"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.core",
+            "expression": "0.0.0",
+            "define": "EVO_RP_CORE"
+        }
+    ],
+    "noEngineReferences": false
+}

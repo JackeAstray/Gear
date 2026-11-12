@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7d8e447c9cf19a04cb21d02bc46c3bd3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tooltipPreset: {fileID: 5522925556100278261, guid: 66a3f5828c6c5d0449e43afc6acfe221,
+      type: 3}
+  - icon: {instanceID: 0}
+  - tooltipCanvas: {instanceID: 0}
+  - customContent: {instanceID: 0}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: bcd887074875ec54c8a43981bd6c2578, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Tooltip/Tooltip.cs
+  uploadId: 842076

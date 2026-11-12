@@ -1,0 +1,20 @@
+{
+    "name": "Evo.Tween.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1938c58277649b240a50fcbfa4f73618",
+        "GUID:7e25fe8f6fbbc15438270e00b77c4b12",
+        "GUID:5c2029f82e100e24893801e416288cc9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

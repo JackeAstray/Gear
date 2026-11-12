@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 38eac4891f440d0448e3fbea5fcc049a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 9fe76da4ccbc0604bb1ae7ff0c19e157, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.4
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Color Picker/ColorPicker.cs
+  uploadId: 842076

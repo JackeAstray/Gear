@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: e00bdb7bc0054d440bcd9af1d28757bf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - localizedObject: {instanceID: 0}
+  - itemParent: {instanceID: 0}
+  - itemPreset: {fileID: 2498091153592926613, guid: 7b386c7c463e6ce46817a88f14f05dd8,
+      type: 3}
+  - contextMenuPreset: {fileID: 8410478415027043751, guid: a6ae07085905b6840a878751ca847040,
+      type: 3}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: b72c37c99d7762041b3652a21c1b65cc, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310303
+  packageName: Evo UI - Modern UI Framework
+  packageVersion: 1.4.2
+  assetPath: Assets/Evo/Evo UI/Scripts/UI Elements/Menu Bar/MenuBar.cs
+  uploadId: 839716
