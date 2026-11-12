@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +17,9 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField] private Gradient gradient;
         [SerializeField] private Color[] cornerGradientColors;
         [SerializeField] private float rotation;
+        [SerializeField] private bool screenSpace;
+        [SerializeField] private bool reverse;
+        [SerializeField] private float speed;
 
         public Material sharedMat { get; set; }
         public bool shouldModifySharedMat { get; set; }
@@ -32,6 +35,9 @@ namespace Gear.Utilities.UI.ImageExtensions
         private static readonly int gradientInterpolationType_Sp = Shader.PropertyToID("_GradientInterpolationType");
         private static readonly int enableGradient_Sp = Shader.PropertyToID("_EnableGradient");
         private static readonly int gradientRotation_Sp = Shader.PropertyToID("_GradientRotation");
+        private static readonly int gradientSpace_Sp = Shader.PropertyToID("_GradientSpace");
+        private static readonly int gradientReverse_Sp = Shader.PropertyToID("_GradientReverse");
+        private static readonly int gradientSpeed_Sp = Shader.PropertyToID("_GradientSpeed");
 
         // 复用的临时缓冲：ModifyMaterial 是 GetModifiedMaterial 热路径的一部分，避免每次调用分配
         private static readonly Color[] TempGradientColors = new Color[8];
@@ -162,6 +168,48 @@ namespace Gear.Utilities.UI.ImageExtensions
         }
 
         /// <summary>
+        /// 渐变使用屏幕空间坐标（跨多个图形连续）。
+        /// </summary>
+        public bool ScreenSpace
+        {
+            get => screenSpace;
+            set
+            {
+                screenSpace = value;
+                if (shouldModifySharedMat) sharedMat.SetInt(gradientSpace_Sp, screenSpace ? 1 : 0);
+                onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// 渐变反向。
+        /// </summary>
+        public bool Reverse
+        {
+            get => reverse;
+            set
+            {
+                reverse = value;
+                if (shouldModifySharedMat) sharedMat.SetInt(gradientReverse_Sp, reverse ? 1 : 0);
+                onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// 自动流动速度（度/秒；径向/角向为相位/秒）。
+        /// </summary>
+        public float Speed
+        {
+            get => speed;
+            set
+            {
+                speed = value;
+                if (shouldModifySharedMat) sharedMat.SetFloat(gradientSpeed_Sp, speed);
+                onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
         /// 4种颜色用于角渐变覆盖。
         /// [0]=>左上角，[1]=>右上角
         /// [2]=>左下，[3]=>右下
@@ -225,6 +273,9 @@ namespace Gear.Utilities.UI.ImageExtensions
             Gradient = gradient;
             CornerGradientColors = cornerGradientColors;
             Rotation = rotation;
+            ScreenSpace = screenSpace;
+            Reverse = reverse;
+            Speed = speed;
         }
 
         /// <summary>
@@ -236,6 +287,9 @@ namespace Gear.Utilities.UI.ImageExtensions
             enabled = material.GetInt(enableGradient_Sp) == 1;
             gradientType = (GradientType)material.GetInt(gradientType_Sp);
             rotation = material.GetFloat(gradientRotation_Sp);
+            screenSpace = material.GetInt(gradientSpace_Sp) == 1;
+            reverse = material.GetInt(gradientReverse_Sp) == 1;
+            speed = material.GetFloat(gradientSpeed_Sp);
             int colorLength = material.GetInt(gradientColorsLength_Sp);
             int alphaLength = material.GetInt(gradientAlphasLength_Sp);
             Gradient gradient = new Gradient();
@@ -283,6 +337,9 @@ namespace Gear.Utilities.UI.ImageExtensions
             // 残留值而继续叠加渐变。
             material.SetInt(enableGradient_Sp, enabled ? 1 : 0);
             material.SetInt(gradientType_Sp, (int)gradientType);
+            material.SetInt(gradientSpace_Sp, screenSpace ? 1 : 0);
+            material.SetInt(gradientReverse_Sp, reverse ? 1 : 0);
+            material.SetFloat(gradientSpeed_Sp, speed);
 
             if (!enabled) return;
 
@@ -290,7 +347,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             // shader 侧对非法 _GradientType 不叠加任何渐变，与旧版「无关键字 ⇒ 无渐变」语义一致。
             if (gradientType != GradientType.Linear &&
                 gradientType != GradientType.Corner &&
-                gradientType != GradientType.Radial)
+                gradientType != GradientType.Radial &&
+                gradientType != GradientType.Angular)
             {
                 if (s_invalidGradientTypeLogged != (int)gradientType)
                 {

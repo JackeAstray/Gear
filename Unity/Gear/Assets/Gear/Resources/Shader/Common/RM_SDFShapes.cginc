@@ -373,7 +373,7 @@ half RM_BlobbyCrossScene(float4 additionalData)
     float2 texcoord = additionalData.xy;
     float width = additionalData.z;
     float height = additionalData.w;
-    float2 p = (2.0 * texcoord - additionalData.zw) / width;
+    float2 p = (2.0 * texcoord - additionalData.zw) / min(width, height);
     p *= 2.0;
     float time = _BlobbyCrossTime;
     float he = sin(time * 0.43 + 4.0);
@@ -389,7 +389,7 @@ half RM_SquircleScene(float4 additionalData)
     float2 texcoord = additionalData.xy;
     float width = additionalData.z;
     float height = additionalData.w;
-    float2 p = (2.0 * texcoord - additionalData.zw) / width;
+    float2 p = (2.0 * texcoord - additionalData.zw) / min(width, height);
     float n = 3.0 + 3 * sin(9.8 * _SquircleTime / 2.0);
     float d = sdSquircle(p, n);
     d = d * 80;
@@ -401,7 +401,7 @@ half RM_NTriangleRoundedScene(float4 additionalData)
     float2 texcoord = additionalData.xy;
     float width = additionalData.z;
     float height = additionalData.w;
-    float2 p = (2.0 * texcoord - float2(width,height)) / max(width,height);
+    float2 p = (2.0 * texcoord - float2(width,height)) / min(width,height);
     float time = _NTriangleRoundedTime;
     float number = _NTriangleRoundedNumber;
     float rounding = 0.1 - 0.1 * cos(radians(360.0) * time);

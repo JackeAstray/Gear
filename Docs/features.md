@@ -34,8 +34,9 @@
 - **文件夹工具**：项目内快速打开/定位文件夹
 - **UI 工具**：CreateUIPlane 一键生成 UI 面板脚本（含覆盖保护）
 - **小功能窗口**：场景切换 / 屏幕日志 / FPS / UI 波纹（全部支持 Undo）
-- **ImageEx**：SDF 形状图片 + 渐变/模糊/描边/过渡特效
-- **ImageEx Editor**：形状/特效参数可视化编辑，含相机画面（Camera Feed）接入
+- **ImageEx**：SDF 形状图片 + 渐变（屏幕空间/自动流动）/投影（偏移/扩散/羽化）/内阴影（偏移）/图案填充/圆头虚线/边缘辉光/背景模糊/过渡特效
+- **ImageEx Editor**：形状/特效参数可视化编辑，含相机画面（Camera Feed）接入；生成器可直接写入场景滚动区，对照 100+ 种效果（`Gear/UI 示例` 菜单已移除）
+- **UI 覆盖层**：Toast / Tooltip / ContextMenu（ImageEx 绘制，跟随主题令牌）
 - **Shader 变体剥离器**：WebGL 构建体积优化
 - **Addressables 流水线**：一键迁移（UI/音频/图片/配置/预制体/场景/字体）→ 构建 Content → 上传 OSS（菜单：Gear → Addressables）
 - **打包工具**：一键导出 `Gear.unitypackage`（菜单：Gear → 打包 → 导出 .unitypackage）

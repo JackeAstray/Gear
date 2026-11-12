@@ -1,0 +1,225 @@
+using TMPro;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.UI;
+using Gear.Utilities.UI.ImageExtensions;
+
+namespace Gear.EditorTools.ImageExtensions
+{
+    /// <summary>
+    /// 把 ImageEx 画廊直接生成到 <c>UI Example</c> 场景的
+    /// <c>UI示例/Scroll View/Viewport/Content</c> 下（清空旧示例卡片，可 Undo）。
+    /// 具体卡片清单位于 <see cref="ImageExGalleryCatalog"/>。
+    /// </summary>
+    internal static class ImageExGalleryBuilder
+    {
+        private const string RootCanvasName = "UI示例";
+        private const string ContentPath = "Scroll View/Viewport/Content";
+        internal const float CardWidth = 400f;
+        internal const float CardHeight = 250f;
+
+        /// <summary>清空 Content 并按目录生成全部卡片（由自动化入口调用）。</summary>
+        internal static int BuildInto(RectTransform content)
+        {
+            if (content == null) return 0;
+
+            // 旧 UI 示例的 Image / ImageEx 兄弟节点一并删掉，只保留承载画廊的 Scroll View
+            GameObject canvas = GameObject.Find(RootCanvasName);
+            Transform scrollView = content.parent != null ? content.parent.parent : null;
+            if (canvas != null)
+            {
+                for (int i = canvas.transform.childCount - 1; i >= 0; i--)
+                {
+                    Transform child = canvas.transform.GetChild(i);
+                    if (child == scrollView) continue;
+                    Undo.DestroyObjectImmediate(child.gameObject);
+                }
+
+                // 旧 demo 的其余 UI 已删除，根节点改名为画廊，避免继续叫“UI示例”
+                if (canvas.name == RootCanvasName) canvas.name = "ImageEx 画廊";
+            }
+
+            for (int i = content.childCount - 1; i >= 0; i--)
+            {
+                Undo.DestroyObjectImmediate(content.GetChild(i).gameObject);
+            }
+
+            // 原 4 列 200×200 改为 2 列 400×250，给效果留出可读尺寸
+            GridLayoutGroup grid = content.GetComponent<GridLayoutGroup>();
+            if (grid != null)
+            {
+                grid.cellSize = new Vector2(CardWidth, CardHeight);
+                grid.spacing = new Vector2(20f, 20f);
+                grid.padding = new RectOffset(12, 12, 12, 12);
+                grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+                grid.constraintCount = 2;
+                grid.childAlignment = TextAnchor.UpperCenter;
+            }
+
+            ImageExGalleryCatalog.Populate(content);
+
+            // 立刻重排，避免保存时 Content 还是旧高度
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+            return content.childCount;
+        }
+
+        /// <summary>定位 UI Example 场景里的滚动内容容器。</summary>
+        internal static RectTransform FindContent()
+        {
+            GameObject canvas = GameObject.Find(RootCanvasName);
+            if (canvas != null)
+            {
+                Transform content = canvas.transform.Find(ContentPath);
+                if (content is RectTransform rect) return rect;
+            }
+
+            GameObject[] all = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            for (int i = 0; i < all.Length; i++)
+            {
+                if (all[i].name == "Content" && all[i].transform.parent != null && all[i].transform.parent.name == "Viewport")
+                {
+                    return all[i].transform as RectTransform;
+                }
+            }
+
+            return null;
+        }
+
+        internal static void AddCard(RectTransform content, string title, string description, System.Action<ImageEx> configurePreview)
+        {
+            GameObject card = new GameObject(title, typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
+            Undo.RegisterCreatedObjectUndo(card, "Create Card");
+            card.transform.SetParent(content, false);
+
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) card.layer = uiLayer;
+
+            RectTransform rect = (RectTransform)card.transform;
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(CardWidth, CardHeight);
+
+            ImageEx background = card.GetComponent<ImageEx>();
+            background.DrawShape = DrawShape.Rectangle;
+            background.Rectangle = new RectangleImg { CornerRadius = new Vector4(18f, 18f, 18f, 18f) };
+            background.color = new Color(0.075f, 0.083f, 0.11f, 1f);
+            background.OutlineWidth = 1f;
+            background.OutlineColor = new Color(1f, 1f, 1f, 0.07f);
+
+            // 卡片背景不挂外阴影：画廊里只在“投影”示例的 Preview 上加软阴影，
+            // 避免每个示例都出现一圈阴影。
+            background.AppendShadow = false;
+
+            CreateHighlight(card.transform, uiLayer);
+            CreateLabel(card.transform, "CardTitle", title, 21f,
+                new Color(0.94f, 0.95f, 0.98f), new Vector2(20f, -18f), new Vector2(360f, 30f),
+                TextAlignmentOptions.Left);
+            CreateLabel(card.transform, "CardDescription", description, 13f,
+                new Color(0.62f, 0.65f, 0.73f), new Vector2(20f, -48f), new Vector2(360f, 22f),
+                TextAlignmentOptions.Left);
+
+            ImageEx preview = CreatePreview(card.transform, uiLayer);
+            configurePreview?.Invoke(preview);
+
+            // 投影示例的阴影必须画到 Preview 外侧，不能套 RectMask2D；其余示例保留裁剪。
+            if (title.StartsWith("投影") || title.Contains("Glass Card"))
+            {
+                RectMask2D clipMask = preview.transform.parent.GetComponent<RectMask2D>();
+                if (clipMask != null) clipMask.enabled = false;
+            }
+
+        }
+
+        internal static Gradient MakeGradient(Color a, Color b)
+        {
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new[] { new GradientColorKey(a, 0f), new GradientColorKey(b, 1f) },
+                new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 1f) });
+            return gradient;
+        }
+
+        private static void CreateHighlight(Transform card, int uiLayer)
+        {
+            GameObject highlight = new GameObject("Highlight", typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
+            highlight.transform.SetParent(card, false);
+            if (uiLayer >= 0) highlight.layer = uiLayer;
+
+            ImageEx image = highlight.GetComponent<ImageEx>();
+            image.DrawShape = DrawShape.Rectangle;
+            image.Rectangle = new RectangleImg { CornerRadius = new Vector4(18f, 18f, 0f, 0f) };
+            image.color = new Color(1f, 1f, 1f, 0.05f);
+            image.raycastTarget = false;
+
+            RectTransform rect = (RectTransform)highlight.transform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(1f, 1f);
+            rect.pivot = new Vector2(0.5f, 1f);
+            rect.offsetMin = new Vector2(1f, -1f);
+            rect.offsetMax = new Vector2(-1f, 0f);
+        }
+
+        private static ImageEx CreatePreview(Transform card, int uiLayer)
+        {
+            // PreviewClip 用 RectMask2D 把 BlobbyCross / NTriangleRounded 这类
+            // 会超出 rect 的 SDF 形状裁在 320x140 的预览范围内。
+            GameObject clip = new GameObject("PreviewClip", typeof(RectTransform), typeof(RectMask2D));
+            clip.transform.SetParent(card, false);
+            if (uiLayer >= 0) clip.layer = uiLayer;
+
+            RectTransform clipRect = (RectTransform)clip.transform;
+            clipRect.anchorMin = new Vector2(0.5f, 0f);
+            clipRect.anchorMax = new Vector2(0.5f, 0f);
+            clipRect.pivot = new Vector2(0.5f, 0f);
+            clipRect.anchoredPosition = new Vector2(0f, 22f);
+            clipRect.sizeDelta = new Vector2(320f, 140f);
+
+            GameObject preview = new GameObject("Preview", typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
+            preview.transform.SetParent(clip.transform, false);
+            if (uiLayer >= 0) preview.layer = uiLayer;
+
+            RectTransform rect = (RectTransform)preview.transform;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = Vector2.zero;
+
+            ImageEx image = preview.GetComponent<ImageEx>();
+            image.DrawShape = DrawShape.Rectangle;
+            image.Rectangle = new RectangleImg { CornerRadius = new Vector4(14f, 14f, 14f, 14f) };
+            image.raycastTarget = true;
+            return image;
+        }
+
+        private static TextMeshProUGUI CreateLabel(
+            Transform parent, string name, string text, float size, Color color,
+            Vector2 position, Vector2 rectSize, TextAlignmentOptions alignment)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer));
+            go.transform.SetParent(parent, false);
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) go.layer = uiLayer;
+
+            TextMeshProUGUI label = go.AddComponent<TextMeshProUGUI>();
+            label.text = text;
+            label.fontSize = size;
+            label.color = color;
+            label.alignment = alignment;
+            label.raycastTarget = false;
+            label.textWrappingMode = TextWrappingModes.NoWrap;
+
+            RectTransform rect = (RectTransform)go.transform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = position;
+            rect.sizeDelta = rectSize;
+            return label;
+        }
+    }
+}

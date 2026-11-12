@@ -237,6 +237,10 @@ namespace Gear.Utilities.UI.ImageExtensions
 
             ShadowScale = shadowScale;
 
+            // 新增的投影 Spread/Softness 直接参与网格外扩计算，Inspector 改字段不走属性 setter，
+            // 这里统一补一次顶点脏标记，避免只刷新材质、阴影 quad 仍是旧尺寸。
+            base.SetVerticesDirty();
+
             base.OnValidate();
             base.SetMaterialDirty();
         }
@@ -453,6 +457,9 @@ namespace Gear.Utilities.UI.ImageExtensions
             base.OnRectTransformDimensionsChange();
             circle.UpdateCircleRadius(rectTransform);
             heart.UpdateCircleRadius(rectTransform);
+            // 尺寸变化必须重建网格：SDF 阴影 quad 的外扩量、形状坐标都按当前尺寸生成。
+            // 只 SetMaterialDirty 会让首次 layout 前生成的“零尺寸阴影”一直留在 Canvas 里。
+            base.SetVerticesDirty();
             base.SetMaterialDirty();
         }
     }

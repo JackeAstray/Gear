@@ -114,6 +114,7 @@ namespace Gear.EditorTools.ImageExtensions
             AdditionalCanvasShaderChannels additionalShaderChannels = c.additionalShaderChannels;
             additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1;
             additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord2;
+            additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord3;
             additionalShaderChannels |= AdditionalCanvasShaderChannels.Tangent;
             c.additionalShaderChannels = additionalShaderChannels;
         }
@@ -126,6 +127,7 @@ namespace Gear.EditorTools.ImageExtensions
             // 导致"只有 TexCoord1/2 而缺 Tangent"的 Canvas 被误判为已就绪，从而永远不会补上 Tangent
             return (asc & AdditionalCanvasShaderChannels.TexCoord1) != 0 &&
                    (asc & AdditionalCanvasShaderChannels.TexCoord2) != 0 &&
+                   (asc & AdditionalCanvasShaderChannels.TexCoord3) != 0 &&
                    (asc & AdditionalCanvasShaderChannels.Tangent) != 0;
         }
 

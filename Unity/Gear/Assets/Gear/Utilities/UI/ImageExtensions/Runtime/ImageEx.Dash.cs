@@ -21,9 +21,17 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField, Range(0f, 1f), Tooltip("虚线两端的柔边（0 = 硬边，1 = 更软）")]
         private float dashSoftness = 0f;
 
+        [SerializeField, Tooltip("虚线段两端使用半圆帽（圆头虚线）")]
+        private bool dashRounded = false;
+
+        [SerializeField, Tooltip("虚线整体偏移（像素），用于手动对齐相位")]
+        private float dashOffset = 0f;
+
         private static readonly int dashLength_Sp = Shader.PropertyToID("_DashLength");
         private static readonly int dashGap_Sp = Shader.PropertyToID("_DashGap");
         private static readonly int dashSoftness_Sp = Shader.PropertyToID("_DashSoftness");
+        private static readonly int dashRounded_Sp = Shader.PropertyToID("_DashRounded");
+        private static readonly int dashOffset_Sp = Shader.PropertyToID("_DashOffset");
 
         /// <summary>虚线长度（像素）；0 回退旧逻辑。</summary>
         public float DashLength
@@ -60,6 +68,30 @@ namespace Gear.Utilities.UI.ImageExtensions
                 value = Mathf.Clamp01(value);
                 if (Mathf.Approximately(dashSoftness, value)) return;
                 dashSoftness = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>虚线段是否使用圆头帽。</summary>
+        public bool DashRounded
+        {
+            get => dashRounded;
+            set
+            {
+                if (dashRounded == value) return;
+                dashRounded = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>虚线整体偏移（像素）。</summary>
+        public float DashOffset
+        {
+            get => dashOffset;
+            set
+            {
+                if (Mathf.Approximately(dashOffset, value)) return;
+                dashOffset = value;
                 SetMaterialDirty();
             }
         }

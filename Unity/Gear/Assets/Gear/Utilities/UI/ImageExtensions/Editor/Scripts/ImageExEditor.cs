@@ -25,6 +25,7 @@ namespace Gear.EditorTools.ImageExtensions
         private SerializedProperty spShape;
         private SerializedProperty spStrokeWidth, spOutlineWidth, spOutlineColor, spFalloffDistance, spEnableDashedOutline, spCustomTime;
         private SerializedProperty spDashLength, spDashGap, spDashSoftness;
+        private SerializedProperty spDashRounded, spDashOffset;
         private SerializedProperty spShadowMirrorDirection;
         private SerializedProperty spShadowScale;
         private SerializedProperty spShadowMirrorScale, spShadowMirrorOffset;
@@ -37,6 +38,11 @@ namespace Gear.EditorTools.ImageExtensions
 
         // 内阴影
         private SerializedProperty spEnableInnerShadow, spInnerShadowColor, spInnerShadowWidth, spInnerShadowSoftness;
+        // 外投影（SdfOutline）/ 图案 / 边缘辉光
+        private SerializedProperty spPatternMode, spPatternSize, spPatternGap, spPatternAngle, spPatternOffset;
+        private SerializedProperty spPatternColor, spPatternSoftness, spPatternFalloff, spPatternOrigin, spPatternSpeed, spPatternOpacity;
+        private SerializedProperty spEnableBorderGlow, spBorderGlowColor, spBorderGlowWidth, spBorderGlowSoftness;
+        private SerializedProperty spBorderGlowAmbient, spBorderGlowFollow, spBorderGlowRadius, spBorderGlowIntensity;
 
         // 进度裁剪
         private SerializedProperty spClipMode, spClipAmount, spClipReverse, spClipSoftness;
@@ -107,10 +113,31 @@ namespace Gear.EditorTools.ImageExtensions
             spDashLength = serializedObject.FindProperty("dashLength");
             spDashGap = serializedObject.FindProperty("dashGap");
             spDashSoftness = serializedObject.FindProperty("dashSoftness");
+            spDashRounded = serializedObject.FindProperty("dashRounded");
+            spDashOffset = serializedObject.FindProperty("dashOffset");
             spEnableInnerShadow = serializedObject.FindProperty("enableInnerShadow");
             spInnerShadowColor = serializedObject.FindProperty("innerShadowColor");
             spInnerShadowWidth = serializedObject.FindProperty("innerShadowWidth");
             spInnerShadowSoftness = serializedObject.FindProperty("innerShadowSoftness");
+            spPatternMode = serializedObject.FindProperty("patternMode");
+            spPatternSize = serializedObject.FindProperty("patternSize");
+            spPatternGap = serializedObject.FindProperty("patternGap");
+            spPatternAngle = serializedObject.FindProperty("patternAngle");
+            spPatternOffset = serializedObject.FindProperty("patternOffset");
+            spPatternColor = serializedObject.FindProperty("patternColor");
+            spPatternSoftness = serializedObject.FindProperty("patternSoftness");
+            spPatternFalloff = serializedObject.FindProperty("patternFalloff");
+            spPatternOrigin = serializedObject.FindProperty("patternOrigin");
+            spPatternSpeed = serializedObject.FindProperty("patternSpeed");
+            spPatternOpacity = serializedObject.FindProperty("patternOpacity");
+            spEnableBorderGlow = serializedObject.FindProperty("enableBorderGlow");
+            spBorderGlowColor = serializedObject.FindProperty("borderGlowColor");
+            spBorderGlowWidth = serializedObject.FindProperty("borderGlowWidth");
+            spBorderGlowSoftness = serializedObject.FindProperty("borderGlowSoftness");
+            spBorderGlowAmbient = serializedObject.FindProperty("borderGlowAmbient");
+            spBorderGlowFollow = serializedObject.FindProperty("borderGlowFollow");
+            spBorderGlowRadius = serializedObject.FindProperty("borderGlowRadius");
+            spBorderGlowIntensity = serializedObject.FindProperty("borderGlowIntensity");
             spClipMode = serializedObject.FindProperty("clipMode");
             spClipAmount = serializedObject.FindProperty("clipAmount");
             spClipReverse = serializedObject.FindProperty("clipReverse");

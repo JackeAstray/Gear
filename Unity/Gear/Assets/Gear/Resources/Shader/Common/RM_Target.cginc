@@ -60,7 +60,11 @@ half4 RM_ApplyTarget(half4 color, half4 original, half rate)
     {
         return color;
     }
-    return lerp(original, color, rate);
+    // 目标模式是“去掉目标颜色”：与目标色相/亮度匹配的区域降低 alpha（被移除），
+    // 其余像素保持原样。rate=1 完全移除，rate=0 完全保留。
+    half4 filtered = color;
+    filtered.a *= (1.0 - rate);
+    return filtered;
 }
 
 #endif // RM_TARGET

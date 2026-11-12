@@ -1,5 +1,43 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **ImageEx 图案填充**：`Pattern`（点阵/网格/条纹/棋盘/圆环）+ 尺寸/留白/旋转/偏移/流速/径向 falloff，
+  按形状像素坐标铺开，非正方形图形不会被拉伸。
+- **ImageEx 边缘辉光**：`EnableBorderGlow` / `BorderGlowColor` / 宽度/羽化/环境光/跟随半径，
+  配合新组件 `ImageExPointerGlow` 做指标跟随指针的悬停辉光。
+- **背景模糊可直接挂在 ImageEx 上**：`UIBackdropBlur` 检测到 `ImageEx` 时不再替换材质，而是把
+  `_BackdropTex / _EnableBackdropBlur / _GlassTint` 写进 ImageEx 材质，由新增 `RM_Backdrop.cginc`
+  按屏幕 UV 采样；SDF 形状、圆角、描边、图案仍然保留。
+- **UI 覆盖层**：`GearToast`（右上角堆叠、unscaled 自动关闭）、`GearTooltip` + `GearTooltipTrigger`、
+  `GearContextMenu`（点击外部/Esc 关闭、贴边翻转）；统一走 `GearOverlayLayer` 与主题令牌。
+- **默认主题资产**：`Assets/Gear/Resources/UITheme/ImageExDefault.asset`（Overlay* 与 Surface/Accent 令牌）。
+- **ImageEx 画廊生成器**：直接清空并重建 `ImageEx 画廊/Scroll View/Viewport/Content`（原 UI示例），100+ 张效果卡片；`Gear/UI 示例` 菜单组已移除。
+  需要 Sprite 的滤镜/过渡卡片统一使用 `Assets/Gear/Resources/UI/Sprites/Saber.png`。
+
+### Fixed
+
+- **ImageEx 外投影方向失效**：旧实现把 `shadowOffsetLocal` 只当等距扩张距离，不同方向的投影渲染结果相同。
+  新增 `ShadowSpread / ShadowSoftness / ShadowOutsideOnly`，网格按 Offset 四边不对称外扩，
+  shader 在偏移点求 SDF，语义对齐 Evo 的 Outer Shadow。
+- **`Outline8` 阴影消失**：网格走了 `SdfOutline` 单 quad，但材质仍写 `_ShadowMode = 8`，shader 只识别 9。
+  现在 `Shadow` setter 与材质写入都统一映射到 `SdfOutline`。
+- **ImageEx 阴影被精灵 alpha 二次裁剪**：形状投影现在不再乘 `baseSample.a`，半透明贴图不会出现阴影缺块。
+- **内阴影无方向、曲线偏线性**：新增 `InnerShadowOffset`，改为 Evo 的 `smoothstep(-aa, aa, sdf + size)`；
+  `Softness` 0-1 映射到约 0-12px 羽化。
+- **虚线过角断裂、alpha 反向**：矩形/圆形改为沿周长连续参数化，新增 `DashRounded` 圆头帽与 `DashOffset`；
+  修正“虚线处用填充 alpha、空隙用描边 alpha”的问题，空心图形虚线不再整圈消失。
+- **渐变能力补齐**：`GradientEffect` 新增 `ScreenSpace / Reverse / Speed` 与 `Angular` 类型；
+  屏幕空间采样处理 D3D/GL 的 Y 翻转，自动流动直接读 `_Time.y`，不再需要 C# 每帧写 uniform。
+- **ImageEx 预设/主题覆盖**：新参数进入 `ImageExPreset` 的 Apply/ReadFrom/SameAs，
+  `ImageExThemeBinder` 新增投影/图案/辉光目标。
+
+### Docs
+
+- 新增 [Evo对齐-ImageEx阴影与UI覆盖层](Docs/design/Evo对齐-ImageEx阴影与UI覆盖层.md)，记录对照结论、修改文件与验证步骤。
+
 ## [2.0.0] - 2026-11-05
 
 这一版只做**一致性**：公开成员命名、接口命名、命名空间归属、文件名与类型名对齐。

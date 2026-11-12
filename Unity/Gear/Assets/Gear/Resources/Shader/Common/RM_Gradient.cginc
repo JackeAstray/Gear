@@ -11,19 +11,20 @@
 // #pragma shader_feature 的变体只有在「构建期存在启用该关键字的材质」时才会
 // 被编进包，否则会被裁剪；Player 里 EnableKeyword 静默失效
 // （strictShaderVariantMatching=0 时连警告都没有），表现为「编辑器正常、真机没效果」。
-// 实测 Android 包内 ImageEx 的变体空间只有 208 = 2*2*13(形状)*4(描边)，
-// 说明 GRADIENT_* 等关键字变体全部被裁掉了。
 //
-// 因此本模块改为读取材质 uniform 的运行时分支：
-//   1) 分支条件是 uniform，整个 draw call 一致，移动端开销可忽略；
-//   2) 不产生任何额外 shader 变体（反而更小）；
-//   3) Android / WebGL / 编辑器 都无条件生效。
+// 因此本模块改为读取材质 uniform 的运行时分支。
 //
-// _GradientType 取值对齐 C# 的 GradientType 枚举：0=Linear 1=Corner 2=Radial
+// 语义对齐 Evo UI 的 Fill Gradient：
+//   _GradientType    0=Linear 1=Corner 2=Radial 3=Angular
+//   _GradientSpace   0=Local（按图形自身） 1=Screen（跨多个图形连续）
+//   _GradientScale   空间缩放（zoom）
+//   _GradientOffset  平移（-1..1）
+//   _GradientReverse 反向
+//   _GradientSpeed   自动流动速度（度/秒；径向/角向为相位/秒）
 // ============================================================
 
 uniform half _EnableGradient;        // 渐变总开关 0/1
-uniform half _GradientType;          // 0=Linear 1=Corner 2=Radial
+uniform half _GradientType;          // 0=Linear 1=Corner 2=Radial 3=Angular
 uniform half _EnableGradientTex;     // 用渐变纹理代替色带 0/1
 
 uniform half4 _GradientColor0;
@@ -52,6 +53,11 @@ uniform half _GradientRotation;
 // Phase 3: 渐变偏移/缩放/纹理
 uniform half _GradientOffset;
 uniform half _GradientScale;
+
+// Evo 对齐：空间、反向、自动流动
+uniform half _GradientSpace;
+uniform half _GradientReverse;
+uniform half _GradientSpeed;
 
 uniform sampler2D _GradientTex;
 uniform float4 _GradientTex_ST;
@@ -90,15 +96,26 @@ float4 SampleGradient(float Time)
     return float4(color, alpha);
 }
 
-void RM_ApplyGradientColor(inout half4 color, float2 effectsUv, float aspect)
+// 屏幕空间坐标：-1..1，方向与 UI 屏幕一致，避免 D3D/GL 的 Y 翻转差异
+float2 RM_GradientScreenCoord(float2 screenPos)
+{
+    float2 coord = screenPos / max(_ScreenParams.xy, float2(1, 1)) * 2.0 - 1.0;
+    #if UNITY_UV_STARTS_AT_TOP
+        coord.y = -coord.y;
+    #endif
+    coord.y *= _ProjectionParams.x;
+    return coord;
+}
+
+void RM_ApplyGradientColor(inout half4 color, float2 effectsUv, float aspect, float2 screenPos)
 {
     if (_EnableGradient < 0.5)
     {
         return;
     }
 
-    // Linear / Radial 需要色带数据；Corner 只用四个角的颜色
-    if (_GradientType == 0 || _GradientType == 2)
+    // Linear / Radial / Angular 需要色带数据；Corner 只用四个角的颜色
+    if (_GradientType == 0 || _GradientType == 2 || _GradientType == 3)
     {
         _rmGradColors[0] = _GradientColor0;
         _rmGradColors[1] = _GradientColor1;
@@ -119,56 +136,63 @@ void RM_ApplyGradientColor(inout half4 color, float2 effectsUv, float aspect)
         _rmGradAlphas[7] = _GradientAlpha7;
     }
 
+    // 局部坐标 -1..1（Evo 用 SDF 坐标/半尺寸，等价于对 uv 做 *2-1）
+    float2 coord = (_GradientSpace > 0.5)
+        ? RM_GradientScreenCoord(screenPos)
+        : (effectsUv * 2.0 - 1.0);
+
+    float zoom = max(_GradientScale, 0.01);
+    float time = _Time.y * _GradientSpeed;
+    float t = 0.0;
+
     if (_GradientType == 0)
     {
         // -------------------- 线性（Linear） --------------------
-        const float gradientRotation = radians(_GradientRotation);
-        // 屏幕空间等角投影：方向按宽高比校正，再归一化使渐变始终铺满矩形(0°/90° 结果不变)
-        const float2 gradientDir = float2(cos(gradientRotation) * aspect, sin(gradientRotation));
-        const float gradientRange = max(abs(gradientDir.x) + abs(gradientDir.y), 1e-4);
-        float t = (gradientDir.x * (effectsUv.x - 0.5) + gradientDir.y * (effectsUv.y - 0.5)) / gradientRange + 0.5;
-        // Phase 3: 应用偏移和缩放
-        t = (t - 0.5) * _GradientScale + 0.5 + _GradientOffset;
-        t = saturate(t);
-
-        half4 grad = half4(1, 1, 1, 1);
-        if (_EnableGradientTex > 0.5)
-        {
-            grad = tex2D(_GradientTex, float2(t, 0.5));
-        }
-        else
-        {
-            grad = SampleGradient(t);
-        }
-        color *= grad;
+        const float gradientRotation = radians(_GradientRotation + time);
+        const float2 gradientDir = float2(cos(gradientRotation), sin(gradientRotation));
+        t = dot(coord, gradientDir) * 0.5 / zoom + 0.5 + _GradientOffset;
     }
     else if (_GradientType == 2)
     {
         // -------------------- 径向（Radial） --------------------
-        half fac = saturate(length(effectsUv - float2(.5, .5)) * 2 * _GradientScale + _GradientOffset);
-        fac = saturate(fac);
-
-        half4 grad = half4(1, 1, 1, 1);
-        if (_EnableGradientTex > 0.5)
-        {
-            grad = tex2D(_GradientTex, float2(fac, 0.5));
-        }
-        else
-        {
-            grad = SampleGradient(fac);
-        }
-        color *= grad;
+        t = length(coord) / zoom + _GradientOffset + time * 0.1;
+    }
+    else if (_GradientType == 3)
+    {
+        // -------------------- 角向（Angular） --------------------
+        float angle = atan2(coord.y, coord.x) * 0.15915494 + 0.5;
+        t = frac(angle + time * 0.1) / zoom + _GradientOffset;
     }
     else if (_GradientType == 1)
     {
         // -------------------- 四角（Corner） --------------------
-        half4 topCol = lerp(_CornerGradientColor2, _CornerGradientColor3, effectsUv.x);
-        half4 bottomCol = lerp(_CornerGradientColor0, _CornerGradientColor1, effectsUv.x);
-        half4 finalCol = lerp(topCol, bottomCol, effectsUv.y);
-
+        float2 uv01 = coord * 0.5 + 0.5;
+        if (_GradientReverse > 0.5) uv01 = 1.0 - uv01;
+        half4 topCol = lerp(_CornerGradientColor2, _CornerGradientColor3, uv01.x);
+        half4 bottomCol = lerp(_CornerGradientColor0, _CornerGradientColor1, uv01.x);
+        half4 finalCol = lerp(topCol, bottomCol, uv01.y);
         color *= finalCol;
+        return;
     }
-    // 其它非法 _GradientType：不叠加任何渐变（与旧版「无关键字 ⇒ 无渐变」语义一致）
+    else
+    {
+        // 其它非法 _GradientType：不叠加任何渐变
+        return;
+    }
+
+    if (_GradientReverse > 0.5) t = 1.0 - t;
+    t = saturate(t);
+
+    half4 grad = half4(1, 1, 1, 1);
+    if (_EnableGradientTex > 0.5)
+    {
+        grad = tex2D(_GradientTex, float2(t, 0.5));
+    }
+    else
+    {
+        grad = SampleGradient(t);
+    }
+    color *= grad;
 }
 
 #endif // RM_GRADIENT

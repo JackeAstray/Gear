@@ -167,6 +167,9 @@ namespace Gear.EditorTools.ImageExtensions
             if (preset.edgeMode != ImageEx.EdgeMode.None) parts.Add("边缘·" + preset.edgeMode);
             if (preset.enableInnerShadow) parts.Add("内阴影");
             if (preset.clipMode != ImageEx.ClipMode.None) parts.Add("裁剪·" + preset.clipMode);
+            if (preset.patternMode != ImageEx.PatternMode.None) parts.Add("图案·" + preset.patternMode);
+            if (preset.enableBorderGlow) parts.Add("边缘辉光");
+            if (preset.enableDashedOutline != 0) parts.Add("虚线");
             if (preset.appendShadow) parts.Add("阴影");
             if (preset.detailMode != ImageEx.DetailFilter.None) parts.Add("细节·" + preset.detailMode);
             if (preset.toneFilter != ImageEx.ToneFilter.None) parts.Add("色调·" + preset.toneFilter);

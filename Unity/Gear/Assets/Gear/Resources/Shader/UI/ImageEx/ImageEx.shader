@@ -73,12 +73,54 @@ Shader "ReunionMovement/UI/ImageEx"
         _DashLength ("虚线长度（像素）", float) = 0
         _DashGap ("虚线间隔（像素）", float) = 14
         _DashSoftness ("虚线柔边", Range(0, 1)) = 0
+        _DashRounded ("虚线圆头帽", Range(0, 1)) = 0
+        _DashOffset ("虚线偏移（像素）", float) = 0
 
         // 内阴影（Inner Shadow）：形状描边内侧按 SDF 深度叠色
         _EnableInnerShadow ("启用内阴影", int) = 0
         [HDR] _InnerShadowColor ("内阴影颜色", Color) = (0, 0, 0, 1)
         _InnerShadowWidth ("内阴影宽度（像素）", float) = 0
         _InnerShadowSoftness ("内阴影柔和度", Range(0, 1)) = 0.5
+
+        // 图案填充（Pattern）
+        _PatternMode ("图案模式", int) = 0
+        _PatternSize ("图案单元格（像素）", Vector) = (24, 24, 0, 0)
+        _PatternGap ("图案留白（像素）", Vector) = (4, 4, 0, 0)
+        _PatternAngle ("图案旋转（度）", float) = 0
+        _PatternOffset ("图案偏移（像素）", Vector) = (0, 0, 0, 0)
+        _PatternColor ("图案颜色", Color) = (1, 1, 1, 1)
+        _PatternSoftness ("图案柔边（像素）", float) = 1
+        _PatternFalloff ("图案衰减起止", Vector) = (0, 0, 0, 0)
+        _PatternOrigin ("图案衰减原点", Vector) = (0.5, 0.5, 0, 0)
+        _PatternSpeed ("图案流速", Vector) = (0, 0, 0, 0)
+        _PatternOpacity ("图案不透明度", Range(0, 1)) = 1
+
+        // 边缘辉光（Border Glow）
+        _EnableBorderGlow ("启用边缘辉光", int) = 0
+        [HDR] _BorderGlowColor ("边缘辉光颜色", Color) = (1, 1, 1, 1)
+        _BorderGlowWidth ("辉光宽度（像素）", float) = 2
+        _BorderGlowSoftness ("辉光羽化（像素）", float) = 8
+        _BorderGlowAmbient ("环境光比例", Range(0, 1)) = 0
+        _BorderGlowPosition ("指针位置（局部 0-1）", Vector) = (0.5, 0.5, 0, 0)
+        _BorderGlowRadius ("跟随半径（像素）", float) = 100
+        _BorderGlowFollow ("跟随强度", Range(0, 1)) = 0
+        _BorderGlowIntensity ("辉光强度", Range(0, 1)) = 1
+        _BorderGlowHover ("辉光悬停系数", Range(0, 1)) = 1
+
+        // 渐变（Gradient）扩展：屏幕空间 / 反向 / 自动流动
+        _GradientSpace ("渐变空间（0 局部 / 1 屏幕）", int) = 0
+        _GradientReverse ("渐变反向", int) = 0
+        _GradientSpeed ("渐变速度", float) = 0
+
+        // 背景模糊（Backdrop Blur，由 UIBackdropBlur 驱动）
+        [Toggle] _EnableBackdropBlur ("启用背景模糊", int) = 0
+        _BackdropTex ("背景模糊纹理", 2D) = "black" {}
+        _GlassTint ("玻璃染色", Color) = (1, 1, 1, 1)
+        _TintAmount ("染色比例", Range(0, 1)) = 0.6
+        _Saturation ("饱和度", Range(0, 2)) = 1
+        _Brightness ("亮度", Range(0, 2)) = 1
+        _Noise ("噪点", Range(0, 0.2)) = 0.1
+        _BackdropStrength ("背景模糊强度", Range(0, 1)) = 1
 
         // 进度裁剪（Clip / Progress）
         _ClipMode ("裁剪模式", int) = 0
@@ -258,7 +300,7 @@ Shader "ReunionMovement/UI/ImageEx"
                 float2 texcoord: TEXCOORD0;
                 float2 uv1: TEXCOORD1;
                 float2 size: TEXCOORD2;
-                float4 tangent: TANGENT; // tangent.w 用于阴影顶点标记
+                float4 tangent: TANGENT; // tangent.w 标记阴影顶点
                 
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
@@ -275,6 +317,7 @@ Shader "ReunionMovement/UI/ImageEx"
                 float quadAspect : TEXCOORD5; // 四边形宽高比，用于过渡纹理的各向同性旋转
                 float4 transitionScreen : TEXCOORD6; // 屏幕空间采样基底：中心(px).xy、面板屏幕高度(px).z
                 float4 transitionAxes : TEXCOORD7;   // 屏幕空间采样基底：面板在屏幕上的 X/Y 单位轴向
+                float4 screenPos : TEXCOORD8;        // 背景模糊采样用屏幕坐标
                 
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -312,7 +355,7 @@ Shader "ReunionMovement/UI/ImageEx"
             #define computeSdfMask(sdf, ps)  RM_ComputeSdfMask(sdf, ps, _StrokeWidth, _OutlineWidth)
             #define ComputeSdfData(IN, sdf, ps) RM_ComputeSdfData(IN.shapeData, _FalloffDistance, sdf, ps)
             #define generateDashedEffect(IN, t, ar, st) RM_GenerateDashedEffect(IN.shapeData, t, ar, st)
-            #define ApplyGradientColor(c, uv, aspect) RM_ApplyGradientColor(c, uv, aspect)
+            #define ApplyGradientColor(c, uv, aspect, screenPos) RM_ApplyGradientColor(c, uv, aspect, screenPos)
             #define ApplyBlur(uv)               RM_ApplyBlur(uv)
             #define ApplyOutlinedSdf(c, IN, sdf, ps) RM_ApplyOutlinedSdf(c, IN.shapeData, sdf, ps)
             #define apply_transition_filter(c, a, uv, ef)  RM_ApplyTransitionFilter(c, a, uv, ef)
@@ -329,6 +372,12 @@ Shader "ReunionMovement/UI/ImageEx"
             #include "../../Common/RM_Outline.cginc"
             // -------------------- 内阴影（INNER SHADOW） --------------------
             #include "../../Common/RM_InnerShadow.cginc"
+            // -------------------- 图案填充（PATTERN） --------------------
+            #include "../../Common/RM_Pattern.cginc"
+            // -------------------- 边缘辉光（BORDER GLOW） --------------------
+            #include "../../Common/RM_BorderGlow.cginc"
+            // -------------------- 背景模糊（BACKDROP） --------------------
+            #include "../../Common/RM_Backdrop.cginc"
             // -------------------- 进度裁剪（CLIP / PROGRESS） --------------------
             #include "../../Common/RM_Clip.cginc"
             // -------------------- 阴影（SHADOW） --------------------
@@ -347,6 +396,7 @@ Shader "ReunionMovement/UI/ImageEx"
             #include "../../Common/RM_Detail.cginc"
 
             //顶点着色器
+
             v2f vert(appdata_t v)
             {
                 v2f OUT;
@@ -370,6 +420,8 @@ Shader "ReunionMovement/UI/ImageEx"
                 
                 // uv1 在网格侧被插入 0.001 边距(ImageHelper.AddQuad)，回填成 [0,1] 后
                 // 形状 SDF 才能采到圆角帽顶/圆形极点，否则胶囊帽顶超出采样范围被裁成平头
+                // 阴影顶点：UV0 是外扩 quad 的 0..1；用材质 uniform 还原到
+                // 可超出 0..1 的形状坐标，绕开 Canvas 对顶点 UV 的 clamp。
                 float2 shapeUvRaw = (v.uv1 - 0.001) / 0.998;
                 float2 shapeUv = _ConstrainRotation > 0 ? shapeUvRaw : shapeUvRaw * size;
                 shapeUv = rotateUV(shapeUv, shapeRotation, _ConstrainRotation > 0? float2(0.5, 0.5) : size * 0.5);
@@ -418,6 +470,7 @@ Shader "ReunionMovement/UI/ImageEx"
                 float2 ey = length(eyOrtho) > 1e-5 ? normalize(eyOrtho) : float2(0, 1);
                 OUT.transitionScreen = float4(cPx, max(length(yPx) * 2.0, 1.0), 0);
                 OUT.transitionAxes = float4(ex, ey);
+                OUT.screenPos = ComputeScreenPos(OUT.vertex);
 
                 OUT.color = v.color * _Color;
 
@@ -516,6 +569,8 @@ Shader "ReunionMovement/UI/ImageEx"
                 // 继续主片元路径：先对主纹理进行可选模糊采样（ApplyBlur），然后按功能模块（渐变、SDF、描边、过渡）依次处理颜色与 alpha
                 // 保留原始的基础采样颜色
                 fixed4 baseSample = (tex2D(_MainTex, texcoord) + _TextureSampleAdd) * IN.color;
+                // 只取贴图/纹理本身的 alpha（不含 Graphic tint），用于背景模糊在贴图洞处保持透明
+                float sourceAlpha = (tex2D(_MainTex, texcoord) + _TextureSampleAdd).a;
 
                 // 计算边缘因子（在渐变之前，基于原始纹理 alpha 做 12 方向邻域检测）
                 float edgeFactor = 0;
@@ -524,16 +579,24 @@ Shader "ReunionMovement/UI/ImageEx"
                     edgeFactor = RM_ComputeEdgeFactor(texcoord, _EdgeWidth);
                 }
 
-                ApplyGradientColor(color, effectsUv, IN.quadAspect);
+                ApplyGradientColor(color, effectsUv, IN.quadAspect, IN.vertex.xy);
+
+                // 图案填充：在渐变之后、形状遮罩之前叠色，最终仍由 SDF alpha 裁形
+                RM_ApplyPattern(color, IN.shapeData, texcoord, IN.quadAspect, baseSample.a);
+
+                // 背景模糊：保留形状/圆角/描边，只把填充替换成抓屏模糊结果
+                RM_ApplyBackdrop(color, IN.screenPos.xy / max(IN.screenPos.w, 1e-5), sourceAlpha);
 
                 // 应用色调滤镜（Tone Filter）：灰度化 / 怀旧 / 负片 / 复古 / 色调分离
                 color = RM_ApplyToneFilter(color);
-                
+
+                float borderGlowSdf = 0;
                 if (_DrawShape != 0) // 原 RECTANGLE || CIRCLE || ... 分支：_DrawShape != 0 走 SDF 形状
                 {
                     float sdfData;
                     float pixelScale;
                     ComputeSdfData(IN, sdfData, pixelScale);
+                    borderGlowSdf = sdfData;
 
                     // 四种描边状态（对齐 C# 的 strokeState 判定），逐一还原原语义：
                     //   有点有轮 → OUTLINED_STROKE；只有点 → STROKE；
@@ -561,7 +624,7 @@ Shader "ReunionMovement/UI/ImageEx"
                     }
 
                     // 内阴影：放在描边之后、过渡之前，避免被描边覆盖，也跟随过渡遮罩
-                    RM_ApplyInnerShadow(color, sdfData);
+                    RM_ApplyInnerShadow(color, IN.shapeData, _FalloffDistance);
                 }
 
                 // 应用过渡过滤器
@@ -635,6 +698,9 @@ Shader "ReunionMovement/UI/ImageEx"
                     }
                     color.a *= RM_GetClipMask(clipUv, clipSize, clipSize.x / clipSize.y);
                 }
+
+                // 边缘辉光：在形状/过渡/裁剪之后叠加，不改变 alpha
+                RM_ApplyBorderGlow(color, IN.shapeData, texcoord, borderGlowSdf, _FalloffDistance);
 
                 #ifdef UNITY_UI_CLIP_RECT
                     color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);

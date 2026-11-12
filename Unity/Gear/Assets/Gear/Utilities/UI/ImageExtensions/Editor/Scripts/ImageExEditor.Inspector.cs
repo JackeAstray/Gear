@@ -465,7 +465,7 @@ namespace Gear.EditorTools.ImageExtensions
                         if (EditorGUI.EndChangeCheck()) spInnerShadowColor.colorValue = newInnerShadowColor;
 
                         EditorGUILayout.PropertyField(spInnerShadowWidth, new GUIContent("宽度（像素）"));
-                        EditorGUILayout.PropertyField(spInnerShadowSoftness, new GUIContent("柔和度"));
+                        EditorGUILayout.PropertyField(spInnerShadowSoftness, new GUIContent("柔和度（0-1）"));
                     }
 
                     EditorGUI.indentLevel--;
@@ -485,8 +485,10 @@ namespace Gear.EditorTools.ImageExtensions
                     EditorGUILayout.PropertyField(spDashLength, new GUIContent("长度（像素）"));
                     EditorGUILayout.PropertyField(spDashGap, new GUIContent("间隔（像素）"));
                     EditorGUILayout.PropertyField(spDashSoftness, new GUIContent("柔边"));
+                    EditorGUILayout.PropertyField(spDashRounded, new GUIContent("圆头帽"));
+                    EditorGUILayout.PropertyField(spDashOffset, new GUIContent("相位偏移（像素）"));
                     EditorGUILayout.HelpBox(
-                        "长度 = 0 时使用旧的 UV 比例虚线；> 0 时矩形按像素、圆形按周长均匀排布，并随「自定义时间」平移。",
+                        "长度 = 0 时使用旧的 UV 比例虚线；> 0 时矩形沿外轮廓周长连续排布（跨角不断开）、圆形按周长排布，并随「自定义时间」平移。",
                         MessageType.None);
                     EditorGUI.indentLevel--;
                 }
@@ -509,6 +511,52 @@ namespace Gear.EditorTools.ImageExtensions
                     EditorGUILayout.PropertyField(spClipSoftness, new GUIContent("柔和度（像素）"));
                 }
 
+                EditorGUI.indentLevel--;
+            }
+            EditorGUILayout.EndVertical();
+
+            // ==================== 图案填充 / 边缘辉光 ====================
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginVertical("Box");
+            {
+                EditorGUILayout.LabelField("图案填充（Pattern）", EditorStyles.boldLabel);
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(spPatternMode, new GUIContent("模式"));
+                if (spPatternMode.hasMultipleDifferentValues || spPatternMode.enumValueIndex != (int)ImageEx.PatternMode.None)
+                {
+                    EditorGUILayout.PropertyField(spPatternSize, new GUIContent("单元格（像素）"));
+                    EditorGUILayout.PropertyField(spPatternGap, new GUIContent("留白（像素）"));
+                    EditorGUILayout.PropertyField(spPatternAngle, new GUIContent("旋转（度）"));
+                    EditorGUILayout.PropertyField(spPatternOffset, new GUIContent("偏移（像素）"));
+                    EditorGUILayout.PropertyField(spPatternSpeed, new GUIContent("流速（像素/秒）"));
+                    EditorGUILayout.PropertyField(spPatternColor, new GUIContent("颜色"));
+                    EditorGUILayout.PropertyField(spPatternSoftness, new GUIContent("柔边（像素）"));
+                    EditorGUILayout.PropertyField(spPatternOpacity, new GUIContent("不透明度"));
+                    EditorGUILayout.PropertyField(spPatternFalloff, new GUIContent("径向衰减起止"));
+                    EditorGUILayout.PropertyField(spPatternOrigin, new GUIContent("衰减原点"));
+                    EditorGUILayout.HelpBox("图案按形状像素坐标铺开，跟随 RectTransform 尺寸，不会在非正方形图形上被拉伸。", MessageType.None);
+                }
+                EditorGUI.indentLevel--;
+            }
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginVertical("Box");
+            {
+                EditorGUILayout.LabelField("边缘辉光（Border Glow）", EditorStyles.boldLabel);
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(spEnableBorderGlow, new GUIContent("启用"));
+                if (spEnableBorderGlow.hasMultipleDifferentValues || spEnableBorderGlow.boolValue)
+                {
+                    EditorGUILayout.PropertyField(spBorderGlowColor, new GUIContent("颜色"));
+                    EditorGUILayout.PropertyField(spBorderGlowWidth, new GUIContent("宽度（像素）"));
+                    EditorGUILayout.PropertyField(spBorderGlowSoftness, new GUIContent("羽化（像素）"));
+                    EditorGUILayout.PropertyField(spBorderGlowAmbient, new GUIContent("环境光比例"));
+                    EditorGUILayout.PropertyField(spBorderGlowFollow, new GUIContent("跟随指针"));
+                    EditorGUILayout.PropertyField(spBorderGlowRadius, new GUIContent("跟随半径（像素）"));
+                    EditorGUILayout.PropertyField(spBorderGlowIntensity, new GUIContent("强度"));
+                    EditorGUILayout.HelpBox("给物体挂 ImageExPointerGlow 后，指针位置会写入辉光；不挂时按「环境光比例」整圈常亮。", MessageType.None);
+                }
                 EditorGUI.indentLevel--;
             }
             EditorGUILayout.EndVertical();

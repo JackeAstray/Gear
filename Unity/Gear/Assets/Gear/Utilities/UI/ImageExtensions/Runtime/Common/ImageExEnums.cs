@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +28,8 @@ namespace Gear.Utilities.UI.ImageExtensions
     {
         Linear,         //线性
         Corner,         //角
-        Radial          //径向
+        Radial,         //径向
+        Angular         //角向（扇面）
     }
 
     //材质模式

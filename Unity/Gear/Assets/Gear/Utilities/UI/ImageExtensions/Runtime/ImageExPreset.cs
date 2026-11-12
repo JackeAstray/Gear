@@ -7,11 +7,7 @@ namespace Gear.Utilities.UI.ImageExtensions
     /// ImageEx 效果预设：把 <b>大部分</b> Phase 1-3 效果参数保存为 ScriptableObject，
     /// 可在 ImageEx 组件之间共享，也可用于 ImageExTweener 的起止状态。
     /// <para>
-    /// 未覆盖的字段（既不拷贝也不参与 SameAs 比较，因此也不会被 ImageExReplica 检测到变化）：
-    /// <c>appendShadow</c>（阴影启用开关）、<c>shadowColor</c>、<c>shadowBlurIntensity</c>、
-    /// <c>shadowOffsetLocal</c>、<c>shadowScale</c>、<c>shadowMirror*</c>（镜像方向/缩放/偏移/显示原图/混合）、
-    /// <c>allowOutOfBoundsShadow</c>、<c>samplingWidth</c>、<c>samplingScale</c>。
-    /// 需要完整快照时应补齐这些字段（各需 1 处声明 + ApplyTo/ReadFrom/SameAs 共 4 处引用）。
+    /// 未覆盖的字段：Sprite、材质、相机画面、Raycast 事件；这些属于“资源绑定”而不是“效果参数”。
     /// </para>
     /// </summary>
     [CreateAssetMenu(menuName = "Gear/ImageEx Preset", fileName = "ImageExPreset")]
@@ -84,7 +80,40 @@ namespace Gear.Utilities.UI.ImageExtensions
         public bool enableInnerShadow;
         [ColorUsage(true, true)] public Color innerShadowColor = new Color(0f, 0f, 0f, 1f);
         public float innerShadowWidth = 8f;
-        [Range(0, 1)] public float innerShadowSoftness = 0.5f;
+        [Range(0f, 1f)] public float innerShadowSoftness = 0.5f;
+
+        [Header("虚线")]
+        public int enableDashedOutline;
+        public float dashLength;
+        public float dashGap = 14f;
+        [Range(0f, 1f)] public float dashSoftness;
+        public bool dashRounded;
+        public float dashOffset;
+
+        [Header("投影（SdfOutline）")]
+
+        [Header("图案填充")]
+        public ImageEx.PatternMode patternMode;
+        public Vector2 patternSize = new Vector2(24f, 24f);
+        public Vector2 patternGap = new Vector2(4f, 4f);
+        public float patternAngle;
+        public Vector2 patternOffset;
+        [ColorUsage(true, true)] public Color patternColor = Color.white;
+        public float patternSoftness = 1f;
+        public Vector2 patternFalloff;
+        public Vector2 patternOrigin = new Vector2(0.5f, 0.5f);
+        public Vector2 patternSpeed;
+        [Range(0f, 1f)] public float patternOpacity = 1f;
+
+        [Header("边缘辉光")]
+        public bool enableBorderGlow;
+        [ColorUsage(true, true)] public Color borderGlowColor = Color.white;
+        public float borderGlowWidth = 2f;
+        public float borderGlowSoftness = 8f;
+        [Range(0f, 1f)] public float borderGlowAmbient;
+        [Range(0f, 1f)] public float borderGlowFollow;
+        public float borderGlowRadius = 100f;
+        [Range(0f, 1f)] public float borderGlowIntensity = 1f;
 
         [Header("进度裁剪")]
         public ImageEx.ClipMode clipMode;
@@ -97,6 +126,9 @@ namespace Gear.Utilities.UI.ImageExtensions
         public GradientType gradientType;
         public Gradient gradient = new Gradient();
         public float gradientRotation;
+        public bool gradientScreenSpace;
+        public bool gradientReverse;
+        public float gradientSpeed;
         public Color[] cornerGradientColors;
 
         [Header("细节纹理")]
@@ -201,6 +233,35 @@ namespace Gear.Utilities.UI.ImageExtensions
             target.InnerShadowWidth = innerShadowWidth;
             target.InnerShadowSoftness = innerShadowSoftness;
 
+            target.DashRounded = dashRounded;
+            target.DashOffset = dashOffset;
+            target.EnableDashedOutline = enableDashedOutline;
+            target.DashLength = dashLength;
+            target.DashGap = dashGap;
+            target.DashSoftness = dashSoftness;
+
+
+            target.Pattern = patternMode;
+            target.PatternSize = patternSize;
+            target.PatternGap = patternGap;
+            target.PatternAngle = patternAngle;
+            target.PatternOffset = patternOffset;
+            target.PatternColor = patternColor;
+            target.PatternSoftness = patternSoftness;
+            target.PatternFalloff = patternFalloff;
+            target.PatternOrigin = patternOrigin;
+            target.PatternSpeed = patternSpeed;
+            target.PatternOpacity = patternOpacity;
+
+            target.EnableBorderGlow = enableBorderGlow;
+            target.BorderGlowColor = borderGlowColor;
+            target.BorderGlowWidth = borderGlowWidth;
+            target.BorderGlowSoftness = borderGlowSoftness;
+            target.BorderGlowAmbient = borderGlowAmbient;
+            target.BorderGlowFollow = borderGlowFollow;
+            target.BorderGlowRadius = borderGlowRadius;
+            target.BorderGlowIntensity = borderGlowIntensity;
+
             target.Clip = clipMode;
             target.ClipAmount = clipAmount;
             target.ClipReverse = clipReverse;
@@ -211,6 +272,9 @@ namespace Gear.Utilities.UI.ImageExtensions
             gradientEffect.GradientType = gradientType;
             if (gradient != null) gradientEffect.Gradient = gradient;
             gradientEffect.Rotation = gradientRotation;
+            gradientEffect.ScreenSpace = gradientScreenSpace;
+            gradientEffect.Reverse = gradientReverse;
+            gradientEffect.Speed = gradientSpeed;
             if (cornerGradientColors != null) gradientEffect.CornerGradientColors = cornerGradientColors;
             target.GradientEffect = gradientEffect;
 
@@ -308,6 +372,35 @@ namespace Gear.Utilities.UI.ImageExtensions
             innerShadowWidth = source.InnerShadowWidth;
             innerShadowSoftness = source.InnerShadowSoftness;
 
+            dashRounded = source.DashRounded;
+            dashOffset = source.DashOffset;
+            enableDashedOutline = source.EnableDashedOutline;
+            dashLength = source.DashLength;
+            dashGap = source.DashGap;
+            dashSoftness = source.DashSoftness;
+
+
+            patternMode = source.Pattern;
+            patternSize = source.PatternSize;
+            patternGap = source.PatternGap;
+            patternAngle = source.PatternAngle;
+            patternOffset = source.PatternOffset;
+            patternColor = source.PatternColor;
+            patternSoftness = source.PatternSoftness;
+            patternFalloff = source.PatternFalloff;
+            patternOrigin = source.PatternOrigin;
+            patternSpeed = source.PatternSpeed;
+            patternOpacity = source.PatternOpacity;
+
+            enableBorderGlow = source.EnableBorderGlow;
+            borderGlowColor = source.BorderGlowColor;
+            borderGlowWidth = source.BorderGlowWidth;
+            borderGlowSoftness = source.BorderGlowSoftness;
+            borderGlowAmbient = source.BorderGlowAmbient;
+            borderGlowFollow = source.BorderGlowFollow;
+            borderGlowRadius = source.BorderGlowRadius;
+            borderGlowIntensity = source.BorderGlowIntensity;
+
             clipMode = source.Clip;
             clipAmount = source.ClipAmount;
             clipReverse = source.ClipReverse;
@@ -318,6 +411,9 @@ namespace Gear.Utilities.UI.ImageExtensions
             gradientType = gradientEffect.GradientType;
             gradient = gradientEffect.Gradient;
             gradientRotation = gradientEffect.Rotation;
+            gradientScreenSpace = gradientEffect.ScreenSpace;
+            gradientReverse = gradientEffect.Reverse;
+            gradientSpeed = gradientEffect.Speed;
             cornerGradientColors = gradientEffect.CornerGradientColors;
 
             detailMode = source.Detail;
@@ -403,6 +499,31 @@ namespace Gear.Utilities.UI.ImageExtensions
                 && Near(innerShadowColor, other.innerShadowColor)
                 && Near(innerShadowWidth, other.innerShadowWidth)
                 && Near(innerShadowSoftness, other.innerShadowSoftness)
+                && dashRounded == other.dashRounded
+                && Near(dashOffset, other.dashOffset)
+                && enableDashedOutline == other.enableDashedOutline
+                && Near(dashLength, other.dashLength)
+                && Near(dashGap, other.dashGap)
+                && Near(dashSoftness, other.dashSoftness)
+                && patternMode == other.patternMode
+                && Near(patternSize, other.patternSize)
+                && Near(patternGap, other.patternGap)
+                && Near(patternAngle, other.patternAngle)
+                && Near(patternOffset, other.patternOffset)
+                && Near(patternColor, other.patternColor)
+                && Near(patternSoftness, other.patternSoftness)
+                && Near(patternFalloff, other.patternFalloff)
+                && Near(patternOrigin, other.patternOrigin)
+                && Near(patternSpeed, other.patternSpeed)
+                && Near(patternOpacity, other.patternOpacity)
+                && enableBorderGlow == other.enableBorderGlow
+                && Near(borderGlowColor, other.borderGlowColor)
+                && Near(borderGlowWidth, other.borderGlowWidth)
+                && Near(borderGlowSoftness, other.borderGlowSoftness)
+                && Near(borderGlowAmbient, other.borderGlowAmbient)
+                && Near(borderGlowFollow, other.borderGlowFollow)
+                && Near(borderGlowRadius, other.borderGlowRadius)
+                && Near(borderGlowIntensity, other.borderGlowIntensity)
                 && clipMode == other.clipMode
                 && Near(clipAmount, other.clipAmount)
                 && clipReverse == other.clipReverse
@@ -411,6 +532,9 @@ namespace Gear.Utilities.UI.ImageExtensions
                 && gradientType == other.gradientType
                 && SameGradient(gradient, other.gradient)
                 && Near(gradientRotation, other.gradientRotation)
+                && gradientScreenSpace == other.gradientScreenSpace
+                && gradientReverse == other.gradientReverse
+                && Near(gradientSpeed, other.gradientSpeed)
                 && SameColorArray(cornerGradientColors, other.cornerGradientColors)
                 && detailMode == other.detailMode
                 && detailTex == other.detailTex

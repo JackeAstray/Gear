@@ -39,38 +39,27 @@ namespace Gear.Utilities.UI.ImageExtensions
                     if (flipHorizontal) effectiveShadowOffset.x = -effectiveShadowOffset.x;
                     if (flipVertical) effectiveShadowOffset.y = -effectiveShadowOffset.y;
 
-                    // 先绘制主图（无阴影）
+                    // 单层投影 / 镜像：让 ImageHelper 先写阴影四边形，再写主图，
+                    // 保证阴影始终在图像后面（旧实现先写主图再 AddShadowQuad，阴影会盖在图像上）。
+                    if (appendShadow && (shadowMode == ShadowMode.Shadow || shadowMode == ShadowMode.Mirror))
+                    {
+                        ImageHelper.GenerateSimpleSprite(vh, preserveAspect, canvas, rectTransform, ActiveSprite,
+                            color, falloffDistance, true, effectiveShadowOffset, shadowScale);
+                        break;
+                    }
+
+                    // 其余模式：先绘制主图，再追加阴影（Shadow3 仍按原顺序）
                     ImageHelper.GenerateSimpleSprite(vh, preserveAspect, canvas, rectTransform, ActiveSprite,
                         color, falloffDistance, false, Vector2.zero);
 
-                    // 根据阴影模式追加阴影四边形
-                    if (appendShadow)
+                    if (appendShadow && shadowMode == ShadowMode.Shadow3)
                     {
-                        switch (shadowMode)
+                        for (int i = 0; i < 3; i++)
                         {
-                            case ShadowMode.Shadow:
-                                // 单层投影
-                                ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
-                                    ActiveSprite, color, effectiveShadowOffset, shadowScale);
-                                break;
-
-                            case ShadowMode.Shadow3:
-                                // 3层迭代投影，偏移递增、alpha 递减
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    float iterFade = Mathf.Pow(0.75f, i); // 1.0, 0.75, 0.5625
-                                    Vector2 iterOffset = effectiveShadowOffset * (i + 1);
-                                    ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
-                                        ActiveSprite, color, iterOffset, shadowScale, iterFade);
-                                }
-                                break;
-
-                            case ShadowMode.Mirror:
-                                // 镜像阴影：使用单层但依赖 shader 镜像逻辑
-                                ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
-                                    ActiveSprite, color, effectiveShadowOffset, shadowScale);
-                                break;
-                            // 注：Outline8 由外层单 quad 路径统一处理，不再走多四边形分支
+                            float iterFade = Mathf.Pow(0.75f, i); // 1.0, 0.75, 0.5625
+                            Vector2 iterOffset = effectiveShadowOffset * (i + 1);
+                            ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
+                                ActiveSprite, color, iterOffset, shadowScale, iterFade);
                         }
                     }
                     break;
@@ -187,6 +176,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             mat.SetFloat(dashLength_Sp, dashLength);
             mat.SetFloat(dashGap_Sp, dashGap);
             mat.SetFloat(dashSoftness_Sp, dashSoftness);
+            mat.SetFloat(dashRounded_Sp, dashRounded ? 1f : 0f);
+            mat.SetFloat(dashOffset_Sp, dashOffset);
             mat.SetFloat(customTime_Sp, customTime);
             // 已移除 OUTLINED8 - 无操作
 
@@ -351,6 +342,31 @@ namespace Gear.Utilities.UI.ImageExtensions
             mat.SetColor(detailColor_Sp, m_DetailColor);
             mat.SetInt(detailMode_Sp, (int)m_DetailMode);
 
+            // -------------------- 图案填充（PATTERN） --------------------
+            mat.SetInt(patternMode_Sp, (int)patternMode);
+            mat.SetVector(patternSize_Sp, new Vector4(patternSize.x, patternSize.y, 0f, 0f));
+            mat.SetVector(patternGap_Sp, new Vector4(patternGap.x, patternGap.y, 0f, 0f));
+            mat.SetFloat(patternAngle_Sp, patternAngle);
+            mat.SetVector(patternOffset_Sp, new Vector4(patternOffset.x, patternOffset.y, 0f, 0f));
+            mat.SetColor(patternColor_Sp, patternColor);
+            mat.SetFloat(patternSoftness_Sp, patternSoftness);
+            mat.SetVector(patternFalloff_Sp, new Vector4(patternFalloff.x, patternFalloff.y, 0f, 0f));
+            mat.SetVector(patternOrigin_Sp, new Vector4(patternOrigin.x, patternOrigin.y, 0f, 0f));
+            mat.SetVector(patternSpeed_Sp, new Vector4(patternSpeed.x, patternSpeed.y, 0f, 0f));
+            mat.SetFloat(patternOpacity_Sp, patternOpacity);
+
+            // -------------------- 边缘辉光（BORDER GLOW） --------------------
+            mat.SetInt(enableBorderGlow_Sp, enableBorderGlow ? 1 : 0);
+            mat.SetColor(borderGlowColor_Sp, borderGlowColor);
+            mat.SetFloat(borderGlowWidth_Sp, borderGlowWidth);
+            mat.SetFloat(borderGlowSoftness_Sp, borderGlowSoftness);
+            mat.SetFloat(borderGlowAmbient_Sp, borderGlowAmbient);
+            mat.SetFloat(borderGlowFollow_Sp, borderGlowFollow);
+            mat.SetFloat(borderGlowRadius_Sp, borderGlowRadius);
+            mat.SetFloat(borderGlowIntensity_Sp, borderGlowIntensity);
+            mat.SetFloat(borderGlowHover_Sp, borderGlowHover);
+            mat.SetVector(borderGlowPosition_Sp, new Vector4(borderGlowPosition.x, borderGlowPosition.y, 0f, 0f));
+
             // -------------------- 混合模式（BLEND TYPE） --------------------
             // 混合由 shader 的 Blend [_SrcBlend] [_DstBlend] 驱动；
             // 旧代码额外写不存在的 "_BlendType" 属性，Shared 模式回读恒为 0 会覆盖共享材质的混合模式。
@@ -416,6 +432,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             dashLength = mat.GetFloat(dashLength_Sp);
             dashGap = mat.GetFloat(dashGap_Sp);
             dashSoftness = mat.GetFloat(dashSoftness_Sp);
+            dashRounded = mat.GetFloat(dashRounded_Sp) > 0.5f;
+            dashOffset = mat.GetFloat(dashOffset_Sp);
             customTime = mat.GetFloat(customTime_Sp);
 
             enableInnerShadow = mat.GetInt(enableInnerShadow_Sp) == 1;
@@ -516,6 +534,39 @@ namespace Gear.Utilities.UI.ImageExtensions
             m_GradientScale = mat.GetFloat(gradientScale_Sp);
             m_EnableGradientTex = mat.GetInt(gradientTexEnabled_Sp) == 1;
             m_GradientTex = mat.GetTexture(gradientTex_Sp);
+
+            // 图案填充
+            patternMode = (PatternMode)mat.GetInt(patternMode_Sp);
+            Vector4 patternSizeValue = mat.GetVector(patternSize_Sp);
+            patternSize = new Vector2(patternSizeValue.x, patternSizeValue.y);
+            Vector4 patternGapValue = mat.GetVector(patternGap_Sp);
+            patternGap = new Vector2(patternGapValue.x, patternGapValue.y);
+            patternAngle = mat.GetFloat(patternAngle_Sp);
+            Vector4 patternOffsetValue = mat.GetVector(patternOffset_Sp);
+            patternOffset = new Vector2(patternOffsetValue.x, patternOffsetValue.y);
+            patternColor = mat.GetColor(patternColor_Sp);
+            patternSoftness = mat.GetFloat(patternSoftness_Sp);
+            Vector4 patternFalloffValue = mat.GetVector(patternFalloff_Sp);
+            patternFalloff = new Vector2(patternFalloffValue.x, patternFalloffValue.y);
+            Vector4 patternOriginValue = mat.GetVector(patternOrigin_Sp);
+            patternOrigin = new Vector2(patternOriginValue.x, patternOriginValue.y);
+            Vector4 patternSpeedValue = mat.GetVector(patternSpeed_Sp);
+            patternSpeed = new Vector2(patternSpeedValue.x, patternSpeedValue.y);
+            patternOpacity = mat.GetFloat(patternOpacity_Sp);
+
+            // 边缘辉光
+            enableBorderGlow = mat.GetInt(enableBorderGlow_Sp) == 1;
+            borderGlowColor = mat.GetColor(borderGlowColor_Sp);
+            borderGlowWidth = mat.GetFloat(borderGlowWidth_Sp);
+            borderGlowSoftness = mat.GetFloat(borderGlowSoftness_Sp);
+            borderGlowAmbient = mat.GetFloat(borderGlowAmbient_Sp);
+            borderGlowFollow = mat.GetFloat(borderGlowFollow_Sp);
+            borderGlowRadius = mat.GetFloat(borderGlowRadius_Sp);
+            borderGlowIntensity = mat.GetFloat(borderGlowIntensity_Sp);
+            borderGlowHover = mat.GetFloat(borderGlowHover_Sp);
+            Vector4 borderGlowPositionValue = mat.GetVector(borderGlowPosition_Sp);
+            borderGlowPosition = new Vector2(borderGlowPositionValue.x, borderGlowPositionValue.y);
+
             // 由 shader 实际生效的 _SrcBlend/_DstBlend 反查混合模式（材质不存在 _BlendType 属性）
             m_BlendType = BlendTypeFromBlendModes(mat.GetInt(srcBlend_Sp), mat.GetInt(dstBlend_Sp));
         }

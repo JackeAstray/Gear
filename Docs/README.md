@@ -34,6 +34,7 @@
 | [S 验收清单](design/S-验收清单.md) | “全量 S”的验收标准、已通过命令与剩余阻塞项 |
 | [UI-ImageEx与工具-参考Evo升级方案](design/UI-ImageEx与工具-参考Evo升级方案.md) | Evo 优劣拆解、ImageEx 顶点化/材质池路线、UI 工具台与动效组件落地清单 |
 | [Evo对照-ImageEx清理与UI能力补齐](design/Evo对照-ImageEx清理与UI能力补齐.md) | 以项目内 Evo 为参照：ImageEx 落后设计清理清单、UI 模块补齐优先级、里程碑 |
+| [Evo对齐-ImageEx阴影与UI覆盖层](design/Evo对齐-ImageEx阴影与UI覆盖层.md) | 本轮实测修正：投影方向/内阴影 Offset/虚线周长与 alpha/渐变空间/图案/辉光，以及 Toast/Tooltip/ContextMenu |
 
 ## ④ 专题
 

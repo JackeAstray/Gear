@@ -31,6 +31,10 @@ namespace Gear.Utilities.UI.ImageExtensions
             EdgeWidth = 7,
             InnerShadowWidth = 8,
             ClipSoftness = 9,
+            PatternColor = 12,
+            PatternOpacity = 13,
+            BorderGlowColor = 14,
+            BorderGlowIntensity = 15,
         }
 
         [Serializable]
@@ -122,6 +126,18 @@ namespace Gear.Utilities.UI.ImageExtensions
                     case Target.ClipSoftness:
                         if (theme.TryGetFloat(binding.tokenId, out float clipSoftness)) { image.ClipSoftness = clipSoftness; applied++; }
                         break;
+                    case Target.PatternColor:
+                        if (theme.TryGetColor(binding.tokenId, out Color patternColor)) { image.PatternColor = patternColor; applied++; }
+                        break;
+                    case Target.PatternOpacity:
+                        if (theme.TryGetFloat(binding.tokenId, out float patternOpacity)) { image.PatternOpacity = patternOpacity; applied++; }
+                        break;
+                    case Target.BorderGlowColor:
+                        if (theme.TryGetColor(binding.tokenId, out Color glowColor)) { image.BorderGlowColor = glowColor; applied++; }
+                        break;
+                    case Target.BorderGlowIntensity:
+                        if (theme.TryGetFloat(binding.tokenId, out float glowIntensity)) { image.BorderGlowIntensity = glowIntensity; applied++; }
+                        break;
                 }
             }
 
@@ -140,12 +156,30 @@ namespace Gear.Utilities.UI.ImageExtensions
                 string id = bindings[i].tokenId;
                 if (string.IsNullOrEmpty(id) || !seen.Add(id)) continue;
 
-                bool isColorTarget = bindings[i].target <= Target.TransitionColor;
+                bool isColorTarget = IsColorTarget(bindings[i].target);
                 bool resolved = isColorTarget ? theme.HasColor(id) : theme.HasFloat(id);
                 if (!resolved) unresolved.Add(id);
             }
 
             return unresolved;
+        }
+
+        private static bool IsColorTarget(Target target)
+        {
+            switch (target)
+            {
+                case Target.Tint:
+                case Target.OutlineColor:
+                case Target.EdgeColor:
+                case Target.InnerShadowColor:
+                case Target.ShadowColor:
+                case Target.TransitionColor:
+                case Target.PatternColor:
+                case Target.BorderGlowColor:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /// <summary>运行时替换绑定（谨慎使用：会改变序列化内容）。</summary>

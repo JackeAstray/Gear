@@ -16,7 +16,7 @@ namespace Gear.Utilities.UI.Backdrop
     /// 限制与建议：
     /// - 需要 URP/Built-in 下"相机照常渲染"的能力：抓屏相机是真实相机（enabled），不是手动 Render；
     /// - 每帧会多渲染一次场景，请配合降采样（默认 2）使用，并在面板关闭时禁用组件；
-    /// - 不要挂在 ImageEx 上：本组件会替换 Graphic 的材质，ImageEx 的形状/特效会被旁路；
+    /// - 可挂在 Image / RawImage 上；也可挂在 ImageEx 上（保留 SDF 形状/圆角/描边，只把填充换成模糊画面）；
     /// - 纯 Overlay Canvas 可用；Screen Space - Camera / World Space 下屏幕 UV 仍然按最终屏幕坐标采样。
     /// </para>
     /// </summary>
@@ -61,7 +61,12 @@ namespace Gear.Utilities.UI.Backdrop
         [SerializeField, Range(0f, 0.2f), Tooltip("噪点强度")]
         private float noise = 0.1f;
 
+        [SerializeField, Range(0f, 1f), Tooltip("背景模糊对填充的替换强度：1 = 完全玻璃，0 = 保留原填充")]
+        private float backdropStrength = 1f;
+
         private static readonly int backdropTexId = Shader.PropertyToID("_BackdropTex");
+        private static readonly int enableBackdropBlurId = Shader.PropertyToID("_EnableBackdropBlur");
+        private static readonly int backdropStrengthId = Shader.PropertyToID("_BackdropStrength");
         private static readonly int offsetId = Shader.PropertyToID("_Offset");
         private static readonly int glassTintId = Shader.PropertyToID("_GlassTint");
         private static readonly int tintAmountId = Shader.PropertyToID("_TintAmount");
@@ -81,6 +86,7 @@ namespace Gear.Utilities.UI.Backdrop
         private RenderTexture captureTexture;
         private RenderTexture pingTexture;
         private RenderTexture pongTexture;
+        private bool usingImageEx;
 
         private int lastWidth;
         private int lastHeight;
@@ -89,6 +95,7 @@ namespace Gear.Utilities.UI.Backdrop
 
         private void OnEnable()
         {
+            usingImageEx = false;
             graphic = GetComponent<Graphic>();
             if (graphic == null)
             {
@@ -99,7 +106,9 @@ namespace Gear.Utilities.UI.Backdrop
 
             if (graphic is ImageEx)
             {
-                Debug.LogWarning("[UIBackdropBlur] 不建议挂在 ImageEx 上：本组件会替换 Graphic 材质，ImageEx 的形状/特效会被旁路。", this);
+                // ImageEx 保留自己的 SDF 材质：把模糊纹理写进它的材质，由 RM_Backdrop 采样，
+                // 这样圆角/描边/图案等 ImageEx 能力仍然生效。
+                usingImageEx = true;
             }
 
             if (!CreateMaterials())
@@ -108,7 +117,10 @@ namespace Gear.Utilities.UI.Backdrop
                 return;
             }
 
-            graphic.material = panelMaterial;
+            if (!usingImageEx)
+            {
+                graphic.material = panelMaterial;
+            }
             Canvas.willRenderCanvases += OnWillRenderCanvases;
         }
 
@@ -116,7 +128,18 @@ namespace Gear.Utilities.UI.Backdrop
         {
             Canvas.willRenderCanvases -= OnWillRenderCanvases;
 
-            if (graphic != null) graphic.material = null;
+            if (graphic != null)
+            {
+                if (usingImageEx)
+                {
+                    Material material = graphic.material;
+                    if (material != null) material.SetFloat(enableBackdropBlurId, 0f);
+                }
+                else
+                {
+                    graphic.material = null;
+                }
+            }
 
             if (captureCamera != null)
             {
@@ -177,7 +200,7 @@ namespace Gear.Utilities.UI.Backdrop
             // 非抓屏帧复用上一轮结果，避免每帧重算
             if (!shouldCapture)
             {
-                if (pingTexture != null) panelMaterial.SetTexture(backdropTexId, pingTexture);
+                ApplyBackdropTexture();
                 return;
             }
 
@@ -199,7 +222,7 @@ namespace Gear.Utilities.UI.Backdrop
                     pongTexture = swap;
                 }
 
-                panelMaterial.SetTexture(backdropTexId, pingTexture);
+                ApplyBackdropTexture();
                 hasResult = true;
             }
             finally
@@ -208,14 +231,24 @@ namespace Gear.Utilities.UI.Backdrop
             }
         }
 
+        private void ApplyBackdropTexture()
+        {
+            if (pingTexture == null) return;
+            Material target = usingImageEx ? graphic?.material : panelMaterial;
+            if (target != null) target.SetTexture(backdropTexId, pingTexture);
+        }
+
         private void ApplyGlassSettings()
         {
-            if (panelMaterial == null) return;
-            panelMaterial.SetColor(glassTintId, glassTint);
-            panelMaterial.SetFloat(tintAmountId, tintAmount);
-            panelMaterial.SetFloat(saturationId, saturation);
-            panelMaterial.SetFloat(brightnessId, brightness);
-            panelMaterial.SetFloat(noiseId, noise);
+            Material target = usingImageEx ? graphic?.material : panelMaterial;
+            if (target == null) return;
+            target.SetColor(glassTintId, glassTint);
+            target.SetFloat(tintAmountId, tintAmount);
+            target.SetFloat(saturationId, saturation);
+            target.SetFloat(brightnessId, brightness);
+            target.SetFloat(noiseId, noise);
+            target.SetFloat(backdropStrengthId, backdropStrength);
+            if (usingImageEx) target.SetFloat(enableBackdropBlurId, 1f);
         }
 
         private bool EnsureCapture()
