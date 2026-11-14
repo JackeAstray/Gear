@@ -109,13 +109,13 @@ shader 的 `appdata_t` 只读 `TEXCOORD0/1/2 + TANGENT`（`Resources/Shader/UI/I
 
 | 能力 | Evo 机制 | Gear | 成本 | 结论 |
 |---|---|---|---|---|
-| 圆角同步 `MatchParent/Target/Ancestor` | `RadiusSyncMode` | ❌ | 低（纯 C#） | **A 档，先做** |
-| Sprite 填充 `Stretch/Cover/Fit` | `SpriteFillMode` | 🟡 `preserveAspect` | 低（UV 计算） | **A 档** |
+| 圆角同步 `MatchParent/Target/Ancestor` | `RadiusSyncMode` | ✅ `RectangleImg.CornerRadiusSyncMode` + `SyncInset` | — | 已落地（S1） |
+| Sprite 填充 `Stretch/Cover/Fit` | `SpriteFillMode` | ✅ `ImageEx.SpriteFill`（Cover 裁 UV、Fit = 旧 preserveAspect） | — | 已落地 |
 | 任意角旋转 | `ShapeAngle` | 🟡 有 `ShapeRotation` + `ConstrainRotation`，默认约束 90° | 低 | **A 档**：不是缺功能，是 Inspector 没讲清楚 |
-| Spotlight 径向跟随光 | 效果层 + 指针数据 | ❌（有 BorderGlow/PointerGlow） | 低–中（shader 加一项） | **A 档** |
+| Spotlight 径向跟随光 | 效果层 + 指针数据 | ✅ `ImageExSpotlight` + `RM_Spotlight.cginc` | — | 已落地（S1） |
 | Pattern Sprite（同图集图案） | 支持 | ❌（只有程序化） | 中（多一张图集采样） | B 档，按需求 |
 | 多效果单 Graphic 数据通道 | `InteractiveEffectRenderer` 图集行 | ❌（效果各自写材质） | 中（见 2.3） | **B 档重点** |
-| 文本动效 12 种 + 标签作用域 | `TextEffects` 预处理器 | 🟡 5 种、无标签 | 中 | **B 档重点** |
+| 文本动效 12 种 + 标签作用域 | `TextEffects` 预处理器 | 🟡 12 种已齐、无标签作用域 | 中 | 标签版后续按需 |
 | 软遮罩嵌套/任意形状 | 4 层 + Sprite/程序化 | 🟡 单层矩形/圆角（最近父级） | 中–高 | B 档，先做 RT 试点 |
 | 布尔运算 | ≤4 操作数，依赖 style page | ❌ | 高（全量）/中（单操作数） | B 档：只做单操作数 |
 | 形状导出 Sprite | 1x–4x、9-slice | ❌ | 中（编辑器烘焙） | 按美术需求 |
@@ -146,13 +146,16 @@ Shared 试点把 401 降到 286 后回滚，原因是 rebuild 日志。根因不
 `ImageEx.Runtime.Rendering.cs:145-161` 在 `GetModifiedMaterial` 里**每次重建都写约 100 个 uniform**，
 共享材质必然被多实例互相覆盖（`:120-137` 的串扰告警就是证据）。
 
-建议路线（不动 shader，风险比 style page 小一个数量级）：
+**已落地（2026-11-14，Opt-in）**：`MaterialMode.Pooled` + `ImageExMaterialPool`：
 
-1. `ImageExMaterialPool`：按 `(shader, 设置签名)` 取材质实例；同一签名的 ImageEx 共享一个材质；
-2. **池化材质不写 uniform**：`GetModifiedMaterial` 对共享材质直接返回，不逐字段 `Set*`；
-3. **写时复制（COW）**：任何属性 setter 先判断"当前材质是否被共享"，是则克隆成私有材质再写；
-4. 去掉 `Shared` 模式的 `InitValuesFromSharedMaterial` 回读（`ImageEx.Runtime.SharedMaterial.cs`），
-   回读只会把组件字段改成材质默认值。
+1. 把 `GetModifiedMaterial` 的 uniform 写入抽成 `WriteMaterialUniforms(Material)`；
+2. Pooled 模式下先生成一份样本材质，按 **shader 属性逐个取值 + 关键字** 算 64 位签名；
+3. 签名相同 → 复用池内材质并销毁样本；不同 → 样本入池并返回；
+4. 相机画面 / `GearSoftMask` / base 材质被 Mask 换过时自动回退逐实例写入，避免共享错误状态。
+
+实测（UI Example，415 个 ImageEx，Play Mode）：Batches **418 → 171**、SetPass **401 → 147**、
+DrawCalls **418 → 171**。默认仍是 `Dynamic`；逐帧改材质属性的效果（过渡循环/指针高光/渐变旋转）
+应保持 Dynamic，静态成组的界面切 Pooled。
 
 若之后 draw call 仍是瓶颈，再考虑 style page：uv3 可放 `styleIndex`（见 1.2），
 但还需要 `Canvas.willRenderCanvases` 上传、`RGBAFloat` 能力检查、light/full 关键字，
@@ -161,13 +164,13 @@ Shared 试点把 401 降到 286 后回滚，原因是 rebuild 日志。根因不
 ### 2.5 比"更多滤镜"更有用的：状态色
 
 Evo 的 ProceduralShape 支持 per-state 颜色（`ProceduralShape.cs:1362-1459`），StylerObject 也有
-五态颜色/字体映射（`StylerObject.cs:40-59`）。Gear 的 ImageEx 目前是"一个颜色 + 一堆效果"，
+五态颜色/字体映射（`StylerObject.cs:40-59`）。Gear 的 ImageEx 原本是"一个颜色 + 一堆效果"，
 没有 hover / press / selected 语义；`GearInteractive` 有状态却没有消费者（全仓只有
 `GearInteractiveTint` 引用它）。
 
-建议新增 `ImageExStateColors`（五态：Normal/Highlighted/Pressed/Selected/Disabled 的颜色、描边色、
-辉光强度），订阅 `GearInteractive.StateChanged`。这会让所有卡片/按钮立刻"像设计系统"，
-比再加 5 个滤镜更值，而且完全不碰 shader——只改 uniform。
+**已落地**：新增 `ImageExStateColors`（Normal/Highlighted/Pressed/Selected/Disabled 的填充色、描边色、
+辉光强度，支持过渡时长与 `Bind()` 显式绑定），订阅 `GearInteractive.StateChanged`。
+这会让所有卡片/按钮立刻"像设计系统"，比再加 5 个滤镜更值，而且完全不碰 shader——只改 uniform。
 
 ---
 
@@ -292,7 +295,7 @@ Navigation 组件自带焦点迁移。Gear 已经有队列/时长条/池/子菜�
 | RectSway / RectParallax / Magnetic | 指针投影/阻尼/弹簧；`DemoMagnetic` 只是设置 RectSway 字段 | 无 | 低 | **做**（手感包） |
 | DockMagnifier | 高斯权重 + `SmoothDamp` + 改 RectTransform 宽高（邻居跟随，不是 scale） | 无 | 低 | **做** |
 | BorderGlow | 边缘光 + 指针跟随，写入效果图集 | `ImageEx.BorderGlow` + `ImageExPointerGlow` | — | **已有，验证差距即可** |
-| Spotlight | 径向软光按 Graphic 覆盖裁剪，跟随指针 | 无 | 低–中 | **做**（shader 加一项） |
+| Spotlight | 径向软光按 Graphic 覆盖裁剪，跟随指针 | ✅ `ImageExSpotlight`（悬停淡入） | — | 已落地（S1） |
 | Ripple | shader 内 8 个并发波，按最远角做覆盖率 | `UIRipple`（Mask+Image 缩放，单波） | 中 | 有需要再做 |
 | DotMatrix | 8 种解析图案（Wave/Rings/Radar/…）+ 3 种点形，网格 ≤64×64 | 无 | 中 | 做（单 shader 包） |
 | WarningStripe | 5 个 float 的斜纹滚动 | `ImageEx.Pattern` 可能直接覆盖 | 低 | 先验证，别新写 |
@@ -352,11 +355,19 @@ Navigation 组件自带焦点迁移。Gear 已经有队列/时长条/池/子菜�
 `GearMenuBar`、`GearRadialLayout`、`GearSpring`、`GearDistributionBar`、`GearSpinner`。
 产出：Effects/布局各 2–3 张演示卡。全部不碰 shader，风险最低，观感提升最直接。
 
+> 已落地（2026-11-14）：`GearAnimatedContainer` / `GearRectSway` / `GearDockMagnifier` /
+> `GearSpring` / `GearRadialLayout` / `GearSpinner` / `GearRectParallax` / `GearDistributionBar` /
+> `GearMenuBar` + 七张卡；`GearMagnetic` 复用 RectSway，Pack A 视为完成。
+
 **Pack B｜单 shader 包（约 7–10 天）**
 
 `GearWarningStripe`（先验证能否用 Pattern 参数覆盖，能则零代码）、`GearDotMatrix`、`GearTopographicSkin`、
 `GearSpotlight`、`GearPixelCurtain`。每个都是一个片元函数 + 少量 uniform，复用 ImageEx 的材质与主题；
 `InkPanel` 最后做（要 RT 烘焙）。
+
+> 已落地（2026-11-14）：`GearSpotlight`、`GearDotMatrix`、`GearPixelCurtain`、`GearTopographic`、`GearInkPanel`；
+> `WarningStripe` 用 `PatternMode.Stripes` 覆盖。**Pack B 完成**；唯一未做的是 InkPanel 的
+> "把覆盖度烘焙成 RT 供 SoftMask 使用"那一步（需要 RT 生命周期管理，按真实需求再排）。
 
 **Pack C｜控件包（约 8–12 天）**
 
@@ -469,3 +480,27 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 - [Evo 对齐：ImageEx 阴影与 UI 覆盖层](Evo对齐-ImageEx阴影与UI覆盖层.md)
 - [Gear UI 下一阶段开发规划](Gear-UI-下一阶段开发规划.md)
 - [Gear UI 渲染诊断](Gear-UI-渲染诊断.md)
+
+---
+
+## 九、执行记录（2026-11-14，S1 低风险项）
+
+| 项 | 落点 | 验收 |
+|---|---|---|
+| 圆角同步 | `Shapes/RectangleImg.cs`（`CornerRadiusSyncMode` / `SyncTarget` / `SyncInset`）、`RectanglePropertyDrawer.cs` | `ImageExRadiusSyncTests` 7/7；父级改半径会脏化同步子级 |
+| 五态状态色 | `Interaction/ImageExStateColors.cs`（`Bind()` + `SetStyle` + 过渡） | `ImageExStateColorsTests` 5/5；指针事件与手动 ApplyState 两条路径 |
+| 指针聚光 | `Resources/Shader/Common/RM_Spotlight.cginc`、`Runtime/ImageExSpotlight.cs`、ImageEx 的 7 个 Spotlight uniform | `ImageExSpotlightTests` 5/5（含材质 uniform 回读）；Unity 编译 0 error |
+| 画廊 | `ImageExGalleryCatalogExtra.Showcase.cs`：圆角同步 / 五态状态色 / Spotlight 三张卡 | UI Example：117 → 120 张卡，场景已保存 |
+| 材质池 | `MaterialMode.Pooled`、`Runtime/ImageExMaterialPool.cs`、`WriteMaterialUniforms` 抽取 | `ImageExMaterialPoolTests` 5/5；实测 Batches 418→171、SetPass 401→147 |
+| Pack A 手感（前三件） | `Utilities/UI/Motion/`：`GearAnimatedContainer` / `GearRectSway` / `GearDockMagnifier`；画廊三张卡 | `GearMotionTests` 5/5；UI Example 120→123 张卡，Play Mode 无异常 |
+| Pack A 小件 | `GearSpring` / `GearRadialLayout` / `GearSpinner`；画廊「布局 · 径向」「动效 · 旋转器」 | `GearMotionTests` 9/9；UI Example 123→125 张卡 |
+| Pack A 收尾 | `GearRectParallax` / `GearDistributionBar` / `GearMenuBar`；`GearContextMenu.Show(RectTransform, items)` | `GearMotionTests` 12/12；UI Example 125→127 张卡 |
+| Pack B 起步 | `RM_DotMatrix.cginc` + `GearDotMatrix`；`WarningStripe` 用 `PatternMode.Stripes` 覆盖 | `ImageExDotMatrixTests` 3/3；UI Example 127→129 张卡 |
+| Pack B 幕帘 | `RM_PixelCurtain.cginc` + `GearPixelCurtain`（Show/Hide/SetProgress/自动往返） | `GearPixelCurtainTests` 4/4；UI Example 129→130 张卡 |
+| Pack B 等值线 | `RM_Topographic.cginc` + `GearTopographic`（value noise + fbm 等高线） | `ImageExTopographicTests` 2/2；UI Example 130→131 张卡 |
+| 文本动效补全 | `GearTextEffects.Extra.cs`：Palette / AlphaPulse / Bounce / Swing / Wiggle / Glitch / Pulse | `GearTextEffectsTests` 5/5；UI Example 131→132 张卡 |
+| Sprite Fill | `ImageHelper.ApplySpriteFill` + `ImageEx.SpriteFill`（Stretch/Cover/Fit） | `ImageExSpriteFillTests` 5/5；UI Example 132→133 张卡 |
+| Pack B 收尾 | `RM_InkPanel.cginc` + `GearInkPanel`（墨团揭示/毛边/往返） | `GearInkPanelTests` 4/4；UI Example 133→134 张卡 |
+| 材质池工具 | `ImageExPooledTool` 菜单（选中切 Pooled / 还原 Dynamic，跳过逐帧改 uniform 的实例） | 菜单可执行；默认行为不变 |
+
+全量 EditMode：**326/326 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。

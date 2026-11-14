@@ -44,3 +44,21 @@
 1. 先选可合批组中最大的 1–2 组做共享材质试点。
 2. 记录试点前后的 Batches / SetPass Calls。
 3. 若收益明显，再批量应用到同设置组；不要直接改 Style Page。
+
+## Pooled 实测（2026-11-14，Play Mode）
+
+| 指标 | Dynamic（基线） | 全部切 Pooled | 变化 |
+|---|---:|---:|---:|
+| Batches | 418 | 171 | −59% |
+| SetPass Calls | 401 | 147 | −63% |
+| Draw Calls | 418 | 171 | −59% |
+| ImageEx 数量 | 415 | 415 | — |
+
+做法：Play Mode 里把场景内 415 个 ImageEx 全设为 `MaterialMode.Pooled`，等 Canvas 重建后读
+`UnityEditor.UnityStats`；未保存场景，测完已退出 Play Mode。
+
+结论：
+- 材质池的收益成立，预计材质 405 → 约 150，**不需要先上 Style Page**。
+- 默认仍保持 `Dynamic`：逐帧改材质属性的效果（过渡循环、指针高光、渐变旋转）切到 Pooled 会不断产生新签名，
+  应保持 Dynamic 或只对静态成组的界面启用。
+- 验收工具：`Gear/UI Example/UI 渲染诊断（材质/Canvas）` 的静态统计 + 本表的 Play Mode 实测。

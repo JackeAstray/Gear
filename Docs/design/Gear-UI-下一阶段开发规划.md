@@ -84,6 +84,21 @@
 | 2026-11-14 | 3C 雷达图 | ✅ `GearRadarChart` + 「数据 · Radar」卡（5 轴） |
 | 2026-11-14 | 4A 渲染诊断 | ✅ 诊断工具 + 报告：405 ImageEx / 405 材质实例 / 可合批 16 组 291 实例，预计降至 130 |
 | 2026-11-14 | 4B 共享材质试点 | 🟡 试点验证 401→286 后回滚；Shared 触发 rebuild 日志，draw call 未实测 |
+| 2026-11-14 | S1 圆角同步 | ✅ `RectangleImg.CornerRadiusSyncMode`（None/MatchParent/MatchTarget/MatchAncestor）+ `SyncInset`；抽屉与 7 个用例 |
+| 2026-11-14 | S1 五态状态色 | ✅ `ImageExStateColors`（填充/描边/辉光 + 过渡 + `Bind()`）；5 个用例 |
+| 2026-11-14 | S1 指针聚光 | ✅ `RM_Spotlight.cginc` + `ImageExSpotlight`；5 个用例（含材质 uniform 回读） |
+| 2026-11-14 | S1 画廊/验收 | ✅ 新增 3 张卡（117→120）；全量 EditMode 290/290 |
+| 2026-11-14 | S1 材质池 | ✅ `MaterialMode.Pooled` + `ImageExMaterialPool`（签名复用/自动回退）；实测 Batches 418→171 |
+| 2026-11-14 | Pack A 手感 | ✅ `GearAnimatedContainer` / `GearRectSway` / `GearDockMagnifier`；3 张卡（120→123） |
+| 2026-11-14 | Pack A 小件 | ✅ `GearSpring` / `GearRadialLayout` / `GearSpinner`；2 张卡（123→125） |
+| 2026-11-14 | Pack A 收尾 | ✅ `GearRectParallax` / `GearDistributionBar` / `GearMenuBar`；2 张卡（125→127） |
+| 2026-11-14 | Pack B 起步 | ✅ `GearDotMatrix` + 警戒斜纹（Pattern 覆盖）；2 张卡（127→129） |
+| 2026-11-14 | Pack B 幕帘 | ✅ `GearPixelCurtain`；1 张卡（129→130） |
+| 2026-11-14 | Pack B 等值线 | ✅ `GearTopographic`；1 张卡（130→131） |
+| 2026-11-14 | 文本动效补全 | ✅ `GearTextEffects` 扩到 12 种；1 张卡（131→132） |
+| 2026-11-14 | Sprite Fill | ✅ `SpriteFillMode`（Stretch/Cover/Fit）；1 张卡（132→133） |
+| 2026-11-14 | Pack B 收尾 | ✅ `GearInkPanel` 墨团揭示；1 张卡（133→134） |
+| 2026-11-14 | 材质池工具 | ✅ 选中切 Pooled / 还原 Dynamic 菜单；跳过逐帧改 uniform 的实例 |
 | 下一轮 | 3C 收尾 | ⏳ 雷达图/点击钻取/真实数据联动 |
 
 ## 六、明确不做

@@ -46,6 +46,58 @@
 - **ImageEx 形状软边**：新增 `ShapeSoftness`（0.001–8），shader 压低 SDF 像素尺度做几何边缘羽化；
   Inspector 新增「形状软边」，画廊新增「形状 · 软边」卡。
 - **ImageEx 抖动**：新增 `Dither`，按屏幕坐标噪声打散 8bit 渐变色带；画廊新增「抖动 · Dither」卡。
+- **ImageEx 圆角同步**：`RectangleImg` 新增 `CornerRadiusSyncMode`（None / MatchParent / MatchTarget / MatchAncestor）
+  与 `SyncInset`，嵌套卡片/胶囊按钮可跟随父级或目标圆角；来源改半径时自动脏化子级。
+  画廊新增「形状 · 圆角同步」卡。
+- **ImageEx 五态状态色**：新增 `ImageExStateColors`，把填充/描边/辉光绑定到 `GearInteractive` 的
+  Disabled/Normal/Highlighted/Pressed/Selected，支持可配置过渡时长与 `Bind()` 显式绑定；
+  画廊新增「效果 · 五态状态色」卡（可 hover/press 验证）。
+- **ImageEx 指针聚光**：新增 `RM_Spotlight.cginc` 与 `ImageExSpotlight` 组件，在图形内部叠一团跟随指针的
+  软光（半径/羽化/强度/HDR 颜色，只加色不改 alpha，形状与贴图两条路径都支持）；画廊新增
+  「效果 · Spotlight」卡，默认悬停淡入。
+- **ImageEx 材质池（Pooled）**：新增 `MaterialMode.Pooled` 与 `ImageExMaterialPool`：按材质的完整 uniform
+  签名（shader 属性逐个取值 + 关键字）复用材质，设置相同的实例自动共享、改设置时换到新材质且不影响旧材质；
+  有相机画面 / `GearSoftMask` / 被 Mask 换过材质时自动回退逐实例写入。
+  同时把 `GetModifiedMaterial` 的 uniform 写入抽成 `WriteMaterialUniforms(Material)`。
+  实测 UI Example（415 个 ImageEx）：batches **418 → 171**、setPass **401 → 147**、drawCalls **418 → 171**。
+  默认仍是 Dynamic，需要合批的界面按组切到 Pooled。
+- **材质池工具台入口**：新增菜单 `Gear/ImageEx 材质池/选中切 Pooled（同设置共享）` 与
+  `选中还原 Dynamic`；自动跳过过渡循环 / 渐变旋转 / 指针辉光这类逐帧改 uniform 的实例。
+- **GearAnimatedContainer**：错峰出现容器（每项延迟 = 序号 × Stagger，缩放曲线 + 淡入 + 可选禁用交互），
+  用 unscaled 时间推进，`Sample()` 可做编辑预览与测试；画廊新增「动效 · 错峰出现」卡。
+- **GearRectSway**：指针倾斜（归一化指针位置驱动俯仰/偏航，SmoothDampAngle 平滑、可单轴开关），
+  `SetPointerNormalized()` 支持摇杆/外部驱动；画廊新增「动效 · 指针倾斜」卡。
+- **GearDockMagnifier**：Dock 放大（高斯权重 + SmoothDamp，改子项 `sizeDelta` 让布局自动让位，
+  Free/Horizontal/Vertical 三种方向）；画廊新增「布局 · Dock 放大」卡。
+- **GearSpring**：可序列化阻尼弹簧（固定 4ms 切片积分、最多 8 片，长帧不爆炸），
+  提供 `Step/Reset/Settled`；供指针倾斜、Dock、数值动画复用。
+- **GearRadialLayout**：径向 `LayoutGroup`（半径/起止角度/顺逆时针/是否均分整圆/朝心旋转）；
+  画廊新增「布局 · 径向」卡。
+- **GearSpinner**：固定角速度旋转器（可切顺/逆时针、`Step` 可外部驱动）；画廊新增「动效 · 旋转器」卡。
+- **GearRectParallax**：指针视差（归一化位置驱动目标平移，可反相，SmoothDamp 平滑）；画廊新增「动效 · 视差」卡。
+- **GearDistributionBar**：分布条（按权重分配子项宽度，支持间距/最小宽度/固定总宽）；画廊新增「布局 · 分布条」卡。
+- **GearMenuBar**：菜单栏（按标签生成按钮、点击回调序号，配合 `GearContextMenu.Show(anchor, items)` 做贴按钮下拉）；
+  同时给 `GearContextMenu` 增加以 `RectTransform` 为锚点的重载（自动上翻/贴边）。
+- **GearDotMatrix**：新增 `RM_DotMatrix.cginc` 与 `GearDotMatrix` 组件——按格子 + 时间解析出 8 种点阵图案
+  （波浪/同心圆/雷达/螺旋/蛇形/均衡器/棋盘/脉冲），支持圆点/方块/菱形、格子尺寸/半径/颜色/强度/速度；
+  只加色不改 alpha，可与 Pattern/Spotlight/SoftMask 叠加。画廊新增「效果 · 点阵」卡。
+- **警戒斜纹画廊卡**：验证 `WarningStripe` 用现有 `PatternMode.Stripes`（45°、可滚动）即可覆盖，
+  不新增 shader；画廊新增「效果 · 警戒斜纹」卡。
+- **GearPixelCurtain**：新增 `RM_PixelCurtain.cginc` 与 `GearPixelCurtain` 组件——按格子 + 逐格随机延迟
+  揭示/隐藏（方向可切、格子/随机度/羽化可调），只乘 alpha；支持 `Show/Hide/SetProgress/Step` 与自动往返；
+  画廊新增「效果 · 像素幕帘」卡。
+- **GearTopographic**：新增 `RM_Topographic.cginc` 与 `GearTopographic` 组件——程序化 value noise + fbm
+  生成地形等高线（频率/层级密度/线宽/主线间隔/颜色/强度/滚动/中心衰减），无贴图、只加色；
+  画廊新增「效果 · 地形等值线」卡。
+- **GearTextEffects 扩到 12 种**：在打字机/乱序/波浪/抖动/闪烁之外新增颜色循环（Palette）、透明度脉冲、
+  弹跳（Bounce）、摇摆（Swing，逐字旋转）、左右摆动（Wiggle）、故障（Glitch）、整体脉冲（Pulse）；
+  逐字顶点/颜色修改拆到 `GearTextEffects.Extra.cs`，画廊新增「文本 · 弹跳 / 摇摆」卡。
+- **ImageEx Sprite Fill**：新增 `SpriteFillMode`（Stretch / Cover / Fit）与 `ImageEx.SpriteFill`；
+  Cover 按目标矩形宽高比裁切精灵 outer UV（保持图集偏移居中），Fit 等价于旧 `preserveAspect`。
+  网格/阴影/SDF 投影/命中区域共用同一套填充计算；画廊新增「图片 · Cover 裁切」卡。
+- **GearInkPanel**：新增 `RM_InkPanel.cginc` 与 `GearInkPanel` 组件——从原点向外扩散带噪声毛边的墨团，
+  支持进度/原点/羽化/粗糙度与 `Show/Hide/SetProgress/Step/自动往返`；只乘 alpha；
+  画廊新增「效果 · 墨团揭示」卡。Evo 的"烘焙覆盖度到 RT 供 SoftMask 使用"暂未做。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
@@ -68,6 +120,11 @@
 
 ### Fixed
 
+- **动效演示卡看不出效果**：`GearAnimatedContainer` 只在 OnEnable 播一次（0.4s），
+  `GearRectSway` 8° 且预览被 `RectMask2D` 裁掉，运行后看起来像静态卡。
+  现已给 `GearAnimatedContainer` 增加 `Loop`/`LoopInterval`（画廊卡 1.2s 循环、起始缩放 0.7），
+  `GearRectSway` 增加 `MaxAngle` 且画廊卡留 18px 边距、角度提到 14°；
+  两张卡在 Play Mode 下分别可见循环错峰与 hover 倾斜。
 - **增量同步写错 Content**：`FindContent` 只认根节点名 `UI示例`，根改名 `ImageEx 画廊` 后走 fallback，
   选中了「滚动渐隐」演示卡内部的 `ScrollFade/Viewport/Content`，把 17 张卡加进了演示卡。
   现已兼容两个根名，并优先取子节点最多的 Content；误加对象已清理。
