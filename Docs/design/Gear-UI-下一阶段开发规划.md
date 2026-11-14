@@ -112,6 +112,7 @@
 | 2026-11-14 | Pack C 搜索 | ✅ `GearSearchIndex`；1 张卡（147→148）；EditMode 398/398 |
 | 2026-11-14 | Pack C 收尾 | ✅ C1–C8 全部完成 |
 | 2026-11-14 | P1 文本标签作用域 | ✅ `GearTextTagScope`；1 张卡（148→149）；EditMode 405/405 |
+| 2026-11-14 | P2 InkPanel RT 遮罩 | ✅ `GearInkMask` + `InkCoverage.shader`；1 张卡（149→150）；EditMode 410/410 |
 | 下一轮 | 3C 收尾 | ⏳ 雷达图/点击钻取/真实数据联动 |
 
 ## 六、明确不做

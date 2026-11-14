@@ -26,6 +26,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddColorPickerCard(content);
             AddSearchCard(content);
             AddTextTagCard(content);
+            AddInkMaskCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>

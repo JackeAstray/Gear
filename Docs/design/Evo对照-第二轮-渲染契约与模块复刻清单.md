@@ -514,5 +514,6 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 | Pack C 取色 | `Widgets/GearColorPicker.cs` | `GearColorPickerTests` 7/7；UI Example 146→147 张卡 |
 | Pack C 搜索 | `Widgets/GearSearchIndex.cs` | `GearSearchIndexTests` 7/7；UI Example 147→148 张卡 |
 | 文本标签作用域 | `TextEffects/GearTextTagScope.cs` | `GearTextTagScopeTests` 7/7；UI Example 148→149 张卡 |
+| InkPanel RT 遮罩 | `Effects/GearInkMask.cs` + `UI/InkCoverage.shader` | `GearInkMaskTests` 5/5；UI Example 149→150 张卡 |
 
-全量 EditMode：**405/405 通过**。本轮未做：InkPanel 的 RT 烘焙。
+全量 EditMode：**410/410 通过**。P2 已完成：墨团覆盖度烘焙到 RT，用模板缓冲遮住子树。

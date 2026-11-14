@@ -130,6 +130,9 @@
 - **GearTextTagScope（文本标签作用域）**：`<wave>` / `<shake>` / `<rainbow>` / `<bounce>` / `<pulse>` 标签只作用于局部字符，
   经 TMP `ITextPreprocessor` 剥标签并在 `OnPreRenderText` 按区间改顶点/颜色；TMP 富文本标签原样保留；
   与 `LanguagesSystem` 顺序无关；画廊新增「文本 · Tag Scope」卡。
+- **GearInkMask（墨团 RT 遮罩）**：把墨团覆盖度烘焙到 `RenderTexture`（尺寸变化才重建、参数不变不重烘），
+  由 `RawImage` + `Mask` 用模板缓冲裁剪整棵子树；新增自包含 shader `Gear/UI/InkCoverage`；
+  画廊新增「效果 · InkMask」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
