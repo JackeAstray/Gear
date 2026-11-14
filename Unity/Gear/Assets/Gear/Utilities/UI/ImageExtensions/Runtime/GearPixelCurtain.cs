@@ -27,6 +27,7 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField, Range(0f, 1f)] private float softness = 0.08f;
         [SerializeField] private GearCurtainDirection direction = GearCurtainDirection.LeftToRight;
         [SerializeField, Min(0.01f)] private float duration = 0.6f;
+        [SerializeField, Range(0f, 1f)] private float progress = 1f;
         [SerializeField] private bool playOnEnable = true;
         [SerializeField] private bool startVisible = true;
         [SerializeField] private bool loop;
@@ -73,11 +74,13 @@ namespace Gear.Utilities.UI.ImageExtensions
 
         private void Awake()
         {
+            current = Mathf.Clamp01(progress);
             ApplySettings();
         }
 
         private void OnEnable()
         {
+            current = Mathf.Clamp01(progress);
             ApplySettings();
             if (!playOnEnable) return;
 
@@ -111,7 +114,8 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// <summary>直接设置进度（0-1），不播放动画。</summary>
         public void SetProgress(float progress)
         {
-            current = Mathf.Clamp01(progress);
+            this.progress = Mathf.Clamp01(progress);
+            current = this.progress;
             target = current;
             animating = false;
             wait = -1f;
@@ -171,12 +175,11 @@ namespace Gear.Utilities.UI.ImageExtensions
             randomness = Mathf.Clamp01(randomness);
             softness = Mathf.Clamp01(softness);
             duration = Mathf.Max(0.01f, duration);
+            progress = Mathf.Clamp01(progress);
+            current = progress;
+
             if (image == null) image = GetComponent<ImageEx>();
-            if (image != null)
-            {
-                current = Mathf.Clamp01(current);
-                ApplySettings();
-            }
+            if (image != null) ApplySettings();
         }
 #endif
     }
