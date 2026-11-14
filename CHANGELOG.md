@@ -126,6 +126,12 @@
 
 ### Fixed
 
+- **InkPanel 在 Inspector 调数值没效果**：组件没有序列化“进度”，且 `OnValidate` 不写回 ImageEx，
+  进度恒为 1 时墨团全显示，调原点/羽化/粗糙度自然看不出变化。现新增 `Progress`（0–1）字段，
+  `OnValidate` 立即写回；DotMatrix / Topographic / PixelCurtain / Spotlight / Switch / RangeSlider / Dropdown
+  也补了 Inspector 即时预览（改数值/颜色/选项立即生效）。
+- **Dropdown 弹层盖住字段**：弹层 pivot 是左上角，但 X 偏移用了 0（从字段中心展开），上翻时 Y 也没加面板高度；
+  现在 X 对齐字段左边缘，空间不足时按“字段顶边 + 弹层高度 + 间距”向上展开。
 - **Dropdown 弹层在屏幕底部被裁 / 贴边判断错误**：`GearPopover.Position` 在取 world corners 前没刷新布局，
   尺寸刚写入时按旧 rect 贴边；现在先 `Canvas.ForceUpdateCanvases()` + `LayoutRebuilder.Rebuild`，
   并且 `GearDropdown` 在下方空间不足时自动向上展开。

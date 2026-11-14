@@ -23,7 +23,6 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField, Range(0f, 1f)] private float falloff;
 
         private ImageEx image;
-        private bool applied;
 
         public float Scale
         {
@@ -98,7 +97,6 @@ namespace Gear.Utilities.UI.ImageExtensions
             image.TopoIntensity = intensity;
             image.TopoSpeed = speed;
             image.TopoFalloff = falloff;
-            applied = true;
         }
 
 #if UNITY_EDITOR
@@ -110,7 +108,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             majorEvery = Mathf.Max(1f, majorEvery);
             intensity = Mathf.Clamp01(intensity);
             falloff = Mathf.Clamp01(falloff);
-            if (applied) ApplySettings();
+            if (image == null) image = GetComponent<ImageEx>();
+            if (image != null) ApplySettings();
         }
 #endif
     }

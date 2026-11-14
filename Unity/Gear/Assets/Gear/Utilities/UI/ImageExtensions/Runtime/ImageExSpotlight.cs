@@ -149,6 +149,7 @@ namespace Gear.Utilities.UI.ImageExtensions
             softness = Mathf.Clamp01(softness);
             intensity = Mathf.Clamp01(intensity);
             fadeSpeed = Mathf.Max(0.01f, fadeSpeed);
+            if (image == null) image = GetComponent<ImageEx>();
             if (image != null) ApplySettings();
         }
 #endif

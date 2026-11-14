@@ -144,11 +144,15 @@ namespace Gear.Utilities.UI.Widgets
             Close();
             float height = Mathf.Min(maxHeight, options.Count * itemHeight + 12f);
             var anchor = (RectTransform)transform;
+            float scaleX = Mathf.Max(0.0001f, Mathf.Abs(anchor.lossyScale.x));
             float scaleY = Mathf.Max(0.0001f, Mathf.Abs(anchor.lossyScale.y));
+            float halfWidth = anchor.rect.width * 0.5f;
             float halfHeight = anchor.rect.height * 0.5f + 6f;
-            Vector2 offset = new Vector2(0f, -halfHeight * scaleY);
 
-            // 下方空间不足时改为向上展开（覆盖层根按世界坐标判断）
+            // 弹层 pivot 是左上角：X 对齐字段左边缘；默认从字段下方展开
+            Vector2 offset = new Vector2(-halfWidth * scaleX, -halfHeight * scaleY);
+
+            // 下方空间不足时改为向上展开（弹层顶边 = 字段顶边 + 面板高度 + 间距）
             RectTransform root = GearOverlayLayer.Root;
             if (root != null)
             {
@@ -158,10 +162,10 @@ namespace Gear.Utilities.UI.Widgets
                 root.GetWorldCorners(rootCorners);
                 float needed = height * scaleY + 8f;
                 if (anchorCorners[0].y - needed < rootCorners[0].y)
-                    offset.y = halfHeight * scaleY;
+                    offset.y = (halfHeight + height) * scaleY;
             }
 
-            popover = GearPopover.Show(anchor, new Vector2(popupWidth, height), BuildRows, offset);
+            popover = GearPopover.Show(anchor, new Vector2(Mathf.Max(popupWidth, anchor.rect.width), height), BuildRows, offset);
             popover.SetOnClose(OnPopoverClosed);
         }
 
@@ -194,6 +198,17 @@ namespace Gear.Utilities.UI.Widgets
             if (target == null) return;
             target.text = value >= 0 && value < options.Count ? options[value] : string.Empty;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            itemHeight = Mathf.Max(12f, itemHeight);
+            popupWidth = Mathf.Max(40f, popupWidth);
+            maxHeight = Mathf.Max(40f, maxHeight);
+            if (value >= options.Count) value = options.Count - 1;
+            RefreshLabel();
+        }
+#endif
 
         private void BuildRows(RectTransform content)
         {

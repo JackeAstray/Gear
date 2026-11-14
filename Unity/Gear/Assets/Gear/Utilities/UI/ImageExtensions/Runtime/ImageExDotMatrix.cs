@@ -22,7 +22,6 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField] private float speed = 1f;
 
         private ImageEx image;
-        private bool applied;
 
         public DotMatrixPattern Pattern
         {
@@ -93,7 +92,6 @@ namespace Gear.Utilities.UI.ImageExtensions
             image.DotColor = color;
             image.DotIntensity = intensity;
             image.DotSpeed = speed;
-            applied = true;
         }
 
 #if UNITY_EDITOR
@@ -102,7 +100,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             cell = Mathf.Max(4f, cell);
             radius = Mathf.Clamp(radius, 0f, 0.5f);
             intensity = Mathf.Clamp01(intensity);
-            if (applied) ApplySettings();
+            if (image == null) image = GetComponent<ImageEx>();
+            if (image != null) ApplySettings();
         }
 #endif
     }

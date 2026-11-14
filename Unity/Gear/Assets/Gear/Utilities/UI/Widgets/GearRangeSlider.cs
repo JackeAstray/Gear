@@ -166,6 +166,15 @@ namespace Gear.Utilities.UI.Widgets
             return max - min <= 0.0001f ? 0f : Mathf.Clamp01((value - min) / (max - min));
         }
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            max = Mathf.Max(min + 0.0001f, max);
+            minGap = Mathf.Max(0f, minGap);
+            if (track != null) ApplyVisual();
+        }
+#endif
+
         private void ApplyVisual()
         {
             if (track == null) return;

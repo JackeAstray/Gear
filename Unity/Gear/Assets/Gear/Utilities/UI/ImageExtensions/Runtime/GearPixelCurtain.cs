@@ -171,6 +171,12 @@ namespace Gear.Utilities.UI.ImageExtensions
             randomness = Mathf.Clamp01(randomness);
             softness = Mathf.Clamp01(softness);
             duration = Mathf.Max(0.01f, duration);
+            if (image == null) image = GetComponent<ImageEx>();
+            if (image != null)
+            {
+                current = Mathf.Clamp01(current);
+                ApplySettings();
+            }
         }
 #endif
     }

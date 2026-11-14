@@ -133,6 +133,15 @@ namespace Gear.Utilities.UI.Widgets
             if (Mathf.Approximately(progress, target)) animating = false;
         }
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            progress = isOn ? 1f : 0f;
+            animating = false;
+            ApplyImmediate();
+        }
+#endif
+
         private void ApplyImmediate()
         {
             if (handle != null)
