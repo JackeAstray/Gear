@@ -22,7 +22,7 @@ namespace Gear.EditorTools.ImageExtensions
         private const string GalleryCanvasName = "ImageEx 画廊";
         private const string ContentPath = "Scroll View/Viewport/Content";
         internal const float CardWidth = 400f;
-        internal const float CardHeight = 300f;
+        internal const float CardHeight = 340f;
 
         /// <summary>清空 Content 并按目录生成全部卡片（由自动化入口调用）。</summary>
         internal static int BuildInto(RectTransform content)
@@ -492,12 +492,14 @@ namespace Gear.EditorTools.ImageExtensions
             clip.transform.SetParent(card, false);
             if (uiLayer >= 0) clip.layer = uiLayer;
 
+            // 底部锚定：保持预览中心在原位置（卡片中心下方 32px），只向上加高，
+            // 既有卡片的内容坐标不会整体上移，也不会压到标题/描述。
             RectTransform clipRect = (RectTransform)clip.transform;
-            clipRect.anchorMin = new Vector2(0.5f, 0.5f);
-            clipRect.anchorMax = new Vector2(0.5f, 0.5f);
-            clipRect.pivot = new Vector2(0.5f, 0.5f);
-            clipRect.anchoredPosition = new Vector2(0f, 0f);
-            clipRect.sizeDelta = new Vector2(320f, 190f);
+            clipRect.anchorMin = new Vector2(0.5f, 0f);
+            clipRect.anchorMax = new Vector2(0.5f, 0f);
+            clipRect.pivot = new Vector2(0.5f, 0f);
+            clipRect.anchoredPosition = new Vector2(0f, 20f);
+            clipRect.sizeDelta = new Vector2(320f, 236f);
 
             GameObject preview = new GameObject("Preview", typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
             preview.transform.SetParent(clip.transform, false);

@@ -157,9 +157,8 @@
 
 - **InkCoverage shader 不响应 Mask 的 alpha clip**：缺少 `UNITY_UI_ALPHACLIP` 关键字，模板缓冲被整块写入，
   墨团遮罩实际没有裁剪子树；补上 alpha clip 后 `GearInkMask` 卡在 Play 下能按墨迹裁掉右侧子元素。
-- **画廊卡片被裁切**：卡片高度 250 → 300、预览区 320×140 → 320×190（预览改为卡片居中），
-  修复 PickerWheel / TimePicker / Calendar / ColorPicker 等新增控件卡只能显示一部分的问题；
-  场景里 150 张卡与 GridLayoutGroup 已就地更新，未改动既有手工布局。
+- **画廊卡片被裁切 / 内容错位**：卡片高度 250 → 340、预览区 320×140 → 320×236，并**保持底部锚定与预览中心不变**，
+  既有卡片的标题/描述与内容相对位置不动，只向上加高；场景里 150 张卡与 GridLayoutGroup 已就地更新。
 - **InkPanel / PixelCurtain 在 Inspector 调数值没效果**：两个组件都没有序列化“进度”，且 `OnValidate` 不写回
   ImageEx，进度恒为 1 时墨团/幕帘全显示，调原点、羽化、粗糙度、格子等参数自然看不出变化。
   现分别新增 `Progress`（0–1）字段，`OnValidate` 立即写回；DotMatrix / Topographic / Spotlight / Switch /
