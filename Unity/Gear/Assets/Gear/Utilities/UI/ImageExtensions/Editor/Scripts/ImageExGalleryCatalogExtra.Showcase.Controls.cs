@@ -25,6 +25,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddCalendarCard(content);
             AddColorPickerCard(content);
             AddSearchCard(content);
+            AddTextTagCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>

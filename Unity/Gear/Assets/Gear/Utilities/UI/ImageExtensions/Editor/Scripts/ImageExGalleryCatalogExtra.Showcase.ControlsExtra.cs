@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Gear.Utilities.UI;
 using Gear.Utilities.UI.ImageExtensions;
 using Gear.Utilities.UI.Widgets;
 
@@ -516,6 +517,34 @@ namespace Gear.EditorTools.ImageExtensions
             search.InputField = input;
             search.SetRows(rowObjects);
             search.Filter();
+        }
+
+        /// <summary>文本标签作用域：同一句里混合 wave / rainbow / shake。</summary>
+        private static void AddTextTagCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "文本 · Tag Scope", "同一句里混合 &lt;wave&gt;/&lt;rainbow&gt; 标签（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            GameObject textGo = new GameObject("Tagged Text", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            textGo.transform.SetParent(preview.transform, false);
+            TextMeshProUGUI tagged = textGo.GetComponent<TextMeshProUGUI>();
+            tagged.fontSize = 20f;
+            tagged.alignment = TextAlignmentOptions.Center;
+            tagged.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            tagged.raycastTarget = false;
+            RectTransform rect = (RectTransform)textGo.transform;
+            rect.sizeDelta = new Vector2(230f, 90f);
+            rect.anchoredPosition = Vector2.zero;
+
+            GearTextTagScope scope = textGo.AddComponent<GearTextTagScope>();
+            scope.Refresh();
+            tagged.text = "普通 <wave>波浪</wave>\n<rainbow>彩虹</rainbow> <shake>抖动</shake>";
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>

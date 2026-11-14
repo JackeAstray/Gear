@@ -127,6 +127,9 @@
   画廊新增「控件 · ColorPicker」卡。
 - **GearSearchIndex**：新增搜索索引——构建期小写化 + 分词，查询期只用 span 比较（稳态无临时字符串），
   多词 AND、整词/前缀/包含排序，可绑定输入框按行 `SetActive` 过滤；画廊新增「控件 · Search」卡。
+- **GearTextTagScope（文本标签作用域）**：`<wave>` / `<shake>` / `<rainbow>` / `<bounce>` / `<pulse>` 标签只作用于局部字符，
+  经 TMP `ITextPreprocessor` 剥标签并在 `OnPreRenderText` 按区间改顶点/颜色；TMP 富文本标签原样保留；
+  与 `LanguagesSystem` 顺序无关；画廊新增「文本 · Tag Scope」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
