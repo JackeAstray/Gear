@@ -56,7 +56,7 @@ namespace Gear.EditorTools.ImageExtensions
             });
         }
 
-        private static void AddShapes(RectTransform content)
+        internal static void AddShapes(RectTransform content)
         {
             AddShape(content, "形状 · Circle", "圆形 + 自动适配矩形", DrawShape.Circle, p =>
                 p.Circle = new CircleImg { FitToRect = true });
@@ -86,8 +86,8 @@ namespace Gear.EditorTools.ImageExtensions
             AddShape(content, "形状 · Chamfer Box", "倒角盒子", DrawShape.ChamferBox, p =>
                 p.ChamferBox = new ChamferBoxImg
                 {
-                    ChamferBoxSize = new Vector2(1.5f, 1f),
-                    ChamferBoxRadius = new Vector4(0.12f, 0.12f, 0.12f, 0.12f),
+                    ChamferBoxSize = new Vector2(1.25f, 0.9f),
+                    ChamferBoxRadius = new Vector4(0.22f, 0.22f, 0.22f, 0.22f),
                 });
 
             AddShape(content, "形状 · Quadrilateral", "四边形/梯形偏移", DrawShape.Quadrilateral, p =>
@@ -103,7 +103,7 @@ namespace Gear.EditorTools.ImageExtensions
                 p.NStarPolygon = new NStarPolygonImg
                 {
                     SideCount = 5f,
-                    Inset = 2f,
+                    Inset = 4f,
                     CornerRadius = 0.04f,
                 });
 
