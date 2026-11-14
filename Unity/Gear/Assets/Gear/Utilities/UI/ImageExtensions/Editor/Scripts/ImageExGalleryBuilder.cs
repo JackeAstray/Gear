@@ -22,7 +22,7 @@ namespace Gear.EditorTools.ImageExtensions
         private const string GalleryCanvasName = "ImageEx 画廊";
         private const string ContentPath = "Scroll View/Viewport/Content";
         internal const float CardWidth = 400f;
-        internal const float CardHeight = 250f;
+        internal const float CardHeight = 300f;
 
         /// <summary>清空 Content 并按目录生成全部卡片（由自动化入口调用）。</summary>
         internal static int BuildInto(RectTransform content)
@@ -50,7 +50,7 @@ namespace Gear.EditorTools.ImageExtensions
                 Undo.DestroyObjectImmediate(content.GetChild(i).gameObject);
             }
 
-            // 原 4 列 200×200 改为 2 列 400×250，给效果留出可读尺寸
+            // 原 4 列 200×200 改为 2 列 400×300，给效果与控件留出可读尺寸
             GridLayoutGroup grid = content.GetComponent<GridLayoutGroup>();
             if (grid != null)
             {
@@ -493,11 +493,11 @@ namespace Gear.EditorTools.ImageExtensions
             if (uiLayer >= 0) clip.layer = uiLayer;
 
             RectTransform clipRect = (RectTransform)clip.transform;
-            clipRect.anchorMin = new Vector2(0.5f, 0f);
-            clipRect.anchorMax = new Vector2(0.5f, 0f);
-            clipRect.pivot = new Vector2(0.5f, 0f);
-            clipRect.anchoredPosition = new Vector2(0f, 22f);
-            clipRect.sizeDelta = new Vector2(320f, 140f);
+            clipRect.anchorMin = new Vector2(0.5f, 0.5f);
+            clipRect.anchorMax = new Vector2(0.5f, 0.5f);
+            clipRect.pivot = new Vector2(0.5f, 0.5f);
+            clipRect.anchoredPosition = new Vector2(0f, 0f);
+            clipRect.sizeDelta = new Vector2(320f, 190f);
 
             GameObject preview = new GameObject("Preview", typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
             preview.transform.SetParent(clip.transform, false);
