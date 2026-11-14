@@ -10,7 +10,7 @@ namespace Gear.EditorTools.ImageExtensions
     /// 附加效果目录：在基础 40+ 张之外，补齐形状轮廓、渐变角度、裁剪档位、投影方向、
     /// 全部色调/颜色/采样/目标/细节滤镜、9 种过渡和组合卡片，让 Content 里的例子足够多。
     /// </summary>
-    internal static class ImageExGalleryCatalogExtra
+    internal static partial class ImageExGalleryCatalogExtra
     {
         private static readonly Color Accent = new Color(0.49f, 0.36f, 0.99f);
         private static readonly Color Cyan = new Color(0.14f, 0.75f, 0.95f);
@@ -30,6 +30,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddRaycastModes(content);
             AddShapeSoftness(content);
             AddDither(content);
+            PopulateShowcase(content);
             AddSoftMask(content);
             AddTextEffects(content);
             AddClipVariants(content);
@@ -120,6 +121,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddRaycastModes(content);
             AddShapeSoftness(content);
             AddDither(content);
+            PopulateShowcase(content);
             AddSoftMask(content);
             AddTextEffects(content);
             return content.childCount - before;
@@ -134,15 +136,6 @@ namespace Gear.EditorTools.ImageExtensions
                 p.ShapeSoftness = 6f;
                 p.OutlineWidth = 2f;
                 p.OutlineColor = new Color(1f, 1f, 1f, 0.2f);
-            });
-        }
-
-        private static void AddDither(RectTransform content) {
-            AddCardIfMissing(content, "抖动 · Dither", "打散 8bit 渐变色带", p =>
-            {
-                ImageExGalleryCatalog.ApplyGradient(p, GradientType.Linear, 45f, 0f,
-                    new Color(0.05f, 0.05f, 0.08f), new Color(0.18f, 0.16f, 0.3f));
-                p.Dither = true;
             });
         }
 

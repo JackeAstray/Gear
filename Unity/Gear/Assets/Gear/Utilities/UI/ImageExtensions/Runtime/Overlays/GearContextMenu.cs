@@ -110,6 +110,20 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             return menu;
         }
 
+        /// <summary>
+        /// 在锚点下方显示菜单（空间不足时自动上翻/贴边），用于菜单栏、设置行等“贴控件”的菜单。
+        /// </summary>
+        public static GearContextMenu Show(RectTransform anchor, IReadOnlyList<GearContextMenuItem> items)
+        {
+            if (anchor == null) return null;
+
+            Vector3[] corners = new Vector3[4];
+            anchor.GetWorldCorners(corners);
+            Vector2 screen = RectTransformUtility.WorldToScreenPoint(null, (corners[0] + corners[3]) * 0.5f);
+            screen.y -= 4f;
+            return Show(screen, items);
+        }
+
         private static GameObject CreateMenuObject()
         {
             GameObject go = new GameObject("GearContextMenu", typeof(RectTransform), typeof(CanvasGroup));
