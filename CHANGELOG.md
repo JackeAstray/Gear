@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Removed
+
+- **`Gear/UI Example/*` 菜单与画廊生成工具**：删除全量重建 / 仅补充新增 / 重建形状卡 / UI 渲染诊断 / 共享材质试点菜单，
+  以及 `ImageExGalleryBuilder`、`ImageExGalleryCatalog*`、`Gear*DemoBuilder`、`GearUIRenderDiagnostics`、`ImageExSharedPilot` 共 17 个编辑器脚本。
+  `UI Example` 场景保留 150 张静态演示卡，不再提供生成入口。
+- **过时设计文档**：删除 9 篇以 Evo 对照/路线图/验收/渲染诊断为主的阶段性文档；保留 `重构方案`、`便捷性与可移植性评估`、`开发交接-剩余工作`。
+
 ### Added
 
 - **ImageEx 图案填充**：`Pattern`（点阵/网格/条纹/棋盘/圆环）+ 尺寸/留白/旋转/偏移/流速/径向 falloff，
@@ -231,14 +238,14 @@
 
 ### Docs
 
-- 新增 [Evo对照-ImageEx阴影与UI覆盖层](Docs/design/Evo对齐-ImageEx阴影与UI覆盖层.md)，记录对照结论、修改文件与验证步骤。
-- 新增 [Evo对照-UI能力差距与路线图](Docs/design/Evo对照-UI能力差距与路线图.md)：把三轮对照的
+- 新增 Evo对照-ImageEx阴影与UI覆盖层（文档已随阶段性设计清理删除），记录对照结论、修改文件与验证步骤。
+- 新增 Evo对照-UI能力差距与路线图（已删除）：把三轮对照的
   "已完成 / 还差 / 不照搬"固化成能力矩阵、分阶段路线（结构件 → 形状快赢 → 软遮罩 → 控件）、
   验收命令与可勾选清单。
-- 新增 [Evo对照-EvoDemo复刻与ImageEx技术取舍](Docs/design/Evo对照-EvoDemo复刻与ImageEx技术取舍.md)：
+- 新增 Evo对照-EvoDemo复刻与ImageEx技术取舍（已删除）：
   记录 EvoDemo 的真实构成（15 个脚本分组 / 6 整屏 / 约 6.9 万行运行时 + 1.7 万行 Demo）、
   ImageEx 的"立即做 / 中期 / 不做"取舍、UI 系统借模型不借骨架的边界，以及 Gear UI 展厅的分级路线。
-- 新增 [Evo对照-第二轮-渲染契约与模块复刻清单](Docs/design/Evo对照-第二轮-渲染契约与模块复刻清单.md)：
+- 新增 Evo对照-第二轮-渲染契约与模块复刻清单（已删除）：
   以当前工作树校准"已落地/已过期"结论，修正布尔运算与 uv3 通道的成本判断，给出 UI 系统三个可借契约、
   EVODemo 逐模块复刻成本与三个复刻包；并确认 `Assets/Evo` 已被提交进公开仓库（2699 个文件），
   同步修正三篇旧文档里"保持 untracked"的错误描述。
