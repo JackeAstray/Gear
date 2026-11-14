@@ -294,8 +294,13 @@ namespace Gear.EditorTools.ImageExtensions
             header.color = new Color(0.94f, 0.95f, 0.98f, 1f);
             header.raycastTarget = false;
             RectTransform headerRect = (RectTransform)headerGo.transform;
-            headerRect.sizeDelta = new Vector2(220f, 22f);
+            headerRect.sizeDelta = new Vector2(130f, 22f);
             headerRect.anchoredPosition = new Vector2(0f, 72f);
+
+            Button prevYear = CreateMiniButton(preview.transform, "Prev Year", new Vector2(-112f, 72f), "<<");
+            Button prevMonth = CreateMiniButton(preview.transform, "Prev Month", new Vector2(-80f, 72f), "<");
+            Button nextMonth = CreateMiniButton(preview.transform, "Next Month", new Vector2(80f, 72f), ">");
+            Button nextYear = CreateMiniButton(preview.transform, "Next Year", new Vector2(112f, 72f), ">>");
 
             GameObject gridGo = new GameObject("Grid", typeof(RectTransform));
             gridGo.transform.SetParent(preview.transform, false);
@@ -333,6 +338,10 @@ namespace Gear.EditorTools.ImageExtensions
             calendar.HeaderLabel = header;
             calendar.GridContent = grid;
             calendar.DayTemplate = dayButton;
+            calendar.PreviousYearButton = prevYear;
+            calendar.PreviousMonthButton = prevMonth;
+            calendar.NextMonthButton = nextMonth;
+            calendar.NextYearButton = nextYear;
             calendar.SetVisibleMonth(2026, 11);
             calendar.SelectDate(new System.DateTime(2026, 11, 14), false);
             calendar.Refresh();
@@ -430,6 +439,28 @@ namespace Gear.EditorTools.ImageExtensions
                 },
                 new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 1f) });
             return gradient;
+        }
+
+        /// <summary>日期卡顶部的小箭头按钮。</summary>
+        private static Button CreateMiniButton(Transform parent, string name, Vector2 position, string text)
+        {
+            ImageEx tile = CreateTile(parent, name, position, new Vector2(26f, 22f), new Color(0.16f, 0.18f, 0.25f, 1f));
+            tile.Rectangle.CornerRadius = new Vector4(6f, 6f, 6f, 6f);
+            tile.raycastTarget = true;
+
+            GameObject labelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGo.transform.SetParent(tile.transform, false);
+            TextMeshProUGUI label = labelGo.GetComponent<TextMeshProUGUI>();
+            label.text = text;
+            label.fontSize = 12f;
+            label.alignment = TextAlignmentOptions.Center;
+            label.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            label.raycastTarget = false;
+            ((RectTransform)labelGo.transform).sizeDelta = new Vector2(26f, 22f);
+
+            Button button = tile.gameObject.AddComponent<Button>();
+            button.transition = Selectable.Transition.None;
+            return button;
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>

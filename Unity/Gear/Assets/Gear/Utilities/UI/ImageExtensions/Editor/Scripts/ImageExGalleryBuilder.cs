@@ -67,6 +67,17 @@ namespace Gear.EditorTools.ImageExtensions
             // 立刻重排，避免保存时 Content 还是旧高度
             Canvas.ForceUpdateCanvases();
             LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+            Canvas.ForceUpdateCanvases();
+
+            // 布局结算后再刷一次所有 ImageEx，保证 SDF 形状/材质参数按最终尺寸写入变体
+            ImageEx[] images = content.GetComponentsInChildren<ImageEx>(true);
+            for (int i = 0; i < images.Length; i++)
+            {
+                images[i].SetVerticesDirty();
+                images[i].SetMaterialDirty();
+            }
+
+            Canvas.ForceUpdateCanvases();
             return content.childCount;
         }
 
@@ -210,6 +221,11 @@ namespace Gear.EditorTools.ImageExtensions
 
             ImageEx preview = CreatePreview(card.transform, uiLayer);
             configurePreview?.Invoke(preview);
+
+            // 批量重建时布局还没结算，形状/材质参数容易停留在默认值；先标脏，
+            // 等布局完成后再统一刷新一次（见 BuildInto 末尾）。
+            preview.SetVerticesDirty();
+            preview.SetMaterialDirty();
 
             // 投影示例的阴影必须画到 Preview 外侧，不能套 RectMask2D；其余示例保留裁剪。
             if (title.StartsWith("投影") || title.Contains("Glass Card"))

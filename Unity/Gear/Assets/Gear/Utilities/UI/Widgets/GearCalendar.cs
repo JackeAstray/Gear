@@ -48,6 +48,10 @@ namespace Gear.Utilities.UI.Widgets
         [SerializeField] private TMP_Text headerLabel;
         [SerializeField] private RectTransform gridContent;
         [SerializeField] private Button dayTemplate;
+        [SerializeField] private Button previousMonthButton;
+        [SerializeField] private Button nextMonthButton;
+        [SerializeField] private Button previousYearButton;
+        [SerializeField] private Button nextYearButton;
         [SerializeField] private GearWeekStart weekStart = GearWeekStart.Sunday;
         [SerializeField] private Color normalColor = new Color(0.16f, 0.18f, 0.25f, 1f);
         [SerializeField] private Color mutedColor = new Color(0.16f, 0.18f, 0.25f, 0.4f);
@@ -76,6 +80,30 @@ namespace Gear.Utilities.UI.Widgets
         public RectTransform GridContent { get => gridContent; set { gridContent = value; RefreshGrid(); } }
         public Button DayTemplate { get => dayTemplate; set { dayTemplate = value; RefreshGrid(); } }
 
+        public Button PreviousMonthButton
+        {
+            get => previousMonthButton;
+            set { previousMonthButton = value; WireButtons(); }
+        }
+
+        public Button NextMonthButton
+        {
+            get => nextMonthButton;
+            set { nextMonthButton = value; WireButtons(); }
+        }
+
+        public Button PreviousYearButton
+        {
+            get => previousYearButton;
+            set { previousYearButton = value; WireButtons(); }
+        }
+
+        public Button NextYearButton
+        {
+            get => nextYearButton;
+            set { nextYearButton = value; WireButtons(); }
+        }
+
         public GearWeekStart WeekStart
         {
             get => weekStart;
@@ -91,8 +119,31 @@ namespace Gear.Utilities.UI.Widgets
         {
             RestoreSelection();
             EnsureMonth();
+            WireButtons();
             RefreshHeader();
             RefreshGrid();
+        }
+
+        private void OnDisable()
+        {
+            UnwireButtons();
+        }
+
+        private void WireButtons()
+        {
+            UnwireButtons();
+            if (previousMonthButton != null) previousMonthButton.onClick.AddListener(PreviousMonth);
+            if (nextMonthButton != null) nextMonthButton.onClick.AddListener(NextMonth);
+            if (previousYearButton != null) previousYearButton.onClick.AddListener(PreviousYear);
+            if (nextYearButton != null) nextYearButton.onClick.AddListener(NextYear);
+        }
+
+        private void UnwireButtons()
+        {
+            if (previousMonthButton != null) previousMonthButton.onClick.RemoveListener(PreviousMonth);
+            if (nextMonthButton != null) nextMonthButton.onClick.RemoveListener(NextMonth);
+            if (previousYearButton != null) previousYearButton.onClick.RemoveListener(PreviousYear);
+            if (nextYearButton != null) nextYearButton.onClick.RemoveListener(NextYear);
         }
 
         private void RestoreSelection()
@@ -130,6 +181,20 @@ namespace Gear.Utilities.UI.Widgets
         {
             DateTime next = VisibleMonth.AddMonths(1);
             SetVisibleMonth(next.Year, next.Month);
+        }
+
+        /// <summary>上一年（保持月份，最小到 1 年）。</summary>
+        public void PreviousYear()
+        {
+            if (year <= 1) return;
+            SetVisibleMonth(year - 1, month);
+        }
+
+        /// <summary>下一年（保持月份，最大到 9999 年）。</summary>
+        public void NextYear()
+        {
+            if (year >= 9999) return;
+            SetVisibleMonth(year + 1, month);
         }
 
         /// <summary>选中日期（会同步可视月份）；非法日期忽略。</summary>

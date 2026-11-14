@@ -516,4 +516,4 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 | 文本标签作用域 | `TextEffects/GearTextTagScope.cs` | `GearTextTagScopeTests` 7/7；UI Example 148→149 张卡 |
 | InkPanel RT 遮罩 | `Effects/GearInkMask.cs` + `UI/InkCoverage.shader` | `GearInkMaskTests` 5/5；UI Example 149→150 张卡 |
 
-全量 EditMode：**410/410 通过**。P2 已完成：墨团覆盖度烘焙到 RT，用模板缓冲遮住子树。
+全量 EditMode：**412/412 通过**。UI Example 全量重建后为 **169 张卡**（此前增量拼接 150 张，缺 19 张目录卡片）。P2 已完成：墨团覆盖度烘焙到 RT，用模板缓冲遮住子树。

@@ -71,22 +71,22 @@ namespace Gear.EditorTools.ImageExtensions
                 p.Pentagon = new PentagonImg
                 {
                     CornerRadius = new Vector4(0.06f, 0.06f, 0.06f, 0.06f),
-                    TipRadius = 0.04f,
-                    TipSize = 0.08f,
+                    TipRadius = 0.001f,
+                    TipSize = 70f,
                 });
 
             AddShape(content, "形状 · Hexagon", "六边形 + 尖角/圆角", DrawShape.Hexagon, p =>
                 p.Hexagon = new HexagonImg
                 {
-                    CornerRadius = new Vector4(0.05f, 0.05f, 0.05f, 0.05f),
-                    TipSize = new Vector2(0.1f, 0.1f),
-                    TipRadius = new Vector2(0.04f, 0.04f),
+                    CornerRadius = new Vector4(1f, 1f, 1f, 1f),
+                    TipSize = new Vector2(50f, 50f),
+                    TipRadius = new Vector2(1f, 1f),
                 });
 
             AddShape(content, "形状 · Chamfer Box", "倒角盒子", DrawShape.ChamferBox, p =>
                 p.ChamferBox = new ChamferBoxImg
                 {
-                    ChamferBoxSize = new Vector2(0.8f, 0.5f),
+                    ChamferBoxSize = new Vector2(1.5f, 1f),
                     ChamferBoxRadius = new Vector4(0.12f, 0.12f, 0.12f, 0.12f),
                 });
 
@@ -113,7 +113,7 @@ namespace Gear.EditorTools.ImageExtensions
                 p.BlobbyCross = new BlobbyCrossImg { BlobbyCrossTime = 0.35f });
 
             AddShape(content, "形状 · Squircle", "方圆形", DrawShape.Squircle, p =>
-                p.Squircle = new SquircleImg { SquircleTime = 1f });
+                p.Squircle = new SquircleImg { SquircleTime = 0.25f });
 
             AddShape(content, "形状 · N-Triangle", "N 边圆角三角形", DrawShape.NTriangleRounded, p =>
                 p.NTriangleRounded = new NTriangleRoundedImg { NTriangleRoundedNumber = 3f });

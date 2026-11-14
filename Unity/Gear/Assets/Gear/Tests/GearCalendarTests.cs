@@ -66,6 +66,20 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void PreviousYearAndNextYear_KeepMonth()
+        {
+            calendar.SetVisibleMonth(2026, 3);
+            calendar.PreviousYear();
+            Assert.AreEqual(2025, calendar.Year);
+            Assert.AreEqual(3, calendar.Month);
+
+            calendar.NextYear();
+            calendar.NextYear();
+            Assert.AreEqual(2027, calendar.Year);
+            Assert.AreEqual(3, calendar.Month);
+        }
+
+        [Test]
         public void SelectDate_SyncsMonthAndRaisesIso()
         {
             string captured = null;
