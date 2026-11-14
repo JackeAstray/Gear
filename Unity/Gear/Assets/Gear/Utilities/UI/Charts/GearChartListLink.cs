@@ -19,7 +19,7 @@ namespace Gear.Utilities.UI.Charts
         [SerializeField] private int categoryColumn;
         [SerializeField] private string[] categories;
 
-        private readonly List<GearListRowData> allRows = new List<GearListRowData>();
+        [SerializeField] private List<GearListRowData> allRows = new List<GearListRowData>();
 
         public int SelectedSlice { get; private set; } = -1;
         public int VisibleRowCount => list != null ? list.GetItemCount() : 0;
@@ -27,7 +27,12 @@ namespace Gear.Utilities.UI.Charts
 
         public event Action<int> FilterChanged;
 
-        private void OnEnable() => Subscribe();
+        private void OnEnable()
+        {
+            Subscribe();
+            // 场景重载后 allRows 是序列化数据；恢复“全部”视图，否则第一次点扇区会过滤出空列表
+            if (list != null && allRows.Count > 0) ApplyFilter(-1);
+        }
         private void OnDisable() => Unsubscribe();
 
         private void Subscribe()
@@ -73,6 +78,8 @@ namespace Gear.Utilities.UI.Charts
         /// <summary>应用过滤；sliceIndex<0 或没有分类时恢复全部行。</summary>
         public void ApplyFilter(int sliceIndex)
         {
+            // 再点同一个扇区取消过滤
+            if (sliceIndex >= 0 && sliceIndex == SelectedSlice) sliceIndex = -1;
             SelectedSlice = sliceIndex;
             if (list == null) return;
 

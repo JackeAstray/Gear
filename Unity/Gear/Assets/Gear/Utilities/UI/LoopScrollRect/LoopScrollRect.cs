@@ -384,6 +384,22 @@ namespace Gear.Utilities
                 content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, contentWidth);
             }
 
+            // 域重载后运行时池会清空，但场景里还留着上次实例化的行；
+            // 先接管这些子物体，避免重复创建出“幽灵行”盖在新数据上。
+            if (pooledItems.Count == 0 && content != null)
+            {
+                for (int i = 0; i < content.childCount; i++)
+                {
+                    RectTransform child = content.GetChild(i) as RectTransform;
+                    if (child == null) continue;
+                    LoopItemBase comp = child.GetComponent<LoopItemBase>();
+                    if (comp == null) continue;
+                    pooledItems.Add(child);
+                    pooledItemComps.Add(comp);
+                    pooledDataIndices.Add(-1);
+                }
+            }
+
             // 生成池内初始可见项（reuse prefab）
             for (int i = 0; i < visibleCount; i++)
             {
