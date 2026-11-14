@@ -108,6 +108,7 @@
 | 2026-11-14 | Pack C 输入框 | ✅ `GearInputFieldEnhancer`；1 张卡（143→144）；EditMode 370/370 |
 | 2026-11-14 | Pack C 多选 | ✅ `GearMultiSelect`；1 张卡（144→145）；EditMode 377/377 |
 | 2026-11-14 | Pack C 日历 | ✅ `GearCalendar`；1 张卡（145→146）；EditMode 384/384 |
+| 2026-11-14 | Pack C 取色 | ✅ `GearColorPicker`；1 张卡（146→147）；EditMode 391/391 |
 | 下一轮 | 3C 收尾 | ⏳ 雷达图/点击钻取/真实数据联动 |
 
 ## 六、明确不做

@@ -511,5 +511,6 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 | Pack C 输入框 | `Widgets/GearInputFieldEnhancer.cs` | `GearInputFieldEnhancerTests` 9/9；UI Example 143→144 张卡 |
 | Pack C 多选 | `Widgets/GearMultiSelect.cs` | `GearMultiSelectTests` 7/7；UI Example 144→145 张卡 |
 | Pack C 日历 | `Widgets/GearCalendar.cs` | `GearCalendarTests` 7/7；UI Example 145→146 张卡 |
+| Pack C 取色 | `Widgets/GearColorPicker.cs` | `GearColorPickerTests` 7/7；UI Example 146→147 张卡 |
 
-全量 EditMode：**384/384 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。
+全量 EditMode：**391/391 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。

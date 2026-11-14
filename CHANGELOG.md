@@ -123,6 +123,8 @@
   `MaxSelection` 上限、`SelectAll` / `ClearSelection`；画廊新增「控件 · MultiSelect」卡。
 - **GearCalendar**：新增月视图日历——按周起始日偏移生成日期网格（今天/选中/跨月标记），
   翻月跨年、`SelectDate` / `SelectDay`、可选格子模板与配色；画廊新增「控件 · Calendar」卡。
+- **GearColorPicker**：新增简化取色器——SV 方块拖动 + Hue 滑条 + Hex 输入，颜色/Hex 互转是纯函数；
+  画廊新增「控件 · ColorPicker」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
