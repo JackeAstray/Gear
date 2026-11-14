@@ -38,6 +38,7 @@
 | [Evo对照-UI能力差距与路线图](design/Evo对照-UI能力差距与路线图.md) | 三轮对照后的能力矩阵：已完成/还差/不照搬、分阶段路线、验收标准与可勾选清单 |
 | [Evo对照-EvoDemo复刻与ImageEx技术取舍](design/Evo对照-EvoDemo复刻与ImageEx技术取舍.md) | EvoDemo 15 个脚本分组 / 6 个整屏的复刻分级、ImageEx 借什么不借什么、Gear UI 展厅落点与排期 |
 | [Evo对照-第二轮-渲染契约与模块复刻清单](design/Evo对照-第二轮-渲染契约与模块复刻清单.md) | 工作树校准、ImageEx 剩余机制取舍、UI 系统三个契约、EVODemo 逐模块复刻与三个复刻包 |
+| [开发交接-剩余工作](design/开发交接-剩余工作.md) | 换机交接：当前基线、环境与验证命令、剩余任务（Pack C / 文本标签 / InkPanel RT）、坑与提交清单 |
 | [Gear-UI-下一阶段开发规划](design/Gear-UI-下一阶段开发规划.md) | 设计系统地基、覆盖层打磨、主题与数据展示的三阶段规划、验收标准与执行记录 |
 | [Gear-UI-渲染诊断](design/Gear-UI-渲染诊断.md) | UI Example 的 Canvas / Graphic / ImageEx 材质实例与可合批分组的静态诊断报告 |
 
