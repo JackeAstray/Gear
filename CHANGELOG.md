@@ -158,9 +158,12 @@
 - **画廊批量重建后形状/材质不刷新**：`AddCard` 与 `BuildInto` 在布局结算前后统一标脏并 `ForceUpdateCanvases`，
   修复全量重建后部分 SDF 形状（Triangle/Hexagon/Pentagon/Chamfer）显示成矩形的问题；
   同时校正形状预设（六边形 TipSize 50、五边形 70、倒角 1.5×1、Squircle 时间 0.25）。
-- **画廊卡片布局不一致**：场景原为增量拼接（150 张，缺 19 张目录卡片），已全量重建为 169 张，
-  统一 400×340 / 预览 320×236；Content 高度与 Grid 行距一致。
-- **日历只能翻月**：`GearCalendar` 增加 `<< < > >>` 年/月按钮与 `PreviousYear/NextYear`，卡片顶部已接入。
+- **ListView 往上拖后数据消失**：行数据只在编辑期 `SetData`，未序列化，Play/滚动回收后 `rows=0`；
+  `GearListView` 的 rows 改为 `SerializeField` 并在 OnEnable 重新 `Initialize`，列表高度 96→180。
+- **日历卡太小 / 只能翻月**：格子 30×20 → 38×26，标题与箭头按钮放大，并新增 `<< < > >>` 年/月切换
+  （`PreviousYear/NextYear`）；Play 下翻月/翻年与选中日期均同步。
+- **全量重建会重置手工效果并产生重复卡**：已回滚到重建前的场景（150 张，保留手工调整），
+  再用「仅补充新增」补齐缺失卡并重建 Calendar / ListView / Pie→List；后续批量修改请用增量菜单。
 - **搜索卡输入不筛选**：`GearSearchIndex.OnEnable` 用自身的 `entries` 重建索引时，`Build` 先把同一个 List 清空，
   导致索引恒为空；改为同引用时跳过清空，并补 `Rebuild()` 与回归用例。
 - **日历卡日期叠两层 / 选中态丢失**：域重载后非序列化的 `cells` 清空，重复实例化整月格子；

@@ -15,7 +15,7 @@ namespace Gear.Utilities.UI.ListView
         [SerializeField] private GameObject emptyState;
         [SerializeField] private float[] columnWidths;
 
-        private readonly List<GearListRowData> rows = new List<GearListRowData>();
+        [SerializeField] private List<GearListRowData> rows = new List<GearListRowData>();
 
         public IReadOnlyList<GearListRowData> Rows => rows;
         public int SelectedIndex => loop != null ? loop.GetSelectedIndex() : -1;
@@ -59,6 +59,11 @@ namespace Gear.Utilities.UI.ListView
             loop.ItemClicked += HandleItemClicked;
             loop.SelectionChanged -= HandleSelectionChanged;
             loop.SelectionChanged += HandleSelectionChanged;
+
+            // 场景重载后 rows 是序列化数据，需要重新初始化虚拟列表；
+            // 否则滚动回收一次后行会全部消失（编辑期 SetData 只在当次会话生效）。
+            if (rows.Count > 0) Refresh();
+            else UpdateEmptyState();
         }
 
         private void OnDestroy()

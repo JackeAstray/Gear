@@ -41,7 +41,7 @@ namespace Gear.EditorTools.ImageExtensions
             listRect.anchorMin = new Vector2(0.5f, 0.5f);
             listRect.anchorMax = new Vector2(0.5f, 0.5f);
             listRect.pivot = new Vector2(0.5f, 0.5f);
-            listRect.sizeDelta = new Vector2(300f, 96f);
+            listRect.sizeDelta = new Vector2(300f, 180f);
 
             Image hit = listGo.GetComponent<Image>();
             hit.color = new Color(0f, 0f, 0f, 0f);
@@ -82,7 +82,7 @@ namespace Gear.EditorTools.ImageExtensions
             template.transform.SetParent(listGo.transform, false);
             if (uiLayer >= 0) template.layer = uiLayer;
             RectTransform templateRect = (RectTransform)template.transform;
-            templateRect.sizeDelta = new Vector2(300f, 36f);
+            templateRect.sizeDelta = new Vector2(300f, 34f);
             template.SetActive(false);
 
             ImageEx rowBackground = template.GetComponent<ImageEx>();

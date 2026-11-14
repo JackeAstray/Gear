@@ -289,42 +289,42 @@ namespace Gear.EditorTools.ImageExtensions
             headerGo.transform.SetParent(preview.transform, false);
             TextMeshProUGUI header = headerGo.GetComponent<TextMeshProUGUI>();
             header.text = "2026 年 11 月";
-            header.fontSize = 16f;
+            header.fontSize = 19f;
             header.alignment = TextAlignmentOptions.Center;
             header.color = new Color(0.94f, 0.95f, 0.98f, 1f);
             header.raycastTarget = false;
             RectTransform headerRect = (RectTransform)headerGo.transform;
-            headerRect.sizeDelta = new Vector2(130f, 22f);
-            headerRect.anchoredPosition = new Vector2(0f, 72f);
+            headerRect.sizeDelta = new Vector2(150f, 26f);
+            headerRect.anchoredPosition = new Vector2(0f, 88f);
 
-            Button prevYear = CreateMiniButton(preview.transform, "Prev Year", new Vector2(-112f, 72f), "<<");
-            Button prevMonth = CreateMiniButton(preview.transform, "Prev Month", new Vector2(-80f, 72f), "<");
-            Button nextMonth = CreateMiniButton(preview.transform, "Next Month", new Vector2(80f, 72f), ">");
-            Button nextYear = CreateMiniButton(preview.transform, "Next Year", new Vector2(112f, 72f), ">>");
+            Button prevYear = CreateMiniButton(preview.transform, "Prev Year", new Vector2(-124f, 88f), "<<");
+            Button prevMonth = CreateMiniButton(preview.transform, "Prev Month", new Vector2(-92f, 88f), "<");
+            Button nextMonth = CreateMiniButton(preview.transform, "Next Month", new Vector2(92f, 88f), ">");
+            Button nextYear = CreateMiniButton(preview.transform, "Next Year", new Vector2(124f, 88f), ">>");
 
             GameObject gridGo = new GameObject("Grid", typeof(RectTransform));
             gridGo.transform.SetParent(preview.transform, false);
             RectTransform grid = (RectTransform)gridGo.transform;
-            grid.sizeDelta = new Vector2(232f, 144f);
-            grid.anchoredPosition = new Vector2(0f, -6f);
+            grid.sizeDelta = new Vector2(290f, 176f);
+            grid.anchoredPosition = new Vector2(0f, -24f);
 
             GridLayoutGroup layout = gridGo.AddComponent<GridLayoutGroup>();
-            layout.cellSize = new Vector2(30f, 20f);
-            layout.spacing = new Vector2(3f, 3f);
+            layout.cellSize = new Vector2(38f, 26f);
+            layout.spacing = new Vector2(4f, 4f);
             layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             layout.constraintCount = 7;
             layout.childAlignment = TextAnchor.UpperCenter;
 
             ImageEx cell = CreateTile(grid, "Day Template", Vector2.zero,
-                new Vector2(30f, 20f), new Color(0.16f, 0.18f, 0.25f, 1f));
-            cell.Rectangle.CornerRadius = new Vector4(4f, 4f, 4f, 4f);
+                new Vector2(38f, 26f), new Color(0.16f, 0.18f, 0.25f, 1f));
+            cell.Rectangle.CornerRadius = new Vector4(5f, 5f, 5f, 5f);
             cell.raycastTarget = true;
 
             GameObject dayLabelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
             dayLabelGo.transform.SetParent(cell.transform, false);
             TextMeshProUGUI dayLabel = dayLabelGo.GetComponent<TextMeshProUGUI>();
             dayLabel.text = "1";
-            dayLabel.fontSize = 11f;
+            dayLabel.fontSize = 13f;
             dayLabel.alignment = TextAlignmentOptions.Center;
             dayLabel.color = new Color(0.94f, 0.95f, 0.98f, 1f);
             dayLabel.raycastTarget = false;
