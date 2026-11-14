@@ -119,6 +119,8 @@
 - **GearInputFieldEnhancer**：新增输入框增强——长度计数（代理对按 1 字）、Enter/多行 Ctrl+Enter 提交、
   IME 组合态拦截（`CompositionProvider` 可注入）、提交清洗/清空；不注册 `ITextPreprocessor`，与语言系统顺序无关；
   画廊新增「控件 · InputField」卡。
+- **GearMultiSelect**：新增多选下拉——`GearPopover` 勾选集合 + 确认，掩码（前 31 项）/序号列表、
+  `MaxSelection` 上限、`SelectAll` / `ClearSelection`；画廊新增「控件 · MultiSelect」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；

@@ -21,6 +21,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddTimerCard(content);
             AddOffScreenCard(content);
             AddInputFieldCard(content);
+            AddMultiSelectCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -419,6 +420,54 @@ namespace Gear.EditorTools.ImageExtensions
             enhancer.InputField = input;
             enhancer.CounterLabel = counter;
             enhancer.MaxLength = 16;
+        }
+
+        /// <summary>多选下拉：勾选集合 + 确认。</summary>
+        private static void AddMultiSelectCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · MultiSelect", "勾选多项后点确认（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            ImageEx field = CreateTile(preview.transform, "Field", Vector2.zero,
+                new Vector2(240f, 46f), new Color(0.11f, 0.12f, 0.17f, 1f));
+            field.Rectangle.CornerRadius = new Vector4(10f, 10f, 10f, 10f);
+            field.OutlineWidth = 1f;
+            field.OutlineColor = new Color(1f, 1f, 1f, 0.14f);
+            field.raycastTarget = true;
+
+            Button trigger = field.gameObject.AddComponent<Button>();
+            trigger.transition = Selectable.Transition.None;
+
+            GameObject labelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGo.transform.SetParent(field.transform, false);
+            TextMeshProUGUI label = labelGo.GetComponent<TextMeshProUGUI>();
+            label.text = "2 项已选";
+            label.fontSize = 15f;
+            label.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            label.alignment = TextAlignmentOptions.Left;
+            label.raycastTarget = false;
+            RectTransform labelRect = (RectTransform)labelGo.transform;
+            labelRect.anchorMin = new Vector2(0f, 0f);
+            labelRect.anchorMax = new Vector2(1f, 1f);
+            labelRect.offsetMin = new Vector2(14f, 0f);
+            labelRect.offsetMax = new Vector2(-38f, 0f);
+
+            ImageEx caret = CreateTile(field.transform, "Caret", new Vector2(102f, 0f),
+                new Vector2(11f, 9f), new Color(0.62f, 0.65f, 0.73f, 1f));
+            caret.DrawShape = DrawShape.Triangle;
+
+            GearMultiSelect multi = preview.gameObject.AddComponent<GearMultiSelect>();
+            multi.Trigger = trigger;
+            multi.Label = label;
+            multi.SetOptions(new[] { "攻击", "防御", "速度", "暴击", "生命" });
+            multi.SetSelected(1, true, false);
+            multi.SetSelected(3, true, false);
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>
