@@ -20,6 +20,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddTimePickerCard(content);
             AddTimerCard(content);
             AddOffScreenCard(content);
+            AddInputFieldCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -345,6 +346,79 @@ namespace Gear.EditorTools.ImageExtensions
             indicator.Indicator = (RectTransform)arrow.transform;
             indicator.Area = (RectTransform)screen.transform;
             indicator.DistanceLabel = distance;
+        }
+
+        /// <summary>输入框：Enter 提交、长度计数、IME 组合保护。</summary>
+        private static void AddInputFieldCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · InputField", "Enter 提交、长度计数（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            ImageEx field = CreateTile(preview.transform, "Field", new Vector2(0f, 12f),
+                new Vector2(230f, 46f), new Color(0.11f, 0.12f, 0.17f, 1f));
+            field.Rectangle.CornerRadius = new Vector4(10f, 10f, 10f, 10f);
+            field.OutlineWidth = 1f;
+            field.OutlineColor = new Color(1f, 1f, 1f, 0.14f);
+            field.raycastTarget = true;
+
+            GameObject textGo = new GameObject("Text", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            textGo.transform.SetParent(field.transform, false);
+            TextMeshProUGUI text = textGo.GetComponent<TextMeshProUGUI>();
+            text.text = string.Empty;
+            text.fontSize = 14f;
+            text.alignment = TextAlignmentOptions.Left;
+            text.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            text.raycastTarget = false;
+            RectTransform textRect = (RectTransform)textGo.transform;
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(14f, 0f);
+            textRect.offsetMax = new Vector2(-14f, 0f);
+
+            GameObject placeholderGo = new GameObject("Placeholder", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            placeholderGo.transform.SetParent(field.transform, false);
+            TextMeshProUGUI placeholder = placeholderGo.GetComponent<TextMeshProUGUI>();
+            placeholder.text = "输入后按 Enter";
+            placeholder.fontSize = 14f;
+            placeholder.alignment = TextAlignmentOptions.Left;
+            placeholder.color = new Color(0.62f, 0.65f, 0.73f, 0.7f);
+            placeholder.raycastTarget = false;
+            RectTransform placeholderRect = (RectTransform)placeholderGo.transform;
+            placeholderRect.anchorMin = Vector2.zero;
+            placeholderRect.anchorMax = Vector2.one;
+            placeholderRect.offsetMin = new Vector2(14f, 0f);
+            placeholderRect.offsetMax = new Vector2(-14f, 0f);
+
+            TMP_InputField input = field.gameObject.AddComponent<TMP_InputField>();
+            input.textViewport = (RectTransform)field.transform;
+            input.textComponent = text;
+            input.placeholder = placeholder;
+            input.lineType = TMP_InputField.LineType.SingleLine;
+            input.characterLimit = 16;
+            input.pointSize = 14f;
+
+            GameObject counterGo = new GameObject("Counter", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            counterGo.transform.SetParent(preview.transform, false);
+            TextMeshProUGUI counter = counterGo.GetComponent<TextMeshProUGUI>();
+            counter.text = "0/16";
+            counter.fontSize = 12f;
+            counter.alignment = TextAlignmentOptions.Right;
+            counter.color = new Color(0.62f, 0.65f, 0.73f, 1f);
+            counter.raycastTarget = false;
+            RectTransform counterRect = (RectTransform)counterGo.transform;
+            counterRect.sizeDelta = new Vector2(120f, 18f);
+            counterRect.anchoredPosition = new Vector2(55f, -20f);
+
+            GearInputFieldEnhancer enhancer = preview.gameObject.AddComponent<GearInputFieldEnhancer>();
+            enhancer.InputField = input;
+            enhancer.CounterLabel = counter;
+            enhancer.MaxLength = 16;
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>

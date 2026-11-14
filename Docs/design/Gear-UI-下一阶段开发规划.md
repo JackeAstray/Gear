@@ -105,6 +105,7 @@
 | 2026-11-14 | Pack C 滚轮 | ✅ `GearPickerWheel` / `GearTimePicker`；2 张卡（139→141）；EditMode 349/349 |
 | 2026-11-14 | Pack C 计时器 | ✅ `GearTimer`；1 张卡（141→142）；EditMode 356/356 |
 | 2026-11-14 | Pack C 出屏指示 | ✅ `GearOffScreenIndicator`；1 张卡（142→143）；EditMode 361/361 |
+| 2026-11-14 | Pack C 输入框 | ✅ `GearInputFieldEnhancer`；1 张卡（143→144）；EditMode 370/370 |
 | 下一轮 | 3C 收尾 | ⏳ 雷达图/点击钻取/真实数据联动 |
 
 ## 六、明确不做
