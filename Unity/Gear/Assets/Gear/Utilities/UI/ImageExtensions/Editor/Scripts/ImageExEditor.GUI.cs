@@ -308,6 +308,20 @@ namespace Gear.EditorTools.ImageExtensions
 
             Rect rect = EditorGUILayout.GetControlRect();
             EditorGUI.Slider(rect, spAlphaThreshold, 0f, 1f, "Alpha阈值");
+
+            EditorGUILayout.PropertyField(spSpriteFill,
+                new GUIContent("填充方式", "Stretch 拉伸 / Cover 裁切填满 / Fit 完整显示"));
+
+            bool cover = spSpriteFill.enumValueIndex == (int)SpriteFillMode.Cover;
+            using (new EditorGUI.DisabledScope(cover))
+            {
+                EditorGUILayout.PropertyField(spPreserveAspect, new GUIContent("保持纵横比"));
+            }
+
+            if (cover)
+            {
+                EditorGUILayout.HelpBox("Cover 会覆盖“保持纵横比”：按目标矩形裁切精灵而不是拉伸。", MessageType.None);
+            }
         }
 
         private void ImageTypeGUI()

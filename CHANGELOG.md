@@ -126,6 +126,13 @@
 
 ### Fixed
 
+- **Dropdown 弹层在屏幕底部被裁 / 贴边判断错误**：`GearPopover.Position` 在取 world corners 前没刷新布局，
+  尺寸刚写入时按旧 rect 贴边；现在先 `Canvas.ForceUpdateCanvases()` + `LayoutRebuilder.Rebuild`，
+  并且 `GearDropdown` 在下方空间不足时自动向上展开。
+- **Cover 填充在 Inspector 里不可见**：Inspector 增加「填充方式」（Stretch/Cover/Fit）与「保持纵横比」；
+  Cover 时禁用并说明"会覆盖保持纵横比"，Fit 等价于 `preserveAspect = true`。
+- **控件 · Dropdown 卡片布局**：由整张 320×140 预览当输入框，改为卡片内 240×46 的紧凑字段 + 三角指示，
+  弹层从字段下方展开。
 - **动效演示卡看不出效果**：`GearAnimatedContainer` 只在 OnEnable 播一次（0.4s），
   `GearRectSway` 8° 且预览被 `RectMask2D` 裁掉，运行后看起来像静态卡。
   现已给 `GearAnimatedContainer` 增加 `Loop`/`LoopInterval`（画廊卡 1.2s 循环、起始缩放 0.7），

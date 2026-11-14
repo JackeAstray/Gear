@@ -89,23 +89,28 @@ namespace Gear.EditorTools.ImageExtensions
             ImageEx preview = AddCardIfMissing(content, "控件 · Dropdown",
                 "点击展开选项（Play 模式）", p =>
             {
-                p.DrawShape = DrawShape.Rectangle;
-                p.Rectangle = new RectangleImg { CornerRadius = new Vector4(10f, 10f, 10f, 10f) };
-                p.color = new Color(0.11f, 0.12f, 0.17f, 1f);
-                p.OutlineWidth = 1f;
-                p.OutlineColor = new Color(1f, 1f, 1f, 0.14f);
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
             });
 
             if (preview == null) return;
 
-            Button trigger = preview.gameObject.AddComponent<Button>();
+            ImageEx field = CreateTile(preview.transform, "Field", Vector2.zero,
+                new Vector2(240f, 46f), new Color(0.11f, 0.12f, 0.17f, 1f));
+            field.Rectangle.CornerRadius = new Vector4(10f, 10f, 10f, 10f);
+            field.OutlineWidth = 1f;
+            field.OutlineColor = new Color(1f, 1f, 1f, 0.14f);
+            field.raycastTarget = true;
+
+            Button trigger = field.gameObject.AddComponent<Button>();
             trigger.transition = Selectable.Transition.None;
 
             GameObject labelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-            labelGo.transform.SetParent(preview.transform, false);
+            labelGo.transform.SetParent(field.transform, false);
             TextMeshProUGUI label = labelGo.GetComponent<TextMeshProUGUI>();
             label.text = "中";
-            label.fontSize = 16f;
+            label.fontSize = 15f;
             label.color = new Color(0.94f, 0.95f, 0.98f, 1f);
             label.alignment = TextAlignmentOptions.Left;
             label.raycastTarget = false;
@@ -114,14 +119,17 @@ namespace Gear.EditorTools.ImageExtensions
             labelRect.anchorMin = new Vector2(0f, 0f);
             labelRect.anchorMax = new Vector2(1f, 1f);
             labelRect.offsetMin = new Vector2(14f, 0f);
-            labelRect.offsetMax = new Vector2(-14f, 0f);
+            labelRect.offsetMax = new Vector2(-38f, 0f);
 
-            GearDropdown dropdown = preview.gameObject.AddComponent<GearDropdown>();
+            ImageEx caret = CreateTile(field.transform, "Caret", new Vector2(102f, 0f),
+                new Vector2(11f, 9f), new Color(0.62f, 0.65f, 0.73f, 1f));
+            caret.DrawShape = DrawShape.Triangle;
+
+            GearDropdown dropdown = field.gameObject.AddComponent<GearDropdown>();
             dropdown.Label = label;
             dropdown.Trigger = trigger;
             dropdown.SetOptions(new[] { "低", "中", "高" });
             dropdown.SetValueWithoutNotify(1);
         }
-
     }
 }

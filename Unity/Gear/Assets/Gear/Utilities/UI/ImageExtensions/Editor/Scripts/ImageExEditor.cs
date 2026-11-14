@@ -19,6 +19,7 @@ namespace Gear.EditorTools.ImageExtensions
         private SerializedProperty spShadowOffsetLocal;
         private SerializedProperty spCircle, spTriangle, spRectangle, spPentagon, spHexagon, spChamferBox, spQuadrilateral, spNStarPolygon, spHeart, spBlobbyCross, spSquircle, spNTriangleRounded;
         private SerializedProperty spPreserveAspect;
+        private SerializedProperty spSpriteFill;
         private SerializedProperty spFillMethod, spFillOrigin, spFillAmount, spFillClockwise;
         private SerializedProperty spAlphaThreshold;
         private SerializedProperty spRaycastMode;
@@ -186,6 +187,7 @@ namespace Gear.EditorTools.ImageExtensions
             spNTriangleRounded = serializedObject.FindProperty("nTriangleRounded");
 
             spPreserveAspect = serializedObject.FindProperty("m_PreserveAspect");
+            spSpriteFill = serializedObject.FindProperty("spriteFillMode");
 
             spGradient = serializedObject.FindProperty("gradientEffect");
             spBlurType = serializedObject.FindProperty("blurType");

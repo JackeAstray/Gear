@@ -144,7 +144,23 @@ namespace Gear.Utilities.UI.Widgets
             Close();
             float height = Mathf.Min(maxHeight, options.Count * itemHeight + 12f);
             var anchor = (RectTransform)transform;
-            Vector2 offset = new Vector2(0f, -(anchor.rect.height * 0.5f + 6f));
+            float scaleY = Mathf.Max(0.0001f, Mathf.Abs(anchor.lossyScale.y));
+            float halfHeight = anchor.rect.height * 0.5f + 6f;
+            Vector2 offset = new Vector2(0f, -halfHeight * scaleY);
+
+            // 下方空间不足时改为向上展开（覆盖层根按世界坐标判断）
+            RectTransform root = GearOverlayLayer.Root;
+            if (root != null)
+            {
+                Vector3[] anchorCorners = new Vector3[4];
+                anchor.GetWorldCorners(anchorCorners);
+                Vector3[] rootCorners = new Vector3[4];
+                root.GetWorldCorners(rootCorners);
+                float needed = height * scaleY + 8f;
+                if (anchorCorners[0].y - needed < rootCorners[0].y)
+                    offset.y = halfHeight * scaleY;
+            }
+
             popover = GearPopover.Show(anchor, new Vector2(popupWidth, height), BuildRows, offset);
             popover.SetOnClose(OnPopoverClosed);
         }

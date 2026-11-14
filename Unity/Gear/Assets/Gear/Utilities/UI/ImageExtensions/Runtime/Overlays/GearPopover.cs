@@ -114,6 +114,10 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
             rectTransform.position = anchor.position + (Vector3)offset;
 
+            // 尺寸刚写入时 rect 可能还没刷新，先强制一次布局再贴边，避免按 0 高度判断导致跑出屏幕
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+
             // 简单贴边修正：避免面板跑出覆盖层
             RectTransform root = GearOverlayLayer.Root;
             if (root == null) return;
