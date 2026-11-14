@@ -72,7 +72,7 @@
 
 ## 五、风险与约束
 
-- **许可**：`Assets/Evo` 是 Asset Store 商业资产，当前为 git untracked；不要提交到公开仓库、不要打进 UPM 包。
+- **许可**：`Assets/Evo` 是 Asset Store 商业资产，**已被提交到公开仓库**（2699 个文件，见[第二轮文档](Evo对照-第二轮-渲染契约与模块复刻清单.md) 1.3）；需移出版本库、不要打进 UPM 包。
 - **两套栈并存**：Evo 的 Canvas/EventSystem 假设（2560×1440、`InputSystemUIInputModule`）与 Gear 的 `UISystem`/`UIInputSystem`（1920×1080、自研焦点域）不同，Evo 只作视觉参照。
 - **删除公共 API 的兼容性**：`Outline8` 保留枚举值但行为映射到 `SdfOutline`；后续删除 `MaterialMode.Shared` 前需先迁移合批工具。
 - **验证**：着色器改动依赖 Unity 导入编译；无 MCP 时视觉结论需人工截图确认。

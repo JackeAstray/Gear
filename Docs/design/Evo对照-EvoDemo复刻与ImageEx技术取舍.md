@@ -367,7 +367,7 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 
 | 风险 | 影响 | 处理 |
 |---|---|---|
-| **Evo 是 Asset Store 商业资产** | 复制源码/着色器/预制体/字体/贴图会违反许可，Gear 是 Apache-2.0 公开仓库 | 只读作参照；行为与版式可 clean-room 重写；`Assets/Evo` 保持 untracked，发布前检查 |
+| **Evo 是 Asset Store 商业资产** | 复制源码/着色器/预制体/字体/贴图会违反许可，Gear 是 Apache-2.0 公开仓库 | 只读作参照；行为与版式可 clean-room 重写；`Assets/Evo` **已误提交到公开仓库**（2699 个文件），需 `git rm --cached` 并评估历史清理，见[第二轮文档](Evo对照-第二轮-渲染契约与模块复刻清单.md) 1.3 |
 | Evo Tween 依赖 | 抄组件会连带抄动画栈 | 不引入；用 DOTween 重写 |
 | 两套输入/主题并存 | 焦点冲突、换肤不一致 | Evo 不接入 `UISystem` / `UIInputSystem` |
 | SoftMask shader 变体扩散 | ImageEx + UI Default + TMP 三套维护成本 | 先只覆盖 ImageEx；其余按真实界面加 |
