@@ -502,5 +502,6 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 | Sprite Fill | `ImageHelper.ApplySpriteFill` + `ImageEx.SpriteFill`（Stretch/Cover/Fit） | `ImageExSpriteFillTests` 5/5；UI Example 132→133 张卡 |
 | Pack B 收尾 | `RM_InkPanel.cginc` + `GearInkPanel`（墨团揭示/毛边/往返） | `GearInkPanelTests` 4/4；UI Example 133→134 张卡 |
 | 材质池工具 | `ImageExPooledTool` 菜单（选中切 Pooled / 还原 Dynamic，跳过逐帧改 uniform 的实例） | 菜单可执行；默认行为不变 |
+| Pack C 起步 | `Widgets/GearDropdown.cs`（Popover 选项列表、选中回写、运行时改选项） | `GearDropdownTests` 5/5；UI Example 134→135 张卡 |
 
-全量 EditMode：**326/326 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。
+全量 EditMode：**331/331 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。

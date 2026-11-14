@@ -98,6 +98,8 @@
 - **GearInkPanel**：新增 `RM_InkPanel.cginc` 与 `GearInkPanel` 组件——从原点向外扩散带噪声毛边的墨团，
   支持进度/原点/羽化/粗糙度与 `Show/Hide/SetProgress/Step/自动往返`；只乘 alpha；
   画廊新增「效果 · 墨团揭示」卡。Evo 的"烘焙覆盖度到 RT 供 SoftMask 使用"暂未做。
+- **GearDropdown**：新增下拉选择组件——点击触发 `GearPopover` 选项列表，选中回写标签并派发序号；
+  支持运行时改选项、`SetValueWithoutNotify`、开合与选中即关；画廊新增「控件 · Dropdown」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
