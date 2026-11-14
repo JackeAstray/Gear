@@ -158,6 +158,7 @@
 - **画廊批量重建后形状/材质不刷新**：`AddCard` 与 `BuildInto` 在布局结算前后统一标脏并 `ForceUpdateCanvases`，
   修复全量重建后部分 SDF 形状（Triangle/Hexagon/Pentagon/Chamfer）显示成矩形的问题；
   同时校正形状预设（六边形 TipSize 50、五边形 70、倒角 1.5×1、Squircle 时间 0.25）。
+- **饼图扇区百分比**：联动卡三个等分扇区各显示 `33%`（锚点跟随饼图尺寸，不依赖运行时布局），点击仍按分类过滤列表。
 - **形状卡预设**：N-Star 内凹从 `Inset=2` 调到 4（2 表示不断边，实际渲染成五边形）；Chamfer Box 改为
   `Size 1.25×0.9 / Radius 0.22`；新增「重建形状卡（形状 · *）」菜单，改预设后无需全量重建。
 - **饼图点击后出现 No rows / 行重复**：`GearChartListLink.allRows` 未序列化，场景重载后为空，点扇区过滤出 0 行；

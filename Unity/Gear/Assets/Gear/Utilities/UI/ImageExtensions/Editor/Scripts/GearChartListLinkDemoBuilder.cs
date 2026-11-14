@@ -67,6 +67,26 @@ namespace Gear.EditorTools.ImageExtensions
             pie.raycastTarget = true;
             pie.SetData(new[] { 2f, 2f, 2f }, colors);
 
+            // 三个等分扇区：在扇区中心放百分比标签（锚点跟随饼图尺寸，不需要每帧算位置）
+            float[] labelAngles = { 30f, -90f, 150f };
+            for (int i = 0; i < labelAngles.Length; i++)
+            {
+                float radians = labelAngles[i] * Mathf.Deg2Rad;
+                GameObject labelGo = new GameObject("Slice Label " + i, typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+                labelGo.transform.SetParent(pieGo.transform, false);
+                RectTransform labelRect = (RectTransform)labelGo.transform;
+                labelRect.anchorMin = new Vector2(0.5f + Mathf.Cos(radians) * 0.34f, 0.5f + Mathf.Sin(radians) * 0.34f);
+                labelRect.anchorMax = labelRect.anchorMin;
+                labelRect.sizeDelta = new Vector2(40f, 18f);
+
+                TextMeshProUGUI label = labelGo.GetComponent<TextMeshProUGUI>();
+                label.text = "33%";
+                label.fontSize = 11f;
+                label.alignment = TextAlignmentOptions.Center;
+                label.color = new Color(1f, 1f, 1f, 0.9f);
+                label.raycastTarget = false;
+            }
+
             // List 在创建阶段先 inactive，等 LoopScrollRect 字段齐了再激活
             GameObject listGo = new GameObject("LinkedList",
                 typeof(RectTransform), typeof(Image), typeof(ScrollRect), typeof(GearListView));
