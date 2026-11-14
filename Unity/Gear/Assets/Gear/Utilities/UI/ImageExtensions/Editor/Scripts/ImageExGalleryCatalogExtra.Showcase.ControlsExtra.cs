@@ -23,8 +23,14 @@ namespace Gear.EditorTools.ImageExtensions
 
             if (preview == null) return;
 
-            CreateWheelColumn(preview.transform, "Wheel", Vector2.zero, new Vector2(170f, 150f),
-                new[] { "01", "02", "03", "04", "05" }, 40f, true);
+            GearPickerWheel wheel = CreateWheelColumn(preview.transform, "Wheel", Vector2.zero,
+                new Vector2(170f, 150f), new[] { "01", "02", "03", "04", "05", "06", "07", "08", "09" }, 40f, true);
+
+            ImageEx band = CreateTile(wheel.transform, "Center Band", Vector2.zero,
+                new Vector2(150f, 38f), new Color(1f, 1f, 1f, 0.08f));
+            band.Rectangle.CornerRadius = new Vector4(10f, 10f, 10f, 10f);
+            band.transform.SetSiblingIndex(0);
+            wheel.SnapTo(4);
         }
 
         /// <summary>时间选择：时 / 分 / AM-PM 三列滚轮联动。</summary>
