@@ -15,6 +15,7 @@ Shader "Gear/UI/InkCoverage"
         _StencilWriteMask ("Stencil Write Mask", Float) = 255
         _StencilReadMask ("Stencil Read Mask", Float) = 255
         _ColorMask ("Color Mask", Float) = 15
+        [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
     }
 
     SubShader
@@ -48,6 +49,7 @@ Shader "Gear/UI/InkCoverage"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
             #include "UnityCG.cginc"
 
             struct appdata
@@ -111,7 +113,11 @@ Shader "Gear/UI/InkCoverage"
                 float threshold = saturate(_Progress) * 1.45;
                 float softness = max(_Softness, 0.001);
                 float alpha = 1.0 - smoothstep(threshold - softness, threshold + softness, distanceToOrigin);
-                return fixed4(1.0, 1.0, 1.0, saturate(alpha) * i.color.a);
+                alpha = saturate(alpha) * i.color.a;
+                #ifdef UNITY_UI_ALPHACLIP
+                    clip(alpha - 0.001);
+                #endif
+                return fixed4(1.0, 1.0, 1.0, alpha);
             }
             ENDCG
         }
