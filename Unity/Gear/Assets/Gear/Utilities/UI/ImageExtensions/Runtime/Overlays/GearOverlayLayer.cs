@@ -40,8 +40,9 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             {
                 canvasObject.transform.SetParent(tipsRoot.transform, false);
             }
-            else
+            else if (Application.isPlaying)
             {
+                // DontDestroyOnLoad 仅 Play 模式合法；EditMode 预览/测试直接留在当前场景
                 Object.DontDestroyOnLoad(canvasObject);
             }
 

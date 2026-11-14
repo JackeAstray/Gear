@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -14,21 +15,56 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
     {
         private static GearTooltipView s_view;
 
+        /// <summary>提示面板最大宽度；已有视图会立即应用。</summary>
+        public static float MaxWidth
+        {
+            get => s_maxWidth;
+            set
+            {
+                s_maxWidth = Mathf.Max(120f, value);
+                if (s_view != null) s_view.SetMaxWidth(s_maxWidth);
+            }
+        }
+
+        private static float s_maxWidth = 320f;
+
+        /// <summary>提前创建并复用提示视图，避免首次悬停分配。</summary>
+        public static void Prewarm()
+        {
+            EnsureView();
+        }
+
+        private static void EnsureView()
+        {
+            if (s_view != null) return;
+
+            GameObject go = new GameObject("GearTooltip", typeof(RectTransform), typeof(CanvasGroup));
+            go.SetActive(false);
+            GearOverlayLayer.ApplyUILayer(go);
+            go.transform.SetParent(GearOverlayLayer.Root, false);
+            s_view = go.AddComponent<GearTooltipView>();
+            s_view.Build();
+            s_view.SetMaxWidth(s_maxWidth);
+        }
+
         /// <summary>立即显示提示。</summary>
         public static void Show(string title, string message, Sprite icon = null, Vector2? screenPosition = null)
         {
-            if (s_view == null)
-            {
-                GameObject go = new GameObject("GearTooltip", typeof(RectTransform), typeof(CanvasGroup));
-                go.SetActive(false);
-                GearOverlayLayer.ApplyUILayer(go);
-                go.transform.SetParent(GearOverlayLayer.Root, false);
-                s_view = go.AddComponent<GearTooltipView>();
-                s_view.Build();
-            }
+            EnsureView();
 
             s_view.gameObject.SetActive(true);
             s_view.SetContent(title, message, icon);
+            s_view.SetScreenPosition(screenPosition ?? GetPointerScreenPosition());
+        }
+
+        /// <summary>显示富内容提示；由调用方填充根节点（建议自行加 LayoutGroup/LayoutElement）。</summary>
+        public static void ShowCustom(Action<RectTransform> buildContent, Vector2? screenPosition = null)
+        {
+            if (buildContent == null) return;
+
+            EnsureView();
+            s_view.gameObject.SetActive(true);
+            s_view.SetCustomContent(buildContent);
             s_view.SetScreenPosition(screenPosition ?? GetPointerScreenPosition());
         }
 
@@ -124,7 +160,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
     [DisallowMultipleComponent]
     public sealed class GearTooltipView : MonoBehaviour
     {
-        private const float MaxWidth = 320f;
+        private const float DefaultMaxWidth = 320f;
 
         private RectTransform panel;
         private RectTransform rectTransform;
@@ -132,6 +168,8 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
         private TextMeshProUGUI titleText;
         private TextMeshProUGUI messageText;
         private Vector2 offset = new Vector2(18f, -18f);
+        private float maxWidth = DefaultMaxWidth;
+        private RectTransform customRoot;
 
         internal void Build()
         {
@@ -139,7 +177,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
             rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
             rectTransform.pivot = new Vector2(0f, 1f);
-            rectTransform.sizeDelta = new Vector2(MaxWidth, 0f);
+            rectTransform.sizeDelta = new Vector2(maxWidth, 0f);
 
             canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.blocksRaycasts = false;
@@ -179,6 +217,10 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
         internal void SetContent(string title, string message, Sprite icon)
         {
+            ClearCustom();
+            titleText.gameObject.SetActive(true);
+            messageText.gameObject.SetActive(true);
+
             bool hasTitle = !string.IsNullOrEmpty(title);
             titleText.gameObject.SetActive(hasTitle);
             titleText.text = hasTitle ? title : string.Empty;
@@ -188,6 +230,39 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             Canvas.ForceUpdateCanvases();
             LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
             SetScreenPosition(GearTooltip.GetPointerScreenPosition());
+        }
+
+        internal void SetCustomContent(Action<RectTransform> buildContent)
+        {
+            ClearCustom();
+            titleText.gameObject.SetActive(false);
+            messageText.gameObject.SetActive(false);
+
+            GameObject custom = new GameObject("Custom", typeof(RectTransform));
+            custom.transform.SetParent(transform, false);
+            customRoot = (RectTransform)custom.transform;
+
+            buildContent(customRoot);
+
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        }
+
+        private void ClearCustom()
+        {
+            if (customRoot == null) return;
+
+            if (Application.isPlaying) Destroy(customRoot.gameObject);
+            else DestroyImmediate(customRoot.gameObject);
+            customRoot = null;
+        }
+
+        internal void SetMaxWidth(float width)
+        {
+            maxWidth = Mathf.Max(120f, width);
+            if (rectTransform == null) rectTransform = (RectTransform)transform;
+            rectTransform.sizeDelta = new Vector2(maxWidth, rectTransform.sizeDelta.y);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         }
 
         internal void SetScreenPosition(Vector2 screenPosition)

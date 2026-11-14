@@ -210,11 +210,14 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField] private int enableDashedOutline;
 
         [SerializeField] private float falloffDistance = 0.5f;
+        [SerializeField][Range(0.001f, 8f)] private float shapeSoftness = 1f;
+        [SerializeField] private bool dither;
         [SerializeField] private bool constrainRotation = true;
         [SerializeField] private float shapeRotation;
         [SerializeField] private bool flipHorizontal;
         [SerializeField] private bool flipVertical;
         [SerializeField] private float alphaThreshold = 0f;
+        [SerializeField] private RaycastDetectionMode raycastMode = RaycastDetectionMode.Standard;
 
         [SerializeField] private TriangleImg triangle = new TriangleImg();
         [SerializeField] private RectangleImg rectangle = new RectangleImg();
@@ -341,6 +344,8 @@ namespace Gear.Utilities.UI.ImageExtensions
         private static readonly int customTime_Sp = Shader.PropertyToID("_CustomTime");
 
         private static readonly int falloffDistance_Sp = Shader.PropertyToID("_FalloffDistance");
+        private static readonly int shapeSoftness_Sp = Shader.PropertyToID("_ShapeSoftness");
+        private static readonly int dither_Sp = Shader.PropertyToID("_Dither");
         private static readonly int shapeRotation_Sp = Shader.PropertyToID("_ShapeRotation");
         private static readonly int constrainedRotation_Sp = Shader.PropertyToID("_ConstrainRotation");
         private static readonly int flipHorizontal_Sp = Shader.PropertyToID("_FlipHorizontal");

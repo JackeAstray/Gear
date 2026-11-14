@@ -36,6 +36,9 @@
 | [Evo对照-ImageEx清理与UI能力补齐](design/Evo对照-ImageEx清理与UI能力补齐.md) | 以项目内 Evo 为参照：ImageEx 落后设计清理清单、UI 模块补齐优先级、里程碑 |
 | [Evo对齐-ImageEx阴影与UI覆盖层](design/Evo对齐-ImageEx阴影与UI覆盖层.md) | 本轮实测修正：投影方向/内阴影 Offset/虚线周长与 alpha/渐变空间/图案/辉光，以及 Toast/Tooltip/ContextMenu |
 | [Evo对照-UI能力差距与路线图](design/Evo对照-UI能力差距与路线图.md) | 三轮对照后的能力矩阵：已完成/还差/不照搬、分阶段路线、验收标准与可勾选清单 |
+| [Evo对照-EvoDemo复刻与ImageEx技术取舍](design/Evo对照-EvoDemo复刻与ImageEx技术取舍.md) | EvoDemo 15 个脚本分组 / 6 个整屏的复刻分级、ImageEx 借什么不借什么、Gear UI 展厅落点与排期 |
+| [Gear-UI-下一阶段开发规划](design/Gear-UI-下一阶段开发规划.md) | 设计系统地基、覆盖层打磨、主题与数据展示的三阶段规划、验收标准与执行记录 |
+| [Gear-UI-渲染诊断](design/Gear-UI-渲染诊断.md) | UI Example 的 Canvas / Graphic / ImageEx 材质实例与可合批分组的静态诊断报告 |
 
 ## ④ 专题
 

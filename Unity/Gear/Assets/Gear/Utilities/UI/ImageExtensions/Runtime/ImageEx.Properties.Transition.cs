@@ -114,6 +114,10 @@ namespace Gear.Utilities.UI.ImageExtensions
             }
         }
 
+        /// <summary>
+        /// 渐变缩放（Zoom），0.1–5：程序化渐变的 Linear / Radial / Angular 都按它缩放；
+        /// 启用渐变纹理时，它同时作为纹理采样缩放。
+        /// </summary>
         public float GradientScale
         {
             get => m_GradientScale;

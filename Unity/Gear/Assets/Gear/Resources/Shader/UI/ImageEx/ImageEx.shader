@@ -11,6 +11,15 @@ Shader "ReunionMovement/UI/ImageEx"
         _StrokeWidth ("线条宽度", float) = 0
         _StrokeFill ("描边填充比例", Range(0,1)) = 0
         _FalloffDistance ("衰减距离", float) = 0.5
+        _ShapeSoftness ("形状软边", Range(0.001, 8)) = 1
+        _Dither ("抖动", int) = 0
+
+        // -------------------- 软遮罩（Soft Mask） --------------------
+        _GearMaskEnabled ("软遮罩开关", int) = 0
+        _GearMaskRect ("软遮罩矩形", Vector) = (0, 0, 1, 1)
+        _GearMaskRadius ("软遮罩圆角", float) = 0
+        _GearMaskSoftness ("软遮罩羽化", float) = 0
+        _GearMaskInvert ("软遮罩反转", int) = 0
         _PixelWorldScale ("像素与世界单位之间的缩放比例", Range(0.01, 5)) = 1
         _ShapeRotation ("形状旋转", float) = 0
         _ConstrainRotation("约束旋转", int) = 0
@@ -318,6 +327,7 @@ Shader "ReunionMovement/UI/ImageEx"
                 float4 transitionScreen : TEXCOORD6; // 屏幕空间采样基底：中心(px).xy、面板屏幕高度(px).z
                 float4 transitionAxes : TEXCOORD7;   // 屏幕空间采样基底：面板在屏幕上的 X/Y 单位轴向
                 float4 screenPos : TEXCOORD8;        // 背景模糊采样用屏幕坐标
+                float2 size : TEXCOORD9;             // 本地绘制尺寸（软遮罩/无形状路径使用）
                 
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -333,6 +343,13 @@ Shader "ReunionMovement/UI/ImageEx"
             half _ConstrainRotation;
             half _FlipHorizontal;
             half _FlipVertical;
+            half _ShapeSoftness;
+            half _Dither;
+            half4 _GearMaskRect;
+            half _GearMaskRadius;
+            half _GearMaskSoftness;
+            half _GearMaskInvert;
+            half _GearMaskEnabled;
 
             // 注：形状参数 (RectangleCornerRadius, CircleRadius 等) 已在 RM_SDFShapes.cginc 中声明
             // 注：渐变参数 (GradientColor0-7 等) 已在 RM_Gradient.cginc 中声明
@@ -406,6 +423,7 @@ Shader "ReunionMovement/UI/ImageEx"
                 OUT.vertex = UnityObjectToClipPos(v.vertex);
                 OUT.texcoord = v.texcoord;
                 OUT.effectsUv = v.uv1;
+                OUT.size = v.size;
                 
                 // 将翻转应用到纹理 UV 与 effects UV，确保采样与过渡在水平/垂直翻转时表现正确
                 // _FlipHorizontal/_FlipVertical 由 ImageEx 组件以 0/1 的形式设置
@@ -596,6 +614,8 @@ Shader "ReunionMovement/UI/ImageEx"
                     float sdfData;
                     float pixelScale;
                     ComputeSdfData(IN, sdfData, pixelScale);
+                    // 形状软边：把 SDF 的像素尺度压低，羽化几何边缘（1 为原始硬边）
+                    pixelScale = max(pixelScale / max(_ShapeSoftness, 0.001), 1e-5);
                     borderGlowSdf = sdfData;
 
                     // 四种描边状态（对齐 C# 的 strokeState 判定），逐一还原原语义：
@@ -726,6 +746,30 @@ Shader "ReunionMovement/UI/ImageEx"
                 {
                     half targetRate = RM_GetTargetRate(baseSample.rgb);
                     color = RM_ApplyTarget(color, baseSample, targetRate);
+                }
+
+                // 软遮罩：形状路径用 SDF 像素坐标，贴图路径用本地 UV × 尺寸
+                if (_GearMaskEnabled > 0.5)
+                {
+                    float2 maskPoint = _DrawShape != 0 ? IN.shapeData.xy : IN.texcoord * IN.size;
+                    float2 maskMin = _GearMaskRect.xy;
+                    float2 maskMax = _GearMaskRect.zw;
+                    float2 center = (maskMin + maskMax) * 0.5;
+                    float2 halfExtent = max((maskMax - maskMin) * 0.5, 0.0);
+                    float radius = min(max(_GearMaskRadius, 0.0), min(halfExtent.x, halfExtent.y));
+                    float2 q = abs(maskPoint - center) - halfExtent + radius;
+                    float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
+                    float softness = max(_GearMaskSoftness, 0.001);
+                    float maskAlpha = saturate(0.5 - d / softness);
+                    if (_GearMaskInvert > 0.5) maskAlpha = 1.0 - maskAlpha;
+                    color.a *= maskAlpha;
+                }
+
+                // 抖动弹：打散 8bit 色带，1 像素级、无纹理
+                if (_Dither > 0.5)
+                {
+                    float ditherNoise = frac(sin(dot(IN.worldPosition.xy, float2(12.9898, 78.233))) * 43758.5453);
+                    color.rgb += (ditherNoise - 0.5) / 255.0;
                 }
 
                 #ifdef UNITY_UI_ALPHACLIP

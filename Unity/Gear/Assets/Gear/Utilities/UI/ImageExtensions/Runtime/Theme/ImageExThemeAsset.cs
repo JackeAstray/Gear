@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Gear.Utilities.UI.ImageExtensions
@@ -28,14 +29,42 @@ namespace Gear.Utilities.UI.ImageExtensions
             public float value;
         }
 
+        [Serializable]
+        public struct FontToken
+        {
+            public string id;
+            public TMP_FontAsset font;
+        }
+
+        [Serializable]
+        public struct SpriteToken
+        {
+            public string id;
+            public Sprite sprite;
+        }
+
+        [Serializable]
+        public struct GradientToken
+        {
+            public string id;
+            public Gradient gradient;
+        }
+
         [SerializeField] private List<ColorToken> colors = new List<ColorToken>();
         [SerializeField] private List<FloatToken> floats = new List<FloatToken>();
+        [SerializeField] private List<FontToken> fonts = new List<FontToken>();
+        [SerializeField] private List<SpriteToken> sprites = new List<SpriteToken>();
+        [SerializeField] private List<GradientToken> gradients = new List<GradientToken>();
 
         /// <summary>颜色令牌列表（只读）。</summary>
         public IReadOnlyList<ColorToken> Colors => colors;
 
         /// <summary>数值令牌列表（只读）。</summary>
         public IReadOnlyList<FloatToken> Floats => floats;
+
+        public IReadOnlyList<FontToken> Fonts => fonts;
+        public IReadOnlyList<SpriteToken> Sprites => sprites;
+        public IReadOnlyList<GradientToken> Gradients => gradients;
 
         /// <summary>按 ID 取颜色；不存在返回 false。</summary>
         public bool TryGetColor(string id, out Color color)
@@ -81,6 +110,64 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// <summary>该资产是否声明了指定数值 ID。</summary>
         public bool HasFloat(string id) => TryGetFloat(id, out _);
 
+        public bool TryGetFont(string id, out TMP_FontAsset font)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                for (int i = 0; i < fonts.Count; i++)
+                {
+                    if (string.Equals(fonts[i].id, id, StringComparison.Ordinal))
+                    {
+                        font = fonts[i].font;
+                        return true;
+                    }
+                }
+            }
+
+            font = null;
+            return false;
+        }
+
+        public bool TryGetSprite(string id, out Sprite sprite)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                for (int i = 0; i < sprites.Count; i++)
+                {
+                    if (string.Equals(sprites[i].id, id, StringComparison.Ordinal))
+                    {
+                        sprite = sprites[i].sprite;
+                        return true;
+                    }
+                }
+            }
+
+            sprite = null;
+            return false;
+        }
+
+        public bool TryGetGradient(string id, out Gradient gradient)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                for (int i = 0; i < gradients.Count; i++)
+                {
+                    if (string.Equals(gradients[i].id, id, StringComparison.Ordinal))
+                    {
+                        gradient = gradients[i].gradient;
+                        return true;
+                    }
+                }
+            }
+
+            gradient = null;
+            return false;
+        }
+
+        public bool HasFont(string id) => TryGetFont(id, out _);
+        public bool HasSprite(string id) => TryGetSprite(id, out _);
+        public bool HasGradient(string id) => TryGetGradient(id, out _);
+
 #if UNITY_EDITOR
         /// <summary>编辑器用：写入/覆盖一个颜色令牌。</summary>
         public void EditorSetColor(string id, Color color)
@@ -110,6 +197,48 @@ namespace Gear.Utilities.UI.ImageExtensions
                 return;
             }
             floats.Add(new FloatToken { id = id, value = value });
+        }
+
+        public void EditorSetFont(string id, TMP_FontAsset font)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            for (int i = 0; i < fonts.Count; i++)
+            {
+                if (!string.Equals(fonts[i].id, id, StringComparison.Ordinal)) continue;
+                FontToken token = fonts[i];
+                token.font = font;
+                fonts[i] = token;
+                return;
+            }
+            fonts.Add(new FontToken { id = id, font = font });
+        }
+
+        public void EditorSetSprite(string id, Sprite sprite)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                if (!string.Equals(sprites[i].id, id, StringComparison.Ordinal)) continue;
+                SpriteToken token = sprites[i];
+                token.sprite = sprite;
+                sprites[i] = token;
+                return;
+            }
+            sprites.Add(new SpriteToken { id = id, sprite = sprite });
+        }
+
+        public void EditorSetGradient(string id, Gradient gradient)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            for (int i = 0; i < gradients.Count; i++)
+            {
+                if (!string.Equals(gradients[i].id, id, StringComparison.Ordinal)) continue;
+                GradientToken token = gradients[i];
+                token.gradient = gradient;
+                gradients[i] = token;
+                return;
+            }
+            gradients.Add(new GradientToken { id = id, gradient = gradient });
         }
 #endif
     }

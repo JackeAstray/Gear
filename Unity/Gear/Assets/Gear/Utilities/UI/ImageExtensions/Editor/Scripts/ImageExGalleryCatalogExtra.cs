@@ -1,5 +1,7 @@
 using UnityEditor;
 using UnityEngine;
+using TMPro;
+using Gear.Utilities.UI;
 using Gear.Utilities.UI.ImageExtensions;
 
 namespace Gear.EditorTools.ImageExtensions
@@ -23,6 +25,13 @@ namespace Gear.EditorTools.ImageExtensions
         {
             AddShapeOutlines(content);
             AddGradientAngles(content);
+            AddCornerRadiusModes(content);
+            AddGradientZoom(content);
+            AddRaycastModes(content);
+            AddShapeSoftness(content);
+            AddDither(content);
+            AddSoftMask(content);
+            AddTextEffects(content);
             AddClipVariants(content);
             AddShadowDirections(content);
             AddToneFilters(content);
@@ -35,6 +44,214 @@ namespace Gear.EditorTools.ImageExtensions
             AddComposites(content);
         }
 
+        private static void AddCornerRadiusModes(RectTransform content) {
+            int[] percents = { 50, 100 };
+            for (int i = 0; i < percents.Length; i++)
+            {
+                int captured = percents[i];
+                AddCardIfMissing(content, "圆角 · 百分比 " + captured + "%", "100% = 短边的一半", p =>
+                {
+                    p.DrawShape = DrawShape.Rectangle;
+                    p.Rectangle = new RectangleImg
+                    {
+                        CornerRadius = new Vector4(captured, captured, captured, captured),
+                        RadiusMode = CornerRadiusMode.Percentage
+                    };
+                    p.color = new Color(0.49f, 0.36f, 0.99f, 1f);
+                    p.OutlineWidth = 2f;
+                    p.OutlineColor = new Color(1f, 1f, 1f, 0.2f);
+                });
+            }
+        }
+
+        private static void AddGradientZoom(RectTransform content) {
+            float[] zooms = { 0.5f, 2f, 3f };
+            for (int i = 0; i < zooms.Length; i++)
+            {
+                float captured = zooms[i];
+                AddCardIfMissing(content, "渐变 · Zoom " + captured + "x", "线性渐变空间缩放", p =>
+                {
+                    ImageExGalleryCatalog.ApplyGradient(p, GradientType.Linear, 45f, 0f, Accent, Cyan);
+                    p.GradientScale = captured;
+                });
+            }
+        }
+
+        private static void AddRaycastModes(RectTransform content) {
+            AddCardIfMissing(content, "命中 · 形状", "胶囊四角空白不响应点击", p =>
+            {
+                p.DrawShape = DrawShape.Rectangle;
+                p.Rectangle = new RectangleImg
+                {
+                    CornerRadius = new Vector4(100f, 100f, 100f, 100f),
+                    RadiusMode = CornerRadiusMode.Percentage
+                };
+                p.color = Accent;
+                p.OutlineWidth = 3f;
+                p.OutlineColor = Cyan;
+                p.RaycastMode = RaycastDetectionMode.Shape;
+                p.raycastTarget = true;
+            });
+
+            AddCardIfMissing(content, "命中 · None", "只渲染，不参与点击", p =>
+            {
+                p.DrawShape = DrawShape.Rectangle;
+                p.Rectangle = new RectangleImg
+                {
+                    CornerRadius = new Vector4(100f, 100f, 100f, 100f),
+                    RadiusMode = CornerRadiusMode.Percentage
+                };
+                p.color = new Color(0.25f, 0.78f, 0.52f, 1f);
+                p.OutlineWidth = 3f;
+                p.OutlineColor = new Color(1f, 1f, 1f, 0.3f);
+                p.RaycastMode = RaycastDetectionMode.None;
+                p.raycastTarget = true;
+            });
+        }
+
+        /// <summary>
+        /// 只补齐本次新增的卡片；已存在同名卡片的场景保持原样，不触碰旧卡片参数。
+        /// </summary>
+        internal static int AppendNewCards(RectTransform content)
+        {
+            int before = content.childCount;
+            AddCornerRadiusModes(content);
+            AddGradientZoom(content);
+            AddRaycastModes(content);
+            AddShapeSoftness(content);
+            AddDither(content);
+            AddSoftMask(content);
+            AddTextEffects(content);
+            return content.childCount - before;
+        }
+
+        private static void AddShapeSoftness(RectTransform content) {
+            AddCardIfMissing(content, "形状 · 软边", "SDF 几何边缘羽化", p =>
+            {
+                p.DrawShape = DrawShape.Rectangle;
+                p.Rectangle = new RectangleImg { CornerRadius = new Vector4(28f, 28f, 28f, 28f) };
+                p.color = new Color(0.49f, 0.36f, 0.99f, 1f);
+                p.ShapeSoftness = 6f;
+                p.OutlineWidth = 2f;
+                p.OutlineColor = new Color(1f, 1f, 1f, 0.2f);
+            });
+        }
+
+        private static void AddDither(RectTransform content) {
+            AddCardIfMissing(content, "抖动 · Dither", "打散 8bit 渐变色带", p =>
+            {
+                ImageExGalleryCatalog.ApplyGradient(p, GradientType.Linear, 45f, 0f,
+                    new Color(0.05f, 0.05f, 0.08f), new Color(0.18f, 0.16f, 0.3f));
+                p.Dither = true;
+            });
+        }
+
+        private static void AddSoftMask(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "遮罩 · 软边", "GearSoftMask 矩形羽化", p =>
+            {
+                p.DrawShape = DrawShape.Rectangle;
+                p.Rectangle = new RectangleImg { CornerRadius = new Vector4(30f, 30f, 30f, 30f) };
+                p.color = new Color(0.49f, 0.36f, 0.99f, 1f);
+                p.OutlineWidth = 2f;
+                p.OutlineColor = new Color(1f, 1f, 1f, 0.25f);
+            });
+
+            if (preview == null || preview.transform.parent == null)
+                return;
+
+            Transform clip = preview.transform.parent;
+            GearSoftMask mask = clip.GetComponent<GearSoftMask>();
+            if (mask == null)
+                mask = clip.gameObject.AddComponent<GearSoftMask>();
+
+            mask.Softness = 18f;
+            mask.Radius = 18f;
+        }
+        private static void AddTextEffects(RectTransform content) {
+            AddTextCard(content, "文本 · 打字机 / 波浪", "Play 查看打字机 / 波浪 / 抖动", "打字机\n波浪\n抖动",
+                effects =>
+                {
+                    effects.Typewriter = true;
+                    effects.CharactersPerSecond = 12f;
+                    effects.Wave = true;
+                    effects.WaveAmplitude = 4f;
+                    effects.WaveFrequency = 0.8f;
+                    effects.WaveSpeed = 1.2f;
+                    effects.Shake = true;
+                    effects.ShakeAmplitude = 1.2f;
+                });
+            AddTextCard(content, "文本 · Scramble / Shimmer", "Play 查看乱序显现 / 闪烁", "SCRAMBLE\nSHIMMER",
+                effects =>
+                {
+                    effects.Typewriter = false;
+                    effects.Scramble = true;
+                    effects.ScrambleDuration = 1.4f;
+                    effects.ScrambleFrequency = 26f;
+                    effects.Shimmer = true;
+                    effects.ShimmerSpeed = 3f;
+                    effects.ShimmerIntensity = 0.65f;
+                });
+            ImageExGalleryBuilder.AddTabGroupCard(content, "导航 · Tab", "点击 A/B/C 切换页面");
+            ImageExGalleryBuilder.AddStepperCard(content, "导航 · Stepper", "Next / Back / 校验门");
+            GearNavigationDemoBuilder.AddPageViewCard(content, "导航 · PageView", "Prev / Next 滑动页面");
+            GearNavigationDemoBuilder.AddPopoverCard(content, "覆盖层 · Popover", "点击按钮打开，外点/Esc 关闭");
+            GearEffectsDemoBuilder.AddScrollFadeCard(content, "效果 · 滚动渐隐", "滚动列表上下边缘软遮罩");
+            GearDataDisplayDemoBuilder.AddProgressCounterCard(content, "数据 · Progress / Counter", "进度条 + 数字滚动");
+            GearListViewDemoBuilder.AddListViewCard(content, "数据 · ListView", "LoopScrollRect 虚拟行 + CSV");
+            GearChartDemoBuilder.AddChartCard(content, "数据 · Line / Bar", "自绘折线 + 柱状图");
+            GearChartDemoBuilder.AddPieLegendCard(content, "数据 · Pie / Legend", "环形图 + 图例 + hover");
+            GearChartListLinkDemoBuilder.AddLinkedCard(content, "数据 · Pie → List", "点击扇区过滤列表");
+            GearChartDemoBuilder.AddRadarCard(content, "数据 · Radar", "5 轴雷达图");
+        }
+        private static void AddTextCard(RectTransform content, string title, string description, string body, System.Action<GearTextEffects> configure)
+        {
+            ImageEx preview = AddCardIfMissing(content, title, description, p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+            if (preview == null || preview.transform.parent == null)
+                return;
+
+            Transform clip = preview.transform.parent;
+            GameObject textGo = new GameObject("TextEffectsPreview",
+                typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI), typeof(GearTextEffects));
+            textGo.transform.SetParent(clip, false);
+
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) textGo.layer = uiLayer;
+
+            RectTransform rect = (RectTransform)textGo.transform;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+
+            TextMeshProUGUI label = textGo.GetComponent<TextMeshProUGUI>();
+            label.text = body;
+            label.fontSize = 24f;
+            label.alignment = TextAlignmentOptions.Center;
+            label.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            label.raycastTarget = false;
+
+            GearTextEffects effects = textGo.GetComponent<GearTextEffects>();
+            configure?.Invoke(effects);
+        }
+
+        private static ImageEx AddCardIfMissing(RectTransform content, string title, string description,
+            System.Action<ImageEx> configurePreview)
+        {
+            // 不能用 Transform.Find：标题里的 "/" 会被当成层级路径（例如「打字机 / 波浪」）
+            for (int i = 0; i < content.childCount; i++)
+            {
+                if (content.GetChild(i).name == title)
+                    return null;
+            }
+
+            return ImageExGalleryBuilder.AddCard(content, title, description, configurePreview);
+        }
         private static void AddShapeOutlines(RectTransform content)
         {
             DrawShape[] shapes =

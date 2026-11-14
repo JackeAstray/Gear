@@ -11,14 +11,78 @@
 - **背景模糊可直接挂在 ImageEx 上**：`UIBackdropBlur` 检测到 `ImageEx` 时不再替换材质，而是把
   `_BackdropTex / _EnableBackdropBlur / _GlassTint` 写进 ImageEx 材质，由新增 `RM_Backdrop.cginc`
   按屏幕 UV 采样；SDF 形状、圆角、描边、图案仍然保留。
+- **GearInteractive 五态**：新增 `GearInteractive`（Disabled/Normal/Highlighted/Pressed/Selected）
+  与 `GearInteractiveTint` 颜色绑定；非 Button Graphic 也能复用统一 hover/press/select 状态。
+- **GearProgressBar / GearCounter**：新增进度条（0..1、平滑、格式化标签）与数字滚动
+  （目标值、时长、格式化、立即赋值）；画廊新增「数据 · Progress / Counter」演示卡。
+- **GearLineChart / GearBarChart**：新增轻量自绘图表（折线 + 数据点、柱状 + 柱体几何），
+  不依赖第三方图表库；画廊新增「数据 · Line / Bar」演示卡。
+- **UI 渲染诊断**：新增 `Gear/UI Example/UI 渲染诊断（材质/Canvas）`，输出
+  Canvas / Graphic / ImageEx 材质实例与可合批分组报告到 `Docs/design/Gear-UI-渲染诊断.md`。
+- **共享材质试点**：新增应用/还原菜单；试点验证 401 → 286 材质实例后，
+  因 Shared 模式触发 UI rebuild 日志且 draw call 无法实测，已回滚，保留工具供后续排查。
+- **GearRadarChart**：新增 5 轴雷达图（网格/填充/描边/数据点）；画廊新增「数据 · Radar」演示卡。
+- **GearChartListLink**：新增图表 → ListView 联动组件；饼图扇区点击按分类列过滤行，
+  支持恢复全部/清除筛选；画廊新增「数据 · Pie → List」联动卡。
+- **GearPieChart / GearChartLegend**：新增环形/饼图（hover 高亮、内半径、扇区点击事件）与图例组件；
+  画廊新增「数据 · Pie / Legend」演示卡。
+- **GearListView 数据层**：新增 `GearListView` + `GearListRow`，复用 `LoopScrollRect` 的虚拟化/选中，
+  支持多列文本、空态、列宽、CSV 导入、行点击/选中事件；画廊新增「数据 · ListView」演示卡。
+- **主题 token 扩展**：`ImageExThemeAsset` 新增字体 / Sprite / 渐变 token；
+  新增 `GearThemeBinder`，可把 token 写到 TMP 字体、Image Sprite、ImageEx 渐变。
+- **Overlay 阶段 2**：`GearContextMenu` 支持子菜单级联关闭与自定义行；`GearTooltip` 增加
+  `Prewarm` 复用池、可配置最大宽与 `ShowCustom` 富内容；`GearPopover` 增加 alpha/scale 开关动画。
 - **UI 覆盖层**：`GearToast`（右上角堆叠、unscaled 自动关闭）、`GearTooltip` + `GearTooltipTrigger`、
   `GearContextMenu`（点击外部/Esc 关闭、贴边翻转）；统一走 `GearOverlayLayer` 与主题令牌。
 - **默认主题资产**：`Assets/Gear/Resources/UITheme/ImageExDefault.asset`（Overlay* 与 Surface/Accent 令牌）。
 - **ImageEx 画廊生成器**：直接清空并重建 `ImageEx 画廊/Scroll View/Viewport/Content`（原 UI示例），100+ 张效果卡片；`Gear/UI 示例` 菜单组已移除。
   需要 Sprite 的滤镜/过渡卡片统一使用 `Assets/Gear/Resources/UI/Sprites/Saber.png`。
+- **ImageEx 形状命中**：新增 `RaycastDetectionMode`（Standard / Shape / None）。Shape 模式按 SDF 形状判定，
+  胶囊/圆形/星形/四边形的透明区域不再吃点击；None 模式只渲染、不参与命中。Inspector 新增「命中检测」。
+- **ImageEx 矩形圆角百分比**：`RectangleImg.RadiusMode` 支持 Pixels / Percentage，100 = 短边的一半（胶囊），
+  旧资源默认 Pixels 行为不变；Inspector 的矩形圆角面板可直接切换单位。
+- **ImageEx 渐变 Zoom**：`GradientScale` 明确为程序化渐变与渐变纹理共用的 Zoom（0.1–5），
+  Inspector 标签改为「渐变 Zoom」，画廊新增 0.5x / 2x / 3x 三张卡。
+- **ImageEx 形状软边**：新增 `ShapeSoftness`（0.001–8），shader 压低 SDF 像素尺度做几何边缘羽化；
+  Inspector 新增「形状软边」，画廊新增「形状 · 软边」卡。
+- **ImageEx 抖动**：新增 `Dither`，按屏幕坐标噪声打散 8bit 渐变色带；画廊新增「抖动 · Dither」卡。
+- **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
+  不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
+- **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
+  文字内容变化自动重播，画廊新增「文本 · 打字机 / 波浪」「文本 · Scramble / Shimmer」两张卡。
+- **GearTabGroup**：新增 Tab 组组件：按钮切换页面、id/默认页、焦点迁移、`TabChanged` 事件；
+  画廊新增「导航 · Tab」演示卡（A/B/C 三页）。
+- **GearStepper**：新增步骤流组件：Next/Back、校验门 `CanContinue`、步骤指示器、焦点迁移、
+  完成事件；画廊新增「导航 · Stepper」演示卡。
+- **GearPageView**：新增页面滑动视图：Prev/Next、拖拽/滑动、页码指示器、可调过渡、自动横/纵向排版、焦点迁移；
+  画廊新增「导航 · PageView」演示卡。
+- **GearPopover**：新增覆盖层 Popover：锚点定位、屏幕贴边修正、点击外部/按 Esc 关闭、
+  内容构建回调与 `GearPopoverTrigger`；画廊新增「覆盖层 · Popover」演示卡。
+- **GearScrollFade 滚动渐隐**：新增 `GearScrollFade`，ScrollRect 滚动时刷新 `GearSoftMask`，
+  解决内容移动后遮罩停在旧位置；画廊新增「效果 · 滚动渐隐」演示卡。
+- **GearToast 队列/时长条**：`MaxVisible` 默认 3，超出排队；每条底部新增 2px 剩余时长条，
+  关闭一条后自动补位。
+- **UI Example 全量同步**：新增 `Gear/UI Example/全量重建 ImageEx 画廊（会清空手工修改）` 菜单，改完 ImageEx 或画廊目录后可重建并保存场景。
+- **UI Example 增量同步**：新增 `Gear/UI Example/仅补充新增 ImageEx 卡片`，只补缺失卡片、不删除/不重建已有卡片；
+  全量重建菜单已明确标注会清空手工修改，避免再次误删手工调过的效果。
 
 ### Fixed
 
+- **增量同步写错 Content**：`FindContent` 只认根节点名 `UI示例`，根改名 `ImageEx 画廊` 后走 fallback，
+  选中了「滚动渐隐」演示卡内部的 `ScrollFade/Viewport/Content`，把 17 张卡加进了演示卡。
+  现已兼容两个根名，并优先取子节点最多的 Content；误加对象已清理。
+- **Popover 触发器丢失脚本**：`GearPopoverTrigger` 与 `GearPopover` 放在同一文件时被 Unity 序列化成场景内
+  MonoScript，Inspector 显示 Missing；已拆成独立 `GearPopoverTrigger.cs` 并重建「覆盖层 · Popover」卡。
+- **GearTextEffects 打字机停住**：重写 Scramble 时漏掉了 Update 里的打字机推进分支，`Play()` 把
+  `maxVisibleCharacters` 设为 0 后不再恢复；已补回推进/完成逻辑。PlayMode 实测打字机逐字显示、
+  波浪顶点位移、Shimmer 颜色变化均生效。
+- **画廊增量同步重复卡**：`Transform.Find` 会把标题里的 `/` 当成层级路径；改为遍历子对象名精确判重，
+  并清理了场景里重复的「文本 · 打字机 / 波浪」卡。
+- **架构守卫超大文件**：`ImageEx.Runtime.Rendering.cs` 的 `InitValuesFromSharedMaterial` 拆到
+  `ImageEx.Runtime.SharedMaterial.cs`；`ImageExPreset.cs` 的 `ReadFrom` / `SameAs` 拆到
+  `ImageExPreset.ReadWrite.cs`；`ImageExToolkitWindow.cs` 拆到
+  `ImageExToolkitWindow.Tools.cs`（诊断）与 `ImageExToolkitWindow.Batching.cs`（统计/合批），
+  并从 `file-size-baseline.txt` 删除对应豁免。EditMode 全量 230 项全绿。
 - **ImageEx 外投影方向失效**：旧实现把 `shadowOffsetLocal` 只当等距扩张距离，不同方向的投影渲染结果相同。
   新增 `ShadowSpread / ShadowSoftness / ShadowOutsideOnly`，网格按 Offset 四边不对称外扩，
   shader 在偏移点求 SDF，语义对齐 Evo 的 Outer Shadow。
@@ -40,6 +104,9 @@
 - 新增 [Evo对照-UI能力差距与路线图](Docs/design/Evo对照-UI能力差距与路线图.md)：把三轮对照的
   "已完成 / 还差 / 不照搬"固化成能力矩阵、分阶段路线（结构件 → 形状快赢 → 软遮罩 → 控件）、
   验收命令与可勾选清单。
+- 新增 [Evo对照-EvoDemo复刻与ImageEx技术取舍](Docs/design/Evo对照-EvoDemo复刻与ImageEx技术取舍.md)：
+  记录 EvoDemo 的真实构成（15 个脚本分组 / 6 整屏 / 约 6.9 万行运行时 + 1.7 万行 Demo）、
+  ImageEx 的"立即做 / 中期 / 不做"取舍、UI 系统借模型不借骨架的边界，以及 Gear UI 展厅的分级路线。
 
 ## [2.0.0] - 2026-11-05
 

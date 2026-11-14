@@ -22,6 +22,12 @@ namespace Gear.EditorTools.ImageExtensions
             FixShaderChannelGUI();
 
             RaycastControlsGUI();
+            if (spRaycastMode != null)
+            {
+                EditorGUILayout.PropertyField(spRaycastMode, new GUIContent(
+                    "命中检测",
+                    "Standard：矩形范围（可选 Alpha 阈值）；Shape：按当前 SDF 形状命中，透明圆角/星形不吃点击；None：不参与命中。"));
+            }
             EditorGUILayout.PropertyField(m_Color);
             EditorGUILayout.Space();
 
@@ -29,6 +35,10 @@ namespace Gear.EditorTools.ImageExtensions
 
             EditorGUILayout.Space();
             EditorGUILayout.PropertyField(spShape, new GUIContent("绘制形状"));
+            if (spShapeSoftness != null)
+                EditorGUILayout.PropertyField(spShapeSoftness, new GUIContent("形状软边", "1 = 原始硬边；越大 SDF 边缘越软。"));
+            if (spDither != null)
+                EditorGUILayout.PropertyField(spDither, new GUIContent("抖动", "打散 8bit 渐变色带。"));
 
             if (spShape.enumValueIndex != (int)DrawShape.None)
             {
@@ -120,7 +130,7 @@ namespace Gear.EditorTools.ImageExtensions
                     EditorGUILayout.PropertyField(spGradientTex, new GUIContent("纹理"));
                 }
                 EditorGUILayout.PropertyField(spGradientOffset, new GUIContent("偏移"));
-                EditorGUILayout.PropertyField(spGradientScale, new GUIContent("缩放"));
+                EditorGUILayout.PropertyField(spGradientScale, new GUIContent("渐变 Zoom"));
                 EditorGUI.indentLevel--;
             }
             EditorGUILayout.EndVertical();

@@ -66,8 +66,8 @@
 | 图片填充模式 | Stretch/Cover/Fit | 🟡 `preserveAspect` + 拉伸 | 低 |
 | 抖动 | `Dither`（消 8bit 色带） | ❌ | 低 |
 | 布尔运算 | Union/Subtract/Intersect/Exclude ≤4 | ❌ | 低 |
-| 软遮罩 | ≤4 层、可反相、可隐藏遮罩本体 | ❌ | **高** |
-| 文本动效 | 12 种 + 标签作用域 | ❌ | **高** |
+| 软遮罩 | ≤4 层、可反相、可隐藏遮罩本体 | 🟡 `GearSoftMask`（矩形/圆角/羽化/反相，ImageEx only）+ `GearScrollFade` | **高** |
+| 文本动效 | 12 种 + 标签作用域 | 🟡 `GearTextEffects`：打字机/波浪/抖动 | **高** |
 | 渐变缩放 | `FillGradientZoom` | ❌ | 低 |
 | Sprite 图案 | 支持（需同图集） | 🟡 只有程序化图案 | 低 |
 | 形状导出 Sprite | 1x–4x、9-slice、可染色、替换为 Image | ❌ | 低 |
@@ -83,10 +83,10 @@
 | InputField 增强 | 5 形态 + 提交/聚焦 | 🟡 TMP 原生 | 低 |
 | 颜色/日期/时间 | ColorPicker×2、Calendar、TimePicker、Timer | ❌ | 按需 |
 | 选择器 | Selector、QuantitySelector、PickerWheel | ❌ | 按需 |
-| 进度/加载 | ProgressBar×3、DistributionBar、Spinner×3 | ❌ | 按需 |
-| 图表 | 折线/柱/水平/饼/雷达 + 悬停/点击/图例 | ❌ | 按需 |
-| 表格 | ListView（列宽/CSV/虚拟行） | ❌（可先用 LoopScrollRect 拼） | 按需 |
-| 数字滚动 | Counter | ❌ | 低 |
+| 进度/加载 | ProgressBar×3、DistributionBar、Spinner×3 | 🟡 `GearProgressBar`；Distribution/Spinner 未做 | 按需 |
+| 图表 | 折线/柱/水平/饼/雷达 + 悬停/点击/图例 | 🟡 折线/柱/饼/雷达 + 图例 + 点击/联动；水平图未做 | 按需 |
+| 表格 | ListView（列宽/CSV/虚拟行） | 🟡 `GearListView` 数据层 + 列宽/CSV + 演示卡 | 按需 |
+| 数字滚动 | Counter | 🟡 `GearCounter` | 低 |
 | 虚拟光标 | VirtualCursor（环形/描边/虚线） | ❌（焦点导航替代） | 按需（主机） |
 
 ### C. 覆盖层
@@ -94,10 +94,10 @@
 | 能力 | Evo | Gear | 优先级 |
 |---|---|---|---|
 | 模态 | ModalWindow（单例、不排队） | ✅ 模态栈 + 结果 + 优先级（更强） | — |
-| Toast | 倒计时条/音效/堆叠协调 | 🟡 堆叠 + 自动关闭；无队列、无时长条 | 中 |
-| Tooltip | 延迟/跟随/最大宽/自定义内容/池 | 🟡 触发 + 跟随；无延迟、无池 | 中 |
-| ContextMenu | 子菜单/自定义行/禁用项 | 🟡 分隔/图标/危险/禁用；无子菜单 | 中 |
-| Popover | 外点/Esc 关闭 + 开关动画 | ❌ | 中 |
+| Toast | 倒计时条/音效/堆叠协调 | 🟡 堆叠 + 队列 + 时长条；音效/协调未做 | 中 |
+| Tooltip | 延迟/跟随/最大宽/自定义内容/池 | 🟡 延迟 + 复用池 + 可配置最大宽 + 富内容 | 中 |
+| ContextMenu | 子菜单/自定义行/禁用项 | 🟡 分隔/图标/危险/禁用 + 子菜单 + 自定义行 | 中 |
+| Popover | 外点/Esc 关闭 + 开关动画 | 🟡 `GearPopover`（外点/Esc/贴边 + alpha/scale 开关动画） | 中 |
 | 独立通知 | Notification | 🟡 由 Toast 覆盖 | 低 |
 | 屏外指示 | OffScreenIndicator | ❌ | 按需 |
 
@@ -105,7 +105,7 @@
 
 | 能力 | Evo | Gear | 优先级 |
 |---|---|---|---|
-| Tab / Page / Stepper | 三件套 + 指示器 + 校验门 | ❌ | **高** |
+| Tab / Page / Stepper | 三件套 + 指示器 + 校验门 | 🟡 三件套基础版 + PageView 拖拽/指示器 | **高** |
 | Carousel | 自动轮播 + 邻居预览 | ✅ 自研选择控制器（线性/矩阵/多人） | — |
 | 列表重排/框选 | ReorderableList、MarqueeSelection | ❌ | 按需 |
 | 无限滚动/网格/径向布局 | InfiniteScroll、FlexibleGrid、RadialLayout | ❌ | 按需 |
@@ -116,8 +116,8 @@
 | 能力 | Evo | Gear | 优先级 |
 |---|---|---|---|
 | 颜色/数值 token | ✅ | ✅ `ImageExThemeAsset` | — |
-| 字体/精灵/渐变/音频/形状样式/文本样式 token | ✅ | ❌ | 中 |
-| 交互态颜色（5 态） | ✅ | ❌ | 中 |
+| 字体/精灵/渐变/音频/形状样式/文本样式 token | ✅ | 🟡 字体/Sprite/渐变已加；音频/形状样式/文本样式未做 | 中 |
+| 交互态颜色（5 态） | ✅ | 🟡 `GearInteractive` + `GearInteractiveTint` | 中 |
 | 换肤过渡 | 颜色/渐变混合 | ❌ | 低 |
 | TMP / Button 绑定 | `IStylerHandler` | 🟡 只绑 ImageEx | 中 |
 | ID 迁移工具 | Styler ID Migrator | ❌ | 低 |
@@ -137,7 +137,7 @@
 
 | 能力 | Evo | Gear | 优先级 |
 |---|---|---|---|
-| 同 Canvas 单材质合批 | ✅ | ❌ 每实例 Dynamic 材质；仅编辑器按指纹合批 | 中 |
+| 同 Canvas 单材质合批 | ✅ | 🟡 诊断与受控试点工具已备；试点验证后回滚（Shared 触发 rebuild 日志） | 中 |
 | light/full 双程序分级 | ✅ | ❌ 单程序 | 中 |
 | 样式页（style page） | ✅ | ❌ | 低 |
 | Shader 预热 | `WarmUpShaders` | ❌ | 低 |
@@ -164,10 +164,11 @@
 
 ### 阶段 2（1–2 天）形状快赢
 
-- `RaycastDetectionMode`：ImageEx 重写 `IsRaycastLocationValid`，用同一套 SDF 求距离。
-- 圆角百分比：C# 侧按短边换算，shader 不动；默认仍像素模式。
-- 渐变 Zoom：`GradientEffect` 加字段 + `RM_Gradient.cginc` 加乘子。
-- 验收：画廊加 3 张卡；EditMode 用例校验 0/50/100% 换算；旧资源零影响。
+- ✅ `RaycastDetectionMode`：ImageEx 重写 `IsRaycastLocationValid`，用 C# 侧 SDF 形状包含测试。
+- ✅ 圆角百分比：C# 侧按短边换算，shader 不动；默认仍像素模式。
+- ✅ 渐变 Zoom：复用 `GradientScale`（程序化渐变与渐变纹理共用 `_GradientScale`），补文档与画廊卡。
+- 验收：画廊新增 7 张卡（圆角 50%/100%、Zoom 0.5x/2x/3x、命中 Shape/None）；
+  EditMode 5 个用例校验百分比换算、形状命中、None 与 GradientScale 范围；旧资源零影响。
 
 ### 阶段 3a（1 天）参数化软遮罩（无 RT）
 
@@ -242,17 +243,17 @@
 ### 阶段 1
 - [ ] `GearTabGroup` + PlayMode 用例
 - [ ] `GearStepper` + PlayMode 用例
-- [ ] `GearPopover` + PlayMode 用例
+- [x] `GearPopover`（EditMode 用例；PlayMode 外点/Esc 待补）
 - [ ] Example 场景与说明
 
 ### 阶段 2
-- [ ] `RaycastDetectionMode`（Standard/Shape/None）
-- [ ] 圆角百分比模式 + 换算用例
-- [ ] 渐变 Zoom
-- [ ] 画廊 3 张新卡
+- [x] `RaycastDetectionMode`（Standard/Shape/None）
+- [x] 圆角百分比模式 + 换算用例
+- [x] 渐变 Zoom
+- [x] 画廊新卡（圆角百分比 / 渐变 Zoom / 命中检测）
 
 ### 阶段 3
-- [ ] 3a 参数化矩形/圆角软遮罩
+- [x] 3a 参数化矩形/圆角软遮罩（ImageEx + 滚动渐隐）
 - [ ] 3a Scroll View 渐隐示例
 - [ ] 3b `ImageExSdfMask` + RT 广播
 - [ ] 3b 嵌套 2 层用例与降级说明
@@ -264,7 +265,7 @@
 
 ### 主题与工具（可穿插）
 - [ ] 字体/精灵 token
-- [ ] 交互态颜色（5 态）
+- [x] 交互态颜色（5 态）
 - [ ] TMP / Button 绑定
 - [ ] UI Catalog（预览/搜索/拖拽创建）
 

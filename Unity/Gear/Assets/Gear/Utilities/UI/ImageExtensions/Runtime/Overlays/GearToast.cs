@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,8 +25,13 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
     {
         private const float Width = 380f;
         private static RectTransform s_container;
+        private static readonly List<GearToastView> s_visible = new List<GearToastView>();
+        private static readonly Queue<GearToastView> s_pending = new Queue<GearToastView>();
 
-        /// <summary>显示一条 Toast，返回可手动关闭的视图。</summary>
+        /// <summary>同时可见的最大条数；超出后排队，关闭一条再显示下一条。</summary>
+        public static int MaxVisible { get; set; } = 3;
+
+        /// <summary>显示一条 Toast，返回可手动关闭的视图。超出 MaxVisible 时会先排队。</summary>
         public static GearToastView Show(
             string message,
             string title = null,
@@ -42,17 +48,41 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
             GearToastView view = go.AddComponent<GearToastView>();
             view.Build(message, title, kind, icon, duration);
-            go.SetActive(true);
+            s_pending.Enqueue(view);
+            Pump();
             return view;
         }
 
-        /// <summary>清除所有 Toast。</summary>
+        /// <summary>清除所有 Toast（包含排队中的）。</summary>
         public static void ClearAll()
         {
+            s_pending.Clear();
+            s_visible.Clear();
             if (s_container == null) return;
             for (int i = s_container.childCount - 1; i >= 0; i--)
             {
-                Object.Destroy(s_container.GetChild(i).gameObject);
+                GameObject child = s_container.GetChild(i).gameObject;
+                if (Application.isPlaying) Object.Destroy(child);
+                else Object.DestroyImmediate(child);
+            }
+        }
+
+        internal static void NotifyClosed(GearToastView view)
+        {
+            s_visible.Remove(view);
+            Pump();
+        }
+
+        private static void Pump()
+        {
+            int limit = Mathf.Max(1, MaxVisible);
+            while (s_visible.Count < limit && s_pending.Count > 0)
+            {
+                GearToastView view = s_pending.Dequeue();
+                if (view == null) continue;
+
+                s_visible.Add(view);
+                view.gameObject.SetActive(true);
             }
         }
 
@@ -94,6 +124,8 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
+        private ImageEx progress;
+        private RectTransform progressRect;
         private float duration = 3f;
         private Coroutine routine;
 
@@ -141,6 +173,15 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             barRect.pivot = new Vector2(0f, 0.5f);
             barRect.offsetMin = new Vector2(10f, 10f);
             barRect.offsetMax = new Vector2(14f, -10f);
+
+            progress = GearOverlayLayer.CreateRoundedPanel(transform, "Progress", accent, 1f);
+            progressRect = (RectTransform)progress.transform;
+            progressRect.anchorMin = new Vector2(0f, 0f);
+            progressRect.anchorMax = new Vector2(1f, 0f);
+            progressRect.pivot = new Vector2(0f, 0f);
+            progressRect.offsetMin = Vector2.zero;
+            progressRect.offsetMax = new Vector2(0f, 2f);
+            progress.raycastTarget = false;
 
             float textLeft = 30f;
             if (icon != null)
@@ -224,7 +265,18 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             }
 
             canvasGroup.alpha = 1f;
-            yield return new WaitForSecondsRealtime(duration);
+
+            float remaining = duration;
+            while (remaining > 0f)
+            {
+                remaining -= Time.unscaledDeltaTime;
+                if (progressRect != null)
+                    progressRect.localScale = new Vector3(Mathf.Clamp01(remaining / duration), 1f, 1f);
+                yield return null;
+            }
+
+            if (progressRect != null)
+                progressRect.localScale = Vector3.zero;
 
             yield return FadeOut(0.2f);
             Destroy(gameObject);
@@ -245,6 +297,19 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
         /// <summary>立即关闭。</summary>
         public void Close()
         {
+            if (!Application.isPlaying)
+            {
+                GearToast.NotifyClosed(this);
+                DestroyImmediate(gameObject);
+                return;
+            }
+
+            if (!gameObject.activeSelf)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             if (routine != null) StopCoroutine(routine);
             routine = StartCoroutine(CloseRoutine());
         }
@@ -253,6 +318,11 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
         {
             yield return FadeOut(0.15f);
             Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            GearToast.NotifyClosed(this);
         }
     }
 }

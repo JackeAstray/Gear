@@ -145,6 +145,18 @@ namespace Gear.Utilities.UI.ImageExtensions
         }
 
         /// <summary>
+        /// 供命中检测复用的绘制区域：与网格生成使用同一套 <see cref="GetDrawingDimensions"/>，
+        /// 保证 preserveAspect / Sprite padding 下 Shape 命中和实际绘制范围一致。
+        /// </summary>
+        internal static Vector4 GetDrawingDimensionsForHit(bool shouldPreserveAspect,
+            Sprite activeSprite,
+            Canvas canvas,
+            RectTransform rectTransform)
+        {
+            return GetDrawingDimensions(shouldPreserveAspect, activeSprite, canvas, rectTransform);
+        }
+
+        /// <summary>
         /// 根据 Canvas 与 RectTransform 返回像素调整后的矩形（当 Canvas 为 WorldSpace、scaleFactor 为 0 或 pixelPerfect 为 false 时返回 rectTransform.rect）。
         /// </summary>
         /// <param name="canvas">Canvas（可为 null）。</param>

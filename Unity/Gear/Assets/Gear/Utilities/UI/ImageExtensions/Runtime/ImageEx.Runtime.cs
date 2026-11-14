@@ -148,6 +148,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             OutlineWidth = outlineWidth;
             OutlineColor = outlineColor;
             FalloffDistance = falloffDistance;
+            ShapeSoftness = shapeSoftness;
+            Dither = dither;
             ConstrainRotation = constrainRotation;
             ShapeRotation = shapeRotation;
             FlipHorizontal = flipHorizontal;

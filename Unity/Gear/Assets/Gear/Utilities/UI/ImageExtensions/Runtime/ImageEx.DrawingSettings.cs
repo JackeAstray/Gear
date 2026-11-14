@@ -215,6 +215,45 @@ namespace Gear.Utilities.UI.ImageExtensions
         }
 
         /// <summary>
+        /// 形状的边缘羽化。1 为原始硬边，越大边缘越软；同时作用于描边/内阴影的 SDF 采样。
+        /// </summary>
+        public float ShapeSoftness
+        {
+            get => shapeSoftness;
+            set
+            {
+                float clamped = Mathf.Clamp(value, 0.001f, 8f);
+                if (Mathf.Approximately(shapeSoftness, clamped)) return;
+                shapeSoftness = clamped;
+                if (m_Material == material)
+                {
+                    m_Material.SetFloat(shapeSoftness_Sp, shapeSoftness);
+                }
+
+                base.SetMaterialDirty();
+            }
+        }
+
+        /// <summary>
+        /// 抖动弹：打散 8bit 色带，适合大面积暗色渐变。
+        /// </summary>
+        public bool Dither
+        {
+            get => dither;
+            set
+            {
+                if (dither == value) return;
+                dither = value;
+                if (m_Material == material)
+                {
+                    m_Material.SetInt(dither_Sp, dither ? 1 : 0);
+                }
+
+                base.SetMaterialDirty();
+            }
+        }
+
+        /// <summary>
         /// 形状的边缘衰减距离
         /// </summary>
         public float FalloffDistance

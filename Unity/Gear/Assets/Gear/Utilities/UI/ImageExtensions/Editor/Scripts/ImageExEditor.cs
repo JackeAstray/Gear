@@ -21,9 +21,11 @@ namespace Gear.EditorTools.ImageExtensions
         private SerializedProperty spPreserveAspect;
         private SerializedProperty spFillMethod, spFillOrigin, spFillAmount, spFillClockwise;
         private SerializedProperty spAlphaThreshold;
+        private SerializedProperty spRaycastMode;
         private SerializedProperty spConstrainRotation, spShapeRotation, spFlipHorizontal, spFlipVertical;
         private SerializedProperty spShape;
         private SerializedProperty spStrokeWidth, spOutlineWidth, spOutlineColor, spFalloffDistance, spEnableDashedOutline, spCustomTime;
+        private SerializedProperty spShapeSoftness, spDither;
         private SerializedProperty spDashLength, spDashGap, spDashSoftness;
         private SerializedProperty spDashRounded, spDashOffset;
         private SerializedProperty spShadowMirrorDirection;
@@ -108,6 +110,8 @@ namespace Gear.EditorTools.ImageExtensions
             spOutlineWidth = serializedObject.FindProperty("outlineWidth");
             spOutlineColor = serializedObject.FindProperty("outlineColor");
             spFalloffDistance = serializedObject.FindProperty("falloffDistance");
+            spShapeSoftness = serializedObject.FindProperty("shapeSoftness");
+            spDither = serializedObject.FindProperty("dither");
             spEnableDashedOutline = serializedObject.FindProperty("enableDashedOutline");
             spCustomTime = serializedObject.FindProperty("customTime");
             spDashLength = serializedObject.FindProperty("dashLength");
@@ -166,6 +170,7 @@ namespace Gear.EditorTools.ImageExtensions
             spFlipVertical = serializedObject.FindProperty("flipVertical");
 
             spAlphaThreshold = serializedObject.FindProperty("alphaThreshold");
+            spRaycastMode = serializedObject.FindProperty("raycastMode");
 
             spCircle = serializedObject.FindProperty("circle");
             spRectangle = serializedObject.FindProperty("rectangle");

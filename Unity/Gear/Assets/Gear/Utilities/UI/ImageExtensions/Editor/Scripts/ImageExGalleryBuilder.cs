@@ -2,8 +2,12 @@ using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using Gear.Utilities.UI;
 using Gear.Utilities.UI.ImageExtensions;
+using Gear.Utilities.UI.Navigation;
 
 namespace Gear.EditorTools.ImageExtensions
 {
@@ -15,6 +19,7 @@ namespace Gear.EditorTools.ImageExtensions
     internal static class ImageExGalleryBuilder
     {
         private const string RootCanvasName = "UI示例";
+        private const string GalleryCanvasName = "ImageEx 画廊";
         private const string ContentPath = "Scroll View/Viewport/Content";
         internal const float CardWidth = 400f;
         internal const float CardHeight = 250f;
@@ -69,25 +74,106 @@ namespace Gear.EditorTools.ImageExtensions
         internal static RectTransform FindContent()
         {
             GameObject canvas = GameObject.Find(RootCanvasName);
+            if (canvas == null) canvas = GameObject.Find(GalleryCanvasName);
             if (canvas != null)
             {
                 Transform content = canvas.transform.Find(ContentPath);
                 if (content is RectTransform rect) return rect;
             }
 
+            // 兜底：场景根已改名或路径变化时，取“子节点最多”的 Content。
+            // 不能直接取第一个：滚动渐隐演示卡内部也有 Viewport/Content，会误把卡片加进去。
             GameObject[] all = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            RectTransform best = null;
+            int bestCount = -1;
             for (int i = 0; i < all.Length; i++)
             {
-                if (all[i].name == "Content" && all[i].transform.parent != null && all[i].transform.parent.name == "Viewport")
+                if (all[i].name != "Content" || all[i].transform.parent == null || all[i].transform.parent.name != "Viewport")
+                    continue;
+
+                RectTransform candidate = all[i].transform as RectTransform;
+                int count = candidate != null ? candidate.childCount : -1;
+                if (count > bestCount)
                 {
-                    return all[i].transform as RectTransform;
+                    best = candidate;
+                    bestCount = count;
                 }
             }
 
-            return null;
+            return best;
         }
 
-        internal static void AddCard(RectTransform content, string title, string description, System.Action<ImageEx> configurePreview)
+        /// <summary>
+        /// 一键重建 UI Example 场景里的 ImageEx 画廊。
+        /// <para><b>警告：会清空 Content 并重建所有卡片，场景里手工调过的效果会丢失。</b>
+        /// 只想同步新功能时请用 <see cref="AppendNewCardsOnly"/>。</para>
+        /// </summary>
+        [MenuItem("Gear/UI Example/全量重建 ImageEx 画廊（会清空手工修改）", false, 40)]
+        public static void RebuildUIExampleGallery()
+        {
+            const string scenePath = "Assets/Gear/Scenes/Example/UI Example.unity";
+            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath) == null)
+            {
+                Debug.LogError("[ImageEx] 找不到 UI Example 场景：" + scenePath);
+                return;
+            }
+
+            Scene active = SceneManager.GetActiveScene();
+            if (active.path != scenePath)
+            {
+                if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                    return;
+                active = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+            }
+
+            RectTransform content = FindContent();
+            if (content == null)
+            {
+                Debug.LogError("[ImageEx] UI Example 场景里找不到 Scroll View/Viewport/Content");
+                return;
+            }
+
+            int count = BuildInto(content);
+            EditorSceneManager.MarkSceneDirty(active);
+            EditorSceneManager.SaveScene(active);
+            Debug.Log($"[ImageEx] 已重建 UI Example 画廊，共 {count} 张卡片");
+        }
+
+        /// <summary>
+        /// 只补齐新增卡片，不删除/不重建任何已有卡片。适合在 UI Example 里手工调过效果后同步新功能。
+        /// </summary>
+        [MenuItem("Gear/UI Example/仅补充新增 ImageEx 卡片", false, 41)]
+        public static void AppendNewCardsOnly()
+        {
+            const string scenePath = "Assets/Gear/Scenes/Example/UI Example.unity";
+            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath) == null)
+            {
+                Debug.LogError("[ImageEx] 找不到 UI Example 场景：" + scenePath);
+                return;
+            }
+
+            Scene active = SceneManager.GetActiveScene();
+            if (active.path != scenePath)
+            {
+                if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                    return;
+                active = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+            }
+
+            RectTransform content = FindContent();
+            if (content == null)
+            {
+                Debug.LogError("[ImageEx] UI Example 场景里找不到 Scroll View/Viewport/Content");
+                return;
+            }
+
+            int added = ImageExGalleryCatalogExtra.AppendNewCards(content);
+            EditorSceneManager.MarkSceneDirty(active);
+            EditorSceneManager.SaveScene(active);
+            Debug.Log($"[ImageEx] 已补充 {added} 张新卡片（已有卡片保持不变）");
+        }
+
+        internal static ImageEx AddCard(RectTransform content, string title, string description, System.Action<ImageEx> configurePreview)
         {
             GameObject card = new GameObject(title, typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
             Undo.RegisterCreatedObjectUndo(card, "Create Card");
@@ -132,6 +218,241 @@ namespace Gear.EditorTools.ImageExtensions
                 if (clipMask != null) clipMask.enabled = false;
             }
 
+            return preview;
+        }
+
+        /// <summary>
+        /// 在画廊里生成一张 Tab 组演示卡：三个按钮切换三张页面。
+        /// </summary>
+        internal static void AddTabGroupCard(RectTransform content, string title, string description)
+        {
+            // 标题里可能带 "/"，不能使用 Transform.Find
+            for (int i = 0; i < content.childCount; i++)
+            {
+                if (content.GetChild(i).name == title)
+                    return;
+            }
+
+            ImageEx preview = AddCard(content, title, description, p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null || preview.transform.parent == null)
+                return;
+
+            Transform clip = preview.transform.parent;
+            GameObject groupGo = new GameObject("TabGroup", typeof(RectTransform), typeof(GearTabGroup));
+            groupGo.transform.SetParent(clip, false);
+
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) groupGo.layer = uiLayer;
+
+            RectTransform groupRect = (RectTransform)groupGo.transform;
+            groupRect.anchorMin = Vector2.zero;
+            groupRect.anchorMax = Vector2.one;
+            groupRect.offsetMin = Vector2.zero;
+            groupRect.offsetMax = Vector2.zero;
+
+            GearTabGroup group = groupGo.GetComponent<GearTabGroup>();
+            string[] ids = { "A", "B", "C" };
+            Color[] colors =
+            {
+                new Color(0.49f, 0.36f, 0.99f, 0.9f),
+                new Color(0.14f, 0.75f, 0.95f, 0.9f),
+                new Color(0.25f, 0.78f, 0.52f, 0.9f),
+            };
+
+            List<GearTabGroup.Tab> tabs = new List<GearTabGroup.Tab>();
+            for (int i = 0; i < ids.Length; i++)
+            {
+                string id = ids[i];
+
+                GameObject page = new GameObject("Page " + id, typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
+                page.transform.SetParent(groupGo.transform, false);
+                if (uiLayer >= 0) page.layer = uiLayer;
+
+                RectTransform pageRect = (RectTransform)page.transform;
+                pageRect.anchorMin = new Vector2(0f, 0f);
+                pageRect.anchorMax = new Vector2(1f, 1f);
+                pageRect.offsetMin = new Vector2(8f, 8f);
+                pageRect.offsetMax = new Vector2(-8f, -36f);
+
+                ImageEx pageImage = page.GetComponent<ImageEx>();
+                pageImage.DrawShape = DrawShape.Rectangle;
+                pageImage.Rectangle = new RectangleImg { CornerRadius = new Vector4(12f, 12f, 12f, 12f) };
+                pageImage.color = colors[i];
+                pageImage.raycastTarget = false;
+                CreateCenteredLabel(page.transform, id, 42f, new Color(1f, 1f, 1f, 0.95f));
+
+                GameObject buttonGo = new GameObject("Tab " + id,
+                    typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx), typeof(Button));
+                buttonGo.transform.SetParent(groupGo.transform, false);
+                if (uiLayer >= 0) buttonGo.layer = uiLayer;
+
+                RectTransform buttonRect = (RectTransform)buttonGo.transform;
+                buttonRect.anchorMin = new Vector2(0f, 1f);
+                buttonRect.anchorMax = new Vector2(0f, 1f);
+                buttonRect.pivot = new Vector2(0f, 1f);
+                buttonRect.sizeDelta = new Vector2(52f, 24f);
+                buttonRect.anchoredPosition = new Vector2(8f + i * 58f, -6f);
+
+                ImageEx buttonImage = buttonGo.GetComponent<ImageEx>();
+                buttonImage.DrawShape = DrawShape.Rectangle;
+                buttonImage.Rectangle = new RectangleImg { CornerRadius = new Vector4(8f, 8f, 8f, 8f) };
+                buttonImage.color = colors[i];
+
+                Button button = buttonGo.GetComponent<Button>();
+                button.targetGraphic = buttonImage;
+                button.transition = Selectable.Transition.None;
+                CreateCenteredLabel(buttonGo.transform, id, 15f, Color.white);
+
+                tabs.Add(new GearTabGroup.Tab
+                {
+                    id = id,
+                    button = button,
+                    page = page,
+                    firstSelected = buttonGo,
+                });
+            }
+
+            group.Configure(tabs);
+            group.Select(ids[0]);
+        }
+
+        internal static TextMeshProUGUI CreateCenteredLabel(Transform parent, string text, float fontSize, Color color)
+        {
+            GameObject go = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            go.transform.SetParent(parent, false);
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) go.layer = uiLayer;
+
+            RectTransform rect = (RectTransform)go.transform;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+
+            TextMeshProUGUI label = go.GetComponent<TextMeshProUGUI>();
+            label.text = text;
+            label.fontSize = fontSize;
+            label.alignment = TextAlignmentOptions.Center;
+            label.color = color;
+            label.raycastTarget = false;
+            return label;
+        }
+
+        /// <summary>
+        /// 在画廊里生成一张 Stepper 演示卡：3 个步骤、指示器、Next/Back。
+        /// </summary>
+        internal static void AddStepperCard(RectTransform content, string title, string description)
+        {
+            for (int i = 0; i < content.childCount; i++)
+            {
+                if (content.GetChild(i).name == title)
+                    return;
+            }
+
+            ImageEx preview = AddCard(content, title, description, p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null || preview.transform.parent == null)
+                return;
+
+            Transform clip = preview.transform.parent;
+            GameObject stepperGo = new GameObject("Stepper", typeof(RectTransform), typeof(GearStepper));
+            stepperGo.transform.SetParent(clip, false);
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) stepperGo.layer = uiLayer;
+
+            RectTransform stepperRect = (RectTransform)stepperGo.transform;
+            stepperRect.anchorMin = Vector2.zero;
+            stepperRect.anchorMax = Vector2.one;
+            stepperRect.offsetMin = Vector2.zero;
+            stepperRect.offsetMax = Vector2.zero;
+
+            GearStepper stepper = stepperGo.GetComponent<GearStepper>();
+            Color[] colors =
+            {
+                new Color(0.49f, 0.36f, 0.99f, 0.9f),
+                new Color(0.14f, 0.75f, 0.95f, 0.9f),
+                new Color(0.25f, 0.78f, 0.52f, 0.9f),
+            };
+
+            Button next = CreateButton(stepperGo.transform, "Next", "Next", new Vector2(196f, -5f), new Vector2(52f, 24f), colors[0]);
+            Button back = CreateButton(stepperGo.transform, "Back", "Back", new Vector2(254f, -5f), new Vector2(52f, 24f), colors[1]);
+
+            List<GearStepper.Step> steps = new List<GearStepper.Step>();
+            for (int i = 0; i < 3; i++)
+            {
+                string id = (i + 1).ToString();
+                Button indicator = CreateButton(stepperGo.transform, "Indicator " + id, id,
+                    new Vector2(8f + i * 58f, -5f), new Vector2(50f, 24f), colors[i]);
+
+                GameObject page = new GameObject("Step " + id, typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx));
+                page.transform.SetParent(stepperGo.transform, false);
+                if (uiLayer >= 0) page.layer = uiLayer;
+
+                RectTransform pageRect = (RectTransform)page.transform;
+                pageRect.anchorMin = Vector2.zero;
+                pageRect.anchorMax = Vector2.one;
+                pageRect.offsetMin = new Vector2(8f, 38f);
+                pageRect.offsetMax = new Vector2(-8f, -38f);
+
+                ImageEx pageImage = page.GetComponent<ImageEx>();
+                pageImage.DrawShape = DrawShape.Rectangle;
+                pageImage.Rectangle = new RectangleImg { CornerRadius = new Vector4(12f, 12f, 12f, 12f) };
+                pageImage.color = colors[i];
+                pageImage.raycastTarget = false;
+                CreateCenteredLabel(page.transform, id, 42f, new Color(1f, 1f, 1f, 0.95f));
+
+                steps.Add(new GearStepper.Step
+                {
+                    id = id,
+                    title = id,
+                    page = page,
+                    indicator = indicator,
+                    firstSelected = next.gameObject,
+                });
+            }
+
+            stepper.NextButton = next;
+            stepper.BackButton = back;
+            stepper.Configure(steps);
+            stepper.GoTo(0);
+        }
+
+        internal static Button CreateButton(Transform parent, string name, string label,
+            Vector2 anchoredPosition, Vector2 size, Color color)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx), typeof(Button));
+            go.transform.SetParent(parent, false);
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (uiLayer >= 0) go.layer = uiLayer;
+
+            RectTransform rect = (RectTransform)go.transform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.sizeDelta = size;
+            rect.anchoredPosition = anchoredPosition;
+
+            ImageEx image = go.GetComponent<ImageEx>();
+            image.DrawShape = DrawShape.Rectangle;
+            image.Rectangle = new RectangleImg { CornerRadius = new Vector4(8f, 8f, 8f, 8f) };
+            image.color = color;
+
+            Button button = go.GetComponent<Button>();
+            button.targetGraphic = image;
+            button.transition = Selectable.Transition.None;
+            CreateCenteredLabel(go.transform, label, 14f, Color.white);
+            return button;
         }
 
         internal static Gradient MakeGradient(Color a, Color b)
