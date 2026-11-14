@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Gear.Utilities.UI.ImageExtensions;
 
 namespace Gear.Utilities.UI.Widgets
 {
@@ -27,10 +28,15 @@ namespace Gear.Utilities.UI.Widgets
         [SerializeField] private UnityEvent<Color> onColorChanged = new UnityEvent<Color>();
         [SerializeField] private UnityEvent<string> onHexChanged = new UnityEvent<string>();
 
+        private const int SvTextureSize = 64;
+
         private float hue;
         private float saturation = 1f;
         private float brightness = 1f;
         private bool refreshing;
+        private Texture2D svTexture;
+        private Sprite svSprite;
+        private float svTextureHue = -999f;
 
         public UnityEvent<Color> OnColorChanged => onColorChanged;
         public UnityEvent<string> OnHexChanged => onHexChanged;
@@ -186,6 +192,7 @@ namespace Gear.Utilities.UI.Widgets
             try
             {
                 if (preview != null) preview.color = value;
+                UpdateSvTexture();
 
                 if (svHandle != null && svArea != null)
                 {
@@ -202,6 +209,70 @@ namespace Gear.Utilities.UI.Widgets
             {
                 refreshing = false;
             }
+        }
+
+        /// <summary>把 SV 方块刷成当前色相的 S/V 贴图（X=饱和度，Y=明度）。</summary>
+        private void UpdateSvTexture()
+        {
+            if (svArea == null) return;
+            var image = svArea.GetComponent<ImageEx>();
+            if (image == null) return;
+
+            if (svSprite == null || Mathf.Abs(svTextureHue - hue) > 0.01f)
+            {
+                if (svTexture == null)
+                {
+                    svTexture = new Texture2D(SvTextureSize, SvTextureSize, TextureFormat.RGBA32, false)
+                    {
+                        hideFlags = HideFlags.HideAndDontSave,
+                        wrapMode = TextureWrapMode.Clamp,
+                    };
+                }
+
+                for (int y = 0; y < SvTextureSize; y++)
+                {
+                    float v = y / (float)(SvTextureSize - 1);
+                    for (int x = 0; x < SvTextureSize; x++)
+                    {
+                        float s = x / (float)(SvTextureSize - 1);
+                        svTexture.SetPixel(x, y, Color.HSVToRGB(hue / 360f, s, v));
+                    }
+                }
+
+                svTexture.Apply(false, false);
+                if (svSprite != null) DestroySprite();
+                svSprite = Sprite.Create(svTexture, new Rect(0f, 0f, SvTextureSize, SvTextureSize), new Vector2(0.5f, 0.5f));
+                svSprite.hideFlags = HideFlags.HideAndDontSave;
+                svTextureHue = hue;
+            }
+
+            image.sprite = svSprite;
+            image.color = Color.white;
+            var gradient = image.GradientEffect;
+            if (gradient.Enabled)
+            {
+                gradient.Enabled = false;
+                image.GradientEffect = gradient;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            DestroySprite();
+            if (svTexture != null)
+            {
+                if (Application.isPlaying) Destroy(svTexture);
+                else DestroyImmediate(svTexture);
+                svTexture = null;
+            }
+        }
+
+        private void DestroySprite()
+        {
+            if (svSprite == null) return;
+            if (Application.isPlaying) Destroy(svSprite);
+            else DestroyImmediate(svSprite);
+            svSprite = null;
         }
 
         // ---------------- 静态换算 ----------------

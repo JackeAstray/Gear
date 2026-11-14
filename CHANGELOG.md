@@ -155,6 +155,13 @@
 
 ### Fixed
 
+- **搜索卡输入不筛选**：`GearSearchIndex.OnEnable` 用自身的 `entries` 重建索引时，`Build` 先把同一个 List 清空，
+  导致索引恒为空；改为同引用时跳过清空，并补 `Rebuild()` 与回归用例。
+- **日历卡日期叠两层 / 选中态丢失**：域重载后非序列化的 `cells` 清空，重复实例化整月格子；
+  改为进入时接管已有子按钮；选中日期改用 `selectedDateText` 序列化，Play 后仍保留。
+- **滚轮卡被页面滚动带偏**：未选中时把滚轮事件转发给外层 `ScrollRect`，点击滚轮后才接管。
+- **取色器 SV 方块只有一维渐变**：改为按当前色相生成 64×64 的 S/V 贴图（水平饱和度、垂直明度），
+  `GearColorPicker` 负责创建/释放，卡片不再依赖单条 Gradient。
 - **InkCoverage shader 不响应 Mask 的 alpha clip**：缺少 `UNITY_UI_ALPHACLIP` 关键字，模板缓冲被整块写入，
   墨团遮罩实际没有裁剪子树；补上 alpha clip 后 `GearInkMask` 卡在 Play 下能按墨迹裁掉右侧子元素。
 - **画廊卡片被裁切 / 内容错位**：卡片高度 250 → 340、预览区 320×140 → 320×236，并**保持底部锚定与预览中心不变**，

@@ -352,14 +352,7 @@ namespace Gear.EditorTools.ImageExtensions
                 new Vector2(132f, 132f), Color.white);
             square.Rectangle.CornerRadius = new Vector4(8f, 8f, 8f, 8f);
             square.raycastTarget = true;
-            var squareGradient = square.GradientEffect;
-            squareGradient.Enabled = true;
-            squareGradient.GradientType = GradientType.Linear;
-            squareGradient.Rotation = 0f;
-            squareGradient.Speed = 0f;
-            squareGradient.Gradient = ImageExGalleryBuilder.MakeGradient(Color.white, new Color(1f, 0f, 0f, 1f));
-            square.GradientEffect = squareGradient;
-            square.color = Color.white;
+            // SV 方块由 GearColorPicker 运行时按当前色相生成贴图（白→色相 + 明度轴）
 
             ImageEx handle = CreateTile(square.transform, "Handle", Vector2.zero,
                 new Vector2(14f, 14f), Color.white);

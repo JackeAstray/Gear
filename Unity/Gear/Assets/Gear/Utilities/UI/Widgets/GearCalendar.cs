@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -58,6 +59,7 @@ namespace Gear.Utilities.UI.Widgets
         [SerializeField, Range(1, 12)] private int month = 1;
         [SerializeField] private int year;
         [SerializeField] private bool hasSelection;
+        [SerializeField] private string selectedDateText;
         private DateTime selectedDate;
 
         private readonly List<Button> cells = new List<Button>();
@@ -87,9 +89,20 @@ namespace Gear.Utilities.UI.Widgets
 
         private void OnEnable()
         {
+            RestoreSelection();
             EnsureMonth();
             RefreshHeader();
             RefreshGrid();
+        }
+
+        private void RestoreSelection()
+        {
+            if (!hasSelection || string.IsNullOrEmpty(selectedDateText)) return;
+            if (DateTime.TryParseExact(selectedDateText, "yyyy-MM-dd", CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out DateTime parsed))
+            {
+                selectedDate = parsed.Date;
+            }
         }
 
         /// <summary>写入可视月份（1-12），不改变选中日期。</summary>
@@ -127,6 +140,7 @@ namespace Gear.Utilities.UI.Widgets
             year = date.Year;
             month = date.Month;
             selectedDate = date.Date;
+            selectedDateText = selectedDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             hasSelection = true;
 
             RefreshHeader();
@@ -151,6 +165,7 @@ namespace Gear.Utilities.UI.Widgets
         public void ClearSelection()
         {
             hasSelection = false;
+            selectedDateText = string.Empty;
             RefreshGrid();
         }
 
@@ -259,6 +274,17 @@ namespace Gear.Utilities.UI.Widgets
         {
             if (dayTemplate == null || gridContent == null) return;
 
+            // 进入 Play 时非序列化的 cells 会清空，但场景里已经存在生成的格子；
+            // 先把现有子按钮接管回来，避免重复实例化（日期会叠两层）。
+            if (cells.Count == 0)
+            {
+                for (int i = 0; i < gridContent.childCount; i++)
+                {
+                    Button existing = gridContent.GetChild(i).GetComponent<Button>();
+                    if (existing != null && existing != dayTemplate) cells.Add(existing);
+                }
+            }
+
             while (cells.Count < count)
             {
                 Button cell = Instantiate(dayTemplate, gridContent);
@@ -268,7 +294,16 @@ namespace Gear.Utilities.UI.Widgets
 
             for (int i = 0; i < cells.Count; i++)
             {
-                if (i >= count) cells[i].gameObject.SetActive(false);
+                cells[i].gameObject.SetActive(i < count);
+            }
+
+            // 多出来的旧格子（历史重复生成）隐藏掉
+            for (int i = 0; i < gridContent.childCount; i++)
+            {
+                GameObject child = gridContent.GetChild(i).gameObject;
+                if (child == dayTemplate.gameObject) continue;
+                Button button = child.GetComponent<Button>();
+                if (button != null && !cells.Contains(button)) child.SetActive(false);
             }
         }
 

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Gear.Utilities.UI.Widgets
 {
@@ -229,6 +230,7 @@ namespace Gear.Utilities.UI.Widgets
         public void OnPointerDown(PointerEventData eventData)
         {
             dragging = false;
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(gameObject);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -255,6 +257,19 @@ namespace Gear.Utilities.UI.Widgets
         public void OnScroll(PointerEventData eventData)
         {
             if (Mathf.Abs(eventData.scrollDelta.y) < 0.01f) return;
+
+            // 没被选中时把滚轮让给外层 ScrollRect，避免在画廊里滚动页面却改了滚轮选项
+            bool selected = EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject;
+            if (!selected)
+            {
+                ScrollRect parent = GetComponentInParent<ScrollRect>();
+                if (parent != null)
+                {
+                    parent.OnScroll(eventData);
+                    return;
+                }
+            }
+
             Step(eventData.scrollDelta.y > 0f ? -1 : 1);
         }
 

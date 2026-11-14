@@ -73,10 +73,14 @@ namespace Gear.Utilities.UI.Widgets
         /// <summary>重建索引：只在数据变化时调用（小写化与分词只做一次）。</summary>
         public void Build(IList<string> items)
         {
-            entries.Clear();
-            if (items != null)
+            // OnEnable 会传 entries 自己进来；同一引用时先 Clear 会把数据清空
+            if (!ReferenceEquals(items, entries))
             {
-                for (int i = 0; i < items.Count; i++) entries.Add(items[i] ?? string.Empty);
+                entries.Clear();
+                if (items != null)
+                {
+                    for (int i = 0; i < items.Count; i++) entries.Add(items[i] ?? string.Empty);
+                }
             }
 
             sources = new string[entries.Count];
@@ -89,6 +93,9 @@ namespace Gear.Utilities.UI.Widgets
                 tokens[i] = Tokenize(lowered[i]);
             }
         }
+
+        /// <summary>用已保存的 entries 重建索引（OnEnable / 场景重载用）。</summary>
+        public void Rebuild() => Build(entries);
 
         /// <summary>把查询结果写入 results（会先 clear），返回命中数；内部缓冲复用，稳态无分配。</summary>
         public int Search(string query, List<int> results)

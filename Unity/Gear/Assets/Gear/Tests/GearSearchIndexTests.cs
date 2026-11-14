@@ -89,6 +89,17 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void Rebuild_FromSerializedEntries_KeepsIndex()
+        {
+            index.Build(new List<string> { "攻击强化", "防御矩阵" });
+            index.Rebuild();
+
+            var results = new List<int>();
+            Assert.AreEqual(1, index.Search("防御", results), "用自身 entries 重建时不能先把列表清空");
+            Assert.AreEqual(1, results[0]);
+        }
+
+        [Test]
         public void Rebuild_ReplacesOldEntries()
         {
             index.Build(new List<string> { "Only One" });
