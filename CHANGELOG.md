@@ -158,6 +158,8 @@
 - **画廊批量重建后形状/材质不刷新**：`AddCard` 与 `BuildInto` 在布局结算前后统一标脏并 `ForceUpdateCanvases`，
   修复全量重建后部分 SDF 形状（Triangle/Hexagon/Pentagon/Chamfer）显示成矩形的问题；
   同时校正形状预设（六边形 TipSize 50、五边形 70、倒角 1.5×1、Squircle 时间 0.25）。
+- **形状卡预设**：N-Star 内凹从 `Inset=2` 调到 4（2 表示不断边，实际渲染成五边形）；Chamfer Box 改为
+  `Size 1.25×0.9 / Radius 0.22`；新增「重建形状卡（形状 · *）」菜单，改预设后无需全量重建。
 - **饼图点击后出现 No rows / 行重复**：`GearChartListLink.allRows` 未序列化，场景重载后为空，点扇区过滤出 0 行；
   同时 `LoopScrollRect` 的运行时池未序列化，重载后旧行还在、又实例化一份新行。修复：allRows 序列化并在 OnEnable 恢复全量，
   再点同一扇区取消过滤；`LoopScrollRect.Build` 接管场景里已存在的行，避免“幽灵行”叠在新数据上。
