@@ -22,6 +22,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddOffScreenCard(content);
             AddInputFieldCard(content);
             AddMultiSelectCard(content);
+            AddCalendarCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -468,6 +469,71 @@ namespace Gear.EditorTools.ImageExtensions
             multi.SetOptions(new[] { "攻击", "防御", "速度", "暴击", "生命" });
             multi.SetSelected(1, true, false);
             multi.SetSelected(3, true, false);
+        }
+
+        /// <summary>月视图日历：今天/选中标记，可翻月。</summary>
+        private static void AddCalendarCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · Calendar", "月视图、翻月、今天/选中（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            GameObject headerGo = new GameObject("Header", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            headerGo.transform.SetParent(preview.transform, false);
+            TextMeshProUGUI header = headerGo.GetComponent<TextMeshProUGUI>();
+            header.text = "2026 年 11 月";
+            header.fontSize = 16f;
+            header.alignment = TextAlignmentOptions.Center;
+            header.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            header.raycastTarget = false;
+            RectTransform headerRect = (RectTransform)headerGo.transform;
+            headerRect.sizeDelta = new Vector2(220f, 22f);
+            headerRect.anchoredPosition = new Vector2(0f, 72f);
+
+            GameObject gridGo = new GameObject("Grid", typeof(RectTransform));
+            gridGo.transform.SetParent(preview.transform, false);
+            RectTransform grid = (RectTransform)gridGo.transform;
+            grid.sizeDelta = new Vector2(232f, 144f);
+            grid.anchoredPosition = new Vector2(0f, -6f);
+
+            GridLayoutGroup layout = gridGo.AddComponent<GridLayoutGroup>();
+            layout.cellSize = new Vector2(30f, 20f);
+            layout.spacing = new Vector2(3f, 3f);
+            layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            layout.constraintCount = 7;
+            layout.childAlignment = TextAnchor.UpperCenter;
+
+            ImageEx cell = CreateTile(grid, "Day Template", Vector2.zero,
+                new Vector2(30f, 20f), new Color(0.16f, 0.18f, 0.25f, 1f));
+            cell.Rectangle.CornerRadius = new Vector4(4f, 4f, 4f, 4f);
+            cell.raycastTarget = true;
+
+            GameObject dayLabelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            dayLabelGo.transform.SetParent(cell.transform, false);
+            TextMeshProUGUI dayLabel = dayLabelGo.GetComponent<TextMeshProUGUI>();
+            dayLabel.text = "1";
+            dayLabel.fontSize = 11f;
+            dayLabel.alignment = TextAlignmentOptions.Center;
+            dayLabel.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            dayLabel.raycastTarget = false;
+            ((RectTransform)dayLabelGo.transform).sizeDelta = new Vector2(30f, 20f);
+
+            Button dayButton = cell.gameObject.AddComponent<Button>();
+            dayButton.transition = Selectable.Transition.None;
+            cell.gameObject.SetActive(false);
+
+            GearCalendar calendar = preview.gameObject.AddComponent<GearCalendar>();
+            calendar.HeaderLabel = header;
+            calendar.GridContent = grid;
+            calendar.DayTemplate = dayButton;
+            calendar.SetVisibleMonth(2026, 11);
+            calendar.SelectDate(new System.DateTime(2026, 11, 14), false);
+            calendar.Refresh();
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>
