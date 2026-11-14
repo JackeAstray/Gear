@@ -35,6 +35,8 @@ namespace Gear.Utilities.UI.ImageExtensions
             set
             {
                 rectangle = value;
+                // 保证运行时代码新建的矩形也能拿到 RectTransform（百分比圆角/圆角同步需要它）
+                if (rectangle != null) rectangle.rectTransform = rectTransform;
                 SetMaterialDirty();
             }
         }

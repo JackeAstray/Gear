@@ -414,6 +414,30 @@ namespace Gear.Utilities.UI.ImageExtensions
         }
 
         /// <summary>
+        /// 图片填充方式：Stretch 拉伸 / Cover 裁切填满 / Fit 完整显示。
+        /// <para>
+        /// 只影响 Simple / Sliced 的网格 UV；旧资源的 <c>preserveAspect = true</c> 仍按 Fit 处理，
+        /// Cover 会覆盖 preserveAspect。
+        /// </para>
+        /// </summary>
+        public SpriteFillMode SpriteFill
+        {
+            get { return spriteFillMode; }
+            set
+            {
+                if (spriteFillMode == value) return;
+                spriteFillMode = value;
+                SetVerticesDirty();
+            }
+        }
+
+        /// <summary>网格生成时使用的“保持纵横比”开关（Cover 强制关闭；Fit 等价于 preserveAspect）。</summary>
+        internal bool EffectivePreserveAspect =>
+            spriteFillMode == SpriteFillMode.Cover
+                ? false
+                : spriteFillMode == SpriteFillMode.Fit || preserveAspect;
+
+        /// <summary>
         /// 用于渲染形状的共享材质。材质必须使用“Gear/UI/ImageEx”着色器
         /// </summary>
         public override Material material

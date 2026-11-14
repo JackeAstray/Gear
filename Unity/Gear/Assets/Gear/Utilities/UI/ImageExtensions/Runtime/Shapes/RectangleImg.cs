@@ -14,6 +14,9 @@ namespace Gear.Utilities.UI.ImageExtensions
     {
         [SerializeField] private Vector4 cornerRadius;
         [SerializeField] private CornerRadiusMode radiusMode = CornerRadiusMode.Pixels;
+        [SerializeField] private CornerRadiusSyncMode syncMode = CornerRadiusSyncMode.None;
+        [SerializeField] private RectTransform syncTarget;
+        [SerializeField] [Min(0f)] private float syncInset;
 #if UNITY_EDITOR
         [SerializeField] private bool uniformCornerRadius;
 #endif
@@ -42,6 +45,7 @@ namespace Gear.Utilities.UI.ImageExtensions
                     sharedMat.SetVector(rectangleCornerRadius_Sp, ResolveCornerRadius());
                 }
                 onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+                NotifyDependents();
             }
         }
 
@@ -60,6 +64,62 @@ namespace Gear.Utilities.UI.ImageExtensions
                     sharedMat.SetVector(rectangleCornerRadius_Sp, ResolveCornerRadius());
                 }
                 onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+                NotifyDependents();
+            }
+        }
+
+        /// <summary>
+        /// 圆角同步来源。默认 <see cref="CornerRadiusSyncMode.None"/>，即使用自身 <see cref="CornerRadius"/>。
+        /// <para>同步开启时忽略 <see cref="RadiusMode"/>：结果始终按像素半径计算，
+        /// 再减去 <see cref="SyncInset"/>（用于父子卡片之间留出 padding）。</para>
+        /// </summary>
+        public CornerRadiusSyncMode SyncMode
+        {
+            get => syncMode;
+            set
+            {
+                if (syncMode == value) return;
+                syncMode = value;
+                if (shouldModifySharedMat)
+                {
+                    sharedMat.SetVector(rectangleCornerRadius_Sp, ResolveCornerRadius());
+                }
+                onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+                NotifyDependents();
+            }
+        }
+
+        /// <summary>同步目标；仅 <see cref="CornerRadiusSyncMode.MatchTarget"/> 使用。</summary>
+        public RectTransform SyncTarget
+        {
+            get => syncTarget;
+            set
+            {
+                if (syncTarget == value) return;
+                syncTarget = value;
+                if (shouldModifySharedMat)
+                {
+                    sharedMat.SetVector(rectangleCornerRadius_Sp, ResolveCornerRadius());
+                }
+                onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>同步时从来源圆角减去的像素值（夹到 ≥0）。</summary>
+        public float SyncInset
+        {
+            get => syncInset;
+            set
+            {
+                float clamped = Mathf.Max(0f, value);
+                if (Mathf.Approximately(syncInset, clamped)) return;
+                syncInset = clamped;
+                if (shouldModifySharedMat)
+                {
+                    sharedMat.SetVector(rectangleCornerRadius_Sp, ResolveCornerRadius());
+                }
+                onComponentSettingsChanged?.Invoke(this, EventArgs.Empty);
+                NotifyDependents();
             }
         }
 
@@ -114,6 +174,27 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// </summary>
         public Vector4 ResolveCornerRadius(Vector2 rectSize)
         {
+            return FixRadius(ResolveCornerRadiusCore(rectSize, 0), rectSize);
+        }
+
+        /// <summary>
+        /// 解析自身圆角（像素），并在开启同步时沿父级链取来源圆角减去 <see cref="SyncInset"/>。
+        /// <para>depth 用于防御异常层级（父子互相引用）导致的无限递归。</para>
+        /// </summary>
+        private Vector4 ResolveCornerRadiusCore(Vector2 rectSize, int depth)
+        {
+            if (syncMode != CornerRadiusSyncMode.None && depth < 8)
+            {
+                RectangleImg source = FindSyncSource();
+                if (source != null && !ReferenceEquals(source, this))
+                {
+                    Vector2 sourceSize = source.rectTransform != null ? source.rectTransform.rect.size : Vector2.zero;
+                    Vector4 synced = source.ResolveCornerRadiusCore(sourceSize, depth + 1);
+                    float inset = Mathf.Max(0f, syncInset);
+                    return Vector4.Max(synced - new Vector4(inset, inset, inset, inset), Vector4.zero);
+                }
+            }
+
             Vector4 radius = cornerRadius;
             if (radiusMode == CornerRadiusMode.Percentage)
             {
@@ -125,7 +206,57 @@ namespace Gear.Utilities.UI.ImageExtensions
                     Mathf.Clamp(radius.w, 0f, 100f) * 0.01f * halfShortEdge);
             }
 
-            return FixRadius(radius, rectSize);
+            return radius;
+        }
+
+        /// <summary>按同步模式找到来源矩形。</summary>
+        private RectangleImg FindSyncSource()
+        {
+            switch (syncMode)
+            {
+                case CornerRadiusSyncMode.MatchTarget:
+                    return FindRectangle(syncTarget);
+                case CornerRadiusSyncMode.MatchParent:
+                    return rectTransform != null ? FindRectangle(rectTransform.parent) : null;
+                case CornerRadiusSyncMode.MatchAncestor:
+                    if (rectTransform == null) return null;
+                    Transform ancestor = rectTransform.parent;
+                    while (ancestor != null)
+                    {
+                        RectangleImg found = FindRectangle(ancestor);
+                        if (found != null) return found;
+                        ancestor = ancestor.parent;
+                    }
+                    return null;
+                default:
+                    return null;
+            }
+        }
+
+        private static RectangleImg FindRectangle(Transform target)
+        {
+            if (target == null) return null;
+            ImageEx image = target.GetComponent<ImageEx>();
+            if (image == null || image.DrawShape != DrawShape.Rectangle) return null;
+            return image.Rectangle;
+        }
+
+        /// <summary>
+        /// 来源圆角变化后，让依赖本组件的子级 ImageEx 重新写材质（否则子级会停在旧圆角）。
+        /// </summary>
+        private void NotifyDependents()
+        {
+            if (rectTransform == null) return;
+            ImageEx[] images = rectTransform.GetComponentsInChildren<ImageEx>(true);
+            for (int i = 0; i < images.Length; i++)
+            {
+                ImageEx image = images[i];
+                if (image == null) continue;
+                RectangleImg rect = image.Rectangle;
+                if (rect == null || ReferenceEquals(rect, this)) continue;
+                if (rect.syncMode == CornerRadiusSyncMode.None) continue;
+                image.SetMaterialDirty();
+            }
         }
 
         /// <summary>

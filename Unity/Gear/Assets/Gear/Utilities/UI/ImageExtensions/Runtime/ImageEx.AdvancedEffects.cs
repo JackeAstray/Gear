@@ -375,5 +375,114 @@ namespace Gear.Utilities.UI.ImageExtensions
                 SetMaterialDirty();
             }
         }
+
+        // -------------------- 指针聚光（Spotlight） --------------------
+        // 不参与序列化：由 ImageExSpotlight 组件在运行时驱动，避免给 ImageEx 再增加十几个字段。
+
+        private static readonly int enableSpotlight_Sp = Shader.PropertyToID("_EnableSpotlight");
+        private static readonly int spotlightColor_Sp = Shader.PropertyToID("_SpotlightColor");
+        private static readonly int spotlightRadius_Sp = Shader.PropertyToID("_SpotlightRadius");
+        private static readonly int spotlightSoftness_Sp = Shader.PropertyToID("_SpotlightSoftness");
+        private static readonly int spotlightIntensity_Sp = Shader.PropertyToID("_SpotlightIntensity");
+        private static readonly int spotlightPosition_Sp = Shader.PropertyToID("_SpotlightPosition");
+        private static readonly int spotlightHover_Sp = Shader.PropertyToID("_SpotlightHover");
+
+        private bool enableSpotlight;
+        private Color spotlightColor = Color.white;
+        private float spotlightRadius = 120f;
+        private float spotlightSoftness = 0.6f;
+        private float spotlightIntensity;
+        private Vector2 spotlightPosition = new Vector2(0.5f, 0.5f);
+        private float spotlightHover = 1f;
+
+        /// <summary>是否启用指针聚光（由 <see cref="ImageExSpotlight"/> 打开）。</summary>
+        public bool EnableSpotlight
+        {
+            get => enableSpotlight;
+            set
+            {
+                if (enableSpotlight == value) return;
+                enableSpotlight = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>聚光颜色（HDR 可用于更强的叠加）。</summary>
+        public Color SpotlightColor
+        {
+            get => spotlightColor;
+            set
+            {
+                if (spotlightColor == value) return;
+                spotlightColor = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>聚光半径（像素，最小 1）。</summary>
+        public float SpotlightRadius
+        {
+            get => spotlightRadius;
+            set
+            {
+                value = Mathf.Max(1f, value);
+                if (Mathf.Approximately(spotlightRadius, value)) return;
+                spotlightRadius = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>聚光边缘羽化比例（0-1，相对半径）。</summary>
+        public float SpotlightSoftness
+        {
+            get => spotlightSoftness;
+            set
+            {
+                value = Mathf.Clamp01(value);
+                if (Mathf.Approximately(spotlightSoftness, value)) return;
+                spotlightSoftness = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>聚光强度（0-1）。</summary>
+        public float SpotlightIntensity
+        {
+            get => spotlightIntensity;
+            set
+            {
+                value = Mathf.Clamp01(value);
+                if (Mathf.Approximately(spotlightIntensity, value)) return;
+                spotlightIntensity = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>聚光位置（局部 0-1，左下为原点）。</summary>
+        public Vector2 SpotlightPosition
+        {
+            get => spotlightPosition;
+            set
+            {
+                value = new Vector2(Mathf.Clamp01(value.x), Mathf.Clamp01(value.y));
+                if (spotlightPosition == value) return;
+                spotlightPosition = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>聚光悬停淡入系数（0-1）。</summary>
+        public float SpotlightHover
+        {
+            get => spotlightHover;
+            set
+            {
+                value = Mathf.Clamp01(value);
+                if (Mathf.Approximately(spotlightHover, value)) return;
+                spotlightHover = value;
+                SetMaterialDirty();
+            }
+        }
+
     }
 }

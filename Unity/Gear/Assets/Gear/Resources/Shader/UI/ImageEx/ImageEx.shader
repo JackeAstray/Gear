@@ -116,6 +116,51 @@ Shader "ReunionMovement/UI/ImageEx"
         _BorderGlowIntensity ("辉光强度", Range(0, 1)) = 1
         _BorderGlowHover ("辉光悬停系数", Range(0, 1)) = 1
 
+        // 指针聚光（Spotlight）
+        _EnableSpotlight ("启用指针聚光", int) = 0
+        [HDR] _SpotlightColor ("聚光颜色", Color) = (1, 1, 1, 1)
+        _SpotlightRadius ("聚光半径（像素）", float) = 120
+        _SpotlightSoftness ("聚光羽化", Range(0, 1)) = 0.6
+        _SpotlightIntensity ("聚光强度", Range(0, 1)) = 0.35
+        _SpotlightPosition ("聚光位置（局部 0-1）", Vector) = (0.5, 0.5, 0, 0)
+        _SpotlightHover ("聚光悬停系数", Range(0, 1)) = 1
+
+        // 点阵图案（Dot Matrix）
+        _EnableDotMatrix ("启用点阵图案", int) = 0
+        _DotPattern ("点阵图案", int) = 0
+        _DotShape ("点形状", int) = 0
+        _DotCell ("格子尺寸（像素）", float) = 18
+        _DotRadius ("点半径比例", Range(0, 0.5)) = 0.32
+        _DotColor ("点颜色", Color) = (1, 1, 1, 1)
+        _DotIntensity ("点强度", Range(0, 1)) = 0.6
+        _DotSpeed ("动画速度", float) = 1
+
+        // 像素幕帘（Pixel Curtain）
+        _EnablePixelCurtain ("启用像素幕帘", int) = 0
+        _CurtainProgress ("幕帘进度", Range(0, 1)) = 1
+        _CurtainCell ("格子尺寸（像素）", float) = 24
+        _CurtainRandomness ("逐格随机度", Range(0, 1)) = 0.3
+        _CurtainSoftness ("格子羽化", Range(0, 1)) = 0.08
+        _CurtainDirection ("方向（0 左→右 / 1 右→左 / 2 下→上 / 3 上→下）", int) = 0
+
+        // 地形等值线（Topographic）
+        _EnableTopographic ("启用地形等值线", int) = 0
+        _TopoScale ("噪声频率", float) = 3
+        _TopoDensity ("层级密度", float) = 6
+        _TopoLineWidth ("线宽", Range(0.001, 0.5)) = 0.05
+        _TopoMajorEvery ("主线间隔", float) = 5
+        _TopoColor ("线条颜色", Color) = (1, 1, 1, 1)
+        _TopoIntensity ("强度", Range(0, 1)) = 0.6
+        _TopoSpeed ("滚动速度", float) = 0.2
+        _TopoFalloff ("中心衰减", Range(0, 1)) = 0
+
+        // 墨团揭示（Ink Panel）
+        _EnableInkPanel ("启用墨团揭示", int) = 0
+        _InkProgress ("墨团进度", Range(0, 1)) = 1
+        _InkOrigin ("墨团原点（局部 0-1）", Vector) = (0.5, 0.5, 0, 0)
+        _InkSoftness ("墨团羽化", Range(0.001, 0.5)) = 0.08
+        _InkRoughness ("墨团粗糙度", Range(0, 1)) = 0.35
+
         // 渐变（Gradient）扩展：屏幕空间 / 反向 / 自动流动
         _GradientSpace ("渐变空间（0 局部 / 1 屏幕）", int) = 0
         _GradientReverse ("渐变反向", int) = 0
@@ -393,6 +438,16 @@ Shader "ReunionMovement/UI/ImageEx"
             #include "../../Common/RM_Pattern.cginc"
             // -------------------- 边缘辉光（BORDER GLOW） --------------------
             #include "../../Common/RM_BorderGlow.cginc"
+            // -------------------- 指针聚光（SPOTLIGHT） --------------------
+            #include "../../Common/RM_Spotlight.cginc"
+            // -------------------- 点阵图案（DOT MATRIX） --------------------
+            #include "../../Common/RM_DotMatrix.cginc"
+            // -------------------- 像素幕帘（PIXEL CURTAIN） --------------------
+            #include "../../Common/RM_PixelCurtain.cginc"
+            // -------------------- 地形等值线（TOPOGRAPHIC） --------------------
+            #include "../../Common/RM_Topographic.cginc"
+            // -------------------- 墨团揭示（INK PANEL） --------------------
+            #include "../../Common/RM_InkPanel.cginc"
             // -------------------- 背景模糊（BACKDROP） --------------------
             #include "../../Common/RM_Backdrop.cginc"
             // -------------------- 进度裁剪（CLIP / PROGRESS） --------------------
@@ -764,6 +819,21 @@ Shader "ReunionMovement/UI/ImageEx"
                     if (_GearMaskInvert > 0.5) maskAlpha = 1.0 - maskAlpha;
                     color.a *= maskAlpha;
                 }
+
+                // 像素幕帘：只乘 alpha，最后一步再叠（与软遮罩/裁剪可组合）
+                RM_ApplyPixelCurtain(color, IN.shapeData, texcoord, IN.size);
+
+                // 地形等值线：在 alpha 之后加色，被幕帘遮住的格子不会发光
+                RM_ApplyTopographic(color, IN.shapeData, texcoord, IN.size);
+
+                // 墨团揭示：最后乘 alpha，可与其上的加色效果共存
+                RM_ApplyInkPanel(color, IN.shapeData, texcoord, IN.size);
+
+                // 指针聚光：软遮罩之后、抖动之前；只加色不改 alpha
+                RM_ApplySpotlight(color, IN.shapeData, texcoord, IN.size);
+
+                // 点阵图案：同样只加色，可与聚光/图案叠加
+                RM_ApplyDotMatrix(color, IN.shapeData, texcoord, IN.size);
 
                 // 抖动弹：打散 8bit 色带，1 像素级、无纹理
                 if (_Dither > 0.5)

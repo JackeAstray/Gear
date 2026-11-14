@@ -51,7 +51,7 @@ namespace Gear.Utilities.UI.ImageExtensions
                 return false;
 
             // 与网格生成共用绘制区域：preserveAspect / Sprite padding 下仍然命中的是实际画出来的形状
-            Vector4 dims = ImageHelper.GetDrawingDimensionsForHit(preserveAspect, ActiveSprite, canvas, rt);
+            Vector4 dims = ImageHelper.GetDrawingDimensionsForHit(EffectivePreserveAspect, ActiveSprite, canvas, rt);
             float width = dims.z - dims.x;
             float height = dims.w - dims.y;
             if (width <= 0f || height <= 0f) return false;

@@ -35,8 +35,9 @@ namespace Gear.Utilities.UI.ImageExtensions
     //材质模式
     public enum MaterialMode
     {
-        Dynamic,        //动态
-        Shared          //共享
+        Dynamic,        //动态（每实例独立材质）
+        Shared,         //共享（手动指定的共享材质）
+        Pooled          //按设置签名共享（同设置实例自动合批）
     }
 
     //角样式类型
@@ -63,6 +64,64 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// <summary>完全不参与命中（等价于 raycastTarget = false，但仍保留渲染）。</summary>
         [InspectorName("关闭")]
         None = 2
+    }
+
+    /// <summary>
+    /// DotMatrix 的解析图案（由 uv/格子索引 + 时间直接算出，不需要纹理）。
+    /// </summary>
+    public enum DotMatrixPattern
+    {
+        [InspectorName("波浪")] Wave = 0,
+        [InspectorName("同心圆")] Rings = 1,
+        [InspectorName("雷达")] Radar = 2,
+        [InspectorName("螺旋")] Spiral = 3,
+        [InspectorName("蛇形")] Snake = 4,
+        [InspectorName("均衡器")] Equalizer = 5,
+        [InspectorName("棋盘")] Checker = 6,
+        [InspectorName("脉冲")] Pulse = 7,
+    }
+
+    /// <summary>DotMatrix 的点形状。</summary>
+    public enum DotMatrixShape
+    {
+        [InspectorName("圆点")] Circle = 0,
+        [InspectorName("方块")] Square = 1,
+        [InspectorName("菱形")] Diamond = 2,
+    }
+
+    /// <summary>
+    /// 图片填充方式：Stretch 拉伸、Cover 裁切填满、Fit 完整显示（留边）。
+    /// <para>
+    /// 旧资源的 <c>preserveAspect = true</c> 仍按 Fit 处理；Cover 会覆盖 preserveAspect。
+    /// </para>
+    /// </summary>
+    public enum SpriteFillMode
+    {
+        [InspectorName("拉伸")]
+        Stretch = 0,
+        [InspectorName("裁切填满")]
+        Cover = 1,
+        [InspectorName("完整显示")]
+        Fit = 2,
+    }
+
+    /// <summary>
+    /// 矩形圆角的同步来源：让嵌套卡片/胶囊按钮的圆角随父级或目标一起变化。
+    /// </summary>
+    public enum CornerRadiusSyncMode
+    {
+        /// <summary>使用自身 <see cref="RectangleImg.CornerRadius"/>（旧行为）。</summary>
+        [InspectorName("不同步")]
+        None = 0,
+        /// <summary>取父节点 ImageEx 的像素圆角。</summary>
+        [InspectorName("跟随父级")]
+        MatchParent = 1,
+        /// <summary>取 <see cref="RectangleImg.SyncTarget"/> 上 ImageEx 的像素圆角。</summary>
+        [InspectorName("跟随目标")]
+        MatchTarget = 2,
+        /// <summary>向上找最近一个矩形 ImageEx 的像素圆角。</summary>
+        [InspectorName("跟随最近祖先")]
+        MatchAncestor = 3,
     }
 
     /// <summary>

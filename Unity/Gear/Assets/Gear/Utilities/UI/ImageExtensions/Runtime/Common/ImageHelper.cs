@@ -30,6 +30,32 @@ namespace Gear.Utilities.UI.ImageExtensions
         }
 
         /// <summary>
+        /// Cover 填充的 UV 裁切：从精灵的 outer UV 中裁出与目标矩形同宽高比的子区域。
+        /// Stretch / Fit 原样返回。
+        /// </summary>
+        public static Vector4 ApplySpriteFill(Vector4 outerUv, Vector2 spriteSize, Vector2 rectSize, SpriteFillMode mode)
+        {
+            if (mode != SpriteFillMode.Cover) return outerUv;
+            if (spriteSize.x <= 0f || spriteSize.y <= 0f || rectSize.x <= 0f || rectSize.y <= 0f) return outerUv;
+
+            float spriteAspect = spriteSize.x / spriteSize.y;
+            float rectAspect = rectSize.x / rectSize.y;
+            if (Mathf.Approximately(spriteAspect, rectAspect)) return outerUv;
+
+            float uCenter = (outerUv.x + outerUv.z) * 0.5f;
+            float vCenter = (outerUv.y + outerUv.w) * 0.5f;
+            float uHalf = (outerUv.z - outerUv.x) * 0.5f;
+            float vHalf = (outerUv.w - outerUv.y) * 0.5f;
+
+            if (rectAspect > spriteAspect)
+                vHalf *= spriteAspect / rectAspect;
+            else
+                uHalf *= rectAspect / spriteAspect;
+
+            return new Vector4(uCenter - uHalf, vCenter - vHalf, uCenter + uHalf, vCenter + vHalf);
+        }
+
+        /// <summary>
         /// 生成一个简单的精灵网格，并可选地在下方附加一个阴影四边形。
         /// 阴影四边形会以黑色（但保留原始透明度）添加在原始四边形之前，以便在后续 shader 中进行形状／SDF 效果处理。
         /// </summary>
@@ -47,7 +73,8 @@ namespace Gear.Utilities.UI.ImageExtensions
         private static readonly Vector3[] suvBuffer = new Vector3[4];
 
         public static void GenerateSimpleSprite(VertexHelper vh, bool preserveAspect, Canvas canvas,
-            RectTransform rectTransform, Sprite activeSprite, Color32 color, float falloffDistance, bool appendShadow, Vector2 shadowOffsetLocal, float shadowScale = 1f)
+            RectTransform rectTransform, Sprite activeSprite, Color32 color, float falloffDistance, bool appendShadow, Vector2 shadowOffsetLocal, float shadowScale = 1f,
+            SpriteFillMode spriteFillMode = SpriteFillMode.Stretch)
         {
             vh.Clear();
 
@@ -57,6 +84,10 @@ namespace Gear.Utilities.UI.ImageExtensions
                 : new Vector4(0, 0, 1, 1);
 
             Vector2 size = new Vector2(v.z - v.x, v.w - v.y);
+            if (activeSprite != null)
+            {
+                uv = ApplySpriteFill(uv, activeSprite.rect.size, size, spriteFillMode);
+            }
             Vector4 fullBounds = v;
 
             Vector3[] sxy = sxyBuffer;
@@ -103,12 +134,19 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// </summary>
         public static void AddShadowQuad(VertexHelper vh, bool preserveAspect, Canvas canvas,
             RectTransform rectTransform, Sprite activeSprite, Color32 color,
-            Vector2 shadowOffsetLocal, float shadowScale = 1f, float shadowFade = 1f)
+            Vector2 shadowOffsetLocal, float shadowScale = 1f, float shadowFade = 1f,
+            SpriteFillMode spriteFillMode = SpriteFillMode.Stretch)
         {
             Vector4 v = GetDrawingDimensions(preserveAspect, activeSprite, canvas, rectTransform);
             Vector4 uv = (activeSprite != null)
                 ? UnityEngine.Sprites.DataUtility.GetOuterUV(activeSprite)
                 : new Vector4(0, 0, 1, 1);
+
+            if (activeSprite != null)
+            {
+                Vector2 size = new Vector2(v.z - v.x, v.w - v.y);
+                uv = ApplySpriteFill(uv, activeSprite.rect.size, size, spriteFillMode);
+            }
             AddShadowQuad(vh, v, uv, color, shadowOffsetLocal, shadowScale, shadowFade);
         }
 
@@ -125,7 +163,8 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// </para>
         /// </summary>
         public static void GenerateSdfShadowSprite(VertexHelper vh, bool preserveAspect, Canvas canvas,
-            RectTransform rectTransform, Sprite activeSprite, Color32 color, float grow, float falloffDistance)
+            RectTransform rectTransform, Sprite activeSprite, Color32 color, float grow, float falloffDistance,
+            SpriteFillMode spriteFillMode = SpriteFillMode.Stretch)
         {
             vh.Clear();
 
@@ -135,6 +174,10 @@ namespace Gear.Utilities.UI.ImageExtensions
                 : new Vector4(0, 0, 1, 1);
 
             Vector2 size = new Vector2(v.z - v.x, v.w - v.y);
+            if (activeSprite != null)
+            {
+                uv = ApplySpriteFill(uv, activeSprite.rect.size, size, spriteFillMode);
+            }
 
             // 外扩量：grow + 一个衰减余量；限制不超过短边一半，避免极小图形生成退化四边形
             float margin = Mathf.Max(falloffDistance, 0f) + 2f;

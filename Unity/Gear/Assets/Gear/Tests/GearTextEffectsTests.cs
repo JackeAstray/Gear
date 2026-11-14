@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using UnityEngine;
 using Gear.Utilities.UI;
 
 namespace Gear.Tests
@@ -38,6 +39,29 @@ namespace Gear.Tests
             Assert.AreEqual(5, GearTextEffects.ComputeScrambleReveal(0.5f, 1f, 10));
             Assert.AreEqual(10, GearTextEffects.ComputeScrambleReveal(2f, 1f, 10));
             Assert.AreEqual(10, GearTextEffects.ComputeScrambleReveal(1f, 0f, 10));
+        }
+
+        [Test]
+        public void ExtraEffectProperties_Clamp()
+        {
+            var go = new GameObject("TextEffects", typeof(RectTransform),
+                typeof(TMPro.TextMeshProUGUI), typeof(GearTextEffects));
+            try
+            {
+                var effects = go.GetComponent<GearTextEffects>();
+                effects.AlphaPulseMin = 2f;
+                Assert.AreEqual(1f, effects.AlphaPulseMin, 0.001f);
+
+                effects.BounceAmplitude = -3f;
+                Assert.AreEqual(0f, effects.BounceAmplitude, 0.001f);
+
+                effects.GlitchInterval = 0f;
+                Assert.AreEqual(0.01f, effects.GlitchInterval, 0.001f);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(go);
+            }
         }
     }
 }

@@ -30,8 +30,8 @@ namespace Gear.Utilities.UI.ImageExtensions
                     {
                         float sdfGrow = Mathf.Max(shadowOffsetLocal.magnitude, 1f);
                         float shadowSoftness = Mathf.Max(falloffDistance, shadowBlurIntensity);
-                        ImageHelper.GenerateSdfShadowSprite(vh, preserveAspect, canvas, rectTransform,
-                            ActiveSprite, color, sdfGrow, shadowSoftness);
+                        ImageHelper.GenerateSdfShadowSprite(vh, EffectivePreserveAspect, canvas, rectTransform,
+                            ActiveSprite, color, sdfGrow, shadowSoftness, spriteFillMode);
                         break;
                     }
 
@@ -43,14 +43,14 @@ namespace Gear.Utilities.UI.ImageExtensions
                     // 保证阴影始终在图像后面（旧实现先写主图再 AddShadowQuad，阴影会盖在图像上）。
                     if (appendShadow && (shadowMode == ShadowMode.Shadow || shadowMode == ShadowMode.Mirror))
                     {
-                        ImageHelper.GenerateSimpleSprite(vh, preserveAspect, canvas, rectTransform, ActiveSprite,
-                            color, falloffDistance, true, effectiveShadowOffset, shadowScale);
+                        ImageHelper.GenerateSimpleSprite(vh, EffectivePreserveAspect, canvas, rectTransform, ActiveSprite,
+                            color, falloffDistance, true, effectiveShadowOffset, shadowScale, spriteFillMode);
                         break;
                     }
 
                     // 其余模式：先绘制主图，再追加阴影（Shadow3 仍按原顺序）
-                    ImageHelper.GenerateSimpleSprite(vh, preserveAspect, canvas, rectTransform, ActiveSprite,
-                        color, falloffDistance, false, Vector2.zero);
+                    ImageHelper.GenerateSimpleSprite(vh, EffectivePreserveAspect, canvas, rectTransform, ActiveSprite,
+                        color, falloffDistance, false, Vector2.zero, 1f, spriteFillMode);
 
                     if (appendShadow && shadowMode == ShadowMode.Shadow3)
                     {
@@ -58,13 +58,13 @@ namespace Gear.Utilities.UI.ImageExtensions
                         {
                             float iterFade = Mathf.Pow(0.75f, i); // 1.0, 0.75, 0.5625
                             Vector2 iterOffset = effectiveShadowOffset * (i + 1);
-                            ImageHelper.AddShadowQuad(vh, preserveAspect, canvas, rectTransform,
-                                ActiveSprite, color, iterOffset, shadowScale, iterFade);
+                            ImageHelper.AddShadowQuad(vh, EffectivePreserveAspect, canvas, rectTransform,
+                                ActiveSprite, color, iterOffset, shadowScale, iterFade, spriteFillMode);
                         }
                     }
                     break;
                 case Type.Filled:
-                    ImageHelper.GenerateFilledSprite(vh, preserveAspect, canvas, rectTransform, ActiveSprite,
+                    ImageHelper.GenerateFilledSprite(vh, EffectivePreserveAspect, canvas, rectTransform, ActiveSprite,
                         color, fillMethod, fillAmount, fillOrigin, fillClockwise, falloffDistance);
                     break;
                 default:
@@ -169,6 +169,38 @@ namespace Gear.Utilities.UI.ImageExtensions
                 Log.Warning("ImageEx.DrawShape 存在非法值 {0}，已跳过形状渲染", drawShapeValue);
             }
 
+            // Pooled 模式：把“最终 uniform 完全一致”的实例指向同一份材质，避免每实例 Dynamic 拆批。
+            // 有相机画面 / 软遮罩，或 base 材质被 Mask 等修饰器换过时回退逐实例写入，避免共享错误状态。
+            if (materialMode == MaterialMode.Pooled
+                && ReferenceEquals(mat, baseMaterial)
+                && cameraTexture == null
+                && GetComponentInParent<GearSoftMask>(true) == null)
+            {
+                return AcquirePooledMaterial(baseMaterial);
+            }
+
+            WriteMaterialUniforms(mat);
+            return mat;
+        }
+
+        /// <summary>
+        /// 为当前设置生成一份样本材质，交给池按 uniform 签名做去重/复用。
+        /// </summary>
+        private Material AcquirePooledMaterial(Material template)
+        {
+            Material probe = new Material(template)
+            {
+                hideFlags = HideFlags.DontSave,
+            };
+            WriteMaterialUniforms(probe);
+            return ImageExMaterialPool.Acquire(probe);
+        }
+
+        /// <summary>
+        /// 把所有材质 uniform 写到指定材质。Pooled 模式用它为“设置签名”生成样本材质。
+        /// </summary>
+        private void WriteMaterialUniforms(Material mat)
+        {
             RectTransform rt = rectTransform;
 
             mat.SetFloat(outlineWidth_Sp, outlineWidth);
@@ -369,6 +401,51 @@ namespace Gear.Utilities.UI.ImageExtensions
             mat.SetFloat(borderGlowHover_Sp, borderGlowHover);
             mat.SetVector(borderGlowPosition_Sp, new Vector4(borderGlowPosition.x, borderGlowPosition.y, 0f, 0f));
 
+            // -------------------- 指针聚光（SPOTLIGHT） --------------------
+            mat.SetInt(enableSpotlight_Sp, enableSpotlight ? 1 : 0);
+            mat.SetColor(spotlightColor_Sp, spotlightColor);
+            mat.SetFloat(spotlightRadius_Sp, spotlightRadius);
+            mat.SetFloat(spotlightSoftness_Sp, spotlightSoftness);
+            mat.SetFloat(spotlightIntensity_Sp, spotlightIntensity);
+            mat.SetVector(spotlightPosition_Sp, new Vector4(spotlightPosition.x, spotlightPosition.y, 0f, 0f));
+            mat.SetFloat(spotlightHover_Sp, spotlightHover);
+
+            // -------------------- 点阵图案（DOT MATRIX） --------------------
+            mat.SetInt(enableDotMatrix_Sp, enableDotMatrix ? 1 : 0);
+            mat.SetInt(dotPattern_Sp, (int)dotPattern);
+            mat.SetInt(dotShape_Sp, (int)dotShape);
+            mat.SetFloat(dotCell_Sp, dotCell);
+            mat.SetFloat(dotRadius_Sp, dotRadius);
+            mat.SetColor(dotColor_Sp, dotColor);
+            mat.SetFloat(dotIntensity_Sp, dotIntensity);
+            mat.SetFloat(dotSpeed_Sp, dotSpeed);
+
+            // -------------------- 像素幕帘（PIXEL CURTAIN） --------------------
+            mat.SetInt(enablePixelCurtain_Sp, enablePixelCurtain ? 1 : 0);
+            mat.SetFloat(curtainProgress_Sp, curtainProgress);
+            mat.SetFloat(curtainCell_Sp, curtainCell);
+            mat.SetFloat(curtainRandomness_Sp, curtainRandomness);
+            mat.SetFloat(curtainSoftness_Sp, curtainSoftness);
+            mat.SetInt(curtainDirection_Sp, curtainDirection);
+
+            // -------------------- 地形等值线（TOPOGRAPHIC） --------------------
+            mat.SetInt(enableTopographic_Sp, enableTopographic ? 1 : 0);
+            mat.SetFloat(topoScale_Sp, topoScale);
+            mat.SetFloat(topoDensity_Sp, topoDensity);
+            mat.SetFloat(topoLineWidth_Sp, topoLineWidth);
+            mat.SetFloat(topoMajorEvery_Sp, topoMajorEvery);
+            mat.SetColor(topoColor_Sp, topoColor);
+            mat.SetFloat(topoIntensity_Sp, topoIntensity);
+            mat.SetFloat(topoSpeed_Sp, topoSpeed);
+            mat.SetFloat(topoFalloff_Sp, topoFalloff);
+
+            // -------------------- 墨团揭示（INK PANEL） --------------------
+            mat.SetInt(enableInkPanel_Sp, enableInkPanel ? 1 : 0);
+            mat.SetFloat(inkProgress_Sp, inkProgress);
+            mat.SetVector(inkOrigin_Sp, new Vector4(inkOrigin.x, inkOrigin.y, 0f, 0f));
+            mat.SetFloat(inkSoftness_Sp, inkSoftness);
+            mat.SetFloat(inkRoughness_Sp, inkRoughness);
+
             // -------------------- 混合模式（BLEND TYPE） --------------------
             // 混合由 shader 的 Blend [_SrcBlend] [_DstBlend] 驱动；
             // 旧代码额外写不存在的 "_BlendType" 属性，Shared 模式回读恒为 0 会覆盖共享材质的混合模式。
@@ -389,7 +466,6 @@ namespace Gear.Utilities.UI.ImageExtensions
             // 软遮罩：最近父级 GearSoftMask 的矩形/羽化参数，直接写进本实例材质
             GearSoftMask.ApplyToMaterial(mat, this);
 
-            return mat;
         }
 
         /// <summary>

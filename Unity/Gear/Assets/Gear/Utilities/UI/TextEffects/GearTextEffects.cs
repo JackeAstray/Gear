@@ -14,7 +14,7 @@ namespace Gear.Utilities.UI
     [AddComponentMenu("UI/Gear/Text Effects")]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(TMP_Text))]
-    public sealed class GearTextEffects : MonoBehaviour
+    public sealed partial class GearTextEffects : MonoBehaviour
     {
         [Header("打字机")]
         [SerializeField] private bool typewriter = true;
@@ -252,7 +252,7 @@ namespace Gear.Utilities.UI
 
         private void LateUpdate()
         {
-            if (!Application.isPlaying || text == null || (!wave && !shake && !shimmer)) return;
+            if (!Application.isPlaying || text == null || (!wave && !shake && !shimmer && !HasExtraEffects)) return;
 
             // 顶点/颜色动效需要从 TMP 的干净网格出发，避免每帧偏移累积
             text.ForceMeshUpdate();
@@ -299,6 +299,9 @@ namespace Gear.Utilities.UI
                     }
                 }
             }
+
+            if (HasExtraEffects)
+                ApplyExtraPass(info, time, ref colorsChanged);
 
             text.UpdateVertexData(colorsChanged
                 ? TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32

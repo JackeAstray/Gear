@@ -164,6 +164,7 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField] private DrawShape drawShape = DrawShape.None;
         [SerializeField] private Type imageType = Type.Simple;
         [SerializeField] private MaterialMode materialMode;
+        [SerializeField] private SpriteFillMode spriteFillMode = SpriteFillMode.Stretch;
 
         [SerializeField] private BlurType blurType = BlurType.None;
         [SerializeField][Range(0, 1)] private float blurIntensity = 1f;
