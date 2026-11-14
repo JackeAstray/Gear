@@ -81195,14 +81195,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7e1e4ea9915ed49b361d076828319d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearTopographic
-  scale: 4
+  scale: 3.81
   density: 8
-  lineWidth: 0.04
-  majorEvery: 4
+  lineWidth: 0.05
+  majorEvery: 3.79
   color: {r: 0.14, g: 0.75, b: 0.95, a: 1}
-  intensity: 0.55
-  speed: 0.3
-  falloff: 0.3
+  intensity: 1
+  speed: 1
+  falloff: 1
 --- !u!114 &528757136
 MonoBehaviour:
   m_ObjectHideFlags: 0

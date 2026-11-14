@@ -238,6 +238,10 @@
 
 ### Docs
 
+- 新增 [EVO 对照：UI 复刻差距与开发计划](Docs/design/EVO对照-UI复刻差距与开发计划.md)：
+  用 Unity MCP 实测两个场景的组件/层级基线，逐项复核用户列出的 Procedural Shape、Progress Button、
+  Color Picker、Effects、Showcase Panel、Date and Time 等模块，给出“真缺 / 已有但差距 / 反而领先”判定，
+  以及 M1 展厅与观感地基、M2 缺失模块、M3 形状工艺、M4 架构的分阶段计划、验收与合规风险。
 - 新增 Evo对照-ImageEx阴影与UI覆盖层（文档已随阶段性设计清理删除），记录对照结论、修改文件与验证步骤。
 - 新增 Evo对照-UI能力差距与路线图（已删除）：把三轮对照的
   "已完成 / 还差 / 不照搬"固化成能力矩阵、分阶段路线（结构件 → 形状快赢 → 软遮罩 → 控件）、
