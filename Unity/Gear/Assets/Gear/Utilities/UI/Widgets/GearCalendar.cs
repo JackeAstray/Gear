@@ -176,7 +176,17 @@ namespace Gear.Utilities.UI.Widgets
 
             DateTime first = new DateTime(year, month, 1);
             int offset = ((int)first.DayOfWeek - (int)weekStart + 7) % 7;
-            DateTime start = first.AddDays(-offset);
+            DateTime start;
+            try
+            {
+                start = first.AddDays(-offset);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                // 年 1 月 1 日再往前回退会越界；退化为不补前导格
+                start = first;
+                offset = 0;
+            }
             int daysInMonth = DateTime.DaysInMonth(year, month);
             int total = Mathf.CeilToInt((offset + daysInMonth) / 7f) * 7;
 
@@ -202,7 +212,6 @@ namespace Gear.Utilities.UI.Widgets
                 month = today.Month;
             }
 
-            year = Mathf.Max(1, year);
             month = Mathf.Clamp(month, 1, 12);
         }
 
@@ -267,7 +276,7 @@ namespace Gear.Utilities.UI.Widgets
         private void OnValidate()
         {
             month = Mathf.Clamp(month, 1, 12);
-            year = Mathf.Max(1, year);
+            if (string.IsNullOrEmpty(headerFormat)) headerFormat = "{0} 年 {1} 月";
             RefreshHeader();
         }
 #endif
