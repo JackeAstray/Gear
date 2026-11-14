@@ -34,47 +34,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddTextMotionCard(content);
             AddSpriteFillCard(content);
             AddInkPanel(content);
-            AddDropdownCard(content);
-        }
-
-        /// <summary>下拉选择：点击展开 Popover 选项（Play 模式）。</summary>
-        private static void AddDropdownCard(RectTransform content)
-        {
-            ImageEx preview = AddCardIfMissing(content, "控件 · Dropdown",
-                "点击展开选项（Play 模式）", p =>
-            {
-                p.DrawShape = DrawShape.Rectangle;
-                p.Rectangle = new RectangleImg { CornerRadius = new Vector4(10f, 10f, 10f, 10f) };
-                p.color = new Color(0.11f, 0.12f, 0.17f, 1f);
-                p.OutlineWidth = 1f;
-                p.OutlineColor = new Color(1f, 1f, 1f, 0.14f);
-            });
-
-            if (preview == null) return;
-
-            Button trigger = preview.gameObject.AddComponent<Button>();
-            trigger.transition = Selectable.Transition.None;
-
-            GameObject labelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-            labelGo.transform.SetParent(preview.transform, false);
-            TextMeshProUGUI label = labelGo.GetComponent<TextMeshProUGUI>();
-            label.text = "中";
-            label.fontSize = 16f;
-            label.color = new Color(0.94f, 0.95f, 0.98f, 1f);
-            label.alignment = TextAlignmentOptions.Left;
-            label.raycastTarget = false;
-
-            RectTransform labelRect = (RectTransform)labelGo.transform;
-            labelRect.anchorMin = new Vector2(0f, 0f);
-            labelRect.anchorMax = new Vector2(1f, 1f);
-            labelRect.offsetMin = new Vector2(14f, 0f);
-            labelRect.offsetMax = new Vector2(-14f, 0f);
-
-            GearDropdown dropdown = preview.gameObject.AddComponent<GearDropdown>();
-            dropdown.Label = label;
-            dropdown.Trigger = trigger;
-            dropdown.SetOptions(new[] { "低", "中", "高" });
-            dropdown.SetValueWithoutNotify(1);
+            PopulateControls(content);
         }
 
         /// <summary>墨团揭示：从中心扩散，自动往返（Play 模式）。</summary>

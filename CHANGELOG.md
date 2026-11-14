@@ -100,6 +100,10 @@
   画廊新增「效果 · 墨团揭示」卡。Evo 的"烘焙覆盖度到 RT 供 SoftMask 使用"暂未做。
 - **GearDropdown**：新增下拉选择组件——点击触发 `GearPopover` 选项列表，选中回写标签并派发序号；
   支持运行时改选项、`SetValueWithoutNotify`、开合与选中即关；画廊新增「控件 · Dropdown」卡。
+- **GearSwitch**：新增开关控件——点击切换，把手在两点间缓动、背景色可过渡；`SetIsOn` / 事件 / `Step` 可外部驱动；
+  画廊新增「控件 · Switch」卡。
+- **GearRangeSlider**：新增双把手区间滑杆——拖动最近把手、自动保持 low ≤ high（可设 `MinGap`），
+  同步 fill 宽度与把手位置；画廊新增「控件 · RangeSlider」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；

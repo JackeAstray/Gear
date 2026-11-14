@@ -100,6 +100,7 @@
 | 2026-11-14 | Pack B 收尾 | ✅ `GearInkPanel` 墨团揭示；1 张卡（133→134） |
 | 2026-11-14 | 材质池工具 | ✅ 选中切 Pooled / 还原 Dynamic 菜单；跳过逐帧改 uniform 的实例 |
 | 2026-11-14 | Pack C 起步 | ✅ `GearDropdown`（Popover 选项列表）；1 张卡（134→135） |
+| 2026-11-14 | Pack C 设置控件 | ✅ `GearSwitch` / `GearRangeSlider`；2 张卡（135→137） |
 | 下一轮 | 3C 收尾 | ⏳ 雷达图/点击钻取/真实数据联动 |
 
 ## 六、明确不做
