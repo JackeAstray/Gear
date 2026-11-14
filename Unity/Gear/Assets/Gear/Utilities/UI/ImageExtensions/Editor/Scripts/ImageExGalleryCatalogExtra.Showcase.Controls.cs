@@ -16,6 +16,8 @@ namespace Gear.EditorTools.ImageExtensions
             AddDropdownCard(content);
             AddRadioGroupCard(content);
             AddQuantityCard(content);
+            AddPickerWheelCard(content);
+            AddTimePickerCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -206,6 +208,112 @@ namespace Gear.EditorTools.ImageExtensions
             selector.PlusButton = plusButton;
             selector.Label = label;
             selector.Configure(0, 9, 3);
+        }
+
+        /// <summary>滚轮选择：竖向拖动 / 滚轮，松手吸附最近项（循环）。</summary>
+        private static void AddPickerWheelCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · PickerWheel", "上下拖动或滚轮，松手吸附（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            CreateWheelColumn(preview.transform, "Wheel", Vector2.zero, new Vector2(170f, 150f),
+                new[] { "01", "02", "03", "04", "05" }, 40f, true);
+        }
+
+        /// <summary>时间选择：时 / 分 / AM-PM 三列滚轮联动。</summary>
+        private static void AddTimePickerCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · TimePicker", "三列滚轮联动，12/24 小时制（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            var hours = new string[12];
+            for (int i = 0; i < hours.Length; i++) hours[i] = (i + 1).ToString("00");
+
+            var minutes = new string[60];
+            for (int i = 0; i < minutes.Length; i++) minutes[i] = i.ToString("00");
+
+            GearPickerWheel hourWheel = CreateWheelColumn(preview.transform, "Hour Column",
+                new Vector2(-72f, -10f), new Vector2(58f, 112f), hours, 32f, true);
+            GearPickerWheel minuteWheel = CreateWheelColumn(preview.transform, "Minute Column",
+                new Vector2(0f, -10f), new Vector2(58f, 112f), minutes, 32f, true);
+            GearPickerWheel meridiemWheel = CreateWheelColumn(preview.transform, "Meridiem Column",
+                new Vector2(72f, -10f), new Vector2(58f, 112f), new[] { "AM", "PM" }, 32f, false);
+
+            GameObject labelGo = new GameObject("Time Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGo.transform.SetParent(preview.transform, false);
+            TextMeshProUGUI timeLabel = labelGo.GetComponent<TextMeshProUGUI>();
+            timeLabel.fontSize = 18f;
+            timeLabel.alignment = TextAlignmentOptions.Center;
+            timeLabel.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            timeLabel.raycastTarget = false;
+            RectTransform labelRect = (RectTransform)labelGo.transform;
+            labelRect.sizeDelta = new Vector2(180f, 24f);
+            labelRect.anchoredPosition = new Vector2(0f, 66f);
+
+            GearTimePicker picker = preview.gameObject.AddComponent<GearTimePicker>();
+            picker.HourWheel = hourWheel;
+            picker.MinuteWheel = minuteWheel;
+            picker.MeridiemWheel = meridiemWheel;
+            picker.Label = timeLabel;
+            picker.Use24Hour = false;
+            picker.Format = "hh:mm tt";
+            picker.SetTime(9, 30, 0);
+        }
+
+        /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>
+        private static GearPickerWheel CreateWheelColumn(Transform parent, string name, Vector2 position,
+            Vector2 size, string[] labels, float itemHeight, bool wrap)
+        {
+            ImageEx viewport = CreateTile(parent, name, position, size, new Color(0.09f, 0.1f, 0.14f, 1f));
+            viewport.Rectangle.CornerRadius = new Vector4(12f, 12f, 12f, 12f);
+            viewport.raycastTarget = true;
+            viewport.gameObject.AddComponent<RectMask2D>();
+
+            GameObject contentGo = new GameObject(name + " Content", typeof(RectTransform));
+            contentGo.transform.SetParent(viewport.transform, false);
+            RectTransform wheelContent = (RectTransform)contentGo.transform;
+            wheelContent.anchorMin = new Vector2(0.5f, 0.5f);
+            wheelContent.anchorMax = new Vector2(0.5f, 0.5f);
+            wheelContent.pivot = new Vector2(0.5f, 0.5f);
+            wheelContent.sizeDelta = size;
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                ImageEx row = CreateTile(wheelContent, "Row " + i, new Vector2(0f, -i * itemHeight),
+                    new Vector2(size.x - 10f, itemHeight - 6f), new Color(0.16f, 0.18f, 0.25f, 1f));
+                row.Rectangle.CornerRadius = new Vector4(8f, 8f, 8f, 8f);
+                row.raycastTarget = false;
+
+                GameObject labelGo = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+                labelGo.transform.SetParent(row.transform, false);
+                TextMeshProUGUI rowLabel = labelGo.GetComponent<TextMeshProUGUI>();
+                rowLabel.text = labels[i];
+                rowLabel.fontSize = 16f;
+                rowLabel.alignment = TextAlignmentOptions.Center;
+                rowLabel.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+                rowLabel.raycastTarget = false;
+                ((RectTransform)labelGo.transform).sizeDelta = new Vector2(size.x - 10f, itemHeight - 6f);
+            }
+
+            GearPickerWheel wheel = viewport.gameObject.AddComponent<GearPickerWheel>();
+            wheel.Content = wheelContent;
+            wheel.ItemHeight = itemHeight;
+            wheel.Wrap = wrap;
+            wheel.SetOptions(labels, false);
+            wheel.SnapTo(0);
+            return wheel;
         }
     }
 }

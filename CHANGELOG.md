@@ -108,6 +108,10 @@
   支持 `Configure` / `Select` / `allowDeselect` / 事件与键盘焦点；画廊新增「控件 · RadioGroup」卡。
 - **GearQuantitySelector**：新增数量选择——减号/数值/加号，支持 `min/max/step`、循环与 `format`，
   到达边界自动禁用按钮；画廊新增「控件 · Quantity」卡。
+- **GearPickerWheel**：新增竖向滚轮选择——拖动 / 鼠标滚轮 / 键盘手柄上下切换，松手按速度投影吸附最近项，
+  支持循环、无 content 时仅逻辑驱动、`SetOptions` / `SetValue` / `Step` / `Confirm`；画廊新增「控件 · PickerWheel」卡。
+- **GearTimePicker**：新增时间选择——时/分（+秒、AM/PM）多列滚轮联动，`Use24Hour` 切换 12/24 小时制，
+  格式串 `HH/h/mm/ss/tt` 渲染标签，事件给当天秒数；画廊新增「控件 · TimePicker」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；
