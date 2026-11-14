@@ -100,7 +100,7 @@ namespace Gear.EditorTools.ImageExtensions
         /// <summary>文本标签作用域：同一句里混合 wave / rainbow / shake。</summary>
         private static void AddTextTagCard(RectTransform content)
         {
-            ImageEx preview = AddCardIfMissing(content, "文本 · Tag Scope", "同一句里混合 &lt;wave&gt;/&lt;rainbow&gt; 标签（Play 模式）", p =>
+            ImageEx preview = AddCardIfMissing(content, "文本 · Tag Scope", "同一句里混合 wave / rainbow 标签（Play 模式）", p =>
             {
                 p.color = new Color(0f, 0f, 0f, 0f);
                 p.OutlineWidth = 0f;

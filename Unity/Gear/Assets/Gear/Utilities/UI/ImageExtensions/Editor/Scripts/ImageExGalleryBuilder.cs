@@ -50,7 +50,7 @@ namespace Gear.EditorTools.ImageExtensions
                 Undo.DestroyObjectImmediate(content.GetChild(i).gameObject);
             }
 
-            // 原 4 列 200×200 改为 2 列 400×300，给效果与控件留出可读尺寸
+            // 4 列 400×300：与场景当前布局一致，给效果与控件留出可读尺寸
             GridLayoutGroup grid = content.GetComponent<GridLayoutGroup>();
             if (grid != null)
             {
@@ -58,7 +58,7 @@ namespace Gear.EditorTools.ImageExtensions
                 grid.spacing = new Vector2(20f, 20f);
                 grid.padding = new RectOffset(12, 12, 12, 12);
                 grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-                grid.constraintCount = 2;
+                grid.constraintCount = 4;
                 grid.childAlignment = TextAnchor.UpperCenter;
             }
 
