@@ -125,6 +125,8 @@
   翻月跨年、`SelectDate` / `SelectDay`、可选格子模板与配色；画廊新增「控件 · Calendar」卡。
 - **GearColorPicker**：新增简化取色器——SV 方块拖动 + Hue 滑条 + Hex 输入，颜色/Hex 互转是纯函数；
   画廊新增「控件 · ColorPicker」卡。
+- **GearSearchIndex**：新增搜索索引——构建期小写化 + 分词，查询期只用 span 比较（稳态无临时字符串），
+  多词 AND、整词/前缀/包含排序，可绑定输入框按行 `SetActive` 过滤；画廊新增「控件 · Search」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；

@@ -109,6 +109,8 @@
 | 2026-11-14 | Pack C 多选 | ✅ `GearMultiSelect`；1 张卡（144→145）；EditMode 377/377 |
 | 2026-11-14 | Pack C 日历 | ✅ `GearCalendar`；1 张卡（145→146）；EditMode 384/384 |
 | 2026-11-14 | Pack C 取色 | ✅ `GearColorPicker`；1 张卡（146→147）；EditMode 391/391 |
+| 2026-11-14 | Pack C 搜索 | ✅ `GearSearchIndex`；1 张卡（147→148）；EditMode 398/398 |
+| 2026-11-14 | Pack C 收尾 | ✅ C1–C8 全部完成 |
 | 下一轮 | 3C 收尾 | ⏳ 雷达图/点击钻取/真实数据联动 |
 
 ## 六、明确不做
