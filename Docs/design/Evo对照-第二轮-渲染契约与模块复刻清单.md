@@ -507,5 +507,6 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 | Pack C 选择控件 | `Widgets/GearRadioGroup.cs`、`Widgets/GearQuantitySelector.cs` | `GearSelectionWidgetTests` 4/4；UI Example 137→139 张卡 |
 | Pack C 滚轮 | `Widgets/GearPickerWheel.cs`、`Widgets/GearTimePicker.cs` | `GearPickerWidgetTests` 9/9；UI Example 139→141 张卡 |
 | Pack C 计时器 | `Widgets/GearTimer.cs` | `GearTimerWidgetTests` 7/7；UI Example 141→142 张卡 |
+| Pack C 出屏指示 | `Widgets/GearOffScreenIndicator.cs` | `GearOffScreenIndicatorTests` 5/5；UI Example 142→143 张卡 |
 
-全量 EditMode：**356/356 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。
+全量 EditMode：**361/361 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。

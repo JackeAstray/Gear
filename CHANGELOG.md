@@ -114,6 +114,8 @@
   格式串 `HH/h/mm/ss/tt` 渲染标签，事件给当天秒数；画廊新增「控件 · TimePicker」卡。
 - **GearTimer**：新增计时器——秒表 / 倒计时、暂停继续、循环、unscaled、`HH/mm/ss/ff` 格式串与完成事件；
   `Tick` 可手动推进，EditMode 用例覆盖暂停与完成；画廊新增「控件 · Timer」卡。
+- **GearOffScreenIndicator**：新增出屏指示器——目标离开可视区时把箭头贴到安全区边缘、指向目标并显示距离，
+  边缘投影与朝向是纯函数（`ClampToEdge` / `AngleFor`），画廊新增「控件 · OffScreen」卡。
 - **GearSoftMask 软遮罩**：新增 `GearSoftMask` 容器组件，对子树 `ImageEx` 做矩形/圆角/羽化/反相遮罩；
   不读 RT、不改 Image/TMP 材质，嵌套取最近父级。画廊新增「遮罩 · 软边」卡。
 - **GearTextEffects 文本动效**：新增 `GearTextEffects`（TMP）：打字机、乱序显现、波浪、抖动、闪烁；

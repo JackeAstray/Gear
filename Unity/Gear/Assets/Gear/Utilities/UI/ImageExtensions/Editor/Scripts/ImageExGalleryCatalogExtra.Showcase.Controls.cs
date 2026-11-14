@@ -19,6 +19,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddPickerWheelCard(content);
             AddTimePickerCard(content);
             AddTimerCard(content);
+            AddOffScreenCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -305,6 +306,45 @@ namespace Gear.EditorTools.ImageExtensions
             timer.Label = clock;
             timer.Configure(GearTimerMode.Countdown, 30f, true, "mm:ss");
             timer.Restart();
+        }
+
+        /// <summary>出屏指示：目标离开视野时贴边箭头 + 距离。</summary>
+        private static void AddOffScreenCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · OffScreen", "目标出屏时贴边箭头 + 距离（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            ImageEx screen = CreateTile(preview.transform, "Screen", Vector2.zero,
+                new Vector2(210f, 150f), new Color(0.09f, 0.1f, 0.14f, 1f));
+            screen.Rectangle.CornerRadius = new Vector4(14f, 14f, 14f, 14f);
+
+            ImageEx arrow = CreateTile(screen.transform, "Arrow", new Vector2(84f, 0f),
+                new Vector2(20f, 24f), new Color(0.49f, 0.36f, 0.99f, 1f));
+            arrow.DrawShape = DrawShape.Triangle;
+            arrow.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
+
+            GameObject labelGo = new GameObject("Distance", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGo.transform.SetParent(screen.transform, false);
+            TextMeshProUGUI distance = labelGo.GetComponent<TextMeshProUGUI>();
+            distance.text = "24 m";
+            distance.fontSize = 14f;
+            distance.alignment = TextAlignmentOptions.Right;
+            distance.color = new Color(0.62f, 0.65f, 0.73f, 1f);
+            distance.raycastTarget = false;
+            RectTransform distanceRect = (RectTransform)labelGo.transform;
+            distanceRect.sizeDelta = new Vector2(70f, 20f);
+            distanceRect.anchoredPosition = new Vector2(40f, -32f);
+
+            GearOffScreenIndicator indicator = preview.gameObject.AddComponent<GearOffScreenIndicator>();
+            indicator.Indicator = (RectTransform)arrow.transform;
+            indicator.Area = (RectTransform)screen.transform;
+            indicator.DistanceLabel = distance;
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>
