@@ -18,6 +18,7 @@ namespace Gear.EditorTools.ImageExtensions
             AddQuantityCard(content);
             AddPickerWheelCard(content);
             AddTimePickerCard(content);
+            AddTimerCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -270,6 +271,40 @@ namespace Gear.EditorTools.ImageExtensions
             picker.Use24Hour = false;
             picker.Format = "hh:mm tt";
             picker.SetTime(9, 30, 0);
+        }
+
+        /// <summary>计时器：倒计时文本（Play 模式自动走秒）。</summary>
+        private static void AddTimerCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · Timer", "倒计时 / 秒表，格式化文本（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            ImageEx field = CreateTile(preview.transform, "Field", new Vector2(0f, -6f),
+                new Vector2(190f, 64f), new Color(0.11f, 0.12f, 0.17f, 1f));
+            field.Rectangle.CornerRadius = new Vector4(12f, 12f, 12f, 12f);
+            field.OutlineWidth = 1f;
+            field.OutlineColor = new Color(1f, 1f, 1f, 0.14f);
+
+            GameObject labelGo = new GameObject("Clock", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGo.transform.SetParent(field.transform, false);
+            TextMeshProUGUI clock = labelGo.GetComponent<TextMeshProUGUI>();
+            clock.text = "00:30";
+            clock.fontSize = 28f;
+            clock.alignment = TextAlignmentOptions.Center;
+            clock.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            clock.raycastTarget = false;
+            ((RectTransform)labelGo.transform).sizeDelta = new Vector2(190f, 40f);
+
+            GearTimer timer = preview.gameObject.AddComponent<GearTimer>();
+            timer.Label = clock;
+            timer.Configure(GearTimerMode.Countdown, 30f, true, "mm:ss");
+            timer.Restart();
         }
 
         /// <summary>滚轮列：视口 + RectMask2D + 行标签，返回配置好的 <see cref="GearPickerWheel"/>。</summary>
