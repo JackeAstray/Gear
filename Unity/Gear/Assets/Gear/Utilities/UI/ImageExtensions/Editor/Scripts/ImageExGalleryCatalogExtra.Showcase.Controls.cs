@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,6 +14,8 @@ namespace Gear.EditorTools.ImageExtensions
             AddSwitchCard(content);
             AddRangeSliderCard(content);
             AddDropdownCard(content);
+            AddRadioGroupCard(content);
+            AddQuantityCard(content);
         }
 
         /// <summary>开关：点击切换，把手滑动 + 背景换色。</summary>
@@ -130,6 +133,79 @@ namespace Gear.EditorTools.ImageExtensions
             dropdown.Trigger = trigger;
             dropdown.SetOptions(new[] { "低", "中", "高" });
             dropdown.SetValueWithoutNotify(1);
+        }
+
+        /// <summary>单选组：三选一，选中项换色。</summary>
+        private static void AddRadioGroupCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · RadioGroup", "三选一，选中项高亮（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            var options = new List<GearRadioGroup.Option>();
+            float[] xs = { -96f, 0f, 96f };
+            for (int i = 0; i < xs.Length; i++)
+            {
+                ImageEx tile = CreateTile(preview.transform, "Option " + (i + 1),
+                    new Vector2(xs[i], 0f), new Vector2(84f, 56f), new Color(0.16f, 0.18f, 0.25f));
+                tile.Rectangle.CornerRadius = new Vector4(12f, 12f, 12f, 12f);
+                tile.raycastTarget = true;
+
+                Button button = tile.gameObject.AddComponent<Button>();
+                button.transition = Selectable.Transition.None;
+                options.Add(new GearRadioGroup.Option { button = button, visual = tile });
+            }
+
+            GearRadioGroup group = preview.gameObject.AddComponent<GearRadioGroup>();
+            group.Configure(options, 1);
+        }
+
+        /// <summary>数量选择：减号 / 数值 / 加号。</summary>
+        private static void AddQuantityCard(RectTransform content)
+        {
+            ImageEx preview = AddCardIfMissing(content, "控件 · Quantity", "加减数量，到达边界禁用按钮（Play 模式）", p =>
+            {
+                p.color = new Color(0f, 0f, 0f, 0f);
+                p.OutlineWidth = 0f;
+                p.raycastTarget = false;
+            });
+
+            if (preview == null) return;
+
+            ImageEx minus = CreateTile(preview.transform, "Minus", new Vector2(-90f, 0f),
+                new Vector2(38f, 38f), new Color(0.16f, 0.18f, 0.25f));
+            minus.Rectangle.CornerRadius = new Vector4(10f, 10f, 10f, 10f);
+            minus.raycastTarget = true;
+            Button minusButton = minus.gameObject.AddComponent<Button>();
+            minusButton.transition = Selectable.Transition.None;
+
+            ImageEx plus = CreateTile(preview.transform, "Plus", new Vector2(90f, 0f),
+                new Vector2(38f, 38f), new Color(0.49f, 0.36f, 0.99f, 1f));
+            plus.Rectangle.CornerRadius = new Vector4(10f, 10f, 10f, 10f);
+            plus.raycastTarget = true;
+            Button plusButton = plus.gameObject.AddComponent<Button>();
+            plusButton.transition = Selectable.Transition.None;
+
+            GameObject labelGo = new GameObject("Value", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGo.transform.SetParent(preview.transform, false);
+            TextMeshProUGUI label = labelGo.GetComponent<TextMeshProUGUI>();
+            label.text = "3";
+            label.fontSize = 24f;
+            label.color = new Color(0.94f, 0.95f, 0.98f, 1f);
+            label.alignment = TextAlignmentOptions.Center;
+            label.raycastTarget = false;
+            ((RectTransform)labelGo.transform).sizeDelta = new Vector2(80f, 40f);
+
+            GearQuantitySelector selector = preview.gameObject.AddComponent<GearQuantitySelector>();
+            selector.MinusButton = minusButton;
+            selector.PlusButton = plusButton;
+            selector.Label = label;
+            selector.Configure(0, 9, 3);
         }
     }
 }

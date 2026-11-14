@@ -504,5 +504,6 @@ Assets/Gear/Resources/Prefabs/UIs/Showcase/
 | 材质池工具 | `ImageExPooledTool` 菜单（选中切 Pooled / 还原 Dynamic，跳过逐帧改 uniform 的实例） | 菜单可执行；默认行为不变 |
 | Pack C 起步 | `Widgets/GearDropdown.cs`（Popover 选项列表、选中回写、运行时改选项） | `GearDropdownTests` 5/5；UI Example 134→135 张卡 |
 | Pack C 设置控件 | `Widgets/GearSwitch.cs`、`Widgets/GearRangeSlider.cs` | `GearSettingsWidgetTests` 5/5；UI Example 135→137 张卡 |
+| Pack C 选择控件 | `Widgets/GearRadioGroup.cs`、`Widgets/GearQuantitySelector.cs` | `GearSelectionWidgetTests` 4/4；UI Example 137→139 张卡 |
 
-全量 EditMode：**336/336 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。
+全量 EditMode：**340/340 通过**。本轮未做：InkPanel 的 RT 烘焙、文本标签作用域。
