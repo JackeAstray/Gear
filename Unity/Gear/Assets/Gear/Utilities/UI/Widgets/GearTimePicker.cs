@@ -16,18 +16,23 @@ namespace Gear.Utilities.UI.Widgets
     [DisallowMultipleComponent]
     public sealed class GearTimePicker : MonoBehaviour
     {
-        private static readonly string[] MeridiemLabels = { "AM", "PM" };
-
         [SerializeField] private GearPickerWheel hourWheel;
         [SerializeField] private GearPickerWheel minuteWheel;
         [SerializeField] private GearPickerWheel secondWheel;
         [SerializeField] private GearPickerWheel meridiemWheel;
         [SerializeField] private TMP_Text label;
         [SerializeField] private bool use24Hour = true;
+        [SerializeField] private bool loop = true;
         [SerializeField] private bool showSeconds;
         [SerializeField, Range(0, 23)] private int hour = 12;
         [SerializeField, Range(0, 59)] private int minute;
         [SerializeField, Range(0, 59)] private int second;
+        [SerializeField, Range(1, 30)] private int minuteInterval = 1;
+        [SerializeField] private string amLabel = "AM";
+        [SerializeField] private string pmLabel = "PM";
+        [SerializeField, Min(0f)] private float rowHeight;
+        [SerializeField] private AudioSource tickAudio;
+        [SerializeField] private AudioClip tickClip;
         [SerializeField] private string format = "HH:mm";
         [SerializeField] private UnityEvent<int> onTimeChanged = new UnityEvent<int>();
 
@@ -63,6 +68,55 @@ namespace Gear.Utilities.UI.Widgets
             }
         }
 
+        /// <summary>分钟步进；例如 5 时分钟滚轮只显示 00/05/10…</summary>
+        public int MinuteInterval
+        {
+            get => minuteInterval;
+            set
+            {
+                value = Mathf.Clamp(value, 1, 30);
+                if (minuteInterval == value) return;
+                minuteInterval = value;
+                minute = SnapMinute(minute);
+                RefreshWheels();
+            }
+        }
+
+        public string AmLabel
+        {
+            get => amLabel;
+            set { amLabel = string.IsNullOrEmpty(value) ? "AM" : value; RefreshWheels(); }
+        }
+
+        public string PmLabel
+        {
+            get => pmLabel;
+            set { pmLabel = string.IsNullOrEmpty(value) ? "PM" : value; RefreshWheels(); }
+        }
+
+        /// <summary>滚轮行高；0 表示沿用每个 wheel 自己的 ItemHeight。</summary>
+        public float RowHeight
+        {
+            get => rowHeight;
+            set
+            {
+                rowHeight = Mathf.Max(0f, value);
+                ApplyRowHeight();
+            }
+        }
+
+        public AudioSource TickAudio
+        {
+            get => tickAudio;
+            set => tickAudio = value;
+        }
+
+        public AudioClip TickClip
+        {
+            get => tickClip;
+            set => tickClip = value;
+        }
+
         public bool ShowSeconds
         {
             get => showSeconds;
@@ -70,6 +124,18 @@ namespace Gear.Utilities.UI.Widgets
             {
                 if (showSeconds == value) return;
                 showSeconds = value;
+                RefreshWheels();
+            }
+        }
+
+        /// <summary>滚轮是否循环：23→00、59→00、PM→AM 都不再停在边界。</summary>
+        public bool Loop
+        {
+            get => loop;
+            set
+            {
+                if (loop == value) return;
+                loop = value;
                 RefreshWheels();
             }
         }
@@ -157,8 +223,8 @@ namespace Gear.Utilities.UI.Widgets
                         else builder.Append(second);
                         break;
                     case 't':
-                        if (next == 't') { builder.Append(IsPm ? "PM" : "AM"); i++; }
-                        else builder.Append(IsPm ? 'P' : 'A');
+                        if (next == 't') { builder.Append(IsPm ? pmLabel : amLabel); i++; }
+                        else builder.Append(IsPm ? pmLabel[0] : amLabel[0]);
                         break;
                     default:
                         builder.Append(current);
@@ -186,7 +252,7 @@ namespace Gear.Utilities.UI.Widgets
         private void ApplyTime(int h, int m, int s, bool notify)
         {
             h = Mathf.Clamp(h, 0, 23);
-            m = Mathf.Clamp(m, 0, 59);
+            m = SnapMinute(m);
             s = Mathf.Clamp(s, 0, 59);
 
             bool changed = h != hour || m != minute || s != second;
@@ -225,18 +291,43 @@ namespace Gear.Utilities.UI.Widgets
         private void OnHourWheelChanged(int index)
         {
             if (refreshing) return;
-            int h = use24Hour
-                ? Mathf.Clamp(index, 0, 23)
-                : (Mathf.Clamp(index, 0, 11) + 1) % 12 + (IsPm ? 12 : 0);
-            ApplyTime(h, minute, second, true);
+            PlayTick();
+
+            if (use24Hour)
+            {
+                ApplyTime(Mathf.Clamp(index, 0, 23), minute, second, true);
+                return;
+            }
+
+            int oldIndex = DisplayHourIndex();
+            int nextIndex = Mathf.Clamp(index, 0, 11);
+            bool flipMeridiem = (oldIndex == 10 && nextIndex == 11) || (oldIndex == 11 && nextIndex == 10);
+            bool pm = IsPm;
+            if (flipMeridiem) pm = !pm;
+
+            int hour12 = (nextIndex + 1) % 12;
+            int newHour = hour12 + (pm ? 12 : 0);
+            ApplyTime(newHour, minute, second, true);
         }
 
-        private void OnMinuteWheelChanged(int index) => ApplyTime(hour, index, second, true);
-        private void OnSecondWheelChanged(int index) => ApplyTime(hour, minute, index, true);
+        private void OnMinuteWheelChanged(int index)
+        {
+            if (refreshing) return;
+            PlayTick();
+            ApplyTime(hour, index * minuteInterval, second, true);
+        }
+
+        private void OnSecondWheelChanged(int index)
+        {
+            if (refreshing) return;
+            PlayTick();
+            ApplyTime(hour, minute, index, true);
+        }
 
         private void OnMeridiemWheelChanged(int index)
         {
             if (refreshing) return;
+            PlayTick();
             int meridiem = Mathf.Clamp(index, 0, 1);
             ApplyTime(hour % 12 + (meridiem == 1 ? 12 : 0), minute, second, true);
         }
@@ -249,19 +340,22 @@ namespace Gear.Utilities.UI.Widgets
             {
                 if (hourWheel != null)
                 {
+                    hourWheel.Wrap = loop;
                     hourWheel.SetOptions(BuildHourOptions(), false);
                     hourWheel.SnapTo(DisplayHourIndex());
                 }
 
                 if (minuteWheel != null)
                 {
-                    minuteWheel.SetOptions(BuildPadded(60), false);
-                    minuteWheel.SnapTo(minute);
+                    minuteWheel.Wrap = loop;
+                    minuteWheel.SetOptions(BuildMinuteOptions(), false);
+                    minuteWheel.SnapTo(MinuteIndex);
                 }
 
                 if (secondWheel != null)
                 {
                     secondWheel.gameObject.SetActive(showSeconds);
+                    secondWheel.Wrap = loop;
                     secondWheel.SetOptions(BuildPadded(60), false);
                     secondWheel.SnapTo(second);
                 }
@@ -269,10 +363,12 @@ namespace Gear.Utilities.UI.Widgets
                 if (meridiemWheel != null)
                 {
                     meridiemWheel.gameObject.SetActive(!use24Hour);
-                    meridiemWheel.SetOptions(MeridiemLabels, false);
+                    meridiemWheel.Wrap = loop;
+                    meridiemWheel.SetOptions(new[] { amLabel, pmLabel }, false);
                     meridiemWheel.SnapTo(IsPm ? 1 : 0);
                 }
 
+                ApplyRowHeight();
                 RefreshLabel();
             }
             finally
@@ -288,7 +384,7 @@ namespace Gear.Utilities.UI.Widgets
             try
             {
                 if (hourWheel != null && hourWheel.Count > 0) hourWheel.SnapTo(DisplayHourIndex());
-                if (minuteWheel != null && minuteWheel.Count > 0) minuteWheel.SnapTo(minute);
+                if (minuteWheel != null && minuteWheel.Count > 0) minuteWheel.SnapTo(MinuteIndex);
                 if (secondWheel != null && secondWheel.Count > 0) secondWheel.SnapTo(second);
                 if (meridiemWheel != null && meridiemWheel.Count > 0) meridiemWheel.SnapTo(IsPm ? 1 : 0);
             }
@@ -322,12 +418,47 @@ namespace Gear.Utilities.UI.Widgets
             return items;
         }
 
+        private string[] BuildMinuteOptions()
+        {
+            int count = Mathf.CeilToInt(60f / minuteInterval);
+            var items = new string[count];
+            for (int i = 0; i < count; i++) items[i] = (i * minuteInterval).ToString("00");
+            return items;
+        }
+
+        private int MinuteIndex => Mathf.Clamp(
+            Mathf.RoundToInt(minute / (float)minuteInterval), 0, BuildMinuteOptions().Length - 1);
+
+        private int SnapMinute(int value)
+        {
+            if (minuteInterval <= 1) return Mathf.Clamp(value, 0, 59);
+            int snapped = Mathf.RoundToInt(value / (float)minuteInterval) * minuteInterval;
+            return Mathf.Clamp(snapped, 0, (60 / minuteInterval - 1) * minuteInterval);
+        }
+
+        private void PlayTick()
+        {
+            if (tickAudio == null || tickClip == null) return;
+            tickAudio.PlayOneShot(tickClip);
+        }
+
+        private void ApplyRowHeight()
+        {
+            if (rowHeight <= 0f) return;
+            if (hourWheel != null) hourWheel.ItemHeight = rowHeight;
+            if (minuteWheel != null) minuteWheel.ItemHeight = rowHeight;
+            if (secondWheel != null) secondWheel.ItemHeight = rowHeight;
+            if (meridiemWheel != null) meridiemWheel.ItemHeight = rowHeight;
+        }
+
 #if UNITY_EDITOR
         private void OnValidate()
         {
             hour = Mathf.Clamp(hour, 0, 23);
-            minute = Mathf.Clamp(minute, 0, 59);
+            minute = SnapMinute(minute);
             second = Mathf.Clamp(second, 0, 59);
+            minuteInterval = Mathf.Clamp(minuteInterval, 1, 30);
+            rowHeight = Mathf.Max(0f, rowHeight);
             if (string.IsNullOrEmpty(format)) format = "HH:mm";
             RefreshLabel();
         }

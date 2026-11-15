@@ -45,6 +45,9 @@ namespace Gear.Utilities.UI.Backdrop
         [SerializeField, Tooltip("额外排除的层（UI 层会自动排除）")]
         private LayerMask excludeLayers;
 
+        [SerializeField, Tooltip("同源相机/分辨率共享一台隐藏抓屏相机")]
+        private bool useSharedCapture = true;
+
         [Header("玻璃参数")]
         [SerializeField, Tooltip("玻璃染色")]
         private Color glassTint = Color.white;
@@ -87,6 +90,13 @@ namespace Gear.Utilities.UI.Backdrop
         private RenderTexture pingTexture;
         private RenderTexture pongTexture;
         private bool usingImageEx;
+        private bool sharedCapture;
+
+        public bool UseSharedCapture
+        {
+            get => useSharedCapture;
+            set => useSharedCapture = value;
+        }
 
         private int lastWidth;
         private int lastHeight;
@@ -143,8 +153,18 @@ namespace Gear.Utilities.UI.Backdrop
 
             if (captureCamera != null)
             {
-                Destroy(captureCamera.gameObject);
+                if (sharedCapture)
+                {
+                    UIBackdropSharedCapture.Release(captureCamera);
+                    captureTexture = null;
+                }
+                else
+                {
+                    Destroy(captureCamera.gameObject);
+                }
+
                 captureCamera = null;
+                sharedCapture = false;
             }
 
             ReleaseTextures();
@@ -195,7 +215,17 @@ namespace Gear.Utilities.UI.Backdrop
 
             int interval = Mathf.Clamp(captureInterval, 1, 4);
             bool shouldCapture = !hasResult || interval <= 1 || (Time.frameCount % interval) == 0;
-            if (captureCamera != null) captureCamera.enabled = shouldCapture;
+            if (captureCamera != null)
+            {
+                if (sharedCapture)
+                {
+                    if (shouldCapture) UIBackdropSharedCapture.RequestFrame(captureCamera, true);
+                }
+                else
+                {
+                    captureCamera.enabled = shouldCapture;
+                }
+            }
 
             // 非抓屏帧复用上一轮结果，避免每帧重算
             if (!shouldCapture)
@@ -268,6 +298,9 @@ namespace Gear.Utilities.UI.Backdrop
             int width = Mathf.Max(16, Screen.width >> scale);
             int height = Mathf.Max(16, Screen.height >> scale);
 
+            if (useSharedCapture)
+                return EnsureSharedCapture(source, width, height);
+
             if (captureCamera == null)
             {
                 GameObject cameraObject = new GameObject("~UIBackdropBlurCapture")
@@ -307,6 +340,37 @@ namespace Gear.Utilities.UI.Backdrop
             return true;
         }
 
+        private bool EnsureSharedCapture(Camera source, int width, int height)
+        {
+            if (captureCamera == null || width != lastWidth || height != lastHeight || captureTexture == null)
+            {
+                if (captureCamera != null)
+                {
+                    UIBackdropSharedCapture.Release(captureCamera);
+                    captureCamera = null;
+                    captureTexture = null;
+                }
+
+                ReleaseTexture(ref pingTexture);
+                ReleaseTexture(ref pongTexture);
+
+                int mask = source.cullingMask & ~(1 << GetCanvasLayer()) & ~excludeLayers.value;
+                if (mask == 0) mask = source.cullingMask & ~(1 << GetCanvasLayer());
+
+                captureCamera = UIBackdropSharedCapture.Acquire(
+                    source, Mathf.Clamp(downsample, 0, 4), mask, width, height, out captureTexture);
+                if (captureCamera == null) return false;
+
+                sharedCapture = true;
+                lastWidth = width;
+                lastHeight = height;
+                pingTexture = CreateTexture(width, height, "UI Backdrop Ping");
+                pongTexture = CreateTexture(width, height, "UI Backdrop Pong");
+            }
+
+            return true;
+        }
+
         private Camera ResolveSourceCamera()
         {
             if (sourceCamera != null) return sourceCamera;
@@ -330,7 +394,7 @@ namespace Gear.Utilities.UI.Backdrop
 
         private static RenderTexture CreateTexture(int width, int height, string name)
         {
-            RenderTexture texture = new RenderTexture(width, height, 0, RenderTextureFormat.Default)
+            RenderTexture texture = new RenderTexture(width, height, 16, RenderTextureFormat.Default)
             {
                 name = name,
                 filterMode = FilterMode.Bilinear,
@@ -345,7 +409,7 @@ namespace Gear.Utilities.UI.Backdrop
 
         private void ReleaseTextures()
         {
-            ReleaseTexture(ref captureTexture);
+            if (!sharedCapture) ReleaseTexture(ref captureTexture);
             ReleaseTexture(ref pingTexture);
             ReleaseTexture(ref pongTexture);
             lastWidth = 0;

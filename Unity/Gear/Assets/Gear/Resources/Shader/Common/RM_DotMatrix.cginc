@@ -18,13 +18,21 @@ uniform float _DotRadius;
 uniform half4 _DotColor;
 uniform float _DotIntensity;
 uniform float _DotSpeed;
+uniform float _DotInactiveAlpha;
+uniform float _DotInactiveScale;
+uniform float _DotEdgeSoftness;
+uniform float _DotPhaseOffset;
+uniform float _DotTrailLength;
 
-float RM_DotMask(float2 cellUv, float radius, int shape)
+float RM_DotMask(float2 cellUv, float radius, int shape, float softness)
 {
     float2 p = cellUv - 0.5;
-    if (shape == 1) return step(max(abs(p.x), abs(p.y)), radius);
-    if (shape == 2) return step(abs(p.x) + abs(p.y), radius);
-    return step(length(p), radius);
+    float distanceToCenter;
+    if (shape == 1) distanceToCenter = max(abs(p.x), abs(p.y));
+    else if (shape == 2) distanceToCenter = abs(p.x) + abs(p.y);
+    else distanceToCenter = length(p);
+    float edge = max(softness, 0.0001);
+    return 1.0 - smoothstep(radius - edge, radius, distanceToCenter);
 }
 
 float RM_DotAmount(float2 cellIndex, float2 normalized, float time)
@@ -32,6 +40,7 @@ float RM_DotAmount(float2 cellIndex, float2 normalized, float time)
     float2 centered = normalized - 0.5;
     float distanceToCenter = length(centered);
     float angle = atan2(centered.y, centered.x);
+    time += _DotPhaseOffset;
 
     if (_DotPattern == 1)
         return 0.5 + 0.5 * sin(distanceToCenter * 26.0 - time * 2.0);
@@ -66,10 +75,15 @@ void RM_ApplyDotMatrix(inout half4 color, float4 shapeData, float2 uv, float2 lo
     float2 normalized = (cellIndex + 0.5) * cell / size;
 
     float amount = saturate(RM_DotAmount(cellIndex, normalized, _Time.y * _DotSpeed));
-    float mask = RM_DotMask(cellUv, _DotRadius, _DotShape);
+    float trail = pow(amount, 1.0 / (1.0 + max(_DotTrailLength, 0.0)));
+    amount = max(amount, trail);
+    float active = smoothstep(0.55, 1.0, amount);
+    float alpha = lerp(saturate(_DotInactiveAlpha), 1.0, active);
+    float radius = _DotRadius * lerp(saturate(_DotInactiveScale), 1.0, active);
+    float mask = RM_DotMask(cellUv, radius, _DotShape, _DotEdgeSoftness);
     float coverage = saturate(color.a);
 
-    color.rgb += _DotColor.rgb * mask * amount * _DotIntensity * _DotColor.a * coverage;
+    color.rgb += _DotColor.rgb * mask * amount * alpha * _DotIntensity * _DotColor.a * coverage;
 }
 
 #endif // RM_DOT_MATRIX

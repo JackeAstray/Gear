@@ -91,6 +91,15 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void PagePadding_OffsetsPagesForNeighborPeek()
+        {
+            view.PagePadding = 20f;
+
+            Assert.AreEqual(new Vector2(20f, 0f), page0.anchoredPosition);
+            Assert.AreEqual(new Vector2(120f, 0f), page1.anchoredPosition);
+        }
+
+        [Test]
         public void Indicators_UpdateColorAndClickJumps()
         {
             List<Button> indicators = new List<Button>();

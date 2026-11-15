@@ -202,6 +202,86 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void TimePicker_MinuteIntervalSnapsAndSteps()
+        {
+            GearTimePicker picker = CreateTimePicker(out _, out GearPickerWheel minute, out _);
+
+            picker.MinuteInterval = 5;
+            picker.SetTime(10, 17);
+
+            Assert.AreEqual(15, picker.Minute);
+            Assert.AreEqual("15", minute.Options[minute.Value]);
+
+            minute.Step(1);
+            Assert.AreEqual(20, picker.Minute);
+        }
+
+        [Test]
+        public void TimePicker_CustomLabelsAndRowHeight()
+        {
+            GearTimePicker picker = CreateTimePicker(out GearPickerWheel hour, out GearPickerWheel minute,
+                out GearPickerWheel meridiem);
+            picker.Use24Hour = false;
+            picker.Format = "hh:mm tt";
+            picker.AmLabel = "AM";
+            picker.PmLabel = "PM";
+            picker.RowHeight = 44f;
+
+            picker.SetTime(15, 30);
+
+            Assert.IsTrue(picker.Text.Contains("PM"), picker.Text);
+            Assert.AreEqual(44f, hour.ItemHeight, 0.01f);
+            Assert.AreEqual(44f, minute.ItemHeight, 0.01f);
+            Assert.AreEqual(44f, meridiem.ItemHeight, 0.01f);
+        }
+
+        [Test]
+        public void TimePicker_WrapsHourMinuteAndMeridiem()
+        {
+            GearTimePicker picker = CreateTimePicker(out GearPickerWheel hour, out GearPickerWheel minute,
+                out GearPickerWheel meridiem);
+            picker.Use24Hour = false;
+            picker.SetTime(23, 59, 0, false);
+
+            Assert.AreEqual(10, hour.Value, "23 点应显示为 11 PM（序号 10）");
+            Assert.AreEqual(1, meridiem.Value);
+
+            minute.Step(1);
+            Assert.AreEqual(0, picker.Minute, "59 分下一步应绕回 00");
+
+            hour.Step(1);
+            Assert.AreEqual(0, picker.Hour, "11 PM 下一步应绕到 12 AM");
+            Assert.IsFalse(picker.IsPm);
+
+            hour.Step(1);
+            Assert.AreEqual(1, picker.Hour, "12 AM 下一步应到 1 AM");
+
+            hour.Step(-1);
+            Assert.AreEqual(0, picker.Hour);
+
+            hour.Step(-1);
+            Assert.AreEqual(23, picker.Hour, "12 AM 上一步应回到 11 PM");
+            Assert.IsTrue(picker.IsPm);
+            Assert.AreEqual(10, hour.Value);
+        }
+
+        [Test]
+        public void TimePicker_LoopFalseStopsAtBoundary()
+        {
+            GearTimePicker picker = CreateTimePicker(out GearPickerWheel hour, out GearPickerWheel minute,
+                out _);
+            picker.Loop = false;
+            picker.Use24Hour = true;
+            picker.SetTime(23, 59, 0, false);
+
+            hour.Step(1);
+            minute.Step(1);
+
+            Assert.AreEqual(23, picker.Hour);
+            Assert.AreEqual(59, picker.Minute);
+        }
+
+        [Test]
         public void TimePicker_ClampsInputsAndDeduplicatesEvents()
         {
             GearTimePicker picker = CreateTimePicker(out _, out _, out _);

@@ -14,12 +14,35 @@ Shader "ReunionMovement/UI/ImageEx"
         _ShapeSoftness ("形状软边", Range(0.001, 8)) = 1
         _Dither ("抖动", int) = 0
 
+        // -------------------- Shape Operand（单操作数 Combine） --------------------
+        _GearOperandEnabled ("操作数开关", float) = 0
+        _GearOperandCenterSize ("操作数中心/尺寸", Vector) = (0.5, 0.5, 0.2, 0.2)
+        _GearOperandShape ("操作数形状", float) = 0
+        _GearOperandOp ("操作数运算", float) = 0
+        _GearOperandSmoothing ("操作数平滑", float) = 0.02
+        _GearOperandCorner ("操作数圆角", float) = 0.08
+
+        // -------------------- Ripple（8 波） --------------------
+        _RippleCount ("Ripple Count", float) = 0
+        _RippleSpeed ("Ripple Speed", float) = 0.9
+        _RippleWidth ("Ripple Width", float) = 0.035
+        _RippleSoftness ("Ripple Softness", float) = 1
+        _RippleStrength ("Ripple Strength", float) = 1
+        _RippleColor ("Ripple Color", Color) = (1, 1, 1, 1)
+
         // -------------------- 软遮罩（Soft Mask） --------------------
         _GearMaskEnabled ("软遮罩开关", int) = 0
         _GearMaskRect ("软遮罩矩形", Vector) = (0, 0, 1, 1)
         _GearMaskRadius ("软遮罩圆角", float) = 0
         _GearMaskSoftness ("软遮罩羽化", float) = 0
         _GearMaskInvert ("软遮罩反转", int) = 0
+        _GearMaskShape ("软遮罩形状", float) = 0
+        _GearMask2Enabled ("第二层软遮罩开关", int) = 0
+        _GearMask2Rect ("第二层软遮罩矩形", Vector) = (0, 0, 1, 1)
+        _GearMask2Radius ("第二层软遮罩圆角", float) = 0
+        _GearMask2Softness ("第二层软遮罩羽化", float) = 0
+        _GearMask2Invert ("第二层软遮罩反转", int) = 0
+        _GearMask2Shape ("第二层软遮罩形状", float) = 0
         _PixelWorldScale ("像素与世界单位之间的缩放比例", Range(0.01, 5)) = 1
         _ShapeRotation ("形状旋转", float) = 0
         _ConstrainRotation("约束旋转", int) = 0
@@ -103,6 +126,11 @@ Shader "ReunionMovement/UI/ImageEx"
         _PatternOrigin ("图案衰减原点", Vector) = (0.5, 0.5, 0, 0)
         _PatternSpeed ("图案流速", Vector) = (0, 0, 0, 0)
         _PatternOpacity ("图案不透明度", Range(0, 1)) = 1
+        _PatternSource ("图块来源", float) = 0
+        _PatternTex ("图块贴图", 2D) = "white" { }
+        _PatternShape ("Shape 图块", int) = 1
+        _PatternColorMode ("图案颜色模式", float) = 0
+        _PatternGradient ("图案渐变", 2D) = "white" { }
 
         // 边缘辉光（Border Glow）
         _EnableBorderGlow ("启用边缘辉光", int) = 0
@@ -333,6 +361,7 @@ Shader "ReunionMovement/UI/ImageEx"
             
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
+            #pragma multi_compile_local _ GEAR_UI_LITE
 
             // 形状与描边原先也是 multi_compile（13 形状 × 4 描边 = 52 倍变体膨胀）。
             // 改为运行时分支后，ImageEx 只剩下面这两轴变体（4 个），
@@ -395,6 +424,13 @@ Shader "ReunionMovement/UI/ImageEx"
             half _GearMaskSoftness;
             half _GearMaskInvert;
             half _GearMaskEnabled;
+            half _GearMaskShape;
+            half4 _GearMask2Rect;
+            half _GearMask2Radius;
+            half _GearMask2Softness;
+            half _GearMask2Invert;
+            half _GearMask2Enabled;
+            half _GearMask2Shape;
 
             // 注：形状参数 (RectangleCornerRadius, CircleRadius 等) 已在 RM_SDFShapes.cginc 中声明
             // 注：渐变参数 (GradientColor0-7 等) 已在 RM_Gradient.cginc 中声明
@@ -466,6 +502,10 @@ Shader "ReunionMovement/UI/ImageEx"
             #include "../../Common/RM_Target.cginc"
             // -------------------- 细节纹理（DETAIL） --------------------
             #include "../../Common/RM_Detail.cginc"
+            // -------------------- 涟漪（RIPPLE） --------------------
+            #include "../../Common/RM_Ripple.cginc"
+            // -------------------- 形状操作数（OPERAND） --------------------
+            #include "../../Common/RM_Operand.cginc"
 
             //顶点着色器
 
@@ -551,6 +591,29 @@ Shader "ReunionMovement/UI/ImageEx"
             }
             
             //片元着色器
+            float RM_GearSoftMaskAlpha(float2 maskPoint, half4 maskRect, half radius, half softness,
+                half invert, half shape)
+            {
+                float2 maskMin = maskRect.xy;
+                float2 maskMax = maskRect.zw;
+                float2 center = (maskMin + maskMax) * 0.5;
+                float2 halfExtent = max((maskMax - maskMin) * 0.5, 0.0);
+                float r = min(max(radius, 0.0), min(halfExtent.x, halfExtent.y));
+                float d;
+                if (shape > 0.5)
+                {
+                    d = length(maskPoint - center) - min(halfExtent.x, halfExtent.y);
+                }
+                else
+                {
+                    float2 q = abs(maskPoint - center) - halfExtent + r;
+                    d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+                }
+
+                float maskAlpha = saturate(0.5 - d / max(softness, 0.001));
+                return invert > 0.5 ? 1.0 - maskAlpha : maskAlpha;
+            }
+
             fixed4 frag(v2f IN): SV_Target
             {
                 // Prepare UVs/transition info before deciding shadow or main fragment so shadow can follow transitions.
@@ -625,6 +688,12 @@ Shader "ReunionMovement/UI/ImageEx"
                     return shadowResult;
                 }
 
+                // 涟漪：先扰动采样 UV，环颜色在 SDF/裁剪之后再加
+                half rippleRing = 0;
+                #if !defined(GEAR_UI_LITE)
+                    rippleRing = RM_ApplyRippleUV(texcoord);
+                #endif
+
                 // 统一采样入口：采样模式（Pixelation/RGB Shift/Edge）优先，其次模糊（Blur），否则直接采样
                 if (_SamplingMode != 0)
                 {
@@ -655,7 +724,9 @@ Shader "ReunionMovement/UI/ImageEx"
                 ApplyGradientColor(color, effectsUv, IN.quadAspect, IN.vertex.xy);
 
                 // 图案填充：在渐变之后、形状遮罩之前叠色，最终仍由 SDF alpha 裁形
-                RM_ApplyPattern(color, IN.shapeData, texcoord, IN.quadAspect, baseSample.a);
+                #if !defined(GEAR_UI_LITE)
+                    RM_ApplyPattern(color, IN.shapeData, texcoord, IN.quadAspect, baseSample.a);
+                #endif
 
                 // 背景模糊：保留形状/圆角/描边，只把填充替换成抓屏模糊结果
                 RM_ApplyBackdrop(color, IN.screenPos.xy / max(IN.screenPos.w, 1e-5), sourceAlpha);
@@ -701,6 +772,10 @@ Shader "ReunionMovement/UI/ImageEx"
                     // 内阴影：放在描边之后、过渡之前，避免被描边覆盖，也跟随过渡遮罩
                     RM_ApplyInnerShadow(color, IN.shapeData, _FalloffDistance);
                 }
+
+                // 形状操作数：Union / Subtract；只改 alpha，颜色沿用主图
+                if (_GearOperandEnabled > 0.5)
+                    RM_ApplyOperand(color, texcoord, IN.color.a);
 
                 // 应用过渡过滤器
                 if (_TransitionMode != 0)
@@ -774,8 +849,15 @@ Shader "ReunionMovement/UI/ImageEx"
                     color.a *= RM_GetClipMask(clipUv, clipSize, clipSize.x / clipSize.y);
                 }
 
+                // 涟漪颜色：在 SDF/裁剪之后，只加色不改 alpha
+                #if !defined(GEAR_UI_LITE)
+                    RM_ApplyRippleColor(color, rippleRing);
+                #endif
+
                 // 边缘辉光：在形状/过渡/裁剪之后叠加，不改变 alpha
-                RM_ApplyBorderGlow(color, IN.shapeData, texcoord, borderGlowSdf, _FalloffDistance);
+                #if !defined(GEAR_UI_LITE)
+                    RM_ApplyBorderGlow(color, IN.shapeData, texcoord, borderGlowSdf, _FalloffDistance);
+                #endif
 
                 #ifdef UNITY_UI_CLIP_RECT
                     color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
@@ -803,21 +885,16 @@ Shader "ReunionMovement/UI/ImageEx"
                     color = RM_ApplyTarget(color, baseSample, targetRate);
                 }
 
-                // 软遮罩：形状路径用 SDF 像素坐标，贴图路径用本地 UV × 尺寸
-                if (_GearMaskEnabled > 0.5)
+                // 软遮罩：最近父级 + 外层父级（最多两层），支持圆角矩形/圆形
+                if (_GearMaskEnabled > 0.5 || _GearMask2Enabled > 0.5)
                 {
                     float2 maskPoint = _DrawShape != 0 ? IN.shapeData.xy : IN.texcoord * IN.size;
-                    float2 maskMin = _GearMaskRect.xy;
-                    float2 maskMax = _GearMaskRect.zw;
-                    float2 center = (maskMin + maskMax) * 0.5;
-                    float2 halfExtent = max((maskMax - maskMin) * 0.5, 0.0);
-                    float radius = min(max(_GearMaskRadius, 0.0), min(halfExtent.x, halfExtent.y));
-                    float2 q = abs(maskPoint - center) - halfExtent + radius;
-                    float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
-                    float softness = max(_GearMaskSoftness, 0.001);
-                    float maskAlpha = saturate(0.5 - d / softness);
-                    if (_GearMaskInvert > 0.5) maskAlpha = 1.0 - maskAlpha;
-                    color.a *= maskAlpha;
+                    if (_GearMaskEnabled > 0.5)
+                        color.a *= RM_GearSoftMaskAlpha(maskPoint, _GearMaskRect, _GearMaskRadius,
+                            _GearMaskSoftness, _GearMaskInvert, _GearMaskShape);
+                    if (_GearMask2Enabled > 0.5)
+                        color.a *= RM_GearSoftMaskAlpha(maskPoint, _GearMask2Rect, _GearMask2Radius,
+                            _GearMask2Softness, _GearMask2Invert, _GearMask2Shape);
                 }
 
                 // 像素幕帘：只乘 alpha，最后一步再叠（与软遮罩/裁剪可组合）
@@ -830,10 +907,14 @@ Shader "ReunionMovement/UI/ImageEx"
                 RM_ApplyInkPanel(color, IN.shapeData, texcoord, IN.size);
 
                 // 指针聚光：软遮罩之后、抖动之前；只加色不改 alpha
-                RM_ApplySpotlight(color, IN.shapeData, texcoord, IN.size);
+                #if !defined(GEAR_UI_LITE)
+                    RM_ApplySpotlight(color, IN.shapeData, texcoord, IN.size);
+                #endif
 
                 // 点阵图案：同样只加色，可与聚光/图案叠加
-                RM_ApplyDotMatrix(color, IN.shapeData, texcoord, IN.size);
+                #if !defined(GEAR_UI_LITE)
+                    RM_ApplyDotMatrix(color, IN.shapeData, texcoord, IN.size);
+                #endif
 
                 // 抖动弹：打散 8bit 色带，1 像素级、无纹理
                 if (_Dither > 0.5)

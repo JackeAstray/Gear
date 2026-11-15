@@ -15,6 +15,14 @@ namespace Gear.Utilities.UI.Widgets
         Monday = 1,
     }
 
+    /// <summary>日历层级：日 / 月 / 年。</summary>
+    public enum GearCalendarView
+    {
+        Day = 0,
+        Month = 1,
+        Year = 2,
+    }
+
     /// <summary>月视图中的一个日期格。</summary>
     public readonly struct GearCalendarDay
     {
@@ -52,12 +60,17 @@ namespace Gear.Utilities.UI.Widgets
         [SerializeField] private Button nextMonthButton;
         [SerializeField] private Button previousYearButton;
         [SerializeField] private Button nextYearButton;
+        [SerializeField] private Button zoomOutButton;
         [SerializeField] private GearWeekStart weekStart = GearWeekStart.Sunday;
         [SerializeField] private Color normalColor = new Color(0.16f, 0.18f, 0.25f, 1f);
         [SerializeField] private Color mutedColor = new Color(0.16f, 0.18f, 0.25f, 0.4f);
         [SerializeField] private Color todayColor = new Color(0.14f, 0.75f, 0.95f, 1f);
         [SerializeField] private Color selectedColor = new Color(0.49f, 0.36f, 0.99f, 1f);
         [SerializeField] private string headerFormat = "{0} 年 {1} 月";
+        [SerializeField] private string monthHeaderFormat = "{0} 年";
+        [SerializeField] private string yearHeaderFormat = "{0}–{1}";
+        [SerializeField, Range(4, 24)] private int yearRange = 12;
+        [SerializeField] private GearCalendarView view = GearCalendarView.Day;
         [SerializeField] private UnityEvent<string> onDateSelected = new UnityEvent<string>();
 
         [SerializeField, Range(1, 12)] private int month = 1;
@@ -73,8 +86,29 @@ namespace Gear.Utilities.UI.Widgets
 
         public int Year => year;
         public int Month => month;
+        public GearCalendarView View => view;
+        public int YearRange => yearRange;
+        public int YearPageStart => Mathf.Max(1, year - Mathf.Max(0, year % yearRange));
         public DateTime VisibleMonth => new DateTime(Mathf.Max(1, year), Mathf.Clamp(month, 1, 12), 1);
         public DateTime? SelectedDate => hasSelection ? selectedDate : (DateTime?)null;
+
+        /// <summary>当前 Culture 的 12 个月名；缺项回退英文。</summary>
+        public string[] MonthNames
+        {
+            get
+            {
+                string[] names = CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+                var result = new string[12];
+                for (int i = 0; i < 12; i++)
+                {
+                    result[i] = i < names.Length && !string.IsNullOrEmpty(names[i])
+                        ? names[i]
+                        : CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i + 1);
+                }
+
+                return result;
+            }
+        }
 
         public TMP_Text HeaderLabel { get => headerLabel; set { headerLabel = value; RefreshHeader(); } }
         public RectTransform GridContent { get => gridContent; set { gridContent = value; RefreshGrid(); } }
@@ -102,6 +136,12 @@ namespace Gear.Utilities.UI.Widgets
         {
             get => nextYearButton;
             set { nextYearButton = value; WireButtons(); }
+        }
+
+        public Button ZoomOutButton
+        {
+            get => zoomOutButton;
+            set { zoomOutButton = value; WireButtons(); }
         }
 
         public GearWeekStart WeekStart
@@ -132,18 +172,20 @@ namespace Gear.Utilities.UI.Widgets
         private void WireButtons()
         {
             UnwireButtons();
-            if (previousMonthButton != null) previousMonthButton.onClick.AddListener(PreviousMonth);
-            if (nextMonthButton != null) nextMonthButton.onClick.AddListener(NextMonth);
+            if (previousMonthButton != null) previousMonthButton.onClick.AddListener(PreviousPage);
+            if (nextMonthButton != null) nextMonthButton.onClick.AddListener(NextPage);
             if (previousYearButton != null) previousYearButton.onClick.AddListener(PreviousYear);
             if (nextYearButton != null) nextYearButton.onClick.AddListener(NextYear);
+            if (zoomOutButton != null) zoomOutButton.onClick.AddListener(ZoomOut);
         }
 
         private void UnwireButtons()
         {
-            if (previousMonthButton != null) previousMonthButton.onClick.RemoveListener(PreviousMonth);
-            if (nextMonthButton != null) nextMonthButton.onClick.RemoveListener(NextMonth);
+            if (previousMonthButton != null) previousMonthButton.onClick.RemoveListener(PreviousPage);
+            if (nextMonthButton != null) nextMonthButton.onClick.RemoveListener(NextPage);
             if (previousYearButton != null) previousYearButton.onClick.RemoveListener(PreviousYear);
             if (nextYearButton != null) nextYearButton.onClick.RemoveListener(NextYear);
+            if (zoomOutButton != null) zoomOutButton.onClick.RemoveListener(ZoomOut);
         }
 
         private void RestoreSelection()
@@ -298,13 +340,120 @@ namespace Gear.Utilities.UI.Widgets
         private void RefreshHeader()
         {
             if (headerLabel == null) return;
-            headerLabel.text = string.Format(headerFormat, year, month);
+            switch (view)
+            {
+                case GearCalendarView.Month:
+                    headerLabel.text = string.Format(monthHeaderFormat, year);
+                    break;
+                case GearCalendarView.Year:
+                    int start = YearPageStart;
+                    headerLabel.text = string.Format(yearHeaderFormat, start, start + yearRange - 1);
+                    break;
+                default:
+                    headerLabel.text = string.Format(headerFormat, year, month);
+                    break;
+            }
+        }
+
+        /// <summary>切换日/月/年视图。</summary>
+        public void SetView(GearCalendarView newView)
+        {
+            if (view == newView) return;
+            view = newView;
+            RefreshHeader();
+            RefreshGrid();
+        }
+
+        public void ZoomIn()
+        {
+            if (view == GearCalendarView.Year) SetView(GearCalendarView.Month);
+            else if (view == GearCalendarView.Month) SetView(GearCalendarView.Day);
+        }
+
+        public void ZoomOut()
+        {
+            if (view == GearCalendarView.Day) SetView(GearCalendarView.Month);
+            else if (view == GearCalendarView.Month) SetView(GearCalendarView.Year);
+        }
+
+        public void SelectMonth(int newMonth)
+        {
+            month = Mathf.Clamp(newMonth, 1, 12);
+            view = GearCalendarView.Day;
+            RefreshHeader();
+            RefreshGrid();
+        }
+
+        public void SelectYear(int newYear)
+        {
+            year = Mathf.Max(1, newYear);
+            view = GearCalendarView.Month;
+            RefreshHeader();
+            RefreshGrid();
+        }
+
+        /// <summary>当前视图上一页（日=上月，月=上一年，年=上一段年份）。</summary>
+        public void PreviousPage()
+        {
+            if (view == GearCalendarView.Day) PreviousMonth();
+            else if (view == GearCalendarView.Month) SetVisibleMonth(year - 1, month);
+            else SetVisibleMonth(Mathf.Max(1, YearPageStart - yearRange), month);
+        }
+
+        public void NextPage()
+        {
+            if (view == GearCalendarView.Day) NextMonth();
+            else if (view == GearCalendarView.Month) SetVisibleMonth(year + 1, month);
+            else SetVisibleMonth(YearPageStart + yearRange, month);
         }
 
         private void RefreshGrid()
         {
             if (gridContent == null || dayTemplate == null) return;
+            if (view == GearCalendarView.Day)
+            {
+                RefreshDayGrid();
+                return;
+            }
 
+            int count = 12;
+            EnsureCells(count);
+            string[] monthNames = view == GearCalendarView.Month ? MonthNames : null;
+            int startYear = YearPageStart;
+
+            for (int i = 0; i < count; i++)
+            {
+                Button cell = cells[i];
+                cell.gameObject.SetActive(true);
+                TMP_Text label = cell.GetComponentInChildren<TMP_Text>(true);
+                if (label != null)
+                {
+                    label.text = view == GearCalendarView.Month
+                        ? monthNames[i]
+                        : (startYear + i).ToString();
+                }
+
+                cell.interactable = true;
+                bool selected = view == GearCalendarView.Month
+                    ? hasSelection && selectedDate.Year == year && selectedDate.Month == i + 1
+                    : hasSelection && selectedDate.Year == startYear + i;
+                Graphic graphic = cell.targetGraphic;
+                if (graphic != null) graphic.color = selected ? selectedColor : normalColor;
+
+                int captured = i + 1;
+                cell.onClick.RemoveAllListeners();
+                if (view == GearCalendarView.Month)
+                    cell.onClick.AddListener(() => SelectMonth(captured));
+                else
+                {
+                    int capturedYear = startYear + captured - 1;
+                    cell.onClick.AddListener(() => SelectYear(capturedYear));
+                }
+            }
+        }
+
+        private void RefreshDayGrid()
+        {
             List<GearCalendarDay> days = BuildMonthGrid();
             EnsureCells(days.Count);
 

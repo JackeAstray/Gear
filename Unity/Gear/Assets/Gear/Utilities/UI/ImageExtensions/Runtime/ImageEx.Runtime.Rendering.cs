@@ -174,6 +174,7 @@ namespace Gear.Utilities.UI.ImageExtensions
             if (materialMode == MaterialMode.Pooled
                 && ReferenceEquals(mat, baseMaterial)
                 && cameraTexture == null
+                && !HasTransientEffects
                 && GetComponentInParent<GearSoftMask>(true) == null)
             {
                 return AcquirePooledMaterial(baseMaterial);
@@ -314,6 +315,7 @@ namespace Gear.Utilities.UI.ImageExtensions
 
 
             mat.SetInt(drawShape_Sp, (int)DrawShape);
+            WriteShapeOperand(mat);
             mat.SetInt(flipHorizontal_Sp, flipHorizontal ? 1 : 0);
             mat.SetInt(flipVertical_Sp, flipVertical ? 1 : 0);
 
@@ -388,6 +390,11 @@ namespace Gear.Utilities.UI.ImageExtensions
             mat.SetVector(patternOrigin_Sp, new Vector4(patternOrigin.x, patternOrigin.y, 0f, 0f));
             mat.SetVector(patternSpeed_Sp, new Vector4(patternSpeed.x, patternSpeed.y, 0f, 0f));
             mat.SetFloat(patternOpacity_Sp, patternOpacity);
+            mat.SetInt(patternSource_Sp, (int)patternSource);
+            mat.SetTexture(patternTex_Sp, patternTexture);
+            mat.SetInt(patternShape_Sp, (int)patternShape);
+            mat.SetInt(patternColorMode_Sp, (int)patternColorMode);
+            mat.SetTexture(patternGradient_Sp, patternGradient);
 
             // -------------------- 边缘辉光（BORDER GLOW） --------------------
             mat.SetInt(enableBorderGlow_Sp, enableBorderGlow ? 1 : 0);
@@ -419,6 +426,11 @@ namespace Gear.Utilities.UI.ImageExtensions
             mat.SetColor(dotColor_Sp, dotColor);
             mat.SetFloat(dotIntensity_Sp, dotIntensity);
             mat.SetFloat(dotSpeed_Sp, dotSpeed);
+            mat.SetFloat(dotInactiveAlpha_Sp, dotInactiveAlpha);
+            mat.SetFloat(dotInactiveScale_Sp, dotInactiveScale);
+            mat.SetFloat(dotEdgeSoftness_Sp, dotEdgeSoftness);
+            mat.SetFloat(dotPhaseOffset_Sp, dotPhaseOffset);
+            mat.SetFloat(dotTrailLength_Sp, dotTrailLength);
 
             // -------------------- 像素幕帘（PIXEL CURTAIN） --------------------
             mat.SetInt(enablePixelCurtain_Sp, enablePixelCurtain ? 1 : 0);

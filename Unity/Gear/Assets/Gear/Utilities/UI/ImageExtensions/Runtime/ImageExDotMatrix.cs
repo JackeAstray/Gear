@@ -20,6 +20,11 @@ namespace Gear.Utilities.UI.ImageExtensions
         [SerializeField] private Color color = new Color(0.49f, 0.36f, 0.99f, 1f);
         [SerializeField, Range(0f, 1f)] private float intensity = 0.6f;
         [SerializeField] private float speed = 1f;
+        [SerializeField, Range(0f, 1f)] private float inactiveAlpha = 0.22f;
+        [SerializeField, Range(0f, 1f)] private float inactiveScale = 0.55f;
+        [SerializeField, Range(0f, 1f)] private float edgeSoftness = 0.12f;
+        [SerializeField] private float phaseOffset;
+        [SerializeField, Min(0f)] private float trailLength = 1f;
 
         private ImageEx image;
 
@@ -65,6 +70,36 @@ namespace Gear.Utilities.UI.ImageExtensions
             set { speed = value; ApplySettings(); }
         }
 
+        public float InactiveAlpha
+        {
+            get => inactiveAlpha;
+            set { inactiveAlpha = Mathf.Clamp01(value); ApplySettings(); }
+        }
+
+        public float InactiveScale
+        {
+            get => inactiveScale;
+            set { inactiveScale = Mathf.Clamp01(value); ApplySettings(); }
+        }
+
+        public float EdgeSoftness
+        {
+            get => edgeSoftness;
+            set { edgeSoftness = Mathf.Clamp01(value); ApplySettings(); }
+        }
+
+        public float PhaseOffset
+        {
+            get => phaseOffset;
+            set { phaseOffset = value; ApplySettings(); }
+        }
+
+        public float TrailLength
+        {
+            get => trailLength;
+            set { trailLength = Mathf.Max(0f, value); ApplySettings(); }
+        }
+
         private void Awake()
         {
             ApplySettings();
@@ -92,6 +127,11 @@ namespace Gear.Utilities.UI.ImageExtensions
             image.DotColor = color;
             image.DotIntensity = intensity;
             image.DotSpeed = speed;
+            image.DotInactiveAlpha = inactiveAlpha;
+            image.DotInactiveScale = inactiveScale;
+            image.DotEdgeSoftness = edgeSoftness;
+            image.DotPhaseOffset = phaseOffset;
+            image.DotTrailLength = trailLength;
         }
 
 #if UNITY_EDITOR

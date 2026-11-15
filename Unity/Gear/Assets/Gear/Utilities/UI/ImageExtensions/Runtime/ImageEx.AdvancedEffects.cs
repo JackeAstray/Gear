@@ -24,6 +24,19 @@ namespace Gear.Utilities.UI.ImageExtensions
             Rings = 5,
         }
 
+        public enum PatternSource
+        {
+            Procedural = 0,
+            Sprite = 1,
+            Shape = 2,
+        }
+
+        public enum PatternColorMode
+        {
+            Solid = 0,
+            Gradient = 1,
+        }
+
         [SerializeField, Tooltip("图案模式：点阵 / 网格 / 条纹 / 棋盘 / 圆环")]
         private PatternMode patternMode = PatternMode.None;
 
@@ -56,6 +69,27 @@ namespace Gear.Utilities.UI.ImageExtensions
 
         [SerializeField, Range(0f, 1f), Tooltip("图案总不透明度")]
         private float patternOpacity = 1f;
+
+        [SerializeField, Tooltip("图块来源：程序化 / Sprite 贴图 / Shape 图块")]
+        private PatternSource patternSource = PatternSource.Procedural;
+
+        [SerializeField, Tooltip("Sprite 来源图块")]
+        private Texture patternTexture;
+
+        [SerializeField, Tooltip("Shape 来源图块形状")]
+        private DrawShape patternShape = DrawShape.Circle;
+
+        [SerializeField, Tooltip("图案颜色模式：纯色 / 渐变贴图")]
+        private PatternColorMode patternColorMode = PatternColorMode.Solid;
+
+        [SerializeField, Tooltip("渐变贴图（颜色模式 Gradient 时采样）")]
+        private Texture patternGradient;
+
+        private static readonly int patternSource_Sp = Shader.PropertyToID("_PatternSource");
+        private static readonly int patternTex_Sp = Shader.PropertyToID("_PatternTex");
+        private static readonly int patternShape_Sp = Shader.PropertyToID("_PatternShape");
+        private static readonly int patternColorMode_Sp = Shader.PropertyToID("_PatternColorMode");
+        private static readonly int patternGradient_Sp = Shader.PropertyToID("_PatternGradient");
 
         private static readonly int patternMode_Sp = Shader.PropertyToID("_PatternMode");
         private static readonly int patternSize_Sp = Shader.PropertyToID("_PatternSize");
@@ -203,6 +237,39 @@ namespace Gear.Utilities.UI.ImageExtensions
                 patternOpacity = value;
                 SetMaterialDirty();
             }
+        }
+
+        // ============================================================
+        // 图块来源（Pattern Source）
+        // ============================================================
+        public PatternSource PatternSourceType
+        {
+            get => patternSource;
+            set { if (patternSource == value) return; patternSource = value; SetMaterialDirty(); }
+        }
+
+        public Texture PatternTexture
+        {
+            get => patternTexture;
+            set { patternTexture = value; SetMaterialDirty(); }
+        }
+
+        public DrawShape PatternShape
+        {
+            get => patternShape;
+            set { patternShape = value; SetMaterialDirty(); }
+        }
+
+        public PatternColorMode PatternColorType
+        {
+            get => patternColorMode;
+            set { patternColorMode = value; SetMaterialDirty(); }
+        }
+
+        public Texture PatternGradient
+        {
+            get => patternGradient;
+            set { patternGradient = value; SetMaterialDirty(); }
         }
 
         // ============================================================

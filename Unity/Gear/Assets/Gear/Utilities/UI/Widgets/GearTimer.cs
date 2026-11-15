@@ -32,11 +32,19 @@ namespace Gear.Utilities.UI.Widgets
         [SerializeField] private bool playOnEnable;
         [SerializeField] private bool unscaled = true;
         [SerializeField] private bool loop;
+        [SerializeField, Min(0f)] private float timeMultiplier = 1f;
+        [SerializeField] private bool useSystemClock;
+        [SerializeField] private bool smoothProgress;
+        [SerializeField, Min(0.01f)] private float progressSmoothing = 8f;
+        [SerializeField] private bool reverseFill;
         [SerializeField] private string format = "mm:ss";
         [SerializeField] private UnityEvent onCompleted = new UnityEvent();
 
         private bool running;
         private float elapsed;
+        private float displayProgress;
+        private DateTime systemStart;
+        private float elapsedAtStart;
 
         public UnityEvent OnCompleted => onCompleted;
         public event Action Completed;
@@ -53,6 +61,42 @@ namespace Gear.Utilities.UI.Widgets
 
         /// <summary>0..1 进度；Duration 为 0 时返回 0。</summary>
         public float Progress => duration <= 0f ? 0f : Mathf.Clamp01(elapsed / duration);
+
+        /// <summary>平滑后的显示进度；未开启平滑时与 Progress 一致。</summary>
+        public float DisplayProgress => reverseFill ? 1f - displayProgress : displayProgress;
+
+        /// <summary>供进度条直接使用的填充值（已处理反向）。</summary>
+        public float FillAmount => DisplayProgress;
+
+        public float TimeMultiplier
+        {
+            get => timeMultiplier;
+            set => timeMultiplier = Mathf.Max(0f, value);
+        }
+
+        public bool UseSystemClock
+        {
+            get => useSystemClock;
+            set => useSystemClock = value;
+        }
+
+        public bool SmoothProgress
+        {
+            get => smoothProgress;
+            set => smoothProgress = value;
+        }
+
+        public float ProgressSmoothing
+        {
+            get => progressSmoothing;
+            set => progressSmoothing = Mathf.Max(0.01f, value);
+        }
+
+        public bool ReverseFill
+        {
+            get => reverseFill;
+            set => reverseFill = value;
+        }
 
         /// <summary>当前应显示的秒数（倒计时取剩余，秒表取已用）。</summary>
         public float DisplaySeconds => mode == GearTimerMode.Countdown ? Remaining : elapsed;
@@ -105,12 +149,27 @@ namespace Gear.Utilities.UI.Widgets
             duration = Mathf.Max(0f, newDuration);
             if (!string.IsNullOrEmpty(newFormat)) format = newFormat;
             elapsed = 0f;
+            displayProgress = 0f;
             running = autoPlay;
+            if (running)
+            {
+                elapsedAtStart = 0f;
+                systemStart = DateTime.UtcNow;
+            }
             Refresh();
         }
 
         /// <summary>开始 / 继续。</summary>
-        public void Play() => running = true;
+        public void Play()
+        {
+            if (!running)
+            {
+                elapsedAtStart = elapsed;
+                systemStart = DateTime.UtcNow;
+            }
+
+            running = true;
+        }
 
         /// <summary>暂停；再次 <see cref="Play"/> 从当前进度继续。</summary>
         public void Pause() => running = false;
@@ -125,6 +184,7 @@ namespace Gear.Utilities.UI.Widgets
         {
             elapsed = 0f;
             running = false;
+            displayProgress = 0f;
             Refresh();
         }
 
@@ -132,7 +192,8 @@ namespace Gear.Utilities.UI.Widgets
         public void Restart()
         {
             elapsed = 0f;
-            running = true;
+            displayProgress = 0f;
+            Play();
             Refresh();
         }
 
@@ -143,6 +204,12 @@ namespace Gear.Utilities.UI.Widgets
             elapsed = mode == GearTimerMode.Countdown
                 ? Mathf.Clamp(duration - seconds, 0f, duration)
                 : seconds;
+            displayProgress = Progress;
+            if (running)
+            {
+                elapsedAtStart = elapsed;
+                systemStart = DateTime.UtcNow;
+            }
             Refresh();
         }
 
@@ -158,24 +225,47 @@ namespace Gear.Utilities.UI.Widgets
         {
             if (!running || deltaTime <= 0f) return;
 
-            elapsed += deltaTime;
+            float effectiveDelta = deltaTime * Mathf.Max(0f, timeMultiplier);
+            if (useSystemClock)
+                elapsed = elapsedAtStart + (float)(DateTime.UtcNow - systemStart).TotalSeconds;
+            else
+                elapsed += effectiveDelta;
+
             if (mode == GearTimerMode.Countdown && elapsed >= duration)
             {
                 elapsed = duration;
                 running = false;
+                UpdateDisplayProgress(effectiveDelta);
                 Refresh();
                 Completed?.Invoke();
                 onCompleted?.Invoke();
                 if (loop)
                 {
                     elapsed = 0f;
+                    displayProgress = 0f;
+                    elapsedAtStart = 0f;
+                    systemStart = DateTime.UtcNow;
                     running = true;
                 }
 
                 return;
             }
 
+            UpdateDisplayProgress(effectiveDelta);
             Refresh();
+        }
+
+        private void UpdateDisplayProgress(float delta)
+        {
+            float target = Progress;
+            if (!smoothProgress)
+            {
+                displayProgress = target;
+                return;
+            }
+
+            float t = 1f - Mathf.Exp(-progressSmoothing * Mathf.Max(0f, delta));
+            displayProgress = Mathf.Lerp(displayProgress, target, t);
         }
 
         /// <summary>按 <see cref="Format"/> 渲染秒数。</summary>
@@ -223,8 +313,9 @@ namespace Gear.Utilities.UI.Widgets
 
         private void Refresh()
         {
+            if (!smoothProgress) displayProgress = Progress;
             if (label != null) label.text = FormatTime(DisplaySeconds);
-            ProgressChanged?.Invoke(Progress);
+            ProgressChanged?.Invoke(DisplayProgress);
         }
 
 #if UNITY_EDITOR

@@ -14,15 +14,30 @@ namespace Gear.Utilities.UI.ImageExtensions
     [RequireComponent(typeof(RectTransform))]
     public sealed class GearSoftMask : MonoBehaviour
     {
+        public enum SoftMaskShape
+        {
+            RoundedRect = 0,
+            Circle = 1,
+        }
+
         [SerializeField][Min(0f)] private float softness = 8f;
         [SerializeField][Min(0f)] private float radius;
         [SerializeField] private bool invert;
+        [SerializeField] private SoftMaskShape shape = SoftMaskShape.RoundedRect;
 
         private static readonly int enabledSp = Shader.PropertyToID("_GearMaskEnabled");
         private static readonly int rectSp = Shader.PropertyToID("_GearMaskRect");
         private static readonly int radiusSp = Shader.PropertyToID("_GearMaskRadius");
         private static readonly int softnessSp = Shader.PropertyToID("_GearMaskSoftness");
         private static readonly int invertSp = Shader.PropertyToID("_GearMaskInvert");
+        private static readonly int shapeSp = Shader.PropertyToID("_GearMaskShape");
+
+        private static readonly int enabled2Sp = Shader.PropertyToID("_GearMask2Enabled");
+        private static readonly int rect2Sp = Shader.PropertyToID("_GearMask2Rect");
+        private static readonly int radius2Sp = Shader.PropertyToID("_GearMask2Radius");
+        private static readonly int softness2Sp = Shader.PropertyToID("_GearMask2Softness");
+        private static readonly int invert2Sp = Shader.PropertyToID("_GearMask2Invert");
+        private static readonly int shape2Sp = Shader.PropertyToID("_GearMask2Shape");
 
         private readonly Vector3[] worldCorners = new Vector3[4];
         private RectTransform rectTransform;
@@ -65,6 +80,17 @@ namespace Gear.Utilities.UI.ImageExtensions
             }
         }
 
+        public SoftMaskShape Shape
+        {
+            get => shape;
+            set
+            {
+                if (shape == value) return;
+                shape = value;
+                DirtyChildren();
+            }
+        }
+
         private RectTransform RectTransform
         {
             get
@@ -102,22 +128,40 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// </summary>
         internal static void ApplyToMaterial(Material material, ImageEx image)
         {
-            GearSoftMask mask = image != null ? image.GetComponentInParent<GearSoftMask>(true) : null;
-            if (mask == null || !mask.isActiveAndEnabled)
+            if (material == null) return;
+
+            GearSoftMask[] masks = image != null
+                ? image.GetComponentsInParent<GearSoftMask>(true)
+                : null;
+            int layer = 0;
+            if (masks != null)
             {
-                material.SetInt(enabledSp, 0);
-                return;
+                for (int i = 0; i < masks.Length && layer < 2; i++)
+                {
+                    GearSoftMask mask = masks[i];
+                    if (mask == null || !mask.isActiveAndEnabled) continue;
+                    mask.WriteToMaterial(material, image, layer);
+                    layer++;
+                }
             }
 
-            mask.WriteToMaterial(material, image);
+            if (layer == 0)
+            {
+                material.SetInt(enabledSp, 0);
+                material.SetInt(enabled2Sp, 0);
+            }
+            else if (layer == 1)
+            {
+                material.SetInt(enabled2Sp, 0);
+            }
         }
 
-        private void WriteToMaterial(Material material, ImageEx image)
+        private void WriteToMaterial(Material material, ImageEx image, int layer)
         {
             RectTransform target = image != null ? image.rectTransform : null;
             if (target == null)
             {
-                material.SetInt(enabledSp, 0);
+                material.SetInt(layer == 0 ? enabledSp : enabled2Sp, 0);
                 return;
             }
 
@@ -140,11 +184,13 @@ namespace Gear.Utilities.UI.ImageExtensions
                 if (y > maxY) maxY = y;
             }
 
-            material.SetInt(enabledSp, 1);
-            material.SetVector(rectSp, new Vector4(minX, minY, maxX, maxY));
-            material.SetFloat(radiusSp, radius);
-            material.SetFloat(softnessSp, softness);
-            material.SetInt(invertSp, invert ? 1 : 0);
+            bool first = layer == 0;
+            material.SetInt(first ? enabledSp : enabled2Sp, 1);
+            material.SetVector(first ? rectSp : rect2Sp, new Vector4(minX, minY, maxX, maxY));
+            material.SetFloat(first ? radiusSp : radius2Sp, radius);
+            material.SetFloat(first ? softnessSp : softness2Sp, softness);
+            material.SetInt(first ? invertSp : invert2Sp, invert ? 1 : 0);
+            material.SetFloat(first ? shapeSp : shape2Sp, (int)shape);
         }
 
         /// <summary>

@@ -107,6 +107,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             go.SetActive(true);
             menu.SetScreenPosition(screenPosition);
             s_instance = menu;
+            GearOverlayCoordinator.Open(menu, menu.Close, "contextmenu");
             return menu;
         }
 
@@ -411,12 +412,13 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             if (parentMenu != null) return;
 #if ENABLE_INPUT_SYSTEM
             if (UnityEngine.InputSystem.Keyboard.current != null &&
-                UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame)
+                UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame &&
+                GearOverlayCoordinator.TryHandleEscape(this))
             {
                 Close();
             }
 #elif ENABLE_LEGACY_INPUT_MANAGER
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape) && GearOverlayCoordinator.TryHandleEscape(this))
             {
                 Close();
             }
@@ -438,6 +440,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             parentMenu = null;
 
             if (s_instance == this) s_instance = null;
+            GearOverlayCoordinator.Release(this);
 
             if (blocker != null)
             {
@@ -462,6 +465,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             parentMenu = null;
 
             if (s_instance == this) s_instance = null;
+            GearOverlayCoordinator.Release(this);
             if (blocker != null)
             {
                 DestroyObject(blocker.gameObject);
