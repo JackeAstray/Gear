@@ -138,6 +138,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -461,6 +466,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -574,8 +584,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 32
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -943,6 +953,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1438,6 +1453,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1761,6 +1781,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2

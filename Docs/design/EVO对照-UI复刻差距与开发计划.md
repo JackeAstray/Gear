@@ -642,6 +642,9 @@ Gear 的 `UISystem` / `UIRouter` / `UIModalStack` / `UIInputSystem` / `Languages
 > - 覆盖层卡片触发按钮从白底白字改为 Accent 底 + 白字；
 > - 详情关闭按钮字形改为 `X`，移除与主题目标冲突的 Tint；
 > - `GearPopoverTrigger` 增加 Button.onClick 绑定，键盘/手柄 Submit 可打开，鼠标不重复触发；
+> - `GearInteractiveTint` 首次绑定捕获 Graphic 当前色，修复未配置 Tint 的白块；
+> - 23 个圆形预览补 `Circle.FitToRect`；Gooey 改回填充 + 描边；
+> - 预制体 Catalog 场景补 `OnOpen` 的 Tab 绑定，修复选项卡不响应；
 > - 副标题移除旧参考字样；全量 517 条通过。
 >
 > M4 的 4.1/4.2/4.4 已实现；4.3 以测量结论延后。

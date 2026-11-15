@@ -74,6 +74,7 @@ namespace Gear.UI.Showcase
         {
             base.OnOpen();
             if (catalog == null) LoadCatalog();
+            if (catalog != null && tabButtons.Count == 0) BuildTabs();
             if (catalog != null && string.IsNullOrEmpty(currentPageId))
                 SelectPage(catalog.Pages.Count > 0 ? catalog.Pages[0].id : null);
             else

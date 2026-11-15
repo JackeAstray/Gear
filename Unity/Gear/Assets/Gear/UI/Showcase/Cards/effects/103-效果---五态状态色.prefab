@@ -203,6 +203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 8233725758732708250}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2876603178103134223
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +291,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -522,6 +529,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!1 &3922549102728191668
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13, g: 0.15, b: 0.21, a: 1}
+  m_Color: {r: 0.49, g: 0.36, b: 0.99, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -610,14 +621,19 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
-  enableBorderGlow: 0
-  borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
+  enableBorderGlow: 1
+  borderGlowColor: {r: 0.49, g: 0.36, b: 0.99, a: 1}
   borderGlowWidth: 2
   borderGlowSoftness: 8
   borderGlowAmbient: 0
   borderGlowFollow: 0
   borderGlowRadius: 100
-  borderGlowIntensity: 0
+  borderGlowIntensity: 0.4
   borderGlowHover: 1
   borderGlowPosition: {x: 0.5, y: 0.5}
   clipMode: 0
@@ -693,7 +709,7 @@ MonoBehaviour:
   transitionUseUv0: 1
   strokeWidth: 0
   outlineWidth: 2
-  outlineColor: {r: 1, g: 1, b: 1, a: 0.08}
+  outlineColor: {r: 1, g: 1, b: 1, a: 0.35}
   shadowMirrorDirection: 0
   shadowMirrorScale: 1
   shadowMirrorOffset: {x: 0, y: 0}
@@ -843,6 +859,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &6543917623105953132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,10 +894,10 @@ MonoBehaviour:
   target: {fileID: 6585500439374708315}
   interactive: {fileID: 6543917623105953132}
   normal:
-    Fill: {r: 0.13, g: 0.15, b: 0.21, a: 1}
-    Outline: {r: 1, g: 1, b: 1, a: 0.08}
-    Glow: {r: 1, g: 1, b: 1, a: 1}
-    GlowIntensity: 0
+    Fill: {r: 0.49, g: 0.36, b: 0.99, a: 1}
+    Outline: {r: 1, g: 1, b: 1, a: 0.35}
+    Glow: {r: 0.49, g: 0.36, b: 0.99, a: 1}
+    GlowIntensity: 0.4
   highlighted:
     Fill: {r: 0.18, g: 0.2, b: 0.28, a: 1}
     Outline: {r: 0.49, g: 0.36, b: 0.99, a: 1}
@@ -1054,6 +1074,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: TextSecondary
   target: {fileID: 7520988729250817479}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &9081494029409948718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1167,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1378,6 +1405,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &571950423519419118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1392,3 +1423,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Surface
   target: {fileID: 8690506181903354376}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}

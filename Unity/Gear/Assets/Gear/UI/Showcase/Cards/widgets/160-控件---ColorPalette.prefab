@@ -141,6 +141,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -254,8 +259,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -374,6 +379,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &1794621491218027577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,6 +566,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -670,8 +684,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -790,6 +804,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &7993447231485747864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,6 +1000,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1215,6 +1238,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!1 &1715097478106219483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1332,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1418,8 +1450,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -1538,6 +1570,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &1840647497436426159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1717,6 +1753,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1830,8 +1871,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 26
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -1950,6 +1991,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!1 &2700659506717795217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,6 +2085,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -2153,8 +2203,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -2273,6 +2323,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &3010085484002608003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2456,6 +2510,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -2569,8 +2628,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -2689,6 +2748,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &1888735732382283949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2934,6 +2997,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 2111031469849006624}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &3901865543980686949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,6 +3091,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -3259,6 +3329,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 0
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8483335628845280056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3273,6 +3347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Surface
   target: {fileID: 7519698750415361824}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!114 &1993136133268744331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3395,6 +3471,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -3508,8 +3589,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -3628,6 +3709,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &3370401089600491574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3811,6 +3896,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -3924,8 +4014,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -4044,6 +4134,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8304879122512698824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4227,6 +4321,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -4340,8 +4439,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -4460,6 +4559,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &4502606174552001168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4706,6 +4809,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: TextSecondary
   target: {fileID: 2909642818020382415}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6401402339389851286
 GameObject:
   m_ObjectHideFlags: 0
@@ -4796,6 +4901,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -4909,8 +5019,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -5029,6 +5139,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &2342038607950960706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5208,6 +5322,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -5441,6 +5560,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 0
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!1 &7489291642279995770
 GameObject:
   m_ObjectHideFlags: 0
@@ -5531,6 +5654,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -5644,8 +5772,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -5764,6 +5892,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8431470869047483626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5947,6 +6079,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -6060,8 +6197,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -6180,6 +6317,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &2488597985502191576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6363,6 +6504,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -6476,8 +6622,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 14
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -6596,6 +6742,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8894881043649373409
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -172,9 +172,9 @@ MonoBehaviour:
   transitionClamp: 1
   transitionTexClampPadding: 1
   transitionUseUv0: 1
-  strokeWidth: 1.5
-  outlineWidth: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 0.35}
+  strokeWidth: 0
+  outlineWidth: 2
+  outlineColor: {r: 1, g: 1, b: 1, a: 0.45}
   shadowMirrorDirection: 0
   shadowMirrorScale: 1
   shadowMirrorOffset: {x: 0, y: 0}
@@ -204,8 +204,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 27
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
   transitionUseUv0: 1
   strokeWidth: 0
   outlineWidth: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 0.45}
   shadowMirrorDirection: 0
   shadowMirrorScale: 1
   shadowMirrorOffset: {x: 0, y: 0}
@@ -702,9 +702,9 @@ MonoBehaviour:
   dashSoftness: 0
   dashRounded: 0
   dashOffset: 0
-  enableInnerShadow: 0
-  innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
-  innerShadowWidth: 8
+  enableInnerShadow: 1
+  innerShadowColor: {r: 0, g: 0, b: 0, a: 0.35}
+  innerShadowWidth: 6
   innerShadowSoftness: 0.5
   shapeOperand:
     target: {fileID: 0}
@@ -1871,9 +1871,9 @@ MonoBehaviour:
   transitionClamp: 1
   transitionTexClampPadding: 1
   transitionUseUv0: 1
-  strokeWidth: 1.5
-  outlineWidth: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 0.35}
+  strokeWidth: 0
+  outlineWidth: 2
+  outlineColor: {r: 1, g: 1, b: 1, a: 0.45}
   shadowMirrorDirection: 0
   shadowMirrorScale: 1
   shadowMirrorOffset: {x: 0, y: 0}
@@ -1903,8 +1903,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 37
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -2106,6 +2106,7 @@ MonoBehaviour:
   pressed: {r: 0.78, g: 0.86, b: 1, a: 1}
   selected: {r: 0.86, g: 0.93, b: 1, a: 1}
   disabled: {r: 1, g: 1, b: 1, a: 0.4}
+  colorsInitialized: 0
 --- !u!1 &8889914341645946019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,9 +2279,9 @@ MonoBehaviour:
   transitionClamp: 1
   transitionTexClampPadding: 1
   transitionUseUv0: 1
-  strokeWidth: 1.5
-  outlineWidth: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 0.35}
+  strokeWidth: 0
+  outlineWidth: 2
+  outlineColor: {r: 1, g: 1, b: 1, a: 0.45}
   shadowMirrorDirection: 0
   shadowMirrorScale: 1
   shadowMirrorOffset: {x: 0, y: 0}
@@ -2310,8 +2311,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 27
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0

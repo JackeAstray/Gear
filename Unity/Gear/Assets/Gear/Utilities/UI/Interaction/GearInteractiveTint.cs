@@ -22,6 +22,7 @@ namespace Gear.Utilities.UI.Interaction
         [SerializeField] private Color pressed = new Color(0.78f, 0.86f, 1f, 1f);
         [SerializeField] private Color selected = new Color(0.86f, 0.93f, 1f, 1f);
         [SerializeField] private Color disabled = new Color(1f, 1f, 1f, 0.4f);
+        [SerializeField] private bool colorsInitialized;
 
         private void OnEnable()
         {
@@ -57,6 +58,7 @@ namespace Gear.Utilities.UI.Interaction
             pressed = pressedColor;
             selected = selectedColor;
             disabled = disabledColor;
+            colorsInitialized = true;
 
             // EditMode 下 AddComponent 的 OnEnable 时机不稳定，这里补一次绑定
             EnsureBound();
@@ -69,8 +71,25 @@ namespace Gear.Utilities.UI.Interaction
             if (graphic == null) graphic = GetComponent<Graphic>();
             if (interactive == null || graphic == null) return;
 
+            if (!colorsInitialized)
+            {
+                // 旧卡片/运行时 AddComponent 常常只挂 Tint 没配颜色；
+                // 默认白色会把原本的按钮底色覆盖成白块。首次绑定时捕获 Graphic 当前色。
+                CaptureFromGraphic(graphic.color);
+            }
+
             interactive.StateChanged -= Apply;
             interactive.StateChanged += Apply;
+        }
+
+        private void CaptureFromGraphic(Color baseColor)
+        {
+            normal = baseColor;
+            highlighted = Color.Lerp(baseColor, Color.white, 0.12f);
+            pressed = Color.Lerp(baseColor, Color.black, 0.18f);
+            selected = baseColor;
+            disabled = new Color(baseColor.r, baseColor.g, baseColor.b, 0.45f);
+            colorsInitialized = true;
         }
 
         private void Apply(GearInteractionState state)

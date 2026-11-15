@@ -107,6 +107,7 @@ Resources/UI/Showcase/InventoryItemCell.prefab
 - `GearImageExQuality` 可全局切 Lite，跳过叠加效果；`GearStylePageBudget` 统计唯一材质/纹理；
 - `GearRenderBudgetProbe` 可采样 Batches/SetPass；展厅实测唯一材质 62；
 - 浅色主题已覆盖详情外壳；覆盖层触发按钮改为 Accent 底，支持 Submit 打开；
+- Tint 首次绑定保留原底色；圆形预览自动 FitToRect；Tab 在预制体 Catalog 下也会绑定；
 - 156 张卡的卡面/标题/说明已接主题 token：Surface / Text / TextSecondary；效果 Preview 保持原色；
 - 156 张卡内的 64 个 Button 已全部接 `GearInteractive` + Tint 五态；
 - 详情页 `FX` 打开 `ShowcaseCustomizer`：4 个滑杆实时改 ImageEx 描边/辉光/内阴影/渐变，Reset 恢复初值；

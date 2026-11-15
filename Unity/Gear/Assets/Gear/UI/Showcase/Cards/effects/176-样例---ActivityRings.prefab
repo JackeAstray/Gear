@@ -586,8 +586,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 45
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -1068,8 +1068,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 95
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
@@ -2227,8 +2227,8 @@ MonoBehaviour:
     syncInset: 0
     uniformCornerRadius: 0
   circle:
-    radius: 0
-    fitRadius: 0
+    radius: 70
+    fitRadius: 1
   pentagon:
     cornerRadius: {x: 0, y: 0, z: 0, w: 0}
     uniformCornerRadius: 0
