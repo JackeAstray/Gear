@@ -30,11 +30,31 @@ namespace Gear.Utilities.UI.ImageExtensions
         /// <summary>主题切换事件（切主题、或手动 Refresh 时触发）。</summary>
         public static event Action<ImageExThemeAsset> ThemeChanged;
 
+        /// <summary>
+        /// 当前这次 <see cref="ThemeChanged"/> 广播的过渡时长（秒）。
+        /// 绑定器可在事件回调里读取它做颜色过渡；广播结束后复位为 0。
+        /// </summary>
+        public static float TransitionSeconds { get; private set; }
+
         /// <summary>切换到指定主题并通知所有绑定。</summary>
         public static void SetTheme(ImageExThemeAsset theme)
         {
+            SetTheme(theme, 0f);
+        }
+
+        /// <summary>切换到指定主题并通知所有绑定；transitionSeconds 供支持过渡的订阅者使用。</summary>
+        public static void SetTheme(ImageExThemeAsset theme, float transitionSeconds)
+        {
             s_current = theme;
-            ThemeChanged?.Invoke(s_current);
+            TransitionSeconds = Mathf.Max(0f, transitionSeconds);
+            try
+            {
+                ThemeChanged?.Invoke(s_current);
+            }
+            finally
+            {
+                TransitionSeconds = 0f;
+            }
         }
 
         /// <summary>重新广播当前主题（例如运行时改了主题资产内容）。</summary>

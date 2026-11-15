@@ -47,6 +47,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             go.SetActive(true);
             popover.PlayOpen();
             s_open = popover;
+            GearOverlayCoordinator.Open(popover, popover.Close, "popover");
             return popover;
         }
 
@@ -148,7 +149,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
         private void Update()
         {
-            if (WasEscapePressed())
+            if (WasEscapePressed() && GearOverlayCoordinator.TryHandleEscape(this))
                 Close();
         }
 
@@ -223,6 +224,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
         private void DestroyNow()
         {
+            GearOverlayCoordinator.Release(this);
             onClose?.Invoke();
             onClose = null;
 
@@ -241,6 +243,7 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
 
         private void OnDestroy()
         {
+            GearOverlayCoordinator.Release(this);
             if (s_open == this) s_open = null;
         }
     }

@@ -16,6 +16,11 @@ namespace Gear.Utilities.UI.ImageExtensions
         private static readonly int dotColor_Sp = Shader.PropertyToID("_DotColor");
         private static readonly int dotIntensity_Sp = Shader.PropertyToID("_DotIntensity");
         private static readonly int dotSpeed_Sp = Shader.PropertyToID("_DotSpeed");
+        private static readonly int dotInactiveAlpha_Sp = Shader.PropertyToID("_DotInactiveAlpha");
+        private static readonly int dotInactiveScale_Sp = Shader.PropertyToID("_DotInactiveScale");
+        private static readonly int dotEdgeSoftness_Sp = Shader.PropertyToID("_DotEdgeSoftness");
+        private static readonly int dotPhaseOffset_Sp = Shader.PropertyToID("_DotPhaseOffset");
+        private static readonly int dotTrailLength_Sp = Shader.PropertyToID("_DotTrailLength");
 
         private bool enableDotMatrix;
         private DotMatrixPattern dotPattern = DotMatrixPattern.Wave;
@@ -25,6 +30,11 @@ namespace Gear.Utilities.UI.ImageExtensions
         private Color dotColor = Color.white;
         private float dotIntensity = 0.6f;
         private float dotSpeed = 1f;
+        private float dotInactiveAlpha = 0.22f;
+        private float dotInactiveScale = 0.55f;
+        private float dotEdgeSoftness = 0.12f;
+        private float dotPhaseOffset;
+        private float dotTrailLength = 1f;
 
         /// <summary>是否启用点阵图案（由 <see cref="GearDotMatrix"/> 打开）。</summary>
         public bool EnableDotMatrix
@@ -121,6 +131,70 @@ namespace Gear.Utilities.UI.ImageExtensions
             {
                 if (Mathf.Approximately(dotSpeed, value)) return;
                 dotSpeed = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>不活跃点保留的亮度比例（0 时只显示活跃点）。</summary>
+        public float DotInactiveAlpha
+        {
+            get => dotInactiveAlpha;
+            set
+            {
+                value = Mathf.Clamp01(value);
+                if (Mathf.Approximately(dotInactiveAlpha, value)) return;
+                dotInactiveAlpha = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>不活跃点的半径缩放（0-1）。</summary>
+        public float DotInactiveScale
+        {
+            get => dotInactiveScale;
+            set
+            {
+                value = Mathf.Clamp01(value);
+                if (Mathf.Approximately(dotInactiveScale, value)) return;
+                dotInactiveScale = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>点的边缘羽化（0 硬边）。</summary>
+        public float DotEdgeSoftness
+        {
+            get => dotEdgeSoftness;
+            set
+            {
+                value = Mathf.Clamp01(value);
+                if (Mathf.Approximately(dotEdgeSoftness, value)) return;
+                dotEdgeSoftness = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>图案相位偏移（秒），用于错峰/多面板。</summary>
+        public float DotPhaseOffset
+        {
+            get => dotPhaseOffset;
+            set
+            {
+                if (Mathf.Approximately(dotPhaseOffset, value)) return;
+                dotPhaseOffset = value;
+                SetMaterialDirty();
+            }
+        }
+
+        /// <summary>拖尾长度：活跃点向后保留的衰减长度（越大越长）。</summary>
+        public float DotTrailLength
+        {
+            get => dotTrailLength;
+            set
+            {
+                value = Mathf.Max(0f, value);
+                if (Mathf.Approximately(dotTrailLength, value)) return;
+                dotTrailLength = value;
                 SetMaterialDirty();
             }
         }

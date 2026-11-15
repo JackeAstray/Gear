@@ -102,6 +102,44 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void TimeMultiplier_ScalesElapsed()
+        {
+            timer.Configure(GearTimerMode.Stopwatch, 10f, false);
+            timer.TimeMultiplier = 2f;
+            timer.Play();
+            timer.Tick(1f);
+
+            Assert.AreEqual(2f, timer.Elapsed, 0.001f);
+            Assert.AreEqual(0.2f, timer.Progress, 0.001f);
+        }
+
+        [Test]
+        public void ReverseFill_ReportsComplement()
+        {
+            timer.Configure(GearTimerMode.Stopwatch, 10f, false);
+            timer.ReverseFill = true;
+            timer.Play();
+            timer.Tick(2f);
+
+            Assert.AreEqual(0.2f, timer.Progress, 0.001f);
+            Assert.AreEqual(0.8f, timer.DisplayProgress, 0.001f);
+            Assert.AreEqual(0.8f, timer.FillAmount, 0.001f);
+        }
+
+        [Test]
+        public void SmoothProgress_NeverJumpsToRawValue()
+        {
+            timer.Configure(GearTimerMode.Stopwatch, 10f, false);
+            timer.SmoothProgress = true;
+            timer.ProgressSmoothing = 8f;
+            timer.Play();
+            timer.Tick(0.01f);
+
+            Assert.AreEqual(0.001f, timer.Progress, 0.0001f);
+            Assert.Less(timer.DisplayProgress, timer.Progress);
+        }
+
+        [Test]
         public void FormatTime_SupportsMinutesSecondsAndHundredths()
         {
             timer.Format = "mm:ss";

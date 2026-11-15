@@ -122,6 +122,7 @@ namespace Gear.Utilities.UI.Interaction
         {
             target = GetComponent<ImageEx>();
             interactive = GetComponent<GearInteractive>();
+            if (interactive == null) interactive = GetComponentInParent<GearInteractive>();
             Subscribe();
 
             GearInteractive current = interactive;

@@ -22,6 +22,7 @@ namespace Gear.Utilities.UI.Navigation
         [SerializeField] private List<RectTransform> pages = new List<RectTransform>();
         [SerializeField] private bool horizontal = true;
         [SerializeField] private bool autoLayout = true;
+        [SerializeField, Min(0f)] private float pagePadding;
 
         [Tooltip("页面尺寸；为 0 时使用 viewport 的 rect 尺寸")]
         [SerializeField] private Vector2 pageSizeOverride;
@@ -58,6 +59,15 @@ namespace Gear.Utilities.UI.Navigation
         public Button BackButton { get => backButton; set => backButton = value; }
         public bool Horizontal { get => horizontal; set => horizontal = value; }
         public bool AutoLayout { get => autoLayout; set => autoLayout = value; }
+        public float PagePadding
+        {
+            get => pagePadding;
+            set
+            {
+                pagePadding = Mathf.Max(0f, value);
+                if (autoLayout) LayoutPages();
+            }
+        }
         public Vector2 PageSizeOverride { get => pageSizeOverride; set => pageSizeOverride = value; }
         public float TransitionDuration { get => transitionDuration; set => transitionDuration = Mathf.Max(0f, value); }
 
@@ -139,8 +149,8 @@ namespace Gear.Utilities.UI.Navigation
                 page.pivot = new Vector2(0f, 1f);
                 page.sizeDelta = size;
                 page.anchoredPosition = horizontal
-                    ? new Vector2(i * size.x, 0f)
-                    : new Vector2(0f, -i * size.y);
+                    ? new Vector2(i * size.x + pagePadding, 0f)
+                    : new Vector2(0f, -i * size.y - pagePadding);
             }
         }
 

@@ -23,6 +23,11 @@ uniform float2 _PatternFalloff;        // falloff 起止（0..1，按图形半�
 uniform float2 _PatternOrigin;         // falloff 原点（0..1）
 uniform float2 _PatternSpeed;          // 流动速度（像素/秒）
 uniform float _PatternOpacity;         // 总不透明度 0..1
+uniform float _PatternSource;          // 0 Procedural 1 Sprite 2 Shape
+uniform sampler2D _PatternTex;
+uniform float _PatternShape;
+uniform float _PatternColorMode;
+uniform sampler2D _PatternGradient;
 
 // 返回图案覆盖率（0..1）。baseAlpha 用于保留贴图自身的透明洞。
 float RM_PatternCoverage(float2 shapePx, float2 sizePx, float baseAlpha)
@@ -44,40 +49,58 @@ float RM_PatternCoverage(float2 shapePx, float2 sizePx, float baseAlpha)
     float gap = max(_PatternGap.x, 0.0);
     float softness = max(_PatternSoftness, 0.75);
     float sdf = 1e5;
+    float coverage = 0.0;
 
-    if (_PatternMode == 1) // Dots
+    if (_PatternSource > 0.5 && _PatternSource < 1.5)
     {
-        float radius = max(min(cellSize.x, cellSize.y) * 0.5 - gap * 0.5, 0.5);
-        sdf = length(local) - radius;
+        // Sprite 图块：直接按格子采样，透明洞保留
+        float2 tileUv = frac(coord / cellSize);
+        coverage = tex2D(_PatternTex, tileUv).a * saturate(baseAlpha);
     }
-    else if (_PatternMode == 2) // Grid
+    else
     {
-        float lineWidth = max(gap, 0.75);
-        sdf = min(abs(local.x), abs(local.y)) - lineWidth * 0.5;
-    }
-    else if (_PatternMode == 3) // Stripes（纵向）
-    {
-        float halfWidth = max(cellSize.x * 0.5 - gap * 0.5, 0.5);
-        sdf = abs(local.x) - halfWidth;
-    }
-    else if (_PatternMode == 4) // Checker
-    {
-        float parity = fmod(abs(id.x + id.y), 2.0);
-        if (parity > 0.5)
+        if (_PatternSource > 1.5)
         {
-            float halfSize = max(min(cellSize.x, cellSize.y) * 0.5 - gap * 0.5, 0.5);
-            sdf = max(abs(local.x), abs(local.y)) - halfSize;
+            // Shape 图块：圆 / 矩形 SDF，复用格子内的局部坐标
+            if (_PatternShape == 1)
+                sdf = length(local) - max(min(cellSize.x, cellSize.y) * 0.5 - gap * 0.5, 0.5);
+            else
+                sdf = max(abs(local.x), abs(local.y)) - max(min(cellSize.x, cellSize.y) * 0.5 - gap * 0.5, 0.5);
         }
-    }
-    else if (_PatternMode == 5) // Rings
-    {
-        float radius = min(cellSize.x, cellSize.y) * 0.25;
-        float thickness = max(gap, 0.75);
-        sdf = abs(length(local) - radius) - thickness * 0.5;
-    }
+        else if (_PatternMode == 1) // Dots
+        {
+            float radius = max(min(cellSize.x, cellSize.y) * 0.5 - gap * 0.5, 0.5);
+            sdf = length(local) - radius;
+        }
+        else if (_PatternMode == 2) // Grid
+        {
+            float lineWidth = max(gap, 0.75);
+            sdf = min(abs(local.x), abs(local.y)) - lineWidth * 0.5;
+        }
+        else if (_PatternMode == 3) // Stripes（纵向）
+        {
+            float halfWidth = max(cellSize.x * 0.5 - gap * 0.5, 0.5);
+            sdf = abs(local.x) - halfWidth;
+        }
+        else if (_PatternMode == 4) // Checker
+        {
+            float parity = fmod(abs(id.x + id.y), 2.0);
+            if (parity > 0.5)
+            {
+                float halfSize = max(min(cellSize.x, cellSize.y) * 0.5 - gap * 0.5, 0.5);
+                sdf = max(abs(local.x), abs(local.y)) - halfSize;
+            }
+        }
+        else if (_PatternMode == 5) // Rings
+        {
+            float radius = min(cellSize.x, cellSize.y) * 0.25;
+            float thickness = max(gap, 0.75);
+            sdf = abs(length(local) - radius) - thickness * 0.5;
+        }
 
-    float coverage = 1.0 - smoothstep(-softness, softness, sdf);
-    coverage *= saturate(baseAlpha);
+        coverage = 1.0 - smoothstep(-softness, softness, sdf);
+        coverage *= saturate(baseAlpha);
+    }
 
     // 径向 falloff：从 _PatternOrigin 向外淡出
     if (_PatternFalloff.y > _PatternFalloff.x)
@@ -100,8 +123,15 @@ void RM_ApplyPattern(inout half4 color, float4 shapeData, float2 uv, float aspec
     float coverage = RM_PatternCoverage(shapeData.xy, shapeData.zw, baseAlpha);
     if (coverage <= 0.0001) return;
 
-    float blend = coverage * saturate(_PatternColor.a);
-    color.rgb = lerp(color.rgb, _PatternColor.rgb, blend);
+    half4 patternColor = _PatternColor;
+    if (_PatternColorMode > 0.5)
+    {
+        float2 gradientUv = frac(shapeData.xy / max(_PatternSize, float2(2, 2)));
+        patternColor *= tex2D(_PatternGradient, gradientUv);
+    }
+
+    float blend = coverage * saturate(patternColor.a);
+    color.rgb = lerp(color.rgb, patternColor.rgb, blend);
     color.a = max(color.a, blend);
 }
 

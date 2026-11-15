@@ -36,6 +36,7 @@ namespace Gear.Utilities.UI.ImageExtensions
         private RectTransform rectTransform;
         private float targetHover;
         private float currentHover;
+        private bool transientRegistered;
 
         private void Awake()
         {
@@ -58,6 +59,20 @@ namespace Gear.Utilities.UI.ImageExtensions
             image.EnableBorderGlow = true;
             if (hoverOnly) targetHover = 0f;
             image.BorderGlowHover = currentHover;
+            if (!transientRegistered)
+            {
+                image.AddTransientEffect();
+                transientRegistered = true;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (transientRegistered && image != null)
+            {
+                image.RemoveTransientEffect();
+                transientRegistered = false;
+            }
         }
 
         private void Update()
@@ -71,6 +86,12 @@ namespace Gear.Utilities.UI.ImageExtensions
         {
             targetHover = hoverIntensity;
             UpdatePointer(eventData);
+        }
+
+        /// <summary>供交互效果总线驱动，不依赖指针事件。</summary>
+        public void SetHover(bool hovered)
+        {
+            targetHover = hovered || !hoverOnly ? hoverIntensity : 0f;
         }
 
         public void OnPointerExit(PointerEventData eventData)

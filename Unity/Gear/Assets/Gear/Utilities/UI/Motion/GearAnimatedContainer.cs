@@ -114,6 +114,12 @@ namespace Gear.Utilities.UI.Motion
 
         private void Update()
         {
+            if (!GearMotionSettings.Enabled)
+            {
+                if (elapsed >= 0f) CompleteImmediately();
+                return;
+            }
+
             float delta = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
             if (elapsed >= 0f)
@@ -139,6 +145,12 @@ namespace Gear.Utilities.UI.Motion
         /// <summary>从头播放。</summary>
         public void Play()
         {
+            if (!GearMotionSettings.Enabled)
+            {
+                CompleteImmediately();
+                return;
+            }
+
             Cache();
             loopCountdown = -1f;
             elapsed = 0f;
@@ -169,7 +181,7 @@ namespace Gear.Utilities.UI.Motion
             for (int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                if (child == null) continue;
+                if (child == null || !child.gameObject.activeSelf) continue;
                 RectTransform rect = child as RectTransform;
                 if (rect == null) continue;
 

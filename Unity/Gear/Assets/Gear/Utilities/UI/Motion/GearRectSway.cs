@@ -56,6 +56,7 @@ namespace Gear.Utilities.UI.Motion
         private void OnEnable()
         {
             CaptureBaseRotation();
+            if (!GearMotionSettings.Enabled) ResetSway();
         }
 
         private void OnDisable()
@@ -65,6 +66,12 @@ namespace Gear.Utilities.UI.Motion
 
         private void Update()
         {
+            if (!GearMotionSettings.Enabled)
+            {
+                if (baseRotationCaptured) ResetSway();
+                return;
+            }
+
             RectTransform t = Target;
             if (t == null) return;
 
@@ -102,6 +109,7 @@ namespace Gear.Utilities.UI.Motion
         /// <summary>手动推进平滑（测试 / 外部驱动用）。</summary>
         public void Step(float delta)
         {
+            if (!GearMotionSettings.Enabled) return;
             RectTransform t = Target;
             if (t == null) return;
             CaptureBaseRotation();
@@ -115,6 +123,7 @@ namespace Gear.Utilities.UI.Motion
 
         public void OnPointerMove(PointerEventData eventData)
         {
+            if (!GearMotionSettings.Enabled) return;
             RectTransform t = Target;
             if (t == null || eventData == null) return;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(t, eventData.position, eventData.pressEventCamera, out Vector2 local))

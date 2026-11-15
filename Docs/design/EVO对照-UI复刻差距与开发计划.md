@@ -332,6 +332,312 @@ Gear 的 `UISystem` / `UIRouter` / `UIModalStack` / `UIInputSystem` / `Languages
 - 主题切换、手柄导航、搜索、返回路径可用；
 - 截图 8 页 + 3 屏，人工比对“是否像一个产品”。
 
+> **2026-11-15 已落地（M1.1 / M1.2）**
+>
+> - `Assets/Gear/UI/Showcase/ShowcaseCatalog.cs`：页/条目/预制体引用 + 空页裁剪 + 标题/说明/标签匹配；
+> - `ShowcaseBuilder`：从 `UI Example` 导出 **150 张卡**到 `UI/Showcase/Cards/<page>/`，生成 **8 页 / 150 条**的 Catalog；
+> - `ShowcaseUIPlane`：8 个分类 Tab、全局搜索、4×2 分页网格（8 张/页）、详情入口；
+> - `ShowcaseDetailUIPlane`：放大卡片 + 标题/说明 + 返回键关闭；
+> - `ShowcaseLauncher` + `UI Showcase Example` 场景：等 UISystem 就绪后自动开窗；
+> - Unity MCP 实测：150 个预制体 **0 缺失组件**；Play 下 23 页加载 **150 张卡**、Console 无 error；
+> - EditMode：`ShowcaseCatalogTests` 2 条全过。
+>
+> **2026-11-15 追加（M1.3 3/3）**
+>
+> - `AudioMixerSampleUIPlane`：4 通道（音量/静音/电平/分贝）+ 主输出 + 预设 + Apply/Reset，
+>   用 `Slider` / `GearSwitch` / `GearProgressBar` / `GearRadioGroup` 组合；
+> - `PartyLobbySampleUIPlane`：4 个玩家位 + 准备开关 + 模式/回合 + 5 秒开始倒计时
+>   （`GearSwitch` / `GearRadioGroup` / `GearQuantitySelector` / `GearTimer` / `GearAnimatedContainer`）；
+> - `InventorySampleUIPlane`：6×4 物品格 + 选中详情 + 悬浮 Tooltip + 右键 ContextMenu + 按稀有度排序；
+> - 展厅 Header 新增三个样例入口；样例窗口走 `UIRouter.PushAsync`，ESC/手柄 B 返回；
+> - MCP 实测：三个样例打开、倒计时、右键菜单、排序、返回均通过，Console 0 error。
+> - 附带修复滚轮：`GearPickerWheel` 运行期复制 3/5 周期行并环绕重定位（首尾不再空白），
+>   新增选中条与行淡出；`GearTimePicker` 时/分/秒/AM-PM 默认循环，12 小时制 11↔12 自动翻 AM/PM。
+>
+> **2026-11-15 追加（M1.4）**
+>
+> - `IGearThemeTarget` + `GearThemeRegistry`：注册/注销/广播 + `Apply(theme, seconds)`，
+>   旧 `ImageExThemeService.ThemeChanged` 继续兼容；
+> - `GearThemeColorTarget`：Graphic → token，切换时 unscaled 过渡，不引入补间库；
+> - 新增 `Resources/UITheme/ImageExLight.asset`（亮色 token），`ImageExDefault` 继续作为暗色；
+> - 展厅 Header 增加 `Light` / `Dark` 切换；Background/Header/Footer/Tabs/Text/Search/按钮接入 theme target，
+>   三个整屏样例在切换后打开也会读取当前 token；
+> - MCP 实测：暗色切亮色后背景 `0.043→0.950`、Header `0.078→1.000`、Tab 选中蓝/未选中浅灰；
+>   亮色下打开 Audio Mixer 的 Panel 为白、标题为深色；Console 0 error。
+>
+> **2026-11-15 追加（窗口 Prefab 化）**
+>
+> - 五个窗口全部改为 prefab 层级：Showcase / Detail / Audio / Party / Inventory；
+> - 控制器 `OnInit` 只做 `BindBakedLayout` / `TryBindBaked`，正常打开不再生成 UI；
+> - `ShowcaseBuilder` 删除窗口生成菜单，全部重建不再覆盖窗口 prefab；
+> - `ShowcasePrefabTests` 校验 Header / Tabs×8 / Grid / Footer / Preview / 三个样例 Content；
+> - MCP 实测：主窗口 6 个子节点、无重复构建；详情预览卡正常；Audio 绑定 5 路电平；
+>   Party 5 秒倒计时到 GO；Inventory 24 格 + 排序；全量 421 条测试通过。
+>
+> **2026-11-15 追加（M1.5 起步：五态接入）**
+>
+> - 8 个 Tab 直接在 prefab 挂 `GearInteractive` + `GearInteractiveTint`，Button transition = None；
+> - Header 的 Theme/三个样例/Close、Footer 的 Prev/Next，以及详情 Close/Back、
+>   Audio Apply/Reset、Party Start、Inventory Sort/Use/Equip/Discard 同样接入；
+> - `RefreshTabColors` 写选中/未选中态，`RefreshButtonTints` 在主题切换后刷新按钮底色；
+> - MCP 实测：Tab Normal `0.118/0.129/0.169` → Hover `0.224/0.234/0.268` →
+>   Pressed `0.096/0.106/0.138`；Theme 按钮暗色 Normal `0.118`、亮色 Normal `0.900`；
+>   Audio Apply 白色 Normal → Hover `0.860/0.890/0.950` → Pressed `0.820`。
+> - 数据项也改为 prefab：`ShowcaseGridCell.prefab`（CardHost + Open）与 `InventoryItemCell.prefab`
+>   （Icon/Name/Count/Rarity + Button）；格子背景/按钮五态在模板里，数据由控制器写入。
+>   Inventory 物品格 MCP 实测 Normal `0.078/0.086/0.114` → Hover `0.171/0.178/0.202` →
+>   Pressed `0.067/0.073/0.097`，Console 0 error。
+> - `ShowcaseGridCell` 增加透明 `Hover` overlay（ImageEx 描边/辉光）+ 根 `GearInteractive`；
+>   `ImageExStateColors` 支持父节点查找，Hover/Pressed/Selected 描边 0.55/0.80/1.00，过渡 0.12s；
+>   卡片本体材质不改写。
+>
+> **2026-11-15 追加（M1.6 动效起步）**
+>
+> - Grid prefab 挂 `GearAnimatedContainer`：FromScale 0.92、ItemDuration 0.26、Stagger 0.03；
+>   `RefreshGrid` 布局完成后 `Play()`，换页重新错峰入场；
+> - `ShowcaseGridCell` 根挂 `GearRectSway`（MaxAngle 3°），指针移动时卡片轻微倾斜；
+> - `GearAnimatedContainer.Cache` 跳过 inactive 子项，避免换页时把待销毁旧格子计入总时长；
+> - MCP 实测：换页 `IsPlaying=true`、TotalDuration 0.47（8 格），Sway 前倾 2.1° 后 Reset 回 0；
+>   Console 0 error。
+> - 新增 `GearMotionSettings` 全局开关与 Header `Motion On/Off`；关闭后入场直接完成、Sway 不倾斜；
+>   重新开启会重播 Grid 入场。MCP 实测 `Motion Off` 后 `IsPlaying=false`、格子 scale 1、Sway 0°。
+> - 示例场景增加 `ShowcasePreview (Edit Only)` prefab 实例（8 张预览卡）；Play 时
+>   `ShowcaseScenePreview` 在 Awake 移除，场景里只有 Launcher，正式窗口仍从 Resources 加载。
+> - 修复详情/样例按钮白底白字：Close/Back/Apply/Reset/Start/Sort/Use/Equip/Discard 改为
+>   SurfaceRaised / Accent / Danger 底色；新增 prefab 白底白字扫描用例，全量 427 条通过。
+>
+> **2026-11-15 追加（M1.7 起步：覆盖层补卡）**
+>
+> - 新增 prefab：`150-覆盖层---Toast`、`151-覆盖层---Tooltip`、`152-覆盖层---ContextMenu`，
+>   复用 Popover 卡片结构，统一由 `ShowcaseExtrasDemo` 绑按钮，不在运行时铺 UI；
+> - 新增 `153-组合---BorderGlow`，Preview 直接开 `ImageEx.EnableBorderGlow`（Accent，0.8）；
+> - 新增 `157-组合---BackdropBlur`（Showcase prefab 内自带 `BackdropCamera`）与
+>   `156-遮罩---双面板SoftMask`（两张单层软遮罩并排，验证最近父级遮罩语义）；
+> - 目录通过 `ShowcaseCatalog.EditorAddEntry` 追加到 overlays/shape/effects 页，总条目 156；
+> - `UIBackdropBlur` 抓屏 RT 改为 16 位深度，消除 URP depth-buffer 警告；
+> - MCP 实测：Toast 弹出、ContextMenu 展开、Tooltip 悬停显示、BackdropBlur 无警告、
+>   双面板 SoftMask masks=2；全量 430 条通过。
+>
+> M1.7 补卡完成。尚未做：卡片内部控件全量五态、M1.8 实时调参。
+>
+> **2026-11-15 追加（M1.8 实时调参）**
+>
+> - 新增 `ShowcaseCustomizer.prefab`：4 个滑杆 + Reset，挂在详情 `Panel/Customizer`；
+> - 适配器直接读写 `ImageEx.OutlineWidth / BorderGlowIntensity / InnerShadowWidth / GradientScale`，
+>   不通过 SerializedObject；详情 `FX` 按钮切换显隐，Reset 恢复 Bind 时初值；
+> - MCP 实测：打开详情 `Target=True`、`FX` 后 `sliders=4`，Outline 1→8，Reset 回 1；Console 0 error；
+> - 全量 431 条通过。
+>
+> **2026-11-15 追加（M1.5 卡片内部控件五态）**
+>
+> - 156 张卡中的 64 个标准 `Button` 全部挂 `GearInteractive` + `GearInteractiveTint`，
+>   `Button.transition=None`；保留原底色，Hover 提亮/近白色转浅灰，Pressed 压暗，Disabled 灰；
+> - 新增卡片 Button 扫描用例；全量 432 条通过；
+> - `ShowcaseBuilder` 重建 Catalog 时保留 `/extras-` 条目；但重建卡预制体仍会覆盖卡片 prefab，
+>   所以卡片 prefab 现在应按“手工维护”对待。
+>
+> **2026-11-15 追加（M1.4 卡片主题补齐）**
+>
+> - 156 张卡根 ImageEx / CardTitle / CardDescription 全部挂 `GearThemeColorTarget`：
+>   Surface / Text / TextSecondary；效果 Preview 保持原色；
+> - 新增卡片主题扫描用例，全量 433 条通过；Dark/Light 下卡面与文字同步换色。
+>
+> **2026-11-15 追加（M2.1 GearProgressButton）**
+>
+> - 新增 `GearProgressButton`：HoldDuration / ResetDuration / ProgressCurve / StayOnComplete /
+>   CompleteStateDuration；Start/Update/Complete/Cancel 事件；三态 CanvasGroup；
+> - 鼠标 down/up 与 Submit 长按；松手在 ResetDuration 内回退；完成可停留；
+> - 新增 `GearProgressButtonTests` 4 条 + `控件 · ProgressButton` 展卡（prefab，带 Toast）；
+> - 全量 438 条通过；Unity MCP 不可用期间用 batchmode 验证。
+>
+> **2026-11-15 追加（M2.2 GearColorWheel）**
+>
+> - 新增 `GearColorWheel`：角度 Hue / 半径 Saturation / 亮度滑条，64–1024 程序化贴图，
+>   `EvaluateWheelColor` 纯函数、handle/preview/Hex、SetColor/SetHSV/ColorChanged；
+> - 新增 `GearColorWheelTests` 4 条 + `控件 · ColorWheel` 展卡（prefab）；
+> - 全量 443 条通过；Palette 多层环/色板尚未做。
+>
+> **2026-11-15 追加（M2.2 ColorPalette）**
+>
+> - `GearColorSwatch`：色块颜色/选中描边/按钮点击；`GearColorPalette`：环状布局数据、
+>   悬停 1.18×、选中 1.1× + 2px 白描边、最近色选择、Button 导航；
+> - 新增 `控件 · ColorPalette` 展卡（12 色块 + 中心预览）；3 条调色板用例；
+> - MCP 实测：swatches=12、初始红、Select(3) 边框 2；全量 447 条通过。
+>
+> **2026-11-15 追加（M2.3 GearShowcasePanel）**
+>
+> - `GearShowcasePanel`：items、PageView 滑动、标题/说明/背景色、淡入、自动轮播（循环）、按钮跳页、Tick；
+> - 新增 `GearShowcasePanelTests` 3 条与 `控件 · ShowcasePanel` 展卡（3 页，2s 自动轮播）；
+> - MCP 实测：pages=3、自动从 Ember 切到 Aurora；全量 451 条通过。
+>
+> **2026-11-15 追加（M2.4 GearRipple）**
+>
+> - `RM_Ripple.cginc`：8 波 `_RippleData`、速度/宽度/强度/颜色，UV 径向扰动 + 已裁剪 alpha 内加环色；
+> - `GearRipple`：环形缓冲最多 8 波、点击 Emit、Clear、材质 SetVectorArray；
+> - 新增 `GearRippleTests` 3 条与 `效果 · Ripple` 展卡；MCP 实测 count=1、Console 0 error；
+> - 全量 455 条通过。
+>
+> **2026-11-15 追加（M2.5 DotMatrix 扩展）**
+>
+> - ImageEx 新增 `DotInactiveAlpha / DotInactiveScale / DotEdgeSoftness / DotPhaseOffset / DotTrailLength`；
+> - shader 支持非活跃点亮度/尺寸、圆/方/菱形软边、相位错峰、拖尾；
+> - `GearDotMatrix` 暴露同名属性；现有 `效果 · 点阵` 卡直接验证（cell=14、inactive=0.22）；
+> - 全量 455 条通过。
+>
+> **2026-11-15 追加（M2.6 TimePicker 对齐）**
+>
+> - `MinuteInterval`：分钟选项 / 吸附 / wheel index 映射；`AmLabel/PmLabel` 自定义标签；
+> - `RowHeight` 统一四个滚轮行高；`TickAudio/TickClip` 滚轮变化播放音效；
+> - 12h `tt/t` 使用自定义 AM/PM 标签；新增 2 条用例，全量 457 条通过。
+> - Calendar 三视图、Timer 系统时钟/TimeMultiplier/逐位滚动仍未做。
+>
+> **2026-11-15 追加（M2.6 Calendar 三视图）**
+>
+> - `GearCalendar`：Day/Month/Year 视图、ZoomIn/ZoomOut、SelectMonth/SelectYear、
+>   当前 Culture 月名、12 年范围、Header 点击缩小；
+> - 月/年视图复用同一 grid：月格点回日视图，年格点回月视图；
+> - 新增 3 条用例；MCP 实测 Header 点击 → Month，首月格点击 → Day/month=1；
+> - 全量 460 条通过；滑动切换/月年下拉未做。
+>
+> **2026-11-15 追加（M2.6 Timer 增强）**
+>
+> - `TimeMultiplier` 缩放 Tick；`UseSystemClock` 用 DateTime 基准；
+> - `SmoothProgress` / `ProgressSmoothing` 平滑 `DisplayProgress`；
+> - `ReverseFill` / `FillAmount` 支持倒置填充；新增 3 条用例，全量 463 条通过。
+> - 逐位数字滚动仍待做。
+>
+> **2026-11-15 追加（M2.7 Carousel）**
+>
+> - `GearPageView.PagePadding`：页面偏移，露出邻页；
+> - `GearCarousel`：AutoSlide、循环、IndicatorShrink、NeighborOpacity/Scale、MaxVisibleNeighbors；
+> - 新增 3 条 Carousel 用例 + `控件 · Carousel` 展卡；MCP 实测 index 1→0 循环、
+>   邻页 alpha=.38/scale=.9；全量 468 条通过。
+> - FlexibleGridLayout 尚未做。
+>
+> **2026-11-15 追加（M2.7 FlexibleGridLayout）**
+>
+> - `GearFlexibleGridLayout`：FixedColumns/Responsive、MinCellSize、AspectRatio、Spacing、Masonry；
+> - 子项可用 `LayoutElement.preferredHeight` 控制瀑布流高度；
+> - 新增 3 条布局用例 + `控件 · FlexibleGrid` 展卡；MCP 实测 8 子项、3 列宽 70、x=78；
+> - 全量 472 条通过。
+>
+> **2026-11-15 追加（M2.8 Selector / RectDragger / ButtonGroupDimmer）**
+>
+> - `GearSelector`：选项单选、指示器滑动、颜色切换；
+> - `GearRectDragger`：Both/Horizontal/Vertical/None、Bounds 夹取、SpringBack；
+> - `GearButtonGroupDimmer`：悬停项保留，其余成员按 DimAlpha 变暗；
+> - 新增 5 条 EditMode 用例 + `控件 · Selector / RectDragger / ButtonGroupDimmer` 三张展卡；
+> - MCP 实测 Selector 3 项、选中 2、指示器 x=72；全量 480 条通过。
+>
+> **2026-11-15 追加（M2.9 Marquee / ComparisonSlider）**
+>
+> - `GearMarquee`：超出 viewport 才滚动，循环、暂停、重置、Tick；
+> - `GearComparisonSlider`：value 0..1 分割 before/after，handle 拖拽/事件；
+> - 新增 4 条用例 + `控件 · Marquee / ComparisonSlider` 展卡；全量 486 条通过。
+> - Reorderable（占位/间隙动画/跨列表）仍未做。
+>
+> **2026-11-15 追加（M2.9 Reorderable）**
+>
+> - `GearReorderableList`：MoveItem、实时 sibling 换位、CanvasGroup 拖拽透明、可选手动排布；
+> - `GearReorderableItem`：把 BeginDrag/Drag/EndDrag 转发给 owner；
+> - 新增 2 条用例 + `控件 · Reorderable` 展卡；MCP 实测 4 项、MoveItem(0,3)=True；
+> - 全量 489 条通过；跨列表/框选分组拖拽未做。
+>
+> **2026-11-15 追加（M2.10 ThemeRegistry 过渡）**
+>
+> - `GearThemeRegistry.TargetCount` 诊断；`GearThemeColorTarget` 以 `Graphic` 为通道，
+>   同一通道新过渡自动取消旧过渡；
+> - `IsAnimating` / `CancelTransition`；可选 `TransitionAudio/TransitionClip`；
+> - 新增 1 条用例，全量 490 条通过；主题切换沿用现有 Header 开关。
+>
+> **2026-11-15 追加（M2.11 InteractionEffectBus）**
+>
+> - `IGearInteractionEffect`：Priority / Channel / OnInteraction；
+> - `GearInteractionEffectBus`：订阅 GearInteractive.StateChanged，优先级降序 + Channel 去重；
+> - Ripple/Spotlight/Glow 三个独立适配器；ImageEx 两组件新增 `SetHover`；
+> - 新增 3 条用例 + `控件 · InteractionEffects` 展卡；MCP 实测 effects=3、dispatch=1、ripple=1；
+> - 全量 494 条通过。
+>
+> **2026-11-15 追加（M2.12 OverlayCoordinator）**
+>
+> - `GearOverlayCoordinator`：owner 栈、Esc 栈顶仲裁、同 owner 替换、CloseTop/CloseAll、可选 SFX；
+> - `GearPopover` / `GearContextMenu` 接入协调器：非栈顶不响应 Esc，销毁时 Release；
+> - 新增 3 条用例；全量 497 条通过；覆盖层展卡沿用现有 Popover/ContextMenu/Toast/Tooltip。
+>
+> M2 全部完成；进入 M3。
+>
+> **2026-11-15 追加（M3.1 ShapeOperand）**
+>
+> - `ImageEx.ShapeOperand`：target / OperationType（Union/Subtract）/ Smoothing；
+> - `RM_Operand.cginc`：按目标 Rect 归一化 center/size，圆或圆角矩形 SDF 与主 alpha 组合；
+> - 新增 2 条用例 + `效果 · ShapeOperand` 展卡；全量 500 条通过；
+> - 当前只覆盖圆/圆角矩形操作数，其他 13 种形状的半径参数后续扩展。
+>
+> **2026-11-15 追加（M3.2 PatternSource）**
+>
+> - `PatternSourceType`：Procedural / Sprite / Shape；
+> - Sprite 按格子采样 `_PatternTex`；Shape 支持圆/矩形图块；
+> - `PatternColorType`：Solid / Gradient，Gradient 采样 `_PatternGradient`；
+> - 新增 2 条用例 + `效果 · PatternSource` 展卡；全量 503 条通过。
+>
+> **2026-11-15 追加（M3.3 组合样例）**
+>
+> - `样例 · GooeyMenu`：3 圆形按钮 + 内外阴影 + GearInteractive；
+> - `样例 · ActivityRings`：3 个 Radial Clip 同心环；
+> - `样例 · 3DKeys`：外阴影 + 内阴影 + 描边；
+> - `样例 · Wallpaper`：Pattern Dots + Falloff + Scroll；
+> - 新增 4 条 prefab 用例；MCP 实测 Gooey circles=7、interactive=True；全量 507 条通过。
+>
+> **2026-11-15 追加（M3.4 共享 Backdrop）**
+>
+> - `UIBackdropSharedCapture`：按 source camera + downsample + cullingMask + 分辨率共享
+>   一台隐藏相机和 capture RT，引用计数归零销毁；
+> - `UIBackdropBlur.UseSharedCapture` 默认开启；各实例仍独立 ping-pong 模糊；
+> - 新增 2 条共享用例 + Backdrop 卡共享开关用例；全量 510 条通过；
+> - 可选 `UIBackdropSource` UI 拷贝源未做。
+>
+> **2026-11-15 追加（M3.5 可选形状导出）**
+>
+> - `GearShapeSpriteExporter`：选中 ImageEx，按 DrawShape/圆角/尺寸烘焙 1x–4x Sprite；
+> - 输出白色可染色 alpha 贴图，支持 9-slice border；菜单入口 + 编程 API；
+> - 新增 1 条导出用例，全量 511 条通过。
+> - `UIBackdropSource` UI 拷贝源仍未做（可选）。
+>
+> M3 完成；进入 M4。
+>
+> **2026-11-15 追加（M4.1 瞬态效果材质通道）**
+>
+> - `ImageEx.AddTransientEffect/RemoveTransientEffect` 引用计数 + `HasTransientEffects`；
+> - ImageExSpotlight / ImageExPointerGlow / GearRipple 自动注册，OnDisable 注销；
+> - Pooled 模式检测到瞬态效果时跳过 `AcquirePooledMaterial`，走独立材质，
+>   避免 SpotlightPosition / BorderGlowPosition / Ripple 数据进入材质签名；
+> - 新增 1 条用例，全量 512 条通过。
+>
+> **2026-11-15 追加（M4.2 双层 SoftMask）**
+>
+> - `GearSoftMask.Shape`：RoundedRect / Circle；
+> - 最多两层父级遮罩：最近 → `_GearMask*`，外层 → `_GearMask2*`；
+> - shader 同时对两层求 alpha，支持嵌套/多层裁剪；
+> - 新增 2 条用例，全量 514 条通过；超过两层暂不支持。
+>
+> **2026-11-15 追加（M4.3/M4.4 预算与 Lite/Full）**
+>
+> - `GearStylePageBudget`：统计 Canvas 下 Graphic 数、唯一材质数、唯一纹理数；
+> - `GearImageExQuality`：全局 `GEAR_UI_LITE` keyword；Lite 跳过 Pattern/Ripple/Glow/Spotlight/DotMatrix；
+> - 新增 2 条用例，全量 516 条通过；
+> - M4.3 单 Canvas 单材质仍需 profiler batch/setPass 证据，暂不盲做；
+> - M4.4 lite/full 已完成 shader 层开关，双程序打包仍按需。
+>
+> **2026-11-15 追加（M4.3 预算采样）**
+>
+> - `GearRenderBudgetProbe`：采样 Batches / SetPass Calls，并统计唯一材质；
+> - 展厅 Play：`samples=60, materials=62`；当前编辑器 `ProfilerRecorder.Valid=False`，
+>   无法取得可信 batch/setPass；
+> - 结论：没有证据表明 batch/setPass 已成为瓶颈，M4.3 单材质优化暂缓；
+> - 新增 1 条探针用例，全量 517 条通过。
+>
+> M4 的 4.1/4.2/4.4 已实现；4.3 以测量结论延后。
+
 ### M2｜缺失模块（12–18 天）
 
 按依赖顺序，先做“整屏样例要用”的，再做“锦上添花”的。

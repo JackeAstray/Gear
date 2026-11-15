@@ -11,6 +11,152 @@
 
 ### Added
 
+- **M4.3 预算采样**：新增 `GearRenderBudgetProbe`（Batches/SetPass + 唯一材质统计）与
+  `GearStylePageBudget`；展厅 Play 实测 `materials=62`，ProfilerRecorder 在当前编辑器
+  返回 `valid=False`。无 batch/setPass 瓶颈证据，单 Canvas 单材质暂缓。新增 1 条探针用例，
+  全量 517 条通过。
+- **M4.3/M4.4 预算与 Lite/Full**：新增 `GearStylePageBudget`（Canvas/Graphic/唯一材质/纹理统计）；
+  新增 `GearImageExQuality`，通过全局 `GEAR_UI_LITE` keyword 跳过 Pattern/Ripple/Glow/Spotlight/
+  DotMatrix 等叠加效果。新增 2 条用例，全量 516 条通过。单 Canvas 单材质未做（先量后做）。
+- **M4.2 双层 SoftMask**：`GearSoftMask` 新增 `Shape`（RoundedRect/Circle）；`ApplyToMaterial`
+  收集最近 + 外层两个父级遮罩，写入 `_GearMask*` / `_GearMask2*`；shader 同时乘两层 alpha。
+  新增 2 条嵌套/单层用例，全量 514 条通过。
+- **M4.1 瞬态效果材质通道**：ImageEx 新增 `AddTransientEffect/RemoveTransientEffect` 引用计数与
+  `HasTransientEffects`；Spotlight / PointerGlow / GearRipple 自动注册，Pooled 模式遇到瞬态效果
+  强制走独立材质，避免指针位置/波纹逐帧生成新池材质。新增 1 条用例，全量 512 条通过。
+- **M3.5 Shape Sprite Export**：新增 `GearShapeSpriteExporter`：选中 ImageEx 后按 DrawShape/圆角/
+  尺寸烘焙 1x–4x 可染色 Sprite，支持 9-slice border 与菜单 `Tools/Gear/Export ImageEx Shape Sprite`。
+  新增 1 条导出用例，全量 511 条通过。
+- **M3.4 共享 Backdrop 抓屏**：新增 `UIBackdropSharedCapture`（同源/同分辨率/同 mask 共享
+  一台隐藏相机 + capture RT，引用计数）；`UIBackdropBlur` 默认 `UseSharedCapture=true`，
+  各面板只保留自己的 ping/pong。新增 2 条共享用例 + Backdrop 卡用例，全量 510 条通过。
+  可选 `UIBackdropSource` UI 拷贝源尚未做。
+- **M3.3 组合形状样例**：新增 4 张真实 prefab 样例：`GooeyMenu`（圆形按钮 + 内外阴影）、
+  `ActivityRings`（Radial Clip 同心环）、`3DKeys`（外阴影 + 内阴影/描边）、`Wallpaper`
+  （Pattern Dots + Falloff + Scroll）。新增 4 条 prefab 用例，全量 507 条通过。
+- **M3.2 PatternSource**：ImageEx Pattern 新增 `PatternSourceType`（Procedural/Sprite/Shape）、
+  `PatternTexture`、`PatternShape`、`PatternColorType`（Solid/Gradient）、`PatternGradient`；
+  shader 支持图块采样、Shape 圆/矩形图块和渐变颜色。新增 2 条用例 +
+  `效果 · PatternSource` 展卡。全量 503 条通过。
+- **M3.1 ShapeOperand Combine**：ImageEx 新增 `ShapeOperand`（target / Union / Subtract / smoothing）；
+  `RM_Operand.cginc` 在主形状 alpha 上做圆/圆角矩形操作数；新增 2 条用例 +
+  `效果 · ShapeOperand` 展卡。全量 500 条通过。当前先覆盖圆/矩形，其他 13 形状参数后续扩展。
+- **M2.12 OverlayCoordinator**：新增 `GearOverlayCoordinator`：owner 栈、Esc 只关闭栈顶、
+  同 owner 去重、CloseTop/CloseAll、可选 SFX；Popover/ContextMenu 接入 Esc 仲裁与释放。
+  新增 3 条用例，全量 497 条通过；覆盖层展卡沿用现有 Popover/ContextMenu/Toast/Tooltip。
+- **M2.11 InteractionEffectBus**：新增 `IGearInteractionEffect` + `GearInteractionEffectBus`
+  （优先级降序、Channel 去重、自动收集、Register/Unregister）；Ripple/Spotlight/Glow 三个适配器；
+  `ImageExSpotlight/ImageExPointerGlow` 增加 `SetHover`。新增 3 条用例 +
+  `控件 · InteractionEffects` 展卡。全量 494 条通过。
+- **M2.10 ThemeRegistry / 过渡去重**：`GearThemeRegistry` 暴露 `TargetCount`；`GearThemeColorTarget`
+  增加同一 `Graphic` 的通道去重（新过渡取消旧过渡）、`IsAnimating` / `CancelTransition`、
+  可选 `TransitionAudio/TransitionClip`。新增 1 条用例，全量 490 条通过。
+- **M2.9 Reorderable / Marquee / ComparisonSlider**：新增 `GearMarquee`（长文本循环滚动）、
+  `GearComparisonSlider`（before/after 分割）、`GearReorderableList` + `GearReorderableItem`
+  （拖拽实时换位、事件、可选手动排布）；各配展卡与 7 条用例。全量 489 条通过。
+  跨列表/框选分组拖拽尚未做。
+- **M2.8 Selector / RectDragger / ButtonGroupDimmer**：新增三件套：
+  `GearSelector`（三选一 + 指示器滑动）、`GearRectDragger`（轴约束/边界/回弹）、
+  `GearButtonGroupDimmer`（组内悬停变暗）；各配展卡与 5 条 EditMode 用例。
+  全量 480 条通过。
+- **M2.7 FlexibleGridLayout**：新增 `GearFlexibleGridLayout`（LayoutGroup）：FixedColumns/Responsive、
+  MinCellSize、AspectRatio、Spacing、Masonry；响应式子项可用 LayoutElement 指定高度。
+  新增 3 条布局用例与 `控件 · FlexibleGrid` 展卡。全量 472 条通过。
+- **M2.7 Carousel**：`GearPageView` 新增 `PagePadding` 露出邻页；新增 `GearCarousel`
+  自动轮播/循环、指示器缩放、邻页透明度与缩放（MaxVisibleNeighbors）；新增
+  `GearCarouselTests` 3 条与 `控件 · Carousel` 展卡。全量 468 条通过。FlexibleGrid 尚未做。
+- **M2.6 Timer 增强**：新增 `TimeMultiplier`、`UseSystemClock`、`SmoothProgress` /
+  `ProgressSmoothing`、`ReverseFill` / `FillAmount`；倒计时/秒表、暂停、循环保持兼容。
+  新增 3 条用例，全量 463 条通过。逐位滚动尚未做。
+- **M2.6 Calendar 三视图**：`GearCalendar` 新增 Day/Month/Year 视图、`ZoomIn/ZoomOut`、
+  `SelectMonth/SelectYear`、当前 Culture 月名、12 年范围与 Header 点击缩小；
+  现有 Calendar 卡复用同一 grid，月单元格点击回到日视图。新增 3 条用例，全量 460 条通过。
+  滑动切换/月年下拉尚未做。
+- **M2.6 TimePicker 对齐**：新增 `MinuteInterval`（分钟步进/吸附）、`AmLabel/PmLabel`、
+  `RowHeight`（统一四轮行高）和 `TickAudio/TickClip`；12h 格式 `tt/t` 使用自定义标签。
+  新增 2 条用例，全量 457 条通过。Calendar/Timer 系统时钟等尚未做。
+- **M2.5 DotMatrix 扩展**：ImageEx 新增 `DotInactiveAlpha / DotInactiveScale / DotEdgeSoftness /
+  DotPhaseOffset / DotTrailLength`，shader 增加边缘羽化、非活跃点尺寸/亮度、相位和拖尾；
+  `GearDotMatrix` 同步暴露这些参数。现有 `效果 · 点阵` 卡直接生效。全量 455 条通过。
+- **M2.4 GearRipple**：ImageEx shader 新增 `_RippleData[8] / _RippleCount / _RippleSpeed /
+  _RippleWidth / _RippleStrength / _RippleColor`，UV 径向扰动 + SDF 内环色；新增
+  `GearRipple` 环形缓冲（最多 8 波、点击 Emit、Clear）与 `效果 · Ripple` 展卡。
+  全量 455 条通过。
+- **M2.3 GearShowcasePanel**：新增 items 列表 + `GearPageView` 滑动 + 标题/说明/背景色/淡入，
+  支持自动轮播（循环）、按钮跳页和手动 Tick；新增 `GearShowcasePanelTests` 3 条与
+  `控件 · ShowcasePanel` 展卡（3 页自动轮播）。全量 451 条通过。
+- **M2.2 ColorPalette**：新增 `GearColorSwatch` / `GearColorPalette`：环状 12 色块、
+  悬停外推 1.18×、选中描边 2px + 1.1×、最近色选择、Button 键盘/手柄导航；
+  新增 `控件 · ColorPalette` 展卡与 3 条调色板用例。全量 447 条通过。
+- **M2.2 GearColorWheel**：新增程序化 HSV 色轮（64–1024 贴图、角度 Hue/半径 Saturation、
+  亮度滑条、handle/preview/Hex、SetColor/SetHSV 与 ColorChanged）；新增
+  `GearColorWheelTests` 4 条与 `控件 · ColorWheel` 展卡。全量 443 条通过。
+  Palette 多层环尚未做。
+- **M2.1 GearProgressButton**：新增长按进度按钮（HoldDuration / ResetDuration / ProgressCurve /
+  StayOnComplete / CompleteStateDuration + Start/Update/Complete/Cancel 事件，三态 CanvasGroup），
+  鼠标/Submit 长按、松手回退；新增 `GearProgressButtonTests` 4 条与
+  `控件 · ProgressButton` 展卡（prefab 直出，带 Toast 反馈）。全量 438 条通过。
+- **M1.4 卡片主题补齐**：156 张卡的根 ImageEx / CardTitle / CardDescription 批量挂
+  `GearThemeColorTarget`（Surface / Text / TextSecondary），卡面与文字随 Dark/Light 切换；
+  效果 Preview 保持原色不改。新增卡片主题扫描用例，全量 433 条通过。
+- **M1.5 卡片内部控件五态**：批量给 156 张卡的 64 个 `Button` 挂
+  `GearInteractive` + `GearInteractiveTint`，关闭 Button ColorTint；保留原底色，
+  Hover 提亮/近白色转浅灰、Pressed 压暗、Disabled 灰。新增卡片 Button 扫描用例，
+  全量 432 条通过。`ShowcaseBuilder` 重建 Catalog 时保留 `/extras-` 条目。
+- **M1.8 实时调参**：新增 `Resources/UI/Showcase/ShowcaseCustomizer.prefab`（4 滑杆 + Reset）
+  与 `ShowcaseCustomizer.cs` 适配器，直接读写目标 `ImageEx` 的 OutlineWidth / BorderGlowIntensity /
+  InnerShadowWidth / GradientScale，不碰 SerializedObject；详情页增加 `FX` 按钮，打开后对当前卡片实时调参，
+  Reset 恢复打开时的初值。新增 1 条 prefab 用例，全量 431 条通过。
+- **M1.7 覆盖层补卡**：新增 `覆盖层 · Toast`、`覆盖层 · Tooltip`、`覆盖层 · ContextMenu`
+  三个 prefab（`ShowcaseExtrasDemo` 绑按钮，复用 Popover 卡片结构），以及
+  `组合 · BorderGlow`（`ImageEx.EnableBorderGlow`）、`组合 · BackdropBlur`
+  （prefab 内自带 `BackdropCamera`）和 `遮罩 · 双面板 SoftMask`（两张单层软遮罩并排）。
+  目录通过 `ShowcaseCatalog.EditorAddEntry` 追加到 overlays/shape/effects 页，总条目 156；
+  新增 prefab 用例，全量 430 条通过。
+- **UIBackdropBlur RenderTexture 深度**：抓屏 RT 从 0 改为 16 位深度，消除 URP
+  “output Render Texture must have a depth buffer” 每帧警告。
+- **展厅场景预览**：`UI Showcase Example` 场景增加 `ShowcasePreview (Edit Only)` prefab 实例，
+  打开场景即可在 Scene 视图看到展厅布局；`ShowcaseScenePreview` 在 Play 的 Awake 移除自己，
+  正式窗口仍由 `ShowcaseLauncher` 从 Resources 加载，不会出现两份 UI。新增 1 个运行时组件，全量 427 条测试通过。
+- **动效全局开关**：新增 `GearMotionSettings.Enabled` / `SetEnabled` / `Toggle`；
+  `GearAnimatedContainer` 关闭时直接完成态，`GearRectSway` 关闭时不再倾斜；
+  展厅 Header 增加 `Motion On/Off` 按钮，prefab 直出并接入五态。新增 2 条设置用例，全量 427 条通过。
+- **M1.6 动效起步**：`ShowcaseUIPlane.prefab` 的 Grid 直接挂 `GearAnimatedContainer`
+  （FromScale 0.92 / ItemDuration 0.26 / Stagger 0.03），换页后重新播放错峰入场；
+  `ShowcaseGridCell.prefab` 根节点挂 `GearRectSway`（MaxAngle 3°），卡片跟随指针轻微倾斜。
+  `GearAnimatedContainer` 缓存跳过 inactive 子项，避免换页时把待销毁旧格子算进总时长；
+  全量 424 条通过。
+- **展厅卡片 hover 描边**：`ShowcaseGridCell.prefab` 增加透明 `Hover` overlay（ImageEx 描边/辉光）+
+  根节点 `GearInteractive`；`ImageExStateColors` 支持从父节点查找 `GearInteractive`，卡片本体材质不被改写。
+  Hover/Pressed/Selected 分别显示 Accent 描边 0.55/0.80/1.00，过渡 0.12s；新增 1 条父级绑定用例，
+  全量 424 条通过。
+- **展厅数据项 prefab 化**：新增 `Resources/UI/Showcase/ShowcaseGridCell.prefab` 与
+  `InventoryItemCell.prefab`；展厅格子与 24 个物品格改为实例化模板，模板内直接挂五态 Tint，
+  格子里的卡片/物品数据仍由控制器写入。`ShowcasePrefabTests` 增加 2 条模板校验，全量 423 条通过。
+- **展厅五态扩展**：8 个分类 Tab、Header 的 Theme/三个样例/Close、Footer 的 Prev/Next，
+  以及详情 Close/Back、Audio Apply/Reset、Party Start、Inventory Sort/Use/Equip/Discard
+  全部在 prefab 中直接挂 `GearInteractive` + `GearInteractiveTint`，关闭 Button ColorTint；
+  主题切换时 `RefreshButtonTints` 更新按钮底色。`ShowcasePrefabTests` 校验组件与 transition；
+  全量 421 条通过。
+- **UI 展厅窗口 prefab 化**：`ShowcaseUIPlane` / `ShowcaseDetailUIPlane` / `AudioMixerSampleUIPlane` /
+  `PartyLobbySampleUIPlane` / `InventorySampleUIPlane` 改为直接维护的 prefab 层级，控制器只做引用绑定，
+  正常打开不再运行时生成 UI。`ShowcaseBuilder` 移除窗口生成菜单，避免覆盖手改 prefab；
+  新增 `ShowcasePrefabTests` 3 条校验，全量 421 条通过。
+- **UI 展厅主题（M1.4）**：新增 `IGearThemeTarget` / `GearThemeRegistry`（注册表 + 带时长的广播）与
+  `GearThemeColorTarget`（Graphic token + unscaled 过渡，不依赖补间库）；新增 `Resources/UITheme/ImageExLight`
+  亮色主题。展厅 Header 增加 `Light` / `Dark` 切换，Background/Header/Footer/Tabs/Text/Search/按钮接入主题；
+  之后打开的整屏样例也读取当前 token。旧 `ImageExThemeService.ThemeChanged` 保持兼容。
+  EditMode 新增 `GearThemeTests` 2 条，全量 418 条通过。
+- **UI 展厅（M1.1 / M1.2）**：新增 `ShowcaseCatalog`、`ShowcaseUIPlane`（8 分类页 / 全局搜索 / 4×2 分页网格）、
+  `ShowcaseDetailUIPlane`（放大卡片 + 返回键关闭）、`ShowcaseLauncher` 与 `UI Showcase Example` 示例场景；
+  `ShowcaseBuilder` 从 `UI Example` 导出 **150 张卡**为独立预制体（8 页 / 150 条目录），
+  生成窗口预制体与示例场景。Unity MCP 实测 150 个预制体 0 缺失组件、23 页加载 150 卡无 error；
+  EditMode 新增 `ShowcaseCatalogTests` 2 条。
+- **UI 整屏样例（M1.3 3/3）**：新增 `AudioMixerSampleUIPlane`（4 通道音量/静音/电平 + 主输出 + 预设 + Apply/Reset）、
+  `PartyLobbySampleUIPlane`（4 玩家位/准备开关 + 模式/回合 + 5 秒倒计时）与
+  `InventorySampleUIPlane`（6×4 物品格 + 选中详情 + Tooltip + 右键 ContextMenu + 按稀有度排序）；
+  展厅 Header 增加三个入口，样例走 `UIRouter.PushAsync`，返回键/ESC 关闭。
+  生成器同步生成三个窗口预制体；MCP 实测打开、倒计时、右键菜单、排序、返回均通过，Console 0 error。
 - **ImageEx 图案填充**：`Pattern`（点阵/网格/条纹/棋盘/圆环）+ 尺寸/留白/旋转/偏移/流速/径向 falloff，
   按形状像素坐标铺开，非正方形图形不会被拉伸。
 - **ImageEx 边缘辉光**：`EnableBorderGlow` / `BorderGlowColor` / 宽度/羽化/环境光/跟随半径，
@@ -162,6 +308,14 @@
 
 ### Fixed
 
+- **详情/样例按钮白底白字**：`GearInteractiveTint` 初始化时把 Close / Back / Apply / Reset /
+  Start / Sort / Use / Equip / Discard 的底色写成了白色，标签又是白色，看起来像纯白块。
+  改为 SurfaceRaised / Accent / Danger 底色，白字保持可读；新增 prefab 白底白字扫描用例，
+  全量 427 条通过。
+- **GearPickerWheel / GearTimePicker 循环不可用**：`GearPickerWheel` 在循环模式下运行期复制 3/5 个周期行并做环绕重定位，
+  滚到首尾不再出现空白；新增选中条与行淡出。`GearTimePicker` 的时/分/秒/AM-PM 默认全部循环，
+  12 小时制在 11↔12 边界自动切换 AM/PM（23:59 → 00:00、11 PM → 12 AM），并新增 `Loop` 开关。
+  用例补 2 条（小时/分钟/AM-PM 循环、关闭循环后边界钳制），滚轮 11 条全过。
 - **画廊批量重建后形状/材质不刷新**：`AddCard` 与 `BuildInto` 在布局结算前后统一标脏并 `ForceUpdateCanvases`，
   修复全量重建后部分 SDF 形状（Triangle/Hexagon/Pentagon/Chamfer）显示成矩形的问题；
   同时校正形状预设（六边形 TipSize 50、五边形 70、倒角 1.5×1、Squircle 时间 0.25）。

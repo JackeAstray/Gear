@@ -104,6 +104,39 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void MonthAndYearViews_SwitchAndSelect()
+        {
+            calendar.SetVisibleMonth(2026, 11);
+            calendar.SetView(GearCalendarView.Month);
+
+            Assert.AreEqual(GearCalendarView.Month, calendar.View);
+            Assert.AreEqual(12, calendar.MonthNames.Length);
+            Assert.IsNotEmpty(calendar.MonthNames[0]);
+
+            calendar.SelectMonth(3);
+            Assert.AreEqual(GearCalendarView.Day, calendar.View);
+            Assert.AreEqual(3, calendar.Month);
+
+            calendar.SetView(GearCalendarView.Month);
+            calendar.SelectYear(2030);
+            Assert.AreEqual(GearCalendarView.Month, calendar.View);
+            Assert.AreEqual(2030, calendar.Year);
+        }
+
+        [Test]
+        public void YearView_UsesRangeAndPages()
+        {
+            calendar.SetVisibleMonth(2026, 5);
+            calendar.SetView(GearCalendarView.Year);
+
+            Assert.AreEqual(2016, calendar.YearPageStart);
+            calendar.NextPage();
+            Assert.AreEqual(2028, calendar.Year);
+            calendar.PreviousPage();
+            Assert.AreEqual(2016, calendar.Year);
+        }
+
+        [Test]
         public void GridMarksSelectedAndToday()
         {
             calendar.SetVisibleMonth(2026, 11);

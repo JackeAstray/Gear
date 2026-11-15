@@ -22,6 +22,7 @@ namespace Gear.Tests
         [TearDown]
         public void TearDown()
         {
+            GearMotionSettings.SetEnabled(true);
             if (root != null) Object.DestroyImmediate(root);
         }
 
@@ -71,6 +72,32 @@ namespace Gear.Tests
             container.Sample(0f);
 
             Assert.AreEqual(0f, b.GetComponent<CanvasGroup>().alpha, 0.001f, "第二项在延迟内应保持隐藏");
+        }
+
+        [Test]
+        public void MotionSettings_DisabledContainerCompletesImmediately()
+        {
+            RectTransform a = CreateChild("A", Vector2.zero, new Vector2(80f, 80f));
+            GearAnimatedContainer container = root.AddComponent<GearAnimatedContainer>();
+            GearMotionSettings.SetEnabled(false);
+
+            container.Play();
+
+            Assert.IsFalse(container.IsPlaying);
+            Assert.AreEqual(1f, a.localScale.x, 0.001f);
+        }
+
+        [Test]
+        public void MotionSettings_DisabledSwayStaysFlat()
+        {
+            RectTransform target = CreateChild("Card", Vector2.zero, new Vector2(200f, 100f));
+            GearRectSway sway = target.gameObject.AddComponent<GearRectSway>();
+            GearMotionSettings.SetEnabled(false);
+            sway.SetPointerNormalized(new Vector2(1f, 1f));
+
+            for (int i = 0; i < 20; i++) sway.Step(0.05f);
+
+            Assert.AreEqual(0f, Mathf.DeltaAngle(0f, target.localRotation.eulerAngles.y), 0.01f);
         }
 
         // ---------------- RectSway ----------------

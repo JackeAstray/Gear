@@ -50,6 +50,36 @@ namespace Gear.Tests
         }
 
         [Test]
+        public void ParentInteractive_BindsOverlayStateColors()
+        {
+            GameObject parent = new GameObject("StateParent",
+                typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button),
+                typeof(GearInteractive));
+            GameObject child = new GameObject("StateOverlay",
+                typeof(RectTransform), typeof(CanvasRenderer), typeof(ImageEx), typeof(ImageExStateColors));
+            child.transform.SetParent(parent.transform, false);
+            try
+            {
+                GearInteractive parentInteractive = parent.GetComponent<GearInteractive>();
+                ImageExStateColors overlay = child.GetComponent<ImageExStateColors>();
+                ImageEx overlayImage = child.GetComponent<ImageEx>();
+                Color highlighted = new Color(0.2f, 0.5f, 0.9f, 1f);
+                overlay.SetStyle(GearInteractionState.Highlighted,
+                    Style(highlighted, Color.white, Color.white, 0.4f));
+                overlay.Bind();
+
+                parentInteractive.OnPointerEnter(new PointerEventData(null));
+
+                Assert.AreEqual(GearInteractionState.Highlighted, parentInteractive.State);
+                Assert.AreEqual(highlighted, overlayImage.color);
+            }
+            finally
+            {
+                Object.DestroyImmediate(parent);
+            }
+        }
+
+        [Test]
         public void ApplyState_Instant_WritesFillOutlineGlow()
         {
             Color fill = new Color(0.2f, 0.4f, 0.6f, 1f);
