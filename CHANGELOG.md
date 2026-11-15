@@ -11,6 +11,9 @@
 
 ### Added
 
+- **展厅可用性修复**：修复浅色主题下顶栏/选项卡/详情外壳未绑定主题、覆盖层卡片
+  触发按钮白底白字、详情关闭按钮缺字；Popover 触发器改为统一走 Button.onClick，
+  键盘/手柄 Submit 与鼠标都能打开。副标题移除旧参考字样。全量 517 条通过。
 - **M4.3 预算采样**：新增 `GearRenderBudgetProbe`（Batches/SetPass + 唯一材质统计）与
   `GearStylePageBudget`；展厅 Play 实测 `materials=62`，ProfilerRecorder 在当前编辑器
   返回 `valid=False`。无 batch/setPass 瓶颈证据，单 Canvas 单材质暂缓。新增 1 条探针用例，

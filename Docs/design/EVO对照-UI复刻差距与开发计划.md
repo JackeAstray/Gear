@@ -636,6 +636,14 @@ Gear 的 `UISystem` / `UIRouter` / `UIModalStack` / `UIInputSystem` / `Languages
 > - 结论：没有证据表明 batch/setPass 已成为瓶颈，M4.3 单材质优化暂缓；
 > - 新增 1 条探针用例，全量 517 条通过。
 >
+> **2026-11-16 追加（展厅可用性修复）**
+>
+> - 浅色主题：补齐顶栏按钮、详情 Panel/Title/Description/Close/Back/Customize/Customizer 主题绑定；
+> - 覆盖层卡片触发按钮从白底白字改为 Accent 底 + 白字；
+> - 详情关闭按钮字形改为 `X`，移除与主题目标冲突的 Tint；
+> - `GearPopoverTrigger` 增加 Button.onClick 绑定，键盘/手柄 Submit 可打开，鼠标不重复触发；
+> - 副标题移除旧参考字样；全量 517 条通过。
+>
 > M4 的 4.1/4.2/4.4 已实现；4.3 以测量结论延后。
 
 ### M2｜缺失模块（12–18 天）

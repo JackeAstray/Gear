@@ -365,6 +365,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -598,6 +603,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &6106943394383106162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +621,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Surface
   target: {fileID: 6658480899524212782}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &1847933167154174824
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,8 +826,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "EVO \u5BF9\u7167 \xB7 \u5F62\u72B6 / \u6750\u8D28 / \u6548\u679C / \u63A7\u4EF6
-    / \u6587\u672C / \u6570\u636E / \u52A8\u6548 / \u8986\u76D6\u5C42"
+  m_text: "\u754C\u9762\u53C2\u8003 \xB7 \u5F62\u72B6 / \u6750\u8D28 / \u6548\u679C
+    / \u63A7\u4EF6 / \u6587\u672C / \u6570\u636E / \u52A8\u6548 / \u8986\u76D6\u5C42"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 492b14f340eaa0e4e904e099eb8d8105, type: 2}
   m_sharedMaterial: {fileID: 3617554597380945982, guid: 492b14f340eaa0e4e904e099eb8d8105, type: 2}
@@ -902,6 +913,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: TextSecondary
   target: {fileID: 8393104196519333095}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2049310469127148724
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +1004,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1224,6 +1242,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8717976400900223381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,6 +1361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: SurfaceRaised
   target: {fileID: 6950252778266738102}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2170108133890226762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: TextSecondary
   target: {fileID: 8240633812872478357}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2258505084204910197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,6 +1669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 1083330767550408712}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2267293675490971554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,6 +1767,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1972,6 +2005,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &3469474225328033247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,6 +2023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Surface
   target: {fileID: 8296531047828084640}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2352054229516620378
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,6 +2252,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -2446,6 +2490,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8184448412656054498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2615,6 +2663,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -2848,6 +2901,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &9155601411166861492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3079,6 +3136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 3530649810351312029}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2626146954955174485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,6 +3228,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -3402,6 +3466,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &2270692980627432464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3571,6 +3639,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -3804,6 +3877,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &4001341673925268396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4035,6 +4112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: TextSecondary
   target: {fileID: 4596592078675233366}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2848482699212820267
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,6 +4204,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -4358,6 +4442,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &1656545618519332587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4589,6 +4677,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 6009257205835373198}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &3412840119741992196
 GameObject:
   m_ObjectHideFlags: 0
@@ -4816,6 +4906,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -5049,6 +5144,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &5426288693488574765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5280,6 +5379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 3973782376616785377}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &3822866992021507185
 GameObject:
   m_ObjectHideFlags: 0
@@ -5432,6 +5533,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 6548465812222680644}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &4027900309767188660
 GameObject:
   m_ObjectHideFlags: 0
@@ -5796,6 +5899,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -6029,6 +6137,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &6841748408294594281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6351,6 +6463,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -6584,6 +6701,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &7005968163069705245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6598,6 +6719,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Background
   target: {fileID: 7639469495704268614}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &5517097482070476887
 GameObject:
   m_ObjectHideFlags: 0
@@ -6688,6 +6811,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -6921,6 +7049,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &2293035789075864729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7090,6 +7222,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -7323,6 +7460,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &3569926440647375144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7554,6 +7695,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 4680474389504352133}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6413604985769709730
 GameObject:
   m_ObjectHideFlags: 0
@@ -7706,6 +7849,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 1643315463239957085}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6563528332441345192
 GameObject:
   m_ObjectHideFlags: 0
@@ -7858,6 +8003,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 4330525476487087113}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6836407108932517684
 GameObject:
   m_ObjectHideFlags: 0
@@ -7948,6 +8095,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -8181,6 +8333,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &4392787024568284896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8775,6 +8931,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -9008,6 +9169,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &9017380626884538492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9239,6 +9404,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 96476794429644882}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &7825746348592923325
 GameObject:
   m_ObjectHideFlags: 0
@@ -9391,6 +9558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 5161766201663401301}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &7903540154677723141
 GameObject:
   m_ObjectHideFlags: 0
@@ -9481,6 +9650,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -9714,6 +9888,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &3762242488906777879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9883,6 +10061,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -10116,6 +10299,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8939116210552673856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10347,6 +10534,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: TextSecondary
   target: {fileID: 238093312448175318}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &8318206078353108548
 GameObject:
   m_ObjectHideFlags: 0
@@ -10437,6 +10626,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -10670,6 +10864,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8702979011851576181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10901,6 +11099,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Text
   target: {fileID: 1080022332949321833}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &8815692875234290931
 GameObject:
   m_ObjectHideFlags: 0
@@ -10991,6 +11191,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -11224,6 +11429,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &6356625426920394906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11393,6 +11602,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -11626,6 +11840,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &7613508294080460139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11800,6 +12018,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -12033,6 +12256,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8893700188828303984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12047,3 +12274,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
   tokenId: Background
   target: {fileID: 5706239242910642797}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}

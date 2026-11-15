@@ -66,8 +66,8 @@ namespace Gear.Tests
             Assert.IsNotNull(prefab, "ShowcaseDetailUIPlane.prefab 不存在");
             Assert.IsNotNull(prefab.transform.Find("Panel/Title"));
             Assert.IsNotNull(prefab.transform.Find("Panel/Preview/Card Host"), "详情预览区未烘焙");
-            Assert.IsNotNull(prefab.transform.Find("Panel/Close").GetComponent<GearInteractiveTint>());
-            Assert.IsNotNull(prefab.transform.Find("Panel/Back").GetComponent<GearInteractiveTint>());
+            Assert.IsNotNull(prefab.transform.Find("Panel/Close").GetComponent<GearThemeColorTarget>());
+            Assert.IsNotNull(prefab.transform.Find("Panel/Back").GetComponent<GearThemeColorTarget>());
             Assert.IsNotNull(prefab.transform.Find("Panel/Customize"), "详情缺少 FX 按钮");
             Assert.IsNotNull(prefab.transform.Find("Panel/Customizer").GetComponent<ShowcaseCustomizer>(),
                 "详情缺少 Customizer");

@@ -138,7 +138,7 @@ namespace Gear.UI.Showcase
             BindTheme(title, "Text");
 
             TextMeshProUGUI subtitle = ShowcaseUIFactory.CreateText("Subtitle", headerRect,
-                "EVO 对照 · 形状 / 材质 / 效果 / 控件 / 文本 / 数据 / 动效 / 覆盖层", 18f,
+                "界面参考 · 形状 / 材质 / 效果 / 控件 / 文本 / 数据 / 动效 / 覆盖层", 18f,
                 ShowcaseUIFactory.MutedText);
             ShowcaseUIFactory.TopLeft(subtitle.rectTransform, 48f, 68f, 900f, 28f);
             BindTheme(subtitle, "TextSecondary");

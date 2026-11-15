@@ -13,9 +13,24 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
         [SerializeField, TextArea(2, 5)] private string message = "点击外部或按 Esc 关闭";
         [SerializeField] private Vector2 size = new Vector2(260f, 128f);
 
+        private UnityEngine.UI.Button button;
+
         public string Title { get => title; set => title = value; }
         public string Message { get => message; set => message = value; }
         public Vector2 Size { get => size; set => size = value; }
+
+        private void OnEnable()
+        {
+            button = GetComponent<UnityEngine.UI.Button>();
+            if (button == null) return;
+            button.onClick.RemoveListener(Open);
+            button.onClick.AddListener(Open);
+        }
+
+        private void OnDisable()
+        {
+            if (button != null) button.onClick.RemoveListener(Open);
+        }
 
         public void SetContent(string newTitle, string newMessage, Vector2? newSize = null)
         {
@@ -29,6 +44,13 @@ namespace Gear.Utilities.UI.ImageExtensions.Overlays
             if (eventData != null && eventData.button != PointerEventData.InputButton.Left)
                 return;
 
+            // 有 Button 时由 onClick 统一处理，避免鼠标/键盘各触发一次。
+            if (button != null) return;
+            Open();
+        }
+
+        private void Open()
+        {
             GearPopover.Show((RectTransform)transform, size, content =>
             {
                 TextMeshProUGUI titleText = GearOverlayLayer.CreateText(

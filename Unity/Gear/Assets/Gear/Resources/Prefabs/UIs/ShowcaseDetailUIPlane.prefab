@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8265025753417056086}
   - component: {fileID: 8253397031578751721}
   - component: {fileID: 3693877663201719244}
-  - component: {fileID: 5030808580664385268}
+  - component: {fileID: 2889092030327589437}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
   m_Material: {fileID: 0}
-  m_Color: {r: 0.117, g: 0.129, b: 0.169, a: 1}
+  m_Color: {r: 0.9, g: 0.918, b: 0.95, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -90,6 +90,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -323,6 +328,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8253397031578751721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +392,7 @@ MonoBehaviour:
   onStateChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5030808580664385268
+--- !u!114 &2889092030327589437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -392,16 +401,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2283048550165467773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6631e0151412d034784ccf46012c1c58, type: 3}
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.Interaction.GearInteractiveTint
-  interactive: {fileID: 3693877663201719244}
-  graphic: {fileID: 8265025753417056086}
-  normal: {r: 0.117, g: 0.129, b: 0.169, a: 1}
-  highlighted: {r: 0.22296, g: 0.23351999, b: 0.26872, a: 1}
-  pressed: {r: 0.09594, g: 0.10577999, b: 0.13858, a: 1}
-  selected: {r: 0.117, g: 0.129, b: 0.169, a: 1}
-  disabled: {r: 0.5, g: 0.5, b: 0.5, a: 0.45}
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 8265025753417056086}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2492842741830686968
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +419,7 @@ GameObject:
   - component: {fileID: 1167504378168192685}
   - component: {fileID: 3913502042416332342}
   - component: {fileID: 8626765576370109705}
+  - component: {fileID: 7615724007123010670}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -477,7 +484,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294637042
-  m_fontColor: {r: 0.9490196, g: 0.9607843, b: 0.98039216, a: 1}
+  m_fontColor: {r: 0.075, g: 0.09, b: 0.12, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -539,6 +546,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7615724007123010670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492842741830686968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 8626765576370109705}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &2960497073627632627
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +575,7 @@ GameObject:
   - component: {fileID: 8279793235551691311}
   - component: {fileID: 8760627042869649575}
   - component: {fileID: 8945624208256160931}
-  - component: {fileID: 3257447037746426827}
+  - component: {fileID: 6097268067671602287}
   m_Layer: 5
   m_Name: Customize
   m_TagString: Untagged
@@ -601,7 +624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
   m_Material: {fileID: 0}
-  m_Color: {r: 0.117, g: 0.129, b: 0.169, a: 1}
+  m_Color: {r: 0.9, g: 0.918, b: 0.95, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -629,6 +652,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -862,6 +890,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &8760627042869649575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,7 +954,7 @@ MonoBehaviour:
   onStateChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3257447037746426827
+--- !u!114 &6097268067671602287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -931,16 +963,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2960497073627632627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6631e0151412d034784ccf46012c1c58, type: 3}
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.Interaction.GearInteractiveTint
-  interactive: {fileID: 8945624208256160931}
-  graphic: {fileID: 8279793235551691311}
-  normal: {r: 0.117, g: 0.129, b: 0.169, a: 1}
-  highlighted: {r: 0.22296, g: 0.23351999, b: 0.26872, a: 1}
-  pressed: {r: 0.09594, g: 0.10577999, b: 0.13858, a: 1}
-  selected: {r: 0.117, g: 0.129, b: 0.169, a: 1}
-  disabled: {r: 0.5, g: 0.5, b: 0.5, a: 0.45}
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 8279793235551691311}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &3137522347136277483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1132,7 @@ GameObject:
   - component: {fileID: 5428102194837383473}
   - component: {fileID: 4084181145188623894}
   - component: {fileID: 4403781106561236070}
+  - component: {fileID: 2401730101222953729}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -1167,7 +1197,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294637042
-  m_fontColor: {r: 0.9490196, g: 0.9607843, b: 0.98039216, a: 1}
+  m_fontColor: {r: 0.075, g: 0.09, b: 0.12, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1229,6 +1259,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2401730101222953729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3352983544391799955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 4403781106561236070}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &4563033322843916634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1323,7 @@ GameObject:
   - component: {fileID: 4087446548667614067}
   - component: {fileID: 2171078128446606797}
   - component: {fileID: 5100277309274305847}
-  - component: {fileID: 8536189490823452761}
+  - component: {fileID: 4075740690997564126}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -1326,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
   m_Material: {fileID: 0}
-  m_Color: {r: 0.117, g: 0.129, b: 0.169, a: 1}
+  m_Color: {r: 0.9, g: 0.918, b: 0.95, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1354,6 +1400,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -1587,6 +1638,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &2171078128446606797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,7 +1702,7 @@ MonoBehaviour:
   onStateChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8536189490823452761
+--- !u!114 &4075740690997564126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1656,16 +1711,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5258972058461451365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6631e0151412d034784ccf46012c1c58, type: 3}
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.Interaction.GearInteractiveTint
-  interactive: {fileID: 5100277309274305847}
-  graphic: {fileID: 4087446548667614067}
-  normal: {r: 0.117, g: 0.129, b: 0.169, a: 1}
-  highlighted: {r: 0.22296, g: 0.23351999, b: 0.26872, a: 1}
-  pressed: {r: 0.09594, g: 0.10577999, b: 0.13858, a: 1}
-  selected: {r: 0.117, g: 0.129, b: 0.169, a: 1}
-  disabled: {r: 0.5, g: 0.5, b: 0.5, a: 0.45}
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 4087446548667614067}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6444936620446014850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,6 +1729,7 @@ GameObject:
   - component: {fileID: 1766935955085653888}
   - component: {fileID: 7350761251249003622}
   - component: {fileID: 5334148564165877740}
+  - component: {fileID: 727163094409687115}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1731,7 +1784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xD7"
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 492b14f340eaa0e4e904e099eb8d8105, type: 2}
   m_sharedMaterial: {fileID: 3617554597380945982, guid: 492b14f340eaa0e4e904e099eb8d8105, type: 2}
@@ -1741,7 +1794,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294637042
-  m_fontColor: {r: 0.9490196, g: 0.9607843, b: 0.98039216, a: 1}
+  m_fontColor: {r: 0.075, g: 0.09, b: 0.12, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1803,6 +1856,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &727163094409687115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6444936620446014850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 5334148564165877740}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6501620964815034581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,6 +1883,7 @@ GameObject:
   - component: {fileID: 6863010525651735483}
   - component: {fileID: 2207028232042372490}
   - component: {fileID: 8739933571840806686}
+  - component: {fileID: 4146020457286392424}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -1878,7 +1948,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.65882355, g: 0.6862745, b: 0.76862746, a: 1}
+  m_fontColor: {r: 0.36, g: 0.4, b: 0.47, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1940,6 +2010,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4146020457286392424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501620964815034581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: TextSecondary
+  target: {fileID: 8739933571840806686}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &6627320717596180120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,6 +2037,7 @@ GameObject:
   - component: {fileID: 8340827794958788166}
   - component: {fileID: 546426959331639032}
   - component: {fileID: 5875769862350170862}
+  - component: {fileID: 5954229930381796548}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2005,7 +2092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.08627451, b: 0.11372549, a: 0.97}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.99}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2033,6 +2120,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -2266,6 +2358,26 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
+--- !u!114 &5954229930381796548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627320717596180120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Surface
+  target: {fileID: 5875769862350170862}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &7301697653277991382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2389,7 @@ GameObject:
   - component: {fileID: 8576688286173966278}
   - component: {fileID: 6163937163438571975}
   - component: {fileID: 8643552479868541192}
+  - component: {fileID: 4796970132667740314}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -2341,7 +2454,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294637042
-  m_fontColor: {r: 0.9490196, g: 0.9607843, b: 0.98039216, a: 1}
+  m_fontColor: {r: 0.075, g: 0.09, b: 0.12, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2403,6 +2516,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4796970132667740314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7301697653277991382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 8643552479868541192}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
 --- !u!1 &8433853022480541256
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,6 +2619,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -2723,6 +2857,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!1 &8655213450416575591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2810,6 +2948,11 @@ MonoBehaviour:
   patternOrigin: {x: 0.5, y: 0.5}
   patternSpeed: {x: 0, y: 0}
   patternOpacity: 1
+  patternSource: 0
+  patternTexture: {fileID: 0}
+  patternShape: 1
+  patternColorMode: 0
+  patternGradient: {fileID: 0}
   enableBorderGlow: 0
   borderGlowColor: {r: 1, g: 1, b: 1, a: 1}
   borderGlowWidth: 2
@@ -3043,6 +3186,10 @@ MonoBehaviour:
   innerShadowColor: {r: 0, g: 0, b: 0, a: 1}
   innerShadowWidth: 8
   innerShadowSoftness: 0.5
+  shapeOperand:
+    target: {fileID: 0}
+    operation: 0
+    smoothing: 0
 --- !u!114 &2623042965690123173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3095,9 +3242,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8340827794958788166}
     m_Modifications:
+    - target: {fileID: 603261559619322879, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 603261559619322879, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 603261559619322879, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.36
+      objectReference: {fileID: 0}
     - target: {fileID: 878764671004673583, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216803317553445420, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216803317553445420, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216803317553445420, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470155340554191045, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470155340554191045, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470155340554191045, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835615308562501659, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835615308562501659, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835615308562501659, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 2589765959535209679, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3107,9 +3302,93 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3212438616674984286, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212438616674984286, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.918
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212438616674984286, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815603680927282984, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815603680927282984, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.918
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815603680927282984, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874720665023281633, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874720665023281633, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874720665023281633, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029916592839155005, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029916592839155005, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029916592839155005, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612986983185796477, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612986983185796477, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612986983185796477, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043279112378565410, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043279112378565410, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043279112378565410, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 5122273319663825312, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170366222410461711, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170366222410461711, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170366222410461711, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 5754866660997185499, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_Pivot.x
@@ -3191,6 +3470,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5833594537880215384, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833594537880215384, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833594537880215384, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.36
+      objectReference: {fileID: 0}
     - target: {fileID: 6076716584997144925, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3199,9 +3490,81 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6578783210146369010, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578783210146369010, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578783210146369010, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617156857406851564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617156857406851564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617156857406851564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828357841165494755, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828357841165494755, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828357841165494755, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390826691411696564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390826691411696564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390826691411696564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 7996387844271999528, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060794105872319781, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060794105872319781, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.918
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060794105872319781, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102172979289213639, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102172979289213639, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102172979289213639, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 8131534956848103773, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_Name
@@ -3211,15 +3574,884 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8446029618702823553, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446029618702823553, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446029618702823553, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 8508708008690430242, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8508708008690430242, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8508708008690430242, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23
+      objectReference: {fileID: 0}
     - target: {fileID: 8562803741815913526, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8691661819703482181, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691661819703482181, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691661819703482181, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790054448084055153, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.a
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790054448084055153, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790054448084055153, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790054448084055153, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810056165169089290, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.b
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810056165169089290, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.g
+      value: 0.918
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810056165169089290, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8131534956848103773, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5590311053692241177}
+    - targetCorrespondingSourceObject: {fileID: 8455030730900400256, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3601516030931684826}
+    - targetCorrespondingSourceObject: {fileID: 5817990096650686313, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8630021160510443945}
+    - targetCorrespondingSourceObject: {fileID: 3271729790985215999, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7240197497638922251}
+    - targetCorrespondingSourceObject: {fileID: 7910773001654072369, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7363201320412021987}
+    - targetCorrespondingSourceObject: {fileID: 1798550443425838967, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9141864116584293338}
+    - targetCorrespondingSourceObject: {fileID: 3171370154656218435, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7607334142533029973}
+    - targetCorrespondingSourceObject: {fileID: 159068952334347861, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7518136975962295324}
+    - targetCorrespondingSourceObject: {fileID: 6400781780963835974, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5505868748787045588}
+    - targetCorrespondingSourceObject: {fileID: 2895475762859575007, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7043183101478592305}
+    - targetCorrespondingSourceObject: {fileID: 1119072610066786439, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7636836502254145865}
+    - targetCorrespondingSourceObject: {fileID: 7315690184823107392, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6843627232344927628}
+    - targetCorrespondingSourceObject: {fileID: 8603952070146575694, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6710407390144767747}
+    - targetCorrespondingSourceObject: {fileID: 8125621281983229093, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5099635103127202242}
+    - targetCorrespondingSourceObject: {fileID: 6029392794687736498, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3044969265950578974}
+    - targetCorrespondingSourceObject: {fileID: 6634821177324040802, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8250757556845789091}
+    - targetCorrespondingSourceObject: {fileID: 8278442792186089193, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3672228696559444066}
+    - targetCorrespondingSourceObject: {fileID: 3569946816056139513, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7403659347339901728}
+    - targetCorrespondingSourceObject: {fileID: 7465260363605099192, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4450178847545338175}
+    - targetCorrespondingSourceObject: {fileID: 4219082659927862262, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7846171174915026267}
+    - targetCorrespondingSourceObject: {fileID: 1928977758936411026, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8351602422930815285}
+    - targetCorrespondingSourceObject: {fileID: 1547191891279187683, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6420871348030519541}
+    - targetCorrespondingSourceObject: {fileID: 877408680051436180, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 154659272791963690}
   m_SourcePrefab: {fileID: 100100000, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+--- !u!1 &169243116982922590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3569946816056139513, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7403659347339901728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169243116982922590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: TextSecondary
+  target: {fileID: 4290959782638022744}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &305850922079301274 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4029916592839155005, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4611286391503788339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &438678662233033286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3874720665023281633, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073760225202942239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &513416223761204367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3815603680927282984, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781026999343581078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &675130180425013329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4219082659927862262, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7846171174915026267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675130180425013329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 5300773486376433837}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &2016893400768181624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2895475762859575007, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7043183101478592305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016893400768181624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 2253882185424212729}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &2212462484086778968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3271729790985215999, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7240197497638922251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212462484086778968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 4873749550624356704}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &2253882185424212729 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3212438616674984286, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016893400768181624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &2292686646030454500 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3171370154656218435, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7607334142533029973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2292686646030454500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 6143692428608251923}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &2535894009665571211 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1216803317553445420, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109179293992142032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &2786321699714235716 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1547191891279187683, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6420871348030519541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786321699714235716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 8364150628155802024}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &2861105723130131298 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1470155340554191045, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3595731088213597682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &2960730878347237429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1928977758936411026, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8351602422930815285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960730878347237429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Accent
+  target: {fileID: 7538799793921228373}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &3074498827462468540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1835615308562501659, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697630284936871246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &3109179293992142032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1798550443425838967, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9141864116584293338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109179293992142032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Accent
+  target: {fileID: 2535894009665571211}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &3595731088213597682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159068952334347861, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7518136975962295324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3595731088213597682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: TextSecondary
+  target: {fileID: 2861105723130131298}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &4290959782638022744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 603261559619322879, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169243116982922590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &4347104613657484064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1119072610066786439, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7636836502254145865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347104613657484064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Accent
+  target: {fileID: 5027911485676962437}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &4611286391503788339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 877408680051436180, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &154659272791963690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4611286391503788339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: TextSecondary
+  target: {fileID: 305850922079301274}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &4697630284936871246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8278442792186089193, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3672228696559444066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697630284936871246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 3074498827462468540}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &4830878011286369018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8131534956848103773, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5590311053692241177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4830878011286369018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Surface
+  target: {fileID: 5345546205747611606}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &4834538883596459778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125621281983229093, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5099635103127202242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834538883596459778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 8516000823071387781}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &4873749550624356704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8102172979289213639, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212462484086778968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &4950822491635367657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603952070146575694, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6710407390144767747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4950822491635367657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: TextSecondary
+  target: {fileID: 7144588427380403455}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &5027911485676962437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8508708008690430242, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347104613657484064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &5081740047199640359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8455030730900400256, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3601516030931684826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081740047199640359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 5108745750382625574}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &5108745750382625574 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8446029618702823553, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081740047199640359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &5300773486376433837 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8810056165169089290, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675130180425013329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!114 &5345546205747611606 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8790054448084055153, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4830878011286369018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!114 &5426070498899535074 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8691661819703482181, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7712307833014203361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &6073760225202942239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7465260363605099192, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4450178847545338175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073760225202942239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 438678662233033286}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &6143692428608251923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7390826691411696564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2292686646030454500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &6220939447262977255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7315690184823107392, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6843627232344927628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220939447262977255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 8347181362509790938}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &6633251984914216578 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8060794105872319781, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6953292619435473173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &6781026999343581078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7910773001654072369, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7363201320412021987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781026999343581078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 513416223761204367}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!1 &6953292619435473173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6029392794687736498, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3044969265950578974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6953292619435473173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: SurfaceRaised
+  target: {fileID: 6633251984914216578}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &7144588427380403455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5833594537880215384, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4950822491635367657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &7164696131404348622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5817990096650686313, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8630021160510443945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7164696131404348622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: TextSecondary
+  target: {fileID: 7496073472165345867}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &7496073472165345867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6617156857406851564, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7164696131404348622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &7538799793921228373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6578783210146369010, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960730878347237429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &7712307833014203361 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6400781780963835974, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5505868748787045588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7712307833014203361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Text
+  target: {fileID: 5426070498899535074}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &7858932285172505156 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6828357841165494755, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8052476489733571013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!1 &8052476489733571013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6634821177324040802, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8250757556845789091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8052476489733571013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1148ad363666bd444b95e97eb7df1093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.GearThemeColorTarget
+  tokenId: Accent
+  target: {fileID: 7858932285172505156}
+  transitionAudio: {fileID: 0}
+  transitionClip: {fileID: 0}
+--- !u!114 &8347181362509790938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4612986983185796477, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220939447262977255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!114 &8364150628155802024 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5170366222410461711, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786321699714235716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4041ee2aabac59f4589e76bac1cb0e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gear.Utilities::Gear.Utilities.UI.ImageExtensions.ImageEx
+--- !u!114 &8516000823071387781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5043279112378565410, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
+  m_PrefabInstance: {fileID: 3734533030054884263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834538883596459778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &8939327217735552124 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5754866660997185499, guid: cb108a5ed3d3d6644a81a2803e569944, type: 3}
