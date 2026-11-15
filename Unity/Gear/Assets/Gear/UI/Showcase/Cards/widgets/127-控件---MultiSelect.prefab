@@ -1853,9 +1853,9 @@ MonoBehaviour:
   - "\u751F\u547D"
   selected: 0001000100
   maxSelection: 0
-  itemHeight: 34
+  itemHeight: 26
   popupWidth: 220
-  maxHeight: 280
+  maxHeight: 165
   labelFormat: "{0} \u9879\u5DF2\u9009"
   emptyText: "\u8BF7\u9009\u62E9"
   onSelectionChanged:
@@ -1903,7 +1903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 78}
   m_SizeDelta: {x: 240, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6512065698689709768
@@ -2276,3 +2276,4 @@ MonoBehaviour:
   pressed: {r: 0.82, g: 0.82, b: 0.82, a: 1}
   selected: {r: 1, g: 1, b: 1, a: 1}
   disabled: {r: 0.5, g: 0.5, b: 0.5, a: 0.45}
+  colorsInitialized: 0
