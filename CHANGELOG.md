@@ -15,7 +15,8 @@
   触发按钮白底白字、详情关闭按钮缺字；Popover 触发器改为统一走 Button.onClick；
   同时修复 Tint 默认白色覆盖控件底色、圆形预览未 FitToRect、预制体 Catalog 导致
   Tab 未绑定、Gooey 误用描边模式；Dropdown/MultiSelect 弹层上移并限制高度，
-  Tab/Stepper/PageView 白块按钮改为深色/强调色。副标题移除旧参考字样。全量 517 条通过。
+  Tab/Stepper/PageView 白块按钮改为深色/强调色；卡片标题/描述超宽改为省略号。
+  副标题移除旧参考字样。全量 517 条通过。
 - **M4.3 预算采样**：新增 `GearRenderBudgetProbe`（Batches/SetPass + 唯一材质统计）与
   `GearStylePageBudget`；展厅 Play 实测 `materials=62`，ProfilerRecorder 在当前编辑器
   返回 `valid=False`。无 batch/setPass 瓶颈证据，单 Canvas 单材质暂缓。新增 1 条探针用例，

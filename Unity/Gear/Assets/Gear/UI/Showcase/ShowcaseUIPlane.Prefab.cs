@@ -38,6 +38,8 @@ namespace Gear.UI.Showcase
                 ShowcaseUIFactory.ApplyCardLayer(instance);
                 RectTransform instanceRect = (RectTransform)instance.transform;
                 ShowcaseUIFactory.Stretch(instanceRect);
+                ClampCardText(instance.transform, "CardTitle");
+                ClampCardText(instance.transform, "CardDescription");
                 cardInstances.Add(instance);
             }
             else
@@ -58,6 +60,14 @@ namespace Gear.UI.Showcase
                 open.onClick.AddListener(() => OpenDetail(entry));
                 ConfigureGridCellTint(open);
             }
+        }
+
+        private static void ClampCardText(Transform root, string childName)
+        {
+            TMP_Text text = root.Find(childName)?.GetComponent<TMP_Text>();
+            if (text == null) return;
+            text.enableWordWrapping = false;
+            text.overflowMode = TextOverflowModes.Ellipsis;
         }
 
         private void ConfigureGridCellTint(Button open)
