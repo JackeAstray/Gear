@@ -201,17 +201,99 @@ namespace Gear.Utilities
         }
 
         /// <summary>
-        /// 获取BoxCollider内的随机位置：以 <c>collider.bounds</c> 为范围，三个轴各自独立均匀采样。
-        /// 注意：边界按 AABB 处理，因此对旋转过的 BoxCollider 而言采样范围是它的世界轴对齐包围盒，而非其实际斜面体积。
-        /// （原先另有一个从未被实现、全工程也无调用方的 <c>method</c> 预留参数，已删除以免签名误导调用方。）
+        /// 获取 BoxCollider 内的随机位置：在碰撞体本地空间按 size 逐轴均匀采样，
+        /// 经 <c>center</c> 偏移与 <c>TransformPoint</c> 变换到世界坐标。
+        /// 因为变换是仿射的，无论父级如何旋转或缩放，结果都严格落在碰撞体真实盒体内，且保持体积均匀。
         /// </summary>
-        /// <param name="collider">取值范围的来源（使用其 <c>bounds</c> 轴对齐包围盒）</param>
-        /// <returns>包围盒内（含边界）的随机世界坐标</returns>
+        /// <param name="collider">采样范围来源</param>
+        /// <returns>盒体内（含边界）的随机世界坐标</returns>
         public static Vector3 GetRandomPositionInBoxCollider(BoxCollider collider)
         {
-            return new Vector3(UnityEngine.Random.Range(collider.bounds.min.x, collider.bounds.max.x),
-                               UnityEngine.Random.Range(collider.bounds.min.y, collider.bounds.max.y),
-                               UnityEngine.Random.Range(collider.bounds.min.z, collider.bounds.max.z));
+            if (collider == null) throw new ArgumentNullException(nameof(collider));
+            Vector3 half = collider.size * 0.5f;
+            Vector3 local = new Vector3(
+                UnityEngine.Random.Range(-half.x, half.x),
+                UnityEngine.Random.Range(-half.y, half.y),
+                UnityEngine.Random.Range(-half.z, half.z));
+            return collider.transform.TransformPoint(collider.center + local);
+        }
+
+        /// <summary>
+        /// 获取 SphereCollider 内的随机位置：本地空间按体积均匀采样后变换到世界坐标。
+        /// 半径取 <c>r * U^(1/3)</c>（U 为 [0,1] 均匀随机数）以保证球体内体积均匀；
+        /// 旋转与非均匀缩放（球体变为椭球）同样精确。
+        /// </summary>
+        /// <param name="collider">采样范围来源</param>
+        /// <returns>球体内（含边界）的随机世界坐标</returns>
+        public static Vector3 GetRandomPositionInSphereCollider(SphereCollider collider)
+        {
+            if (collider == null) throw new ArgumentNullException(nameof(collider));
+            float radius = Mathf.Max(0f, collider.radius);
+            float distance = radius * Mathf.Pow(UnityEngine.Random.value, 1f / 3f);
+            Vector3 local = UnityEngine.Random.onUnitSphere * distance;
+            return collider.transform.TransformPoint(collider.center + local);
+        }
+
+        /// <summary>
+        /// 获取 CapsuleCollider 内的随机位置：在本地空间按“圆柱段 + 两端半球”做拒绝采样，
+        /// 再经 <c>center</c> 与 <c>TransformPoint</c> 变换到世界坐标，旋转/缩放同样精确。
+        /// 单次接受率约等于胶囊体积与外接盒体积之比（球体退化时约 0.52），最多重试 32 次，失败时回退到中心点。
+        /// </summary>
+        /// <param name="collider">采样范围来源</param>
+        /// <returns>胶囊体内（含边界）的随机世界坐标</returns>
+        public static Vector3 GetRandomPositionInCapsuleCollider(CapsuleCollider collider)
+        {
+            if (collider == null) throw new ArgumentNullException(nameof(collider));
+            float radius = Mathf.Max(0f, collider.radius);
+            float halfHeight = Mathf.Max(0f, collider.height) * 0.5f;
+            // 圆柱段半长；height 已包含两端球帽。
+            float segmentHalf = Mathf.Max(0f, halfHeight - radius);
+            Vector3 local = Vector3.zero;
+            for (int attempt = 0; attempt < 32; attempt++)
+            {
+                float axis = UnityEngine.Random.Range(-halfHeight, halfHeight);
+                float radialA = UnityEngine.Random.Range(-radius, radius);
+                float radialB = UnityEngine.Random.Range(-radius, radius);
+                float clampedAxis = Mathf.Clamp(axis, -segmentHalf, segmentHalf);
+                float axisDistance = axis - clampedAxis;
+                float distanceSq = axisDistance * axisDistance + radialA * radialA + radialB * radialB;
+                if (distanceSq > radius * radius) continue;
+                local = collider.direction == 0
+                    ? new Vector3(axis, radialA, radialB)
+                    : collider.direction == 2
+                        ? new Vector3(radialA, radialB, axis)
+                        : new Vector3(radialA, axis, radialB);
+                break;
+            }
+            return collider.transform.TransformPoint(collider.center + local);
+        }
+
+        /// <summary>
+        /// 按碰撞体类型分发到对应的体积采样：Box/Sphere/Capsule 使用精确的本地空间采样，
+        /// 其他类型（MeshCollider、TerrainCollider 等）没有解析式体积，退化为世界 AABB 近似。
+        /// </summary>
+        /// <param name="collider">采样范围来源</param>
+        /// <returns>碰撞体范围内（或近似范围内）的随机世界坐标</returns>
+        public static Vector3 GetRandomPositionInCollider(Collider collider)
+        {
+            if (collider == null) throw new ArgumentNullException(nameof(collider));
+            if (collider is BoxCollider box) return GetRandomPositionInBoxCollider(box);
+            if (collider is SphereCollider sphere) return GetRandomPositionInSphereCollider(sphere);
+            if (collider is CapsuleCollider capsule) return GetRandomPositionInCapsuleCollider(capsule);
+            return GetRandomPositionInBounds(collider.bounds);
+        }
+
+        /// <summary>
+        /// 获取世界轴对齐包围盒内的随机位置；仅用于没有解析体积的碰撞体兜底。
+        /// </summary>
+        /// <param name="bounds">采样范围</param>
+        /// <returns>包围盒内（含边界）的随机世界坐标</returns>
+        public static Vector3 GetRandomPositionInBounds(Bounds bounds)
+        {
+            return new Vector3(
+                UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+                UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
+                UnityEngine.Random.Range(bounds.min.z, bounds.max.z));
         }
 
         /// <summary>
